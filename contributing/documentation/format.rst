@@ -82,6 +82,24 @@ PHP コードが ``<?php`` で始まる場合、ハイライト用の擬似言�
 
         // PHP での設定
 
+現在サポートされているフォーマットの一覧は以下のとおりです:
+
+======================== ===========
+マークアップフォーマット 表示
+======================== ===========
+html                     HTML
+xml                      XML
+php                      PHP
+yaml                     YAML
+jinja                    Twig
+html+jinja               Twig
+jinja+html               Twig
+php+html                 PHP
+html+php                 PHP
+ini                      INI
+php-annotations          Annotations
+======================== ===========
+
 .. _reStructuredText:        http://docutils.sf.net/rst.html
 .. _Sphinx:                  http://sphinx.pocoo.org/
 .. _ドキュメント:            http://github.com/symfony/symfony-docs
