@@ -9,22 +9,35 @@ DRY、テスト、メンテナンス性、拡張性、最適化、リファク�
 貢献するには
 ------------
 
-貢献する前に、ドキュメントで使われている :doc:`マークアップ言語 <format>` に慣れておく必要があります。
+貢献する前に、ドキュメントで使われている\ :doc:`マークアップ言語 <format>`\ に慣れておく必要があります。
 
 また、Symfony2 のドキュメントは Git リポジトリでホストされています:
 
 .. code-block:: bash
 
-    git://github.com/symfony/symfony-docs.git
+   git://github.com/symfony/symfony-docs.git
 
-パッチを投稿したい場合は、次のようにオフィシャルドキュメントリポジトリをクローンしてください:
+(訳注)日本語翻訳ドキュメントは、次のリポジトリでホストされています。
+
+.. code-block:: bash
+
+    git://github.com/symfony-japan/symfony-docs-ja.git
+
+パッチを投稿したい場合は、次のようにオフィシャルドキュメントリポジトリを clone してください:
 
 .. code-block:: bash
 
     $ git clone git://github.com/symfony/symfony-docs.git
 
+(訳注)日本語翻訳ドキュメントの場合は、次のように clone してください。
+
+.. code-block:: bash
+
+    $ git clone git://github.com/symfony-japan/symfony-docs-ja.git
+
 .. note::
-  Symfony2 のドキュメントは、Creative Commons Attribution-Share Alike 3.0 Unported :doc:`ライセンス <license>` で公開されています。
+
+  Symfony2 のドキュメントは、Creative Commons Attribution-Share Alike 3.0 Unported :doc:`ライセンス <license>`\ で公開されています。
 
 問題を報告するには
 ------------------
@@ -33,11 +46,11 @@ DRY、テスト、メンテナンス性、拡張性、最適化、リファク�
 
 手順:
 
-* バグトラッカーへバグを送信してください;
+* バグトラッカーへバグを送信してください
 
-* *(任意)* パッチを投稿してください。
+* *(任意)* パッチを投稿してください
 
 翻訳するには
 ------------
 
-翻訳に関する詳細は :doc:`ドキュメント <translations>` のページを読んでください。
+翻訳に関する詳細は、\ :doc:`ドキュメント <translations>`\ のページを参照してください。
