@@ -1,7 +1,7 @@
 Symfony2 ドキュメントのライセンス
 =================================
 
-Symfony2 のドキュメントは、Creative Commons Attribution-Share Alike 3.0 Unported `ライセンス`_ で公開されています。
+Symfony2 のドキュメントは、Creative Commons Attribution-Share Alike 3.0 Unported `ライセンス`_\ で公開されています。
 
 **この使用許諾では、次のことを自由に行なえます:**
 
@@ -32,7 +32,7 @@ Symfony2 のドキュメントは、Creative Commons Attribution-Share Alike 3.0
 * *Notice* — 再利用や頒布にあたっては、この作品の使用許諾条件を他の人々に明らかにしなければなりません。
   この Web ページへリンクするとよいでしょう。
 
-詳細は `Legal Code (使用許諾条件全文)`_ のページをご確認ください。
+詳細は `Legal Code (使用許諾条件全文)`_\ のページをご確認ください。
 
 .. _ライセンス: http://creativecommons.org/licenses/by-sa/3.0/
 .. _Legal Code (使用許諾条件全文): http://creativecommons.org/licenses/by-sa/3.0/legalcode
