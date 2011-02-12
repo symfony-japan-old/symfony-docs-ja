@@ -16,7 +16,6 @@ TwigでなくPHPのテンプレートを利用するには、テンプレート�
     }
 
 .. index::
-
   single: Templating; Layout
   single: Layout
 

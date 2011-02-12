@@ -8,6 +8,5 @@ Symfony2 プロジェクトへ貢献するには:
 
     code/index
     documentation/index
-    community/index
 
 .. include:: map.rst.inc
