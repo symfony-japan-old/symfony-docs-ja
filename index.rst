@@ -9,9 +9,19 @@ Symfony2 の各機能ごとのガイドドキュメントです
 .. toctree::
     :hidden:
 
-    guides/index
+    book/index
 
-.. include:: guides/map.rst.inc
+.. include:: book/map.rst.inc
+
+クックブック
+------------
+
+.. toctree::
+    :hidden:
+
+    cookbook/index
+
+:doc:`クックブック </cookbook/index>`
 
 貢献
 ----
