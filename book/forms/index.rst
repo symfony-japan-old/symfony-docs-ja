@@ -1,4 +1,4 @@
-Symfony2のフォーム
+Symfony2 のフォーム
 ==============
 
 .. toctree::

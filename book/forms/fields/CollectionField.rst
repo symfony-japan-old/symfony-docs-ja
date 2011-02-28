@@ -18,7 +18,4 @@ CollectionField
         'prototype' => new EmailField(),
     )));
 
-If you set the option "modifiable" to ``true``, you can even add or remove
-rows in the collection via JavaScript! The ``CollectionField`` will notice it
-and resize the underlying array accordingly.
  "modifiable" オプションを ``true`` に設定する場合、JavaScript を使ってコレクションに行を追加したり削除することもできます！ ``CollectionField`` がこれを知らせてくれて、基本となる配列を適切にリサイズしてくれるでしょう。
