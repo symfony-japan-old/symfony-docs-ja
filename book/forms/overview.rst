@@ -1,42 +1,42 @@
 .. index::
    single: Forms
 
-�t�H�[��������
+フォームを扱う
 ==================
 
-Symfony2�̓r���g�C�����ꂽ�t�H�[���R���|�[�l���g������Ă��܂��B����ɂ��AHTML�t�H�[����\��������A�����_�����O������A���M�����肷�邱�Ƃ��ł��܂��B
+Symfony2はビルトインされたフォームコンポーネントを備えています。これにより、HTMLフォームを表示したり、レンダリングしたり、送信したりすることができます。
 
-Symfony2�� :class:`Symfony\\Component\\HttpFoundation\\Request` �N���X�P�Ƃő��M�����t�H�[�����������邱�Ƃ��\�Ȃ����łȂ��A�t�H�[���R���|�[�l���g�͈ȉ��̂悤�ȃt�H�[���Ɋ֘A�������X�̈�ʓI�����̖ʓ|�����邱�Ƃ��ł��܂��B
+Symfony2の :class:`Symfony\\Component\\HttpFoundation\\Request` クラス単独で送信したフォームを処理することが可能なだけでなく、フォームコンポーネントは以下のようなフォームに関連した数々の一般的処理の面倒も見ることができます。
 
-1. �����������ꂽ�t�H�[���t�B�[���h���܂�HTML�t�H�[���̕\��
-2. ���M���ꂽ�f�[�^��PHP�f�[�^�^�ւ̕ϊ�
-3. POPOs (Plain Old PHP Objects)����̃f�[�^�̓ǂݍ��݁A���邢��POPOs�ւ̃f�[�^�̏�������
-4. Symfony2�� ``Validator`` ���g�p�����A���M���ꂽ�f�[�^�̃o���f�[�V����
-5. �f�[�^���M��CSRF�U������̕ی�
+1. 自動生成されたフォームフィールドを含んだHTMLフォームの表示
+2. 送信されたデータのPHPデータ型への変換
+3. POPOs (Plain Old PHP Objects)からのデータの読み込み、あるいはPOPOsへのデータの書き込み
+4. Symfony2の ``Validator`` を使用した、送信されたデータのバリデーション
+5. データ送信のCSRF攻撃からの保護
 
-�T�v
+概要
 --------
 
-�R���|�[�l���g�͈ȉ��̃R���Z�v�g����Ȃ��Ă��܂��B
+コンポーネントは以下のコンセプトからなっています。
 
-*�t�B�[���h*
-  ���M�f�[�^��W�������ꂽ�l�ɕϊ�����N���X�ł��B
+*フィールド*
+  送信データを標準化された値に変換するクラスです。
 
-*�t�H�[��*
-  �o���f�[�V�������ǂ̂悤�ɍs���̂���`���ꂽ�t�B�[���h�̏W�܂�ł��B
+*フォーム*
+  バリデーションをどのように行うのか定義されたフィールドの集まりです。
 
-*�e���v���[�g*
-  HTML�Ƀt�H�[����t�B�[���h�������_�����O����t�@�C���ł��B
+*テンプレート*
+  HTMLにフォームやフィールドをレンダリングするファイルです。
 
-*�h���C���I�u�W�F�N�g*
-  �f�t�H���g�l��ǂ��ɑ��M�f�[�^���������܂ꂽ�����t�H�[��������邽�߂̃I�u�W�F�N�g�ł��B
+*ドメインオブジェクト*
+  デフォルト値やどこに送信データが書き込まれたかをフォームが入れるためのオブジェクトです。
 
-�t�H�[���R���|�[�l���g�̓��삪�ˑ����Ă���̂́AHttpFoundation��Validator�R���|�[�l���g�����ł��B���ۉ��̋@�\���g�p���������ɂ́APHP�̍��ۉ��g�����K�v�ɂȂ�܂��B
+フォームコンポーネントの動作が依存しているのは、HttpFoundationとValidatorコンポーネントだけです。国際化の機能を使用したい時には、PHPの国際化拡張が必要になります。
 
-�t�H�[���I�u�W�F�N�g
+フォームオブジェクト
 ------------
 
-�t�H�[���I�u�W�F�N�g�́A���M�f�[�^�����Ȃ��̃A�v���P�[�V�����Ŏg���Ă���t�H�[�}�b�g�ɕϊ�����t�B�[���h�̏W�܂���J�v�Z�������܂��B�t�H�[���N���X�� :class:`Symfony\\Component\\Form\\Form` �̃T�u�N���X�Ƃ��Đ�������܂��B��A�̃t�B�[���h�����t�H�[��������������ɂ́A``configure()`` ���\�b�h���g�p���Ă��������B
+フォームオブジェクトは、送信データをあなたのアプリケーションで使われているフォーマットに変換するフィールドの集まりをカプセル化します。フォームクラスは :class:`Symfony\\Component\\Form\\Form` のサブクラスとして生成されます。一連のフィールドを持つフォームを初期化するには、``configure()`` メソッドを使用してください。
 
 .. code-block:: php
 
@@ -63,12 +63,12 @@ Symfony2�� :class:`Symfony\\Component\\HttpFoundation\\Request` �N���X�P�Ƃő��M
         }
     }
 
-�t�H�[���� ``Field`` �I�u�W�F�N�g����Ȃ��Ă��܂��B���̗�̏ꍇ�A�t�H�[���� ``subject``�A ``message``�A ``sender``�A ``ccmyself`` �̊e�t�B�[���h����Ȃ��Ă��܂��B ``TextField``�A�@``TextareaField``�A ``CheckboxField`` �́A�g�p�\�ȃt�H�[���t�B�[���h�̂�����3�ł��B�g�p�\�ȃt�H�[���t�B�[���h�̑S���X�g�́A :doc:`Form fields <fields>` �ɂ���܂��B
+フォームは ``Field`` オブジェクトからなっています。この例の場合、フォームは ``subject``、 ``message``、 ``sender``、 ``ccmyself`` の各フィールドからなっています。 ``TextField``、　``TextareaField``、 ``CheckboxField`` は、使用可能なフォームフィールドのうちの3つです。使用可能なフォームフィールドの全リストは、 :doc:`Form fields <fields>` にあります。
 
-�R���g���[�����Ńt�H�[�����g�p����
+コントローラ内でフォームを使用する
 ----------------------------
 
-�R���g���[�����Ńt�H�[�����g�p����ۂ̈�ʓI�ȃp�^�[���́A�ȉ��̂悤�ɂȂ�܂��B
+コントローラ内でフォームを使用する際の一般的なパターンは、以下のようになります。
 
 .. code-block:: php
 
@@ -78,31 +78,31 @@ Symfony2�� :class:`Symfony\\Component\\HttpFoundation\\Request` �N���X�P�Ƃő��M
         $contactRequest = new ContactRequest($this->get('mailer'));
         $form = ContactForm::create($this->get('form.context'), 'contact');
         
-        // POST���N�G�X�g�����M���ꂽ��A���M�f�[�^��$contactRequest�ɓ���A
-        // �I�u�W�F�N�g�̃o���f�[�V�������s��
+        // POSTリクエストが送信されたら、送信データを$contactRequestに入れ、
+        // オブジェクトのバリデーションを行う
         $form->bind($this->get('request'), $contactRequest);
         
-        // �t�H�[�������M����A���e���L���ȏꍇ��...
+        // フォームが送信され、内容が有効な場合は...
         if ($form->isValid()) {
             $contactRequest->send();
         }
 
-        // $contactRequest���̒l�Ƌ��Ƀt�H�[����\��
+        // $contactRequest内の値と共にフォームを表示
         return $this->render('HelloBundle:Hello:contact.html.twig', array(
             'form' => $form
         ));
     }
    
-���̗�ɂ�2�̃R�[�h�p�X������܂��B
+この例には2つのコードパスがあります。
 
-1. �t�H�[�������M����Ȃ����L���łȂ������ꍇ�A�P���Ƀe���v���[�g�Ɉړ����܂��B
-2. �t�H�[�������M����L���������ꍇ�A�R���^�N�g���N�G�X�g�����M����܂��B
+1. フォームが送信されないか有効でなかった場合、単純にテンプレートに移動します。
+2. フォームが送信され有効だった場合、コンタクトリクエストが送信されます。
 
-���̗�ł́A ``create()`` static���\�b�h�Ńt�H�[�����쐬���Ă��܂��B���̃��\�b�h�́A�f�t�H���g�T�[�r�X(�Ⴆ�� ``Validator``)�ƁA�t�H�[�������삷�邽�߂ɕK�v�Ȑݒ�̑S�Ă��܂ރt�H�[���R���e�L�X�g��K�v�Ƃ��܂��B
+この例では、 ``create()`` staticメソッドでフォームを作成しています。このメソッドは、デフォルトサービス(例えば ``Validator``)と、フォームが動作するために必要な設定の全てを含むフォームコンテキストを必要とします。
 
 .. note:
 
-    ����Symfony2���̂��邢��Symfony2�̃T�[�r�X�R���e�i���g�p���Ȃ��ꍇ�ł��S�z����܂���B``FormContext`` �� ``Request`` �͊ȒP�Ɏ蓮�ō쐬�ł��܂��B
+    もしSymfony2自体あるいはSymfony2のサービスコンテナを使用しない場合でも心配ありません。``FormContext`` と ``Request`` は簡単に手動で作成できます。
     
     .. code-block:: php
     
@@ -112,10 +112,10 @@ Symfony2�� :class:`Symfony\\Component\\HttpFoundation\\Request` �N���X�P�Ƃő��M
         $context = FormContext::buildDefault();
         $request = Request::createFromGlobals();
 
-�t�H�[���ƃh���C���I�u�W�F�N�g
+フォームとドメインオブジェクト
 ------------------------
 
-�O�̗�ł́A ``ContactRequest`` �̓t�H�[���Ɋ֘A�Â��Ă��܂����B���̃I�u�W�F�N�g�̃v���p�e�B�l�́A�t�H�[���t�B�[���h�𖄂߂�̂Ɏg���܂��B�o�C���h�̌�A���M�f�[�^�̒l�̓I�u�W�F�N�g�ɍēx�������܂�܂��B ``ContactRequest`` �N���X�͈ȉ��̂悤�ɂȂ��Ă��܂��B
+前の例では、 ``ContactRequest`` はフォームに関連づいていました。このオブジェクトのプロパティ値は、フォームフィールドを埋めるのに使われます。バインドの後、送信データの値はオブジェクトに再度書き込まれます。 ``ContactRequest`` クラスは以下のようになっています。
 
 .. code-block:: php
 
@@ -149,12 +149,12 @@ Symfony2�� :class:`Symfony\\Component\\HttpFoundation\\Request` �N���X�P�Ƃő��M
             return $this->subject;
         }
         
-        // ���̃v���p�e�B�p�̃Z�b�^�ƃQ�b�^
+        // 他のプロパティ用のセッタとゲッタ
         // ...
         
         public function send()
         {
-            // ���[���𑗐M
+            // メールを送信
             $message = \Swift_Message::newInstance()
                 ->setSubject($this->subject)
                 ->setFrom($this->sender)
@@ -167,17 +167,17 @@ Symfony2�� :class:`Symfony\\Component\\HttpFoundation\\Request` �N���X�P�Ƃő��M
     
 .. note::
 
-    ���[�����M�ɂ��Ă̏ڍׂ� :doc:`Emails </cookbook/email>` ���Q�Ƃ��Ă��������B
+    メール送信についての詳細は :doc:`Emails </cookbook/email>` を参照してください。
 
-�t�H�[�����̊e�t�B�[���h�ɑ΂��āA�h���C���I�u�W�F�N�g�̃N���X�Ɉȉ��̂����ꂩ���K�v�ł��B
+フォーム内の各フィールドに対して、ドメインオブジェクトのクラスに以下のいずれかが必要です。
 
-1. �t�B�[���h�����܂ރp�u���b�N�ȃv���p�e�B�A�܂���
-2. "set"�܂���"get"����n�܂�A�擪���啶���̃t�B�[���h���������A�p�u���b�N�ȃZ�b�^����уQ�b�^
+1. フィールド名を含むパブリックなプロパティ、または
+2. "set"または"get"から始まり、先頭が大文字のフィールド名が続く、パブリックなセッタおよびゲッタ
    
-���M�f�[�^�̃o���f�[�V����
+送信データのバリデーション
 -------------------------
 
-�t�H�[���́A���M���ꂽ�t�H�[���̒l���L���ł��邩���m�F���邽�߁A ``Validator`` �R���|�[�l���g���g�p���܂��B�h���C���I�u�W�F�N�g��A�t�H�[����A���邢�̓t�B�[���h��̑S�Ă̐���́A ``bind()`` ���Ăяo���ꂽ���Ƀo���f�[�V���������s����܂��B�s���ȃf�[�^���������t�H�[���𑗐M�ł��Ȃ����Ƃ��m���ɂ��邽�߂ɁA ``ContactRequest`` �ɂ͂������̐��񂪒ǉ�����܂��B
+フォームは、送信されたフォームの値が有効であるかを確認するため、 ``Validator`` コンポーネントを使用します。ドメインオブジェクト上、フォーム上、あるいはフィールド上の全ての制約は、 ``bind()`` が呼び出された時にバリデーションが実行されます。不正なデータが入ったフォームを送信できないことを確実にするために、 ``ContactRequest`` にはいくつかの制約が追加されます。
 
 .. code-block:: php
 
@@ -208,17 +208,17 @@ Symfony2�� :class:`Symfony\\Component\\HttpFoundation\\Request` �N���X�P�Ƃő��M
          */
         protected $ccmyself = false;
         
-        // �R�[�h������...
+        // コードが続く...
     }
 
-����𖞂����Ȃ��ꍇ�A�Ή�����t�H�[���t�B�[���h�̉��ɃG���[���\������܂��B�ڂ����́A :doc:`�o���f�[�V�����̐��� </book/validator/constraints>` ���Q�Ƃ��Ă��������B
+制約を満たさない場合、対応するフォームフィールドの横にエラーが表示されます。詳しくは、 :doc:`バリデーションの制約 </book/validator/constraints>` を参照してください。
 
-�t�H�[���t�B�[���h��������������
+フォームフィールドを自動生成する
 ----------------------------------
 
-Doctrine2�܂���Symfony�� ``Validator`` ���g�p���Ă���̂ł���΁ASymfony�͂��Ȃ��̃h���C���N���X�ɂ��Ċ��ɂ��Ȃ�̂��Ƃ�m���Ă��邱�ƂɂȂ�܂��B�ǂ̃f�[�^�^�C�v���v���p�e�B���f�[�^�x�[�X���ŉi�������邽�߂Ɏg���邩�A�v���p�e�B���ǂ�ȃo���f�[�V�����̐���������Ă��邩�A�Ƃ��������Ƃł��B�t�H�[���R���|�[�l���g�́A�ǂ�Ȑݒ�łǂ̃t�B�[���h�^�C�v�������ׂ������u�����v���邽�߂ɁA�����̏����g�����Ƃ��ł��܂��B
+Doctrine2またはSymfonyの ``Validator`` を使用しているのであれば、Symfonyはあなたのドメインクラスについて既にかなりのことを知っていることになります。どのデータタイプがプロパティをデータベース内で永続化するために使われるか、プロパティがどんなバリデーションの制約を持っているか、といったことです。フォームコンポーネントは、どんな設定でどのフィールドタイプが作られるべきかを「推測」するために、これらの情報を使うことができます。
 
-���̋@�\���g�p����ɂ́A�֘A����h���C���I�u�W�F�N�g�̃N���X���t�H�[�����m���Ă���K�v������܂��B���̂悤�ȃN���X�́A ``setDataClass()`` ���g�p���A�N���X���̊��S�C�����𕶎���Ƃ��ēn�����Ƃɂ���āA�t�H�[���� ``configure()`` ���\�b�h�̒��Őݒ肷�邱�Ƃ��ł��܂��B�v���p�e�B�������� ``add()`` ���Ăяo���ƁA�œK�ȃt�B�[���h�������I�ɍ쐬����܂��B
+この機能を使用するには、関連するドメインオブジェクトのクラスをフォームが知っている必要があります。このようなクラスは、 ``setDataClass()`` を使用し、クラス名の完全修飾名を文字列として渡すことによって、フォームの ``configure()`` メソッドの中で設定することができます。プロパティ名だけで ``add()`` を呼び出すと、最適なフィールドが自動的に作成されます。
 
 .. code-block:: php
 
@@ -228,16 +228,16 @@ Doctrine2�܂���Symfony�� ``Validator`` ���g�p���Ă���̂ł���΁ASymfony�͂��Ȃ�
         protected function configure()
         {
             $this->setDataClass('Sensio\\HelloBundle\\Contact\\ContactRequest');
-            $this->add('subject');  // max_length��100������TextField
-                                    // (@MaxLength����ɂ��)
+            $this->add('subject');  // max_lengthが100文字のTextField
+                                    // (@MaxLength制約による)
             $this->add('message');  // TextField
-            $this->add('sender');   // EmailField (@Email����ɂ��)
+            $this->add('sender');   // EmailField (@Email制約による)
             $this->add('ccmyself'); // CheckboxField
-                                    // (@AssertType("boolean")����ɂ��)
+                                    // (@AssertType("boolean")制約による)
         }
     }
 
-�����t�B�[���h�̐����́A������񂢂ł��������Ƃ͌���܂���B ``message`` �Ƃ����v���p�e�B�ɑ΂���Symfony�� ``TextField`` ��������Ƃ��āA�o���f�[�V�����̐��񂩂�͂��Ȃ������� ``TextareaField`` ���~���������Ƃ������Ƃ͕�����Ȃ��̂ł��B�]���āA���̃t�B�[���h�͎蓮�ō쐬���Ȃ��Ă͂Ȃ�܂���B���邢�́A2�ڂ̃p�����[�^��n���āA�t�B�[���h�����̃I�v�V�����𒲐����邱�Ƃ��ł��܂��B�����𐧌����邽�߂ɁA ``max_length`` �I�v�V������ ``sender`` �t�B�[���h�ɒǉ��ł��܂��B
+これらフィールドの推測は、もちろんいつでも正しいとは限りません。 ``message`` というプロパティに対してSymfonyが ``TextField`` を作ったとして、バリデーションの制約からはあなたが実は ``TextareaField`` が欲しかったということは分からないのです。従って、このフィールドは手動で作成しなくてはなりません。あるいは、2つ目のパラメータを渡して、フィールド生成のオプションを調整することもできます。長さを制限するために、 ``max_length`` オプションを ``sender`` フィールドに追加できます。
 
 .. code-block:: php
 
@@ -254,15 +254,15 @@ Doctrine2�܂���Symfony�� ``Validator`` ���g�p���Ă���̂ł���΁ASymfony�͂��Ȃ�
         }
     }
     
-�t�H�[���t�B�[���h�̎��������́A�J�����x���グ�A�R�[�h�̏d�������炷�̂ɖ𗧂��܂��B�N���X�v���p�e�B�Ɋւ��������x�ۑ����Ă��܂��΁A���Ƃ�Symfony2�ɑ��̎d����C���邱�Ƃ��ł��܂��B
+フォームフィールドの自動生成は、開発速度を上げ、コードの重複を減らすのに役立ちます。クラスプロパティに関する情報を一度保存してしまえば、あとはSymfony2に他の仕事を任せることができます。
 
-HTML�Ƃ��ăt�H�[���������_�����O����
+HTMLとしてフォームをレンダリングする
 -----------------------
 
 In the controller we passed the form to the template in the ``form`` variable.
 In the template we can use the ``form_field`` helper to output a raw prototype
 of the form.
-�R���g���[�����̏ꍇ�A ``form`` �ϐ��Ƀt�H�[�������ăe���v���[�g�ɓn���܂����B�e���v���[�g���̏ꍇ�́A�t�H�[���̐��̃v���g�^�C�v���o�͂��邽�߁A ``form_field`` �w���p�[���g�p�ł��܂��B
+コントローラ内の場合、 ``form`` 変数にフォームを入れてテンプレートに渡しました。テンプレート内の場合は、フォームの生のプロトタイプを出力するため、 ``form_field`` ヘルパーを使用できます。
 
 .. code-block:: html+jinja
 
@@ -277,12 +277,12 @@ of the form.
     </form>
     {% endblock %}
     
-HTML�o�͂��J�X�^�}�C�Y����
+HTML出力をカスタマイズする
 ---------------------------
 
 In most applications you will want to customize the HTML of the form. You
 can do so by using the other built-in form rendering helpers.
-�قƂ�ǂ̃A�v���P�[�V�����ɂ����āA�t�H�[����HTML���J�X�^�}�C�Y�������Ȃ邱�Ƃł��傤�B����́A�ʂ̃r���g�C���t�H�[�������_�����O�w���p�[���g�p���邱�Ƃɂ���ĉ\�ɂȂ�܂��B
+ほとんどのアプリケーションにおいて、フォームのHTMLをカスタマイズしたくなることでしょう。それは、別のビルトインフォームレンダリングヘルパーを使用することによって可能になります。
 
 .. code-block:: html+jinja
 
@@ -308,24 +308,24 @@ can do so by using the other built-in form rendering helpers.
     </form>
     {% endblock %}
     
-Symfony2�ɂ͈ȉ��̃w���p�[���p�ӂ���Ă��܂��B
+Symfony2には以下のヘルパーが用意されています。
 
 *``form_enctype``*
-  �t�H�[���^�O�� ``enctype`` �������o�͂��܂��B�t�@�C���̃A�b�v���[�h�̂��߂ɕK�{�ł��B
+  フォームタグの ``enctype`` 属性を出力します。ファイルのアップロードのために必須です。
 
 *``form_errors``*
-  �t�B�[���h�܂��̓t�H�[���̃G���[�Ƌ��� ``<ul>`` �^�O���o�͂��܂��B
+  フィールドまたはフォームのエラーと共に ``<ul>`` タグを出力します。
 
 *``form_label``*
   Outputs the ``<label>`` tag of a field.
-  �t�B�[���h�� ``<label>`` �^�O���o�͂��܂��B
+  フィールドの ``<label>`` タグを出力します。
 
 *``form_field``*
-  �t�B�[���h�܂��̓t�H�[����HTML���o�͂��܂��B
+  フィールドまたはフォームのHTMLを出力します。
 
 *``form_hidden``*
-  �t�H�[���̉B���t�B�[���h���o�͂��܂��B
+  フォームの隠しフィールドを出力します。
 
-�t�H�[���̃����_�����O�Ɋւ���ڍׂ� :doc:`�e���v���[�g���Ńt�H�[�����g�p���� <view>` ���Q�Ƃ��Ă��������B
+フォームのレンダリングに関する詳細は :doc:`テンプレート内でフォームを使用する <view>` を参照してください。
 
-���߂łƂ��������܂��I Symfony2���g���āA�ŏ��̑S�@�\�Ńt�H�[�����쐬�ł��܂����ˁB
+おめでとうございます！ Symfony2を使って、最初の全機能版フォームを作成できましたね。

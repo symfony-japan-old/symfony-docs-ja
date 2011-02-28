@@ -1,15 +1,15 @@
 .. index::
    pair: Forms; View
 
-ƒeƒ“ƒvƒŒ[ƒg“à‚ÅƒtƒH[ƒ€‚ðŽg—p‚·‚é
+ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆå†…ã§ãƒ•ã‚©ãƒ¼ãƒ ã‚’ä½¿ç”¨ã™ã‚‹
 ==================
 
-Symfony2‚Ì :doc:`ƒtƒH[ƒ€ </book/forms/overview>` ‚ÍƒtƒB[ƒ‹ƒh‚Å‚Å‚«‚Ä‚¢‚Ü‚·BƒtƒB[ƒ‹ƒh‚ÍƒtƒH[ƒ€‚ÌˆÓ–¡‚ð‹Lq‚µ‚Ä‚¨‚èAƒGƒ“ƒhƒ†[ƒU‚É‘Î‚·‚é•\Œ»‚ð‹Lq‚µ‚Ä‚¢‚é‚í‚¯‚Å‚Í‚ ‚è‚Ü‚¹‚ñB‚±‚ê‚ÍAƒtƒH[ƒ€‚ðHTML‚ÉŠÖ˜A•t‚¯‚é•K—v‚ª‚È‚¢‚±‚Æ‚ðˆÓ–¡‚µ‚Ä‚¢‚Ü‚·B‘ã‚í‚è‚ÉA‚»‚ê‚¼‚ê‚ÌƒtƒH[ƒ€ƒtƒB[ƒ‹ƒh‚ªŽv‚Á‚½‚Æ‚¨‚è‚É•\Ž¦‚³‚ê‚é‚±‚Æ‚ÍAƒEƒFƒuƒfƒUƒCƒi[‚ÌÓ”C‚É‚È‚é‚Æ‚¢‚¤‚±‚Æ‚Å‚·B‚½‚¾‚µASymfony2‚ÍPHPŒü‚¯‚Ìƒwƒ‹ƒp[‚ÆTwigƒeƒ“ƒvƒŒ[ƒg‚ð’ñ‹Ÿ‚·‚é‚±‚Æ‚ÅAƒtƒH[ƒ€‚Ì“‡‚ÆƒJƒXƒ^ƒ}ƒCƒY‚ðŠÈ’P‚É‚µ‚Ä‚¢‚Ü‚·B
+Symfony2ã® :doc:`ãƒ•ã‚©ãƒ¼ãƒ  </book/forms/overview>` ã¯ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã§ã§ãã¦ã„ã¾ã™ã€‚ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã¯ãƒ•ã‚©ãƒ¼ãƒ ã®æ„å‘³ã‚’è¨˜è¿°ã—ã¦ãŠã‚Šã€ã‚¨ãƒ³ãƒ‰ãƒ¦ãƒ¼ã‚¶ã«å¯¾ã™ã‚‹è¡¨ç¾ã‚’è¨˜è¿°ã—ã¦ã„ã‚‹ã‚ã‘ã§ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚ã“ã‚Œã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ã‚’HTMLã«é–¢é€£ä»˜ã‘ã‚‹å¿…è¦ãŒãªã„ã“ã¨ã‚’æ„å‘³ã—ã¦ã„ã¾ã™ã€‚ä»£ã‚ã‚Šã«ã€ãã‚Œãžã‚Œã®ãƒ•ã‚©ãƒ¼ãƒ ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ãŒæ€ã£ãŸã¨ãŠã‚Šã«è¡¨ç¤ºã•ã‚Œã‚‹ã“ã¨ã¯ã€ã‚¦ã‚§ãƒ–ãƒ‡ã‚¶ã‚¤ãƒŠãƒ¼ã®è²¬ä»»ã«ãªã‚‹ã¨ã„ã†ã“ã¨ã§ã™ã€‚ãŸã ã—ã€Symfony2ã¯PHPå‘ã‘ã®ãƒ˜ãƒ«ãƒ‘ãƒ¼ã¨Twigãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã‚’æä¾›ã™ã‚‹ã“ã¨ã§ã€ãƒ•ã‚©ãƒ¼ãƒ ã®çµ±åˆã¨ã‚«ã‚¹ã‚¿ãƒžã‚¤ã‚ºã‚’ç°¡å˜ã«ã—ã¦ã„ã¾ã™ã€‚
 
-ƒtƒH[ƒ€‚ðuŽè“®‚Åv•\Ž¦‚·‚é
+ãƒ•ã‚©ãƒ¼ãƒ ã‚’ã€Œæ‰‹å‹•ã§ã€è¡¨ç¤ºã™ã‚‹
 ----------------------------
 
-Symfony2‚Ìƒ‰ƒbƒp[‚¨‚æ‚ÑSymfony2‚ª‚Ç‚Ì‚æ‚¤‚ÉŠÈ’P‚É‚©‚ÂŠmŽÀ‚Å‚·‚Î‚â‚­ƒtƒH[ƒ€‚Ì•\Ž¦‚ª‚Å‚«‚é‚æ‚¤Žè•‚¯‚·‚é‚Ì‚©‚É‚Â‚¢‚ÄÚ‚µ‚­Œ©‚Ä‚¢‚­‘O‚ÉAŒ©‚¦‚È‚¢‚Æ‚±‚ë‚Å‚Í‰½‚à“Á•Ê‚È‚±‚Æ‚ª‹N‚«‚Ä‚¢‚é‚í‚¯‚Å‚Í‚È‚¢‚Æ‚¢‚¤‚±‚Æ‚ð’m‚Á‚Ä‚¨‚­•K—v‚ª‚ ‚è‚Ü‚·BSymfony2‚ÌƒtƒH[ƒ€‚ð•\Ž¦‚³‚¹‚é‚½‚ßA‚Ç‚ñ‚ÈHTML‚àŽg‚¤‚±‚Æ‚ª‚Å‚«‚é‚Ì‚Å‚·B
+Symfony2ã®ãƒ©ãƒƒãƒ‘ãƒ¼ãŠã‚ˆã³Symfony2ãŒã©ã®ã‚ˆã†ã«ç°¡å˜ã«ã‹ã¤ç¢ºå®Ÿã§ã™ã°ã‚„ããƒ•ã‚©ãƒ¼ãƒ ã®è¡¨ç¤ºãŒã§ãã‚‹ã‚ˆã†æ‰‹åŠ©ã‘ã™ã‚‹ã®ã‹ã«ã¤ã„ã¦è©³ã—ãè¦‹ã¦ã„ãå‰ã«ã€è¦‹ãˆãªã„ã¨ã“ã‚ã§ã¯ä½•ã‚‚ç‰¹åˆ¥ãªã“ã¨ãŒèµ·ãã¦ã„ã‚‹ã‚ã‘ã§ã¯ãªã„ã¨ã„ã†ã“ã¨ã‚’çŸ¥ã£ã¦ãŠãå¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚Symfony2ã®ãƒ•ã‚©ãƒ¼ãƒ ã‚’è¡¨ç¤ºã•ã›ã‚‹ãŸã‚ã€ã©ã‚“ãªHTMLã‚‚ä½¿ã†ã“ã¨ãŒã§ãã‚‹ã®ã§ã™ã€‚
 
 .. code-block:: html
 
@@ -19,7 +19,7 @@ Symfony2‚Ìƒ‰ƒbƒp[‚¨‚æ‚ÑSymfony2‚ª‚Ç‚Ì‚æ‚¤‚ÉŠÈ’P‚É‚©‚ÂŠmŽÀ‚Å‚·‚Î‚â‚­ƒtƒH[ƒ€‚Ì•\
         <input type="submit" />
     </form>
 
-ƒoƒŠƒf[ƒVƒ‡ƒ“‚ÌƒGƒ‰[‚ª‚ ‚éê‡A–â‘è‚ð‚·‚Î‚â‚­C³‚·‚é‚½‚ßAƒGƒ‰[‚ð•\Ž¦‚µAƒtƒB[ƒ‹ƒh‚É‘—M‚³‚ê‚½’l‚ð“ü‚ê‚é‚×‚«‚Å‚µ‚å‚¤B‚±‚ê‚É‚ÍƒtƒH[ƒ€ê—p‚Ìƒƒ\ƒbƒh‚ðŽg‚¤‚¾‚¯‚Å‚·B
+ãƒãƒªãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚¨ãƒ©ãƒ¼ãŒã‚ã‚‹å ´åˆã€å•é¡Œã‚’ã™ã°ã‚„ãä¿®æ­£ã™ã‚‹ãŸã‚ã€ã‚¨ãƒ©ãƒ¼ã‚’è¡¨ç¤ºã—ã€ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«é€ä¿¡ã•ã‚ŒãŸå€¤ã‚’å…¥ã‚Œã‚‹ã¹ãã§ã—ã‚‡ã†ã€‚ã“ã‚Œã«ã¯ãƒ•ã‚©ãƒ¼ãƒ å°‚ç”¨ã®ãƒ¡ã‚½ãƒƒãƒ‰ã‚’ä½¿ã†ã ã‘ã§ã™ã€‚
 
 .. configuration-block::
 
@@ -49,12 +49,12 @@ Symfony2‚Ìƒ‰ƒbƒp[‚¨‚æ‚ÑSymfony2‚ª‚Ç‚Ì‚æ‚¤‚ÉŠÈ’P‚É‚©‚ÂŠmŽÀ‚Å‚·‚Î‚â‚­ƒtƒH[ƒ€‚Ì•\
             <input type="submit" />
         </form>
 
-Symfony2‚Ìƒwƒ‹ƒp[‚ÍAƒeƒ“ƒvƒŒ[ƒg‚ð’Z‚­‚µ‚½‚èAƒtƒH[ƒ€‚ÌƒŒƒCƒAƒEƒg‚ðŠÈ’P‚ÉƒJƒXƒ^ƒ}ƒCƒY‚Å‚«‚é‚æ‚¤‚É‚µ‚½‚èA‘Û‰»‚ðƒTƒ|[ƒg‚µ‚½‚èACSRF‚©‚çŽç‚Á‚½‚èAƒtƒ@ƒCƒ‹‚ðƒAƒbƒvƒ[ƒh‚Å‚«‚½‚è‚Æ‚¢‚Á‚½‚±‚Æ‚ªŠÈ’P‚É‚Å‚«‚Ä‚µ‚Ü‚¢‚Ü‚·BˆÈ~‚ÌƒZƒNƒVƒ‡ƒ“‚ÅA‚±‚ê‚ç‚É‚Â‚¢‚Äà–¾‚µ‚Ä‚¢‚«‚Ü‚·B
+Symfony2ã®ãƒ˜ãƒ«ãƒ‘ãƒ¼ã¯ã€ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã‚’çŸ­ãã—ãŸã‚Šã€ãƒ•ã‚©ãƒ¼ãƒ ã®ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã‚’ç°¡å˜ã«ã‚«ã‚¹ã‚¿ãƒžã‚¤ã‚ºã§ãã‚‹ã‚ˆã†ã«ã—ãŸã‚Šã€å›½éš›åŒ–ã‚’ã‚µãƒãƒ¼ãƒˆã—ãŸã‚Šã€CSRFã‹ã‚‰å®ˆã£ãŸã‚Šã€ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã§ããŸã‚Šã¨ã„ã£ãŸã“ã¨ãŒç°¡å˜ã«ã§ãã¦ã—ã¾ã„ã¾ã™ã€‚ä»¥é™ã®ã‚»ã‚¯ã‚·ãƒ§ãƒ³ã§ã€ã“ã‚Œã‚‰ã«ã¤ã„ã¦èª¬æ˜Žã—ã¦ã„ãã¾ã™ã€‚
 
-ƒtƒH[ƒ€‚ð•\Ž¦‚·‚é
+ãƒ•ã‚©ãƒ¼ãƒ ã‚’è¡¨ç¤ºã™ã‚‹
 -----------------
 
-ƒtƒH[ƒ€‚ÌƒOƒ[ƒoƒ‹‚È\‘¢(ƒtƒH[ƒ€ƒ^ƒO‚â‘—Mƒ{ƒ^ƒ“‚È‚Ç)‚ÍƒtƒH[ƒ€ƒCƒ“ƒXƒ^ƒ“ƒX‚Å’è‹`‚³‚ê‚Ä‚¢‚é‚í‚¯‚Å‚Í‚È‚¢‚Ì‚ÅAŽg‚¢‚½‚¢HTMLƒR[ƒh‚ðŽ©—R‚ÉŽg‚¤‚±‚Æ‚ª‚Å‚«‚Ü‚·B’Pƒ‚ÈƒtƒH[ƒ€‚Ìƒeƒ“ƒvƒŒ[ƒg‚ÍˆÈ‰º‚Ì‚æ‚¤‚É“Ç‚Ýž‚Ý‚Ü‚·B
+ãƒ•ã‚©ãƒ¼ãƒ ã®ã‚°ãƒ­ãƒ¼ãƒãƒ«ãªæ§‹é€ (ãƒ•ã‚©ãƒ¼ãƒ ã‚¿ã‚°ã‚„é€ä¿¡ãƒœã‚¿ãƒ³ãªã©)ã¯ãƒ•ã‚©ãƒ¼ãƒ ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã§å®šç¾©ã•ã‚Œã¦ã„ã‚‹ã‚ã‘ã§ã¯ãªã„ã®ã§ã€ä½¿ã„ãŸã„HTMLã‚³ãƒ¼ãƒ‰ã‚’è‡ªç”±ã«ä½¿ã†ã“ã¨ãŒã§ãã¾ã™ã€‚å˜ç´”ãªãƒ•ã‚©ãƒ¼ãƒ ã®ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã¯ä»¥ä¸‹ã®ã‚ˆã†ã«èª­ã¿è¾¼ã¿ã¾ã™ã€‚
 
 .. code-block:: html
 
@@ -64,7 +64,7 @@ Symfony2‚Ìƒwƒ‹ƒp[‚ÍAƒeƒ“ƒvƒŒ[ƒg‚ð’Z‚­‚µ‚½‚èAƒtƒH[ƒ€‚ÌƒŒƒCƒAƒEƒg‚ðŠÈ’P‚ÉƒJƒX
         <input type="submit" />
     </form>
 
-ƒOƒ[ƒoƒ‹‚ÈƒtƒH[ƒ€‚Ì\‘¢ˆÈŠO‚É‚àAƒOƒ[ƒoƒ‹‚ÈƒGƒ‰[‚â‰B‚µƒtƒB[ƒ‹ƒh‚ð•\Ž¦‚·‚é‚½‚ß‚Ì•û–@‚à•K—v‚Å‚·BSymfony2‚Í‚±‚Ì–ðŠ„‚ð‰Ê‚½‚·ƒwƒ‹ƒp[‚ð—pˆÓ‚µ‚Ä‚¢‚Ü‚·BTwigƒeƒ“ƒvƒŒ[ƒg‚É‚¨‚¢‚Ä‚±‚ê‚ç‚Ìƒwƒ‹ƒp[‚ÍAƒtƒH[ƒ€‚âƒtƒH[ƒ€‚ÌƒtƒB[ƒ‹ƒh‚É“K—p‚Å‚«‚éƒOƒ[ƒoƒ‹‚ÈŠÖ”‚Æ‚µ‚ÄŽÀ‘•‚³‚ê‚Ä‚¢‚Ü‚·BPHPƒeƒ“ƒvƒŒ[ƒg‚É‚¨‚¢‚Ä‚ÍuƒtƒH[ƒ€vƒwƒ‹ƒp[‚ªAƒtƒH[ƒ€‚âƒtƒH[ƒ€‚ÌƒtƒB[ƒ‹ƒh‚ðƒpƒ‰ƒ[ƒ^‚Æ‚µ‚ÄŽó‚¯“ü‚ê‚éƒpƒuƒŠƒbƒNƒƒ\ƒbƒh‚ð’Ê‚¶‚Ä“¯‚¶‹@”\‚ð’ñ‹Ÿ‚µ‚Ä‚¢‚Ü‚·B
+ã‚°ãƒ­ãƒ¼ãƒãƒ«ãªãƒ•ã‚©ãƒ¼ãƒ ã®æ§‹é€ ä»¥å¤–ã«ã‚‚ã€ã‚°ãƒ­ãƒ¼ãƒãƒ«ãªã‚¨ãƒ©ãƒ¼ã‚„éš ã—ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®æ–¹æ³•ã‚‚å¿…è¦ã§ã™ã€‚Symfony2ã¯ã“ã®å½¹å‰²ã‚’æžœãŸã™ãƒ˜ãƒ«ãƒ‘ãƒ¼ã‚’ç”¨æ„ã—ã¦ã„ã¾ã™ã€‚Twigãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã«ãŠã„ã¦ã“ã‚Œã‚‰ã®ãƒ˜ãƒ«ãƒ‘ãƒ¼ã¯ã€ãƒ•ã‚©ãƒ¼ãƒ ã‚„ãƒ•ã‚©ãƒ¼ãƒ ã®ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«é©ç”¨ã§ãã‚‹ã‚°ãƒ­ãƒ¼ãƒãƒ«ãªé–¢æ•°ã¨ã—ã¦å®Ÿè£…ã•ã‚Œã¦ã„ã¾ã™ã€‚PHPãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã«ãŠã„ã¦ã¯ã€Œãƒ•ã‚©ãƒ¼ãƒ ã€ãƒ˜ãƒ«ãƒ‘ãƒ¼ãŒã€ãƒ•ã‚©ãƒ¼ãƒ ã‚„ãƒ•ã‚©ãƒ¼ãƒ ã®ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã¨ã—ã¦å—ã‘å…¥ã‚Œã‚‹ãƒ‘ãƒ–ãƒªãƒƒã‚¯ãƒ¡ã‚½ãƒƒãƒ‰ã‚’é€šã˜ã¦åŒã˜æ©Ÿèƒ½ã‚’æä¾›ã—ã¦ã„ã¾ã™ã€‚
 
 .. configuration-block::
 
@@ -73,7 +73,7 @@ Symfony2‚Ìƒwƒ‹ƒp[‚ÍAƒeƒ“ƒvƒŒ[ƒg‚ð’Z‚­‚µ‚½‚èAƒtƒH[ƒ€‚ÌƒŒƒCƒAƒEƒg‚ðŠÈ’P‚ÉƒJƒX
         <form action="#" method="post">
             {{ form_errors(form) }}
 
-            <!-- ƒtƒH[ƒ€‚ÌƒtƒB[ƒ‹ƒh‚ð•\Ž¦‚·‚é -->
+            <!-- ãƒ•ã‚©ãƒ¼ãƒ ã®ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’è¡¨ç¤ºã™ã‚‹ -->
 
             {{ form_hidden(form) }}
             <input type="submit" />
@@ -84,7 +84,7 @@ Symfony2‚Ìƒwƒ‹ƒp[‚ÍAƒeƒ“ƒvƒŒ[ƒg‚ð’Z‚­‚µ‚½‚èAƒtƒH[ƒ€‚ÌƒŒƒCƒAƒEƒg‚ðŠÈ’P‚ÉƒJƒX
         <form action="#" method="post">
             <?php echo $view['form']->errors($form) ?>
 
-            <!-- ƒtƒH[ƒ€‚ÌƒtƒB[ƒ‹ƒh‚ð•\Ž¦‚·‚é -->
+            <!-- ãƒ•ã‚©ãƒ¼ãƒ ã®ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’è¡¨ç¤ºã™ã‚‹ -->
 
             <?php echo $view['form']->hidden($form) ?>
 
@@ -93,15 +93,15 @@ Symfony2‚Ìƒwƒ‹ƒp[‚ÍAƒeƒ“ƒvƒŒ[ƒg‚ð’Z‚­‚µ‚½‚èAƒtƒH[ƒ€‚ÌƒŒƒCƒAƒEƒg‚ðŠÈ’P‚ÉƒJƒX
 
 .. note::
 
-    Œ©‚Ä‚Ì’Ê‚èATwig‚ÌŠÖ”‚Íuform\_ v‚ÅŽn‚Ü‚è‚Ü‚·BuƒtƒH[ƒ€vƒwƒ‹ƒp[‚Ìƒƒ\ƒbƒh‚ÆˆÙ‚È‚èA‚±‚ê‚ç‚ÌŠÖ”‚ÍƒOƒ[ƒoƒ‹‚È‚Ì‚ÅA–¼‘O‚ªd•¡‚µ‚â‚·‚¢‚Ì‚Å’ˆÓ‚µ‚Ä‚­‚¾‚³‚¢B
+    è¦‹ã¦ã®é€šã‚Šã€Twigã®é–¢æ•°ã¯ã€Œform\_ ã€ã§å§‹ã¾ã‚Šã¾ã™ã€‚ã€Œãƒ•ã‚©ãƒ¼ãƒ ã€ãƒ˜ãƒ«ãƒ‘ãƒ¼ã®ãƒ¡ã‚½ãƒƒãƒ‰ã¨ç•°ãªã‚Šã€ã“ã‚Œã‚‰ã®é–¢æ•°ã¯ã‚°ãƒ­ãƒ¼ãƒãƒ«ãªã®ã§ã€åå‰ãŒé‡è¤‡ã—ã‚„ã™ã„ã®ã§æ³¨æ„ã—ã¦ãã ã•ã„ã€‚
 
 .. tip::
 
-    ƒfƒtƒHƒ‹ƒg‚Å‚ÍA ``errors`` ƒwƒ‹ƒp[‚Í ``<ul>`` ƒŠƒXƒg‚ð¶¬‚µ‚Ü‚·B‚±‚ê‚ÍA‚±‚ÌƒhƒLƒ…ƒƒ“ƒg‚ÌŒã‚Éo‚Ä‚­‚é‚æ‚¤‚ÉAŠÈ’P‚ÉƒJƒXƒ^ƒ}ƒCƒY‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·
+    ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§ã¯ã€ ``errors`` ãƒ˜ãƒ«ãƒ‘ãƒ¼ã¯ ``<ul>`` ãƒªã‚¹ãƒˆã‚’ç”Ÿæˆã—ã¾ã™ã€‚ã“ã‚Œã¯ã€ã“ã®ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã®å¾Œã«å‡ºã¦ãã‚‹ã‚ˆã†ã«ã€ç°¡å˜ã«ã‚«ã‚¹ã‚¿ãƒžã‚¤ã‚ºã™ã‚‹ã“ã¨ãŒã§ãã¾ã™
 
 Last but not the least, a form containing a file input must contain the
 ``enctype`` attribute; use the ``enctype`` helper to take render it:
-ÅŒã‚Éd—v‚È‚±‚Æ‚Æ‚µ‚ÄAƒtƒ@ƒCƒ‹“ü—Í‚ðŠÜ‚ÞƒtƒH[ƒ€‚Í ``enctype`` ‘®«‚ðŽ‚Â•K—v‚ª‚ ‚è‚Ü‚·B‚»‚Ì‚æ‚¤‚ÈƒtƒH[ƒ€‚ðƒŒƒ“ƒ_ƒŠƒ“ƒO‚·‚éÛ‚Í ``enctype`` ƒwƒ‹ƒp[‚ðŽg—p‚µ‚Ü‚µ‚å‚¤B
+æœ€å¾Œã«é‡è¦ãªã“ã¨ã¨ã—ã¦ã€ãƒ•ã‚¡ã‚¤ãƒ«å…¥åŠ›ã‚’å«ã‚€ãƒ•ã‚©ãƒ¼ãƒ ã¯ ``enctype`` å±žæ€§ã‚’æŒã¤å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚ãã®ã‚ˆã†ãªãƒ•ã‚©ãƒ¼ãƒ ã‚’ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã™ã‚‹éš›ã¯ ``enctype`` ãƒ˜ãƒ«ãƒ‘ãƒ¼ã‚’ä½¿ç”¨ã—ã¾ã—ã‚‡ã†ã€‚
 
 .. configuration-block::
 
@@ -113,10 +113,10 @@ Last but not the least, a form containing a file input must contain the
 
         <form action="#" <?php echo $view['form']->enctype($form) ?> method="post">
 
-ƒtƒB[ƒ‹ƒh‚ð•\Ž¦‚·‚é
+ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’è¡¨ç¤ºã™ã‚‹
 -----------------
 
-ƒtƒH[ƒ€‚ÌƒtƒB[ƒ‹ƒh‚Ö‚ÌƒAƒNƒZƒX‚ÍASymfony2‚ÌƒtƒH[ƒ€‚ª”z—ñ‚Æ‚µ‚Ä“®ì‚·‚é‚Ì‚Æ“¯‚¶‚­‚ç‚¢ŠÈ’P‚Å‚·B
+ãƒ•ã‚©ãƒ¼ãƒ ã®ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹ã¯ã€Symfony2ã®ãƒ•ã‚©ãƒ¼ãƒ ãŒé…åˆ—ã¨ã—ã¦å‹•ä½œã™ã‚‹ã®ã¨åŒã˜ãã‚‰ã„ç°¡å˜ã§ã™ã€‚
 
 .. configuration-block::
 
@@ -124,19 +124,19 @@ Last but not the least, a form containing a file input must contain the
 
         {{ form.title }}
 
-        {# ƒOƒ‹[ƒv user “à‚É“ü‚êŽq‚É‚È‚Á‚½ƒtƒB[ƒ‹ƒh first_name ‚ÉƒAƒNƒZƒX #}
+        {# ã‚°ãƒ«ãƒ¼ãƒ— user å†…ã«å…¥ã‚Œå­ã«ãªã£ãŸãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ first_name ã«ã‚¢ã‚¯ã‚»ã‚¹ #}
         {{ form.user.first_name }}
 
     .. code-block:: html+php
 
         <?php $form['title'] ?>
 
-        <!-- ƒOƒ‹[ƒv user “à‚É“ü‚êŽq‚É‚È‚Á‚½ƒtƒB[ƒ‹ƒh first_name ‚ÉƒAƒNƒZƒX -->
+        <!-- ã‚°ãƒ«ãƒ¼ãƒ— user å†…ã«å…¥ã‚Œå­ã«ãªã£ãŸãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ first_name ã«ã‚¢ã‚¯ã‚»ã‚¹ -->
         <?php $form['user']['first_name'] ?>
 
-‚»‚ê‚¼‚ê‚ÌƒtƒB[ƒ‹ƒh‚ªFieldƒCƒ“ƒXƒ^ƒ“ƒX‚Å‚ ‚é‚±‚Æ‚©‚çAã‚ÉŽ¦‚µ‚½‚æ‚¤‚É•\Ž¦‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñBƒwƒ‹ƒp[‚ð‘ã‚í‚è‚ÉŽg—p‚µ‚Ä‚­‚¾‚³‚¢B
+ãã‚Œãžã‚Œã®ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ãŒFieldã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã§ã‚ã‚‹ã“ã¨ã‹ã‚‰ã€ä¸Šã«ç¤ºã—ãŸã‚ˆã†ã«è¡¨ç¤ºã™ã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“ã€‚ãƒ˜ãƒ«ãƒ‘ãƒ¼ã‚’ä»£ã‚ã‚Šã«ä½¿ç”¨ã—ã¦ãã ã•ã„ã€‚
 
-``render`` ƒwƒ‹ƒp[‚ÍAƒtƒB[ƒ‹ƒh‚ÌHTML•\Œ»‚ðƒŒƒ“ƒ_ƒŠƒ“ƒO‚µ‚Ü‚·B
+``render`` ãƒ˜ãƒ«ãƒ‘ãƒ¼ã¯ã€ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®HTMLè¡¨ç¾ã‚’ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã—ã¾ã™ã€‚
 
 .. configuration-block::
 
@@ -150,9 +150,9 @@ Last but not the least, a form containing a file input must contain the
 
 .. note::
 
-    ƒtƒB[ƒ‹ƒh‚Ìƒeƒ“ƒvƒŒ[ƒg‚ÍAŒã‚ÅŠwK‚·‚é‚æ‚¤‚ÉƒtƒB[ƒ‹ƒh‚ÌƒNƒ‰ƒX–¼‚ðŒ³‚É‚µ‚Ä‘I‘ð‚³‚ê‚Ä‚¢‚Ü‚·B
+    ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã¯ã€å¾Œã§å­¦ç¿’ã™ã‚‹ã‚ˆã†ã«ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®ã‚¯ãƒ©ã‚¹åã‚’å…ƒã«ã—ã¦é¸æŠžã•ã‚Œã¦ã„ã¾ã™ã€‚
 
-``label`` ƒwƒ‹ƒp[‚ÍAƒtƒB[ƒ‹ƒh‚ÉŠÖ˜A•t‚¯‚ç‚ê‚½ ``<label>`` ƒ^ƒO‚ðƒŒƒ“ƒ_ƒŠƒ“ƒO‚µ‚Ü‚·B
+``label`` ãƒ˜ãƒ«ãƒ‘ãƒ¼ã¯ã€ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«é–¢é€£ä»˜ã‘ã‚‰ã‚ŒãŸ ``<label>`` ã‚¿ã‚°ã‚’ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã—ã¾ã™ã€‚
 
 .. configuration-block::
 
@@ -164,7 +164,7 @@ Last but not the least, a form containing a file input must contain the
 
         <?php echo $view['form']->label($form['title']) ?>
 
-ƒfƒtƒHƒ‹ƒg‚Å‚ÍASymfony2‚ÍƒtƒB[ƒ‹ƒh–¼‚ðulŠÔ‚ª“Ç‚ß‚é‚æ‚¤‚Év‚µ‚Ü‚·‚ªA“ÆŽ©‚Ìƒ‰ƒxƒ‹‚ð‚Â‚¯‚é‚±‚Æ‚à‚Å‚«‚Ü‚·B
+ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§ã¯ã€Symfony2ã¯ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰åã‚’ã€Œäººé–“ãŒèª­ã‚ã‚‹ã‚ˆã†ã«ã€ã—ã¾ã™ãŒã€ç‹¬è‡ªã®ãƒ©ãƒ™ãƒ«ã‚’ã¤ã‘ã‚‹ã“ã¨ã‚‚ã§ãã¾ã™ã€‚
 
 .. configuration-block::
 
@@ -178,9 +178,9 @@ Last but not the least, a form containing a file input must contain the
 
 .. note::
 
-    Symfony2‚ÍŽ©“®“I‚É‘S‚Ä‚Ìƒ‰ƒxƒ‹‚ÆƒGƒ‰[ƒƒbƒZ[ƒW‚ð‘Û‰»‚µ‚Ü‚·B
+    Symfony2ã¯è‡ªå‹•çš„ã«å…¨ã¦ã®ãƒ©ãƒ™ãƒ«ã¨ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å›½éš›åŒ–ã—ã¾ã™ã€‚
 
-``errors`` ƒwƒ‹ƒp[‚ÍƒtƒB[ƒ‹ƒh‚ÌƒGƒ‰[‚ðƒŒƒ“ƒ_ƒŠƒ“ƒO‚µ‚Ü‚·B
+``errors`` ãƒ˜ãƒ«ãƒ‘ãƒ¼ã¯ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®ã‚¨ãƒ©ãƒ¼ã‚’ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã—ã¾ã™ã€‚
 
 .. configuration-block::
 
@@ -192,12 +192,12 @@ Last but not the least, a form containing a file input must contain the
 
         <?php echo $view['form']->errors($form['title']) ?>
 
-HTML‚Ì•\Œ»‚ð’è‹`‚·‚é
+HTMLã®è¡¨ç¾ã‚’å®šç¾©ã™ã‚‹
 --------------------------------
 
-ƒwƒ‹ƒp[‚ÍHTML‚ðƒŒƒ“ƒ_ƒŠƒ“ƒO‚·‚é‚½‚ß‚ÉAƒeƒ“ƒvƒŒ[ƒg‚ÉˆË‘¶‚µ‚Ä‚¢‚Ü‚·BƒfƒtƒHƒ‹ƒg‚ÅSymfony2‚ÍA‘S‚Ä‚Ìƒrƒ‹ƒgƒCƒ“ƒtƒB[ƒ‹ƒh‚É‘Î‚µ‚Äƒeƒ“ƒvƒŒ[ƒg‚ªŠÖ˜A•t‚¯‚ç‚ê‚Ä‚¢‚Ü‚·B
+ãƒ˜ãƒ«ãƒ‘ãƒ¼ã¯HTMLã‚’ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã™ã‚‹ãŸã‚ã«ã€ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã«ä¾å­˜ã—ã¦ã„ã¾ã™ã€‚ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§Symfony2ã¯ã€å…¨ã¦ã®ãƒ“ãƒ«ãƒˆã‚¤ãƒ³ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«å¯¾ã—ã¦ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãŒé–¢é€£ä»˜ã‘ã‚‰ã‚Œã¦ã„ã¾ã™ã€‚
 
-Twigƒeƒ“ƒvƒŒ[ƒg‚Å‚ÍA‚»‚ê‚¼‚ê‚Ìƒwƒ‹ƒp[‚Í1‚Â‚Ìƒeƒ“ƒvƒŒ[ƒgƒuƒƒbƒN‚ÉŠÖ˜A•t‚¯‚ç‚ê‚Ä‚¢‚Ü‚·B—á‚¦‚Î ``form_errors`` ŠÖ”‚Í  ``errors`` ƒuƒƒbƒN‚ÉŠÖ˜A‚Ã‚¢‚Ä‚¢‚Ü‚·Bƒrƒ‹ƒgƒCƒ“ƒtƒB[ƒ‹ƒh‚ÍˆÈ‰º‚Ì‚æ‚¤‚É‘‚©‚ê‚Ä‚¢‚Ü‚·B
+Twigãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã§ã¯ã€ãã‚Œãžã‚Œã®ãƒ˜ãƒ«ãƒ‘ãƒ¼ã¯1ã¤ã®ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã«é–¢é€£ä»˜ã‘ã‚‰ã‚Œã¦ã„ã¾ã™ã€‚ä¾‹ãˆã° ``form_errors`` é–¢æ•°ã¯  ``errors`` ãƒ–ãƒ­ãƒƒã‚¯ã«é–¢é€£ã¥ã„ã¦ã„ã¾ã™ã€‚ãƒ“ãƒ«ãƒˆã‚¤ãƒ³ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã¯ä»¥ä¸‹ã®ã‚ˆã†ã«æ›¸ã‹ã‚Œã¦ã„ã¾ã™ã€‚
 
 .. code-block:: html+jinja
 
@@ -213,7 +213,7 @@ Twigƒeƒ“ƒvƒŒ[ƒg‚Å‚ÍA‚»‚ê‚¼‚ê‚Ìƒwƒ‹ƒp[‚Í1‚Â‚Ìƒeƒ“ƒvƒŒ[ƒgƒuƒƒbƒN‚ÉŠÖ˜A•t‚¯‚ç‚
         {% endif %}
     {% endblock errors %}
 
-PHPƒeƒ“ƒvƒŒ[ƒg‚Å‚Í‚»‚ê‚Æ‚ÍˆÙ‚È‚èA‚»‚ê‚¼‚ê‚Ìƒwƒ‹ƒp[‚Í1‚Â‚ÌPHPƒeƒ“ƒvƒŒ[ƒg‚ÉŠÖ˜A‚Ã‚¢‚Ä‚¢‚Ü‚·B ``errors()`` ƒwƒ‹ƒp[‚ÍAˆÈ‰º‚Ì‚æ‚¤‚É ``errors.php`` ƒeƒ“ƒvƒŒ[ƒg‚ÉŠÖ˜A‚Ã‚«‚Ü‚·B
+PHPãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã§ã¯ãã‚Œã¨ã¯ç•°ãªã‚Šã€ãã‚Œãžã‚Œã®ãƒ˜ãƒ«ãƒ‘ãƒ¼ã¯1ã¤ã®PHPãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã«é–¢é€£ã¥ã„ã¦ã„ã¾ã™ã€‚ ``errors()`` ãƒ˜ãƒ«ãƒ‘ãƒ¼ã¯ã€ä»¥ä¸‹ã®ã‚ˆã†ã« ``errors.php`` ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã«é–¢é€£ã¥ãã¾ã™ã€‚
 
 .. code-block:: html+php
 
@@ -227,18 +227,18 @@ PHPƒeƒ“ƒvƒŒ[ƒg‚Å‚Í‚»‚ê‚Æ‚ÍˆÙ‚È‚èA‚»‚ê‚¼‚ê‚Ìƒwƒ‹ƒp[‚Í1‚Â‚ÌPHPƒeƒ“ƒvƒŒ[ƒg‚ÉŠÖ˜
         </ul>
     <?php endif; ?>
 
-ˆÈ‰º‚Íƒwƒ‹ƒp[‚Æ‚»‚ê‚ÉŠÖ˜A•t‚¯‚ç‚ê‚½ƒuƒƒbƒN‚âƒeƒ“ƒvƒŒ[ƒg‚Ìˆê——‚Å‚·B
+ä»¥ä¸‹ã¯ãƒ˜ãƒ«ãƒ‘ãƒ¼ã¨ãã‚Œã«é–¢é€£ä»˜ã‘ã‚‰ã‚ŒãŸãƒ–ãƒ­ãƒƒã‚¯ã‚„ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã®ä¸€è¦§ã§ã™ã€‚
 
 ========== ================== ==================
-ƒwƒ‹ƒp[   Twig ƒuƒƒbƒN      PHP ƒeƒ“ƒvƒŒ[ƒg–¼
+ãƒ˜ãƒ«ãƒ‘ãƒ¼   Twig ãƒ–ãƒ­ãƒƒã‚¯      PHP ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆå
 ========== ================== ==================
 ``errors`` ``errors``         ``FrameworkBundle:Form:errors.php``
 ``hidden`` ``hidden``         ``FrameworkBundle:Form:hidden.php``
 ``label``  ``label``          ``FrameworkBundle:Form:label.php``
-``render`` ‰º‹LŽQÆ           ‰º‹LŽQÆ
+``render`` ä¸‹è¨˜å‚ç…§           ä¸‹è¨˜å‚ç…§
 ========== ================== ==================
 
-``render`` ƒwƒ‹ƒp[‚ÍAƒŒƒ“ƒ_ƒŠƒ“ƒO‚·‚éƒeƒ“ƒvƒŒ[ƒg‚ðƒtƒB[ƒ‹ƒh‚ÌƒNƒ‰ƒX–¼‚ðƒAƒ“ƒ_[ƒXƒRƒA‚Å‹æØ‚Á‚½‚à‚Ì‚ðŒ³‚É‚µ‚Ä‘I‚Ô‚Æ‚±‚ë‚ªA‘¼‚Æ­‚µˆÙ‚È‚è‚Ü‚·B—á‚¦‚ÎA ``TextareaField`` ƒCƒ“ƒXƒ^ƒ“ƒX‚ðƒŒƒ“ƒ_ƒŠƒ“ƒO‚·‚éÛ‚É‚ÍA ``textarea_field`` ƒuƒƒbƒN‚Ü‚½‚Í ``textarea_field.php`` ƒeƒ“ƒvƒŒ[ƒg‚ð’T‚µ‚Ü‚·B
+``render`` ãƒ˜ãƒ«ãƒ‘ãƒ¼ã¯ã€ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã™ã‚‹ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã‚’ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®ã‚¯ãƒ©ã‚¹åã‚’ã‚¢ãƒ³ãƒ€ãƒ¼ã‚¹ã‚³ã‚¢ã§åŒºåˆ‡ã£ãŸã‚‚ã®ã‚’å…ƒã«ã—ã¦é¸ã¶ã¨ã“ã‚ãŒã€ä»–ã¨å°‘ã—ç•°ãªã‚Šã¾ã™ã€‚ä¾‹ãˆã°ã€ ``TextareaField`` ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã™ã‚‹éš›ã«ã¯ã€ ``textarea_field`` ãƒ–ãƒ­ãƒƒã‚¯ã¾ãŸã¯ ``textarea_field.php`` ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã‚’æŽ¢ã—ã¾ã™ã€‚
 
 .. configuration-block::
 
@@ -257,12 +257,12 @@ PHPƒeƒ“ƒvƒŒ[ƒg‚Å‚Í‚»‚ê‚Æ‚ÍˆÙ‚È‚èA‚»‚ê‚¼‚ê‚Ìƒwƒ‹ƒp[‚Í1‚Â‚ÌPHPƒeƒ“ƒvƒŒ[ƒg‚ÉŠÖ˜
             <?php echo $view->escape($field->getDisplayedData()) ?>
         </textarea>
 
-ƒuƒƒbƒN‚âƒeƒ“ƒvƒŒ[ƒg‚ª‘¶Ý‚µ‚È‚¢ê‡Aƒƒ\ƒbƒh‚ÍƒtƒB[ƒ‹ƒh‚ÌŒp³Œ³ƒNƒ‰ƒX‚ÌƒuƒƒbƒN‚âƒeƒ“ƒvƒŒ[ƒg‚ð’T‚µ‚Ü‚·B•\Œ»‚ªŒp³Œ³ƒNƒ‰ƒX‚Æ“¯‚¶‚É‚È‚é‚æ‚¤AƒfƒtƒHƒ‹ƒg‚Ì ``collection_field`` ƒuƒƒbƒN‚ª‘¶Ý‚µ‚È‚¢‚Ì‚Í‚±‚Ì‚½‚ß‚Å‚·B
+ãƒ–ãƒ­ãƒƒã‚¯ã‚„ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãŒå­˜åœ¨ã—ãªã„å ´åˆã€ãƒ¡ã‚½ãƒƒãƒ‰ã¯ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®ç¶™æ‰¿å…ƒã‚¯ãƒ©ã‚¹ã®ãƒ–ãƒ­ãƒƒã‚¯ã‚„ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã‚’æŽ¢ã—ã¾ã™ã€‚è¡¨ç¾ãŒç¶™æ‰¿å…ƒã‚¯ãƒ©ã‚¹ã¨åŒã˜ã«ãªã‚‹ã‚ˆã†ã€ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã® ``collection_field`` ãƒ–ãƒ­ãƒƒã‚¯ãŒå­˜åœ¨ã—ãªã„ã®ã¯ã“ã®ãŸã‚ã§ã™ã€‚
 
-ƒtƒB[ƒ‹ƒh‚Ì•\Œ»‚ðƒJƒXƒ^ƒ}ƒCƒY‚·‚é
+ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®è¡¨ç¾ã‚’ã‚«ã‚¹ã‚¿ãƒžã‚¤ã‚ºã™ã‚‹
 --------------------------------
 
-ƒtƒB[ƒ‹ƒh‚ðƒJƒXƒ^ƒ}ƒCƒY‚·‚éˆê”ÔŠÈ’P‚È•û–@‚ÍA ``render`` ƒwƒ‹ƒp[‚Ö‚Ìˆø”‚Æ‚µ‚ÄƒJƒXƒ^ƒ€HTML‘®«‚ð“n‚µ‚Ä‚â‚é‚±‚Æ‚Å‚·B
+ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’ã‚«ã‚¹ã‚¿ãƒžã‚¤ã‚ºã™ã‚‹ä¸€ç•ªç°¡å˜ãªæ–¹æ³•ã¯ã€ ``render`` ãƒ˜ãƒ«ãƒ‘ãƒ¼ã¸ã®å¼•æ•°ã¨ã—ã¦ã‚«ã‚¹ã‚¿ãƒ HTMLå±žæ€§ã‚’æ¸¡ã—ã¦ã‚„ã‚‹ã“ã¨ã§ã™ã€‚
 
 .. configuration-block::
 
@@ -276,7 +276,7 @@ PHPƒeƒ“ƒvƒŒ[ƒg‚Å‚Í‚»‚ê‚Æ‚ÍˆÙ‚È‚èA‚»‚ê‚¼‚ê‚Ìƒwƒ‹ƒp[‚Í1‚Â‚ÌPHPƒeƒ“ƒvƒŒ[ƒg‚ÉŠÖ˜
             'class' => 'important'
         )) ?>
 
-``ChoiceField`` ‚Ì‚æ‚¤‚È‚¢‚­‚Â‚©‚ÌƒtƒB[ƒ‹ƒh‚ÍAƒtƒB[ƒ‹ƒh‚Ì•\Œ»‚ðƒJƒXƒ^ƒ}ƒCƒY‚·‚é‚½‚ß‚Ìƒpƒ‰ƒ[ƒ^‚ðŽó‚¯Žæ‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B‚±‚ê‚ç‚Ìƒpƒ‰ƒ[ƒ^‚Í2”Ô–ÚˆÈ~‚Ìˆø”‚Æ‚µ‚Ä“n‚¹‚Ü‚·B
+``ChoiceField`` ã®ã‚ˆã†ãªã„ãã¤ã‹ã®ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã¯ã€ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®è¡¨ç¾ã‚’ã‚«ã‚¹ã‚¿ãƒžã‚¤ã‚ºã™ã‚‹ãŸã‚ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’å—ã‘å–ã‚‹ã“ã¨ãŒã§ãã¾ã™ã€‚ã“ã‚Œã‚‰ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã¯2ç•ªç›®ä»¥é™ã®å¼•æ•°ã¨ã—ã¦æ¸¡ã›ã¾ã™ã€‚
 
 .. configuration-block::
 
@@ -290,7 +290,7 @@ PHPƒeƒ“ƒvƒŒ[ƒg‚Å‚Í‚»‚ê‚Æ‚ÍˆÙ‚È‚èA‚»‚ê‚¼‚ê‚Ìƒwƒ‹ƒp[‚Í1‚Â‚ÌPHPƒeƒ“ƒvƒŒ[ƒg‚ÉŠÖ˜
             'separator' => ' -- Other countries -- '
         )) ?>
 
-‘S‚Ä‚Ìƒwƒ‹ƒp[‚ÍAƒwƒ‹ƒp[‚ÌHTMLo—Í‚ðŠ®‘S‚É•Ï‚¦‚ç‚ê‚é‚æ‚¤‚ÉAÅŒã‚Ìˆø”‚Æ‚µ‚Äƒeƒ“ƒvƒŒ[ƒgƒl[ƒ€‚ðŽó‚¯Žæ‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B
+å…¨ã¦ã®ãƒ˜ãƒ«ãƒ‘ãƒ¼ã¯ã€ãƒ˜ãƒ«ãƒ‘ãƒ¼ã®HTMLå‡ºåŠ›ã‚’å®Œå…¨ã«å¤‰ãˆã‚‰ã‚Œã‚‹ã‚ˆã†ã«ã€æœ€å¾Œã®å¼•æ•°ã¨ã—ã¦ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒãƒ¼ãƒ ã‚’å—ã‘å–ã‚‹ã“ã¨ãŒã§ãã¾ã™ã€‚
 
 .. configuration-block::
 
@@ -304,10 +304,10 @@ PHPƒeƒ“ƒvƒŒ[ƒg‚Å‚Í‚»‚ê‚Æ‚ÍˆÙ‚È‚èA‚»‚ê‚¼‚ê‚Ìƒwƒ‹ƒp[‚Í1‚Â‚ÌPHPƒeƒ“ƒvƒŒ[ƒg‚ÉŠÖ˜
             'HelloBundle:Form:text_field.php'
         ) ?>
 
-ƒtƒH[ƒ€‚Ìƒe[ƒ~ƒ“ƒO (Twig ‚Ì‚Ý)
+ãƒ•ã‚©ãƒ¼ãƒ ã®ãƒ†ãƒ¼ãƒŸãƒ³ã‚° (Twig ã®ã¿)
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-ÅŒã‚Ì—á‚Æ‚µ‚ÄA ``HelloBundle::form.html.twig`` ‚Æ‚¢‚¤AƒI[ƒo[ƒ‰ƒCƒh‚µ‚½‚¢ƒtƒB[ƒ‹ƒh‚ÌHTML•\Œ»‚ð’è‹`‚·‚éƒuƒƒbƒN‚ðŠÜ‚ñ‚¾•’Ê‚Ì Twig ƒeƒ“ƒvƒŒ[ƒg‚ð‹“‚°‚Ü‚·B
+æœ€å¾Œã®ä¾‹ã¨ã—ã¦ã€ ``HelloBundle::form.html.twig`` ã¨ã„ã†ã€ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã—ãŸã„ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®HTMLè¡¨ç¾ã‚’å®šç¾©ã™ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã‚’å«ã‚“ã æ™®é€šã® Twig ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã‚’æŒ™ã’ã¾ã™ã€‚
 
 .. code-block:: html+jinja
 
@@ -319,7 +319,7 @@ PHPƒeƒ“ƒvƒŒ[ƒg‚Å‚Í‚»‚ê‚Æ‚ÍˆÙ‚È‚èA‚»‚ê‚¼‚ê‚Ìƒwƒ‹ƒp[‚Í1‚Â‚ÌPHPƒeƒ“ƒvƒŒ[ƒg‚ÉŠÖ˜
         </div>
     {% endblock textarea_field %}
 
-‚±‚Ì—á‚Å‚ÍA ``textarea_field`` ‚ªÄ’è‹`‚³‚ê‚Ä‚¢‚Ü‚·BƒfƒtƒHƒ‹ƒg‚Ì•\Œ»‚ð•Ï‚¦‚é‘ã‚í‚è‚ÉATwig ƒlƒCƒeƒBƒu‚ÌŒp³‹@”\‚ðŽg‚Á‚ÄƒfƒtƒHƒ‹ƒg‚ÌƒuƒƒbƒN‚ðŠg’£‚·‚é‚±‚Æ‚à‚Å‚«‚Ü‚·B
+ã“ã®ä¾‹ã§ã¯ã€ ``textarea_field`` ãŒå†å®šç¾©ã•ã‚Œã¦ã„ã¾ã™ã€‚ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®è¡¨ç¾ã‚’å¤‰ãˆã‚‹ä»£ã‚ã‚Šã«ã€Twig ãƒã‚¤ãƒ†ã‚£ãƒ–ã®ç¶™æ‰¿æ©Ÿèƒ½ã‚’ä½¿ã£ã¦ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ãƒ–ãƒ­ãƒƒã‚¯ã‚’æ‹¡å¼µã™ã‚‹ã“ã¨ã‚‚ã§ãã¾ã™ã€‚
 
 .. code-block:: html+jinja
 
@@ -333,27 +333,27 @@ PHPƒeƒ“ƒvƒŒ[ƒg‚Å‚Í‚»‚ê‚Æ‚ÍˆÙ‚È‚èA‚»‚ê‚¼‚ê‚Ìƒwƒ‹ƒp[‚Í1‚Â‚ÌPHPƒeƒ“ƒvƒŒ[ƒg‚ÉŠÖ˜
         </div>
     {% endblock date_field %}
 
-—^‚¦‚ç‚ê‚½ƒtƒH[ƒ€‚Ì‘S‚Ä‚ÌƒtƒB[ƒ‹ƒh‚ðƒJƒXƒ^ƒ}ƒCƒY‚µ‚½‚¢Žž‚ÍA ``form_theme`` ƒ^ƒO‚ðŽg‚¢‚Ü‚µ‚å‚¤B
+ä¸Žãˆã‚‰ã‚ŒãŸãƒ•ã‚©ãƒ¼ãƒ ã®å…¨ã¦ã®ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’ã‚«ã‚¹ã‚¿ãƒžã‚¤ã‚ºã—ãŸã„æ™‚ã¯ã€ ``form_theme`` ã‚¿ã‚°ã‚’ä½¿ã„ã¾ã—ã‚‡ã†ã€‚
 
 .. code-block:: jinja
 
     {% form_theme form 'HelloBundle::form.html.twig' %}
 
-‚±‚ÌŒÄ‚Ño‚µ‚ÌŒãA ``form`` ã‚Å ``form_field`` ŠÖ”‚ðŒÄ‚Ño‚·Žž‚Íí‚ÉASymfony2‚ÍƒfƒtƒHƒ‹ƒg‚Ì•\Œ»‚É–ß‚é‘O‚Éƒeƒ“ƒvƒŒ[ƒg“à‚Ì•\Œ»‚ð’T‚µ‚Ü‚·B
+ã“ã®å‘¼ã³å‡ºã—ã®å¾Œã€ ``form`` ä¸Šã§ ``form_field`` é–¢æ•°ã‚’å‘¼ã³å‡ºã™æ™‚ã¯å¸¸ã«ã€Symfony2ã¯ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®è¡¨ç¾ã«æˆ»ã‚‹å‰ã«ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆå†…ã®è¡¨ç¾ã‚’æŽ¢ã—ã¾ã™ã€‚
 
-ƒtƒB[ƒ‹ƒhƒuƒƒbƒN‚ªŠô‚Â‚©‚Ìƒeƒ“ƒvƒŒ[ƒg“à‚Å’è‹`‚³‚ê‚Ä‚¢‚éê‡A‡˜‚Ã‚¯‚³‚ê‚½”z—ñ‚Æ‚µ‚Ä’Ç‰Á‚µ‚Ä‚­‚¾‚³‚¢B
+ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ãƒ–ãƒ­ãƒƒã‚¯ãŒå¹¾ã¤ã‹ã®ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆå†…ã§å®šç¾©ã•ã‚Œã¦ã„ã‚‹å ´åˆã€é †åºã¥ã‘ã•ã‚ŒãŸé…åˆ—ã¨ã—ã¦è¿½åŠ ã—ã¦ãã ã•ã„ã€‚
 
 .. code-block:: jinja
 
     {% form_theme form ['HelloBundle::form.html.twig', 'HelloBundle::form.html.twig', 'HelloBundle::hello_form.html.twig'] %}
 
-ƒtƒH[ƒ€‘S‘Ì (ã‚Ì‚æ‚¤‚É) ‚ ‚é‚¢‚ÍƒtƒB[ƒ‹ƒhƒOƒ‹[ƒv‚É‘Î‚µ‚Äƒe[ƒ}‚ª‰Á‚¦‚ç‚ê‚Ü‚·B
+ãƒ•ã‚©ãƒ¼ãƒ å…¨ä½“ (ä¸Šã®ã‚ˆã†ã«) ã‚ã‚‹ã„ã¯ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚°ãƒ«ãƒ¼ãƒ—ã«å¯¾ã—ã¦ãƒ†ãƒ¼ãƒžãŒåŠ ãˆã‚‰ã‚Œã¾ã™ã€‚
 
 .. code-block:: jinja
 
     {% form_theme form.user 'HelloBundle::form.html.twig' %}
 
-ÅI“I‚ÉAƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Ì‚·‚×‚Ä‚ÌƒtƒH[ƒ€‚Ì•\Œ»‚ðƒJƒXƒ^ƒ}ƒCƒY‚·‚é‚±‚Æ‚ÍAƒRƒ“ƒtƒBƒMƒ…ƒŒ[ƒVƒ‡ƒ“‚©‚ç‚à‰Â”\‚Å‚·B
+æœ€çµ‚çš„ã«ã€ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®ã™ã¹ã¦ã®ãƒ•ã‚©ãƒ¼ãƒ ã®è¡¨ç¾ã‚’ã‚«ã‚¹ã‚¿ãƒžã‚¤ã‚ºã™ã‚‹ã“ã¨ã¯ã€ã‚³ãƒ³ãƒ•ã‚£ã‚®ãƒ¥ãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³ã‹ã‚‰ã‚‚å¯èƒ½ã§ã™ã€‚
 
 .. configuration-block::
 
@@ -383,7 +383,7 @@ PHPƒeƒ“ƒvƒŒ[ƒg‚Å‚Í‚»‚ê‚Æ‚ÍˆÙ‚È‚èA‚»‚ê‚¼‚ê‚Ìƒwƒ‹ƒp[‚Í1‚Â‚ÌPHPƒeƒ“ƒvƒŒ[ƒg‚ÉŠÖ˜
 
 .. tip::
 
-    ƒtƒH[ƒ€ŠÖ”‚âƒ^ƒO‚ªƒeƒ“ƒvƒŒ[ƒg–¼‚ðˆø”‚Æ‚µ‚ÄŽæ‚éê‡‚Í‚¢‚Â‚Å‚àA ``_self`` ‚ð‘ã‚í‚è‚ÉŽg—p‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B‚Ü‚½A‚»‚Ìƒeƒ“ƒvƒŒ[ƒg‚Ì’†‚ÅƒJƒXƒ^ƒ}ƒCƒY‚ð’¼Ú’è‹`‚·‚é‚±‚Æ‚à‰Â”\‚Å‚·B
+    ãƒ•ã‚©ãƒ¼ãƒ é–¢æ•°ã‚„ã‚¿ã‚°ãŒãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆåã‚’å¼•æ•°ã¨ã—ã¦å–ã‚‹å ´åˆã¯ã„ã¤ã§ã‚‚ã€ ``_self`` ã‚’ä»£ã‚ã‚Šã«ä½¿ç”¨ã™ã‚‹ã“ã¨ãŒã§ãã¾ã™ã€‚ã¾ãŸã€ãã®ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã®ä¸­ã§ã‚«ã‚¹ã‚¿ãƒžã‚¤ã‚ºã‚’ç›´æŽ¥å®šç¾©ã™ã‚‹ã“ã¨ã‚‚å¯èƒ½ã§ã™ã€‚
 
     .. code-block:: jinja
 
@@ -395,10 +395,10 @@ PHPƒeƒ“ƒvƒŒ[ƒg‚Å‚Í‚»‚ê‚Æ‚ÍˆÙ‚È‚èA‚»‚ê‚¼‚ê‚Ìƒwƒ‹ƒp[‚Í1‚Â‚ÌPHPƒeƒ“ƒvƒŒ[ƒg‚ÉŠÖ˜
 
         {{ form_field(form.description, {}, {}, _self) }}
 
-ŽŽì
+è©¦ä½œ
 -----------
 
-ƒtƒH[ƒ€‚ÌŽŽì‚ðs‚¤Žž‚ÍA‘S‚Ä‚ÌƒtƒB[ƒ‹ƒh‚ðŽè“®‚ÅƒŒƒ“ƒ_ƒŠƒ“ƒO‚·‚é‘ã‚í‚è‚ÉA ``render`` ƒwƒ‹ƒp[‚ðƒtƒH[ƒ€ã‚ÅŽg—p‚Å‚«‚Ü‚·B
+ãƒ•ã‚©ãƒ¼ãƒ ã®è©¦ä½œã‚’è¡Œã†æ™‚ã¯ã€å…¨ã¦ã®ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’æ‰‹å‹•ã§ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã™ã‚‹ä»£ã‚ã‚Šã«ã€ ``render`` ãƒ˜ãƒ«ãƒ‘ãƒ¼ã‚’ãƒ•ã‚©ãƒ¼ãƒ ä¸Šã§ä½¿ç”¨ã§ãã¾ã™ã€‚
 
 .. configuration-block::
 
@@ -417,7 +417,7 @@ PHPƒeƒ“ƒvƒŒ[ƒg‚Å‚Í‚»‚ê‚Æ‚ÍˆÙ‚È‚èA‚»‚ê‚¼‚ê‚Ìƒwƒ‹ƒp[‚Í1‚Â‚ÌPHPƒeƒ“ƒvƒŒ[ƒg‚ÉŠÖ˜
             <input type="submit" />
         </form>
 
-``Form`` ƒNƒ‰ƒX‚É‘Î‚µ‚ÄƒuƒƒbƒN‚âƒeƒ“ƒvƒŒ[ƒg‚ª’è‹`‚³‚ê‚Ä‚¢‚È‚¢‚±‚Æ‚©‚çAŒp³Œ³ƒNƒ‰ƒX‚Ìˆê‚Â‚Å‚ ‚é ``FieldGroup`` ‚ª‘ã‚í‚è‚ÉŽg—p‚³‚ê‚Ü‚·B
+``Form`` ã‚¯ãƒ©ã‚¹ã«å¯¾ã—ã¦ãƒ–ãƒ­ãƒƒã‚¯ã‚„ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãŒå®šç¾©ã•ã‚Œã¦ã„ãªã„ã“ã¨ã‹ã‚‰ã€ç¶™æ‰¿å…ƒã‚¯ãƒ©ã‚¹ã®ä¸€ã¤ã§ã‚ã‚‹ ``FieldGroup`` ãŒä»£ã‚ã‚Šã«ä½¿ç”¨ã•ã‚Œã¾ã™ã€‚
 
 .. configuration-block::
 
@@ -461,4 +461,4 @@ PHPƒeƒ“ƒvƒŒ[ƒg‚Å‚Í‚»‚ê‚Æ‚ÍˆÙ‚È‚èA‚»‚ê‚¼‚ê‚Ìƒwƒ‹ƒp[‚Í1‚Â‚ÌPHPƒeƒ“ƒvƒŒ[ƒg‚ÉŠÖ˜
 
     The ``render`` method is not very flexible and should only be used to
     build prototypes.
-    ``render`` ƒƒ\ƒbƒh‚Í‚»‚ê‚Ù‚Ç_“î«‚ª‚ ‚é‚í‚¯‚Å‚Í‚È‚¢‚Ì‚ÅAŽ{ô‚ÌÛ‚É‚Ì‚ÝŽg—p‚·‚é‚Ì‚ª‚æ‚¢‚Å‚µ‚å‚¤B
+    ``render`` ãƒ¡ã‚½ãƒƒãƒ‰ã¯ãã‚Œã»ã©æŸ”è»Ÿæ€§ãŒã‚ã‚‹ã‚ã‘ã§ã¯ãªã„ã®ã§ã€æ–½ç­–ã®éš›ã«ã®ã¿ä½¿ç”¨ã™ã‚‹ã®ãŒã‚ˆã„ã§ã—ã‚‡ã†ã€‚

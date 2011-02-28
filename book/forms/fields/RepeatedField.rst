@@ -1,10 +1,10 @@
 RepeatedField
 =============
 
-``RepeatedField`` �́A�t�B�[���h��2��o�͂ł���悤�g�����ꂽ�t�B�[���h�O���[�v�ł��B�J��Ԃ��t�B�[���h�ł́A���[�U�[�������̃t�B�[���h�ɓ����l����ꂽ�������o���f�[�V���������{����܂��B
+``RepeatedField`` は、フィールドを2回出力できるよう拡張されたフィールドグループです。繰り返しフィールドでは、ユーザーが両方のフィールドに同じ値を入れた時だけバリデーションが実施されます。
 
     use Symfony\Component\Form\RepeatedField;
 
     $form->add(new RepeatedField(new TextField('email')));
 
-����́AE���[���A�h���X��p�X���[�h��₢���킹�鎞�ɂƂĂ��֗��ł��I
+これは、Eメールアドレスやパスワードを問い合わせる時にとても便利です！
