@@ -12,7 +12,7 @@ Valid
             - Valid: ~
 
 例: オブジェクトグラフをバリデーション
--------------------------------
+--------------------------------------
 
 .. This constraint helps to validate whole object graphs. In the following example,
    we create two classes ``Author`` and ``Address`` that both have constraints on
@@ -114,7 +114,7 @@ Valid
              * @validation:NotBlank
              */
             protected $lastName;
-            
+
             protected $address;
         }
 
@@ -124,13 +124,13 @@ Valid
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\NotBlank;
         use Symfony\Component\Validator\Constraints\MaxLength;
-        
+
         class Address
         {
             protected $street;
 
             protected $zipCode;
-            
+
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
                 $metadata->addPropertyConstraint('street', new NotBlank());
@@ -143,15 +143,15 @@ Valid
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\NotBlank;
         use Symfony\Component\Validator\Constraints\MinLength;
-        
+
         class Author
         {
             protected $firstName;
 
             protected $lastName;
-            
+
             protected $address;
-            
+
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
                 $metadata->addPropertyConstraint('firstName', new NotBlank());
@@ -191,7 +191,7 @@ Valid
         class Author
         {
             /* ... */
-            
+
             /**
              * @validation:Valid
              */
@@ -203,11 +203,11 @@ Valid
         // Sensio/HelloBundle/Author.php
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\Valid;
-        
+
         class Author
         {
             protected $address;
-            
+
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
                 $metadata->addPropertyConstraint('address', new Valid());

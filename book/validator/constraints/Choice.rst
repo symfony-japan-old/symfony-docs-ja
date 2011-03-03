@@ -12,7 +12,7 @@ Choice
             - Choice: [male, female]
 
 オプション
--------
+----------
 
 .. * ``choices`` (**default**, required): The available choices
    * ``callback``: Can be used instead of ``choices``. A static callback method
@@ -36,7 +36,7 @@ Choice
 
 
 例 1: 静的配列としての選択肢
-----------------------------------
+----------------------------
 
 .. If the choices are few and easy to determine, they can be passed to the
    constraint definition as array.
@@ -81,11 +81,11 @@ Choice
         // Sensio/HelloBundle/Author.php
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\Choice;
-        
+
         class Author
         {
             protected $gender;
-            
+
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
                 $metadata->addPropertyConstraint('gender', new Choice(array('male', 'female')));
@@ -93,7 +93,7 @@ Choice
         }
 
 例 2: コールバックからの選択肢
-----------------------------------
+------------------------------
 
 .. When you also need the choices in other contexts (such as a drop-down box in
    a form), it is more flexible to bind them to your domain model using a static

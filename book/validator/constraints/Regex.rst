@@ -12,7 +12,7 @@ Regex
             - Regex: /\w+/
 
 オプション
--------
+----------
 
 .. * ``pattern`` (**default**, required): The regular expression pattern
    * ``match``: Whether the pattern must be matched or must not be matched.

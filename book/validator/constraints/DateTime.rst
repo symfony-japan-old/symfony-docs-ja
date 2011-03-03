@@ -12,7 +12,7 @@ DateTime
             - DateTime: ~
 
 オプション
--------
+----------
 
 .. * ``message``: The error message if the validation fails
 

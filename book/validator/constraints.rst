@@ -3,7 +3,7 @@
 
 .. The Validator is designed to validate objects against *constraints*.
    In real life, a constraint could be: "The cake must not be burned". In
-   Symfony2, constraints are similar: They are assertions that a condition is 
+   Symfony2, constraints are similar: They are assertions that a condition is
    true.
 
 Validator は *制約* に対してオブジェクトが有効であるか確認する (バリデートする) ためにデザインされたものです。実生活では、制約とは「ケーキは焦がしてはならない」といったことです。 Symfony2 における制約は、条件が正であるアサーションに似ています。
@@ -111,7 +111,7 @@ Validator は *制約* に対してオブジェクトが有効であるか確認
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\NotBlank;
         use Symfony\Component\Validator\Constraints\MinLength;
-        
+
         class Author
         {
             private $firstName;
@@ -188,7 +188,7 @@ Validator は *制約* に対してオブジェクトが有効であるか確認
         // Sensio/HelloBundle/Author.php
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\AssertTrue;
-        
+
         class Author
         {
 
@@ -198,7 +198,7 @@ Validator は *制約* に対してオブジェクトが有効であるか確認
                     'message' => 'The token is invalid',
                 )));
             }
-            
+
             public function isTokenValid()
             {
                 // return true or false
@@ -207,7 +207,7 @@ Validator は *制約* に対してオブジェクトが有効であるか確認
 
 .. note::
 
-..  The keen-eyed among you will have noticed that the prefix of the getter 
+..  The keen-eyed among you will have noticed that the prefix of the getter
     ("get" or "is") is omitted in the mapping. This allows you to move the
     constraint to a property with the same name later (or vice versa) without
     changing your validation logic.
@@ -288,6 +288,8 @@ Validator は *制約* に対してオブジェクトが有効であるか確認
   validator::
 
 正しいバリデータを参照するため、エイリアスを使うことができます。
+
+.. code-block:: php
 
     public function validatedBy()
     {

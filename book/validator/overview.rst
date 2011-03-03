@@ -1,5 +1,5 @@
 バリデーション
-=============
+==============
 
 .. Validation is a very common task in web applications. Data entered in forms
    needs to be validated. Data also needs to be validated before it is written
@@ -19,6 +19,8 @@ Symfony2 は、バリデーションのタスクを簡単にするための Vali
    ``Author`` must not be empty::
 
 バリデータは :doc:`制約 <constraints>` に対してオブジェクトのバリデーションを行います。 ``Author`` クラスのプロパティである ``$name`` が空ではないことを要求する簡単な制約から始めましょう。
+
+.. code-block:: php
 
     // Sensio/HelloBundle/Author.php
     class Author
@@ -70,7 +72,7 @@ Symfony2 は、バリデーションのタスクを簡単にするための Vali
         class Author
         {
             private $name;
-            
+
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
                 $metadata->addPropertyConstraint('name', new NotBlank());

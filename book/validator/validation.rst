@@ -1,5 +1,5 @@
 制約のバリデーション
-=====================
+====================
 
 .. Objects with constraints are validated by the
    :class:`Symfony\\Component\\Validator\\Validator` class. If you use Symfony2,

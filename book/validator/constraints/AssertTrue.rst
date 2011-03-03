@@ -12,14 +12,14 @@ AssertTrue
             - AssertTrue: ~
 
 オプション
--------
+----------
 
 .. * ``message``: The error message if validation fails
 
 * ``message``: バリデーションが失敗した時のエラーメッセージ。
 
 例
--------
+--
 
 .. This constraint is very useful to execute custom validation logic. You can
    put the logic in a method which returns either ``true`` or ``false``.
@@ -85,11 +85,11 @@ AssertTrue
         // Sensio/HelloBundle/Author.php
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\AssertTrue;
-        
+
         class Author
         {
             protected $token;
-            
+
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
                 $metadata->addGetterConstraint('tokenValid', new AssertTrue(array(
