@@ -3,6 +3,8 @@ CollectionField
 
 ``CollectionField`` は、配列や ``Traversable`` インタフェースを実装したオブジェクトを操作するための特別なフィールドグループです。このデモを実施するために、3つのEメールアドレスを保存できるよう ``Customer`` クラスを拡張しました。
 
+.. code-block:: php
+
     class Customer
     {
         // other properties ...
@@ -11,6 +13,8 @@ CollectionField
     }
 
 ここでアドレスを操作できるように ``CollectionField`` を加えます。
+
+.. code-block:: php
 
     use Symfony\Component\Form\CollectionField;
 
