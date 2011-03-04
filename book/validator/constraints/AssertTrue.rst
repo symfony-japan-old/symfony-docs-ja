@@ -12,7 +12,7 @@ AssertTrue
             - AssertTrue: ~
 
 オプション
--------
+----------
 
 .. * ``message``: The error message if validation fails
 

@@ -1,5 +1,5 @@
 制約
-===========
+====
 
 .. The Validator is designed to validate objects against *constraints*.
    In real life, a constraint could be: "The cake must not be burned". In
@@ -9,7 +9,7 @@
 Validator は *制約* に対してオブジェクトが有効であるか確認する (バリデートする) ためにデザインされたものです。実生活では、制約とは「ケーキは焦がしてはならない」といったことです。 Symfony2 における制約は、条件が正であるアサーションに似ています。
 
 サポートされる制約
----------------------
+------------------
 
 .. The following constraints are natively available in Symfony2:
 
@@ -41,7 +41,7 @@ Validator は *制約* に対してオブジェクトが有効であるか確認
 * :doc:`Valid <constraints/Valid>`
 
 制約のターゲット
-------------------
+----------------
 
 .. Constraints can be put on properties of a class, on public getters and on the
    class itself. The benefit of class constraints is that they can validate
@@ -50,7 +50,7 @@ Validator は *制約* に対してオブジェクトが有効であるか確認
 制約は、クラスのプロパティーやパブリックなゲッター、あるいはクラス自体に適用されるものです。クラスの制約の利点は、全てのプロパティやメソッドと一緒に、オブジェクトの状態の全体をいっぺんでバリデーションできることです。
 
 プロパティー
-~~~~~~~~~~
+~~~~~~~~~~~~
 
 .. Validating class properties is the most basic validation technique. Symfony2
    allows you to validate private, protected or public properties. The next
@@ -128,7 +128,7 @@ Validator は *制約* に対してオブジェクトが有効であるか確認
         }
 
 ゲッター
-~~~~~~~
+~~~~~~~~
 
 .. The next validation technique is to constrain the return value of a method.
    Symfony2 allows you to constrain any public method whose name starts with
@@ -215,7 +215,7 @@ Validator は *制約* に対してオブジェクトが有効であるか確認
     鋭い目をお持ちのあなたは、ゲッターの先頭 ("get" あるいは "is") が、マッピングの際には除かれていることにお気付きでしょう。これは、後の (あるいは逆の) 同じ名前を持つプロパティに、バリデーションのロジックを変えることなく制約を移動できるようにするためです。
 
 カスタム制約
-------------------
+------------
 
 .. You can create a custom constraint by extending the base constraint class,
    :class:`Symfony\\Component\\Validator\\Constraint`. Options for your
@@ -251,7 +251,7 @@ Validator は *制約* に対してオブジェクトが有効であるか確認
     }
 
 依存性付きの制約バリデータ
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. If your constraint validator has dependencies, such as a database connection,
    it will need to be configured as a service in the dependency injection

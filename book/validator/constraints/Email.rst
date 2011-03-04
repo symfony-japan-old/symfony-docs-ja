@@ -12,7 +12,7 @@ Email
             - Email: ~
 
 オプション
--------
+----------
 
 .. * ``checkMX``: Whether MX records should be checked for the domain. Default: ``false``
    * ``message``: The error message if the validation fails

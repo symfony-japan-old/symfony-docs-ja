@@ -13,7 +13,7 @@ NotBlank
             - NotBlank: ~
 
 オプション
--------
+----------
 
 .. * ``message``: The error message if validation fails
 

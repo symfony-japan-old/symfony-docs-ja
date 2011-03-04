@@ -1,5 +1,5 @@
 バリデーション
-=============
+==============
 
 .. Validation is a very common task in web applications. Data entered in forms
    needs to be validated. Data also needs to be validated before it is written
@@ -12,7 +12,7 @@
    Java specification in PHP? You heard right, but it's not as bad as it sounds.
    Let's look at how we use it in PHP.
 
-Symfony2 は、バリデーションのタスクを簡単にするための Validator コンポーネントを備えています。このコンポーネントは `JSR303 Bean Validation specification`_ が元になっています。`JSR303 Bean Validation specification`_ って何？ PHP で書いた Java の仕様？ それも間違いではありません。しかし、聞くほど悪いものではありません。これから、それを PHP でどのように使うのかを見ていきましょう。
+Symfony2 は、バリデーションのタスクを簡単にするための Validator コンポーネントを備えています。このコンポーネントは `JSR303 Bean Validation specification`_ が元になっています。 `JSR303 Bean Validation specification`_ って何？ PHP で書いた Java の仕様？ それも間違いではありません。しかし、聞くほど悪いものではありません。これから、それを PHP でどのように使うのかを見ていきましょう。
 
 .. The validator validates objects against :doc:`constraints <constraints>`.
    Let's start with the simple constraint that the ``$name`` property of a class

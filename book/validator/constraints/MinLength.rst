@@ -12,7 +12,7 @@ MinLength
             - MinLength: 3
 
 オプション
--------
+----------
 
 .. * ``limit`` (**default**, required): The limit
    * ``message``: The error message if validation fails

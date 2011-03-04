@@ -12,7 +12,7 @@ Valid
             - Valid: ~
 
 例: オブジェクトグラフをバリデーション
--------------------------------
+--------------------------------------
 
 .. This constraint helps to validate whole object graphs. In the following example,
    we create two classes ``Author`` and ``Address`` that both have constraints on

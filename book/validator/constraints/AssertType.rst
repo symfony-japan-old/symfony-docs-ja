@@ -12,7 +12,7 @@ AssertType
             - AssertType: integer
 
 オプション
--------
+----------
 
 .. * ``type`` (**default**, required): A fully qualified class name or one of the
     PHP datatypes as determined by PHP's ``is_`` functions.

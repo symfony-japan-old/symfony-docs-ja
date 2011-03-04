@@ -15,7 +15,7 @@ Collection
                 - MinLength: 10
 
 オプション
--------
+----------
 
 .. * ``fields`` (required): An associative array of array keys and one or more
      constraints

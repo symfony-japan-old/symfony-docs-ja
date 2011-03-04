@@ -12,7 +12,7 @@ Max
             - Max: 99
 
 オプション
--------
+----------
 
 .. * ``limit`` (**default**, required): The limit
    * ``message``: The error message if validation fails

@@ -12,7 +12,7 @@ Choice
             - Choice: [male, female]
 
 オプション
--------
+----------
 
 .. * ``choices`` (**default**, required): The available choices
    * ``callback``: Can be used instead of ``choices``. A static callback method

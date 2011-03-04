@@ -12,7 +12,7 @@ Url
             - Url: ~
 
 オプション
--------
+----------
 
 .. * ``protocols``: A list of allowed protocols. Default: "http", "https", "ftp"
       and "ftps".

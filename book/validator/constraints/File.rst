@@ -12,7 +12,7 @@ File
             - File: ~
 
 オプション
--------
+----------
 
 .. * ``maxSize``: The maximum allowed file size. Can be provided in bytes, kilobytes
      (with the suffix "k") or megabytes (with the suffix "M")
@@ -30,7 +30,7 @@ File
 * ``mimeTypesMessage``: ``mimeTypes`` バリデーションが失敗した場合のエラーメッセージ
 
 例: ファイルサイズと MIME タイプのバリデーションを行う
------------------------------------------------
+------------------------------------------------------
 
 .. In this example we use the ``File`` constraint to verify that the file does
    not exceed a maximum size of 128 kilobytes and is a PDF document.
