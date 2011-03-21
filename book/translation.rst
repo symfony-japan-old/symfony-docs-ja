@@ -448,7 +448,7 @@ Symfony は以下のローダーを提供しています。
     の実装であるカスタムクラスによって定義されるその他のストレージに保存することも
     できます。どのようにカスタムローダーを登録するかは
     :doc:`Custom Translation Loaders </cookbook/translation/custom_loader>`
-    を参照してください(訳注 : 2011/03/13現在、この項は存在していない模様)。
+    を参照してください (訳注 : 2011/03/13現在、この項は存在していない模様)。
 
 ..    You can also store translations in a database, or any other storage by
       providing a custom class implementing the
@@ -705,7 +705,7 @@ Symfony2 はここでユーザーのロケールの ``admin`` ドメイン内の
 
 セッション内でロケールが明確に指定されていない場合、 ``fallback_locale`` 設定パラメータが
 ``Translator`` で使用されます。このパラメータのデフォルトは ``en`` です
-(詳しくは `Configuration`_ を参照してください) 。
+(詳しくは `設定`_ を参照してください) 。
 
 .. Alternatively, you can guarantee that a locale is set on the user's session
    by defining a ``default_locale`` for the session service:
