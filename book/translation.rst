@@ -49,21 +49,18 @@
 いくつかの一般的な手順があります。
 
 .. 1. Enable and configure Symfony's ``Translation`` component;
+.. 1. Abstract strings (i.e. "messages") by wrapping them in calls to the ``Translator``;
+.. 1. Create translation resources for each supported locale that translate
+   each message in the application;
+.. 1. Determine, set and manage the user's locale in the session.
 
 1. Symfony の ``Translation`` コンポーネントを有効化し、設定します。
-
-.. 1. Abstract strings (i.e. "messages") by wrapping them in calls to the ``Translator``;
 
 1. ``Translator`` の呼び出しの中で文字列 (例えば「メッセージ」)をラッピングして
    抽出します。
 
-.. 1. Create translation resources for each supported locale that translate
-   each message in the application;
-
 1. アプリケーション内で各メッセージを翻訳する、サポートされるロケールごとの翻訳
    リソースを作ります。
-
-.. 1. Determine, set and manage the user's locale in the session.
 
 1. セッション内でユーザーのロケールを判断し、設定し、管理します。
 
