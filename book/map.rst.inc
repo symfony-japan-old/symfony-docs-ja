@@ -1,3 +1,5 @@
+* :doc:`テスト </book/testing>`
+
 * **バリデーション**:
 
   * :doc:`概要 </book/validator/overview>` |
@@ -9,6 +11,8 @@
   * :doc:`概要 </book/forms/overview>` |
   * :doc:`テンプレート </book/forms/view>` |
   * :doc:`フォームフィールド </book/forms/fields>`
+
+* :doc:`/book/translation`
 
 .. _Twig Templating: http://www.twig-project.org/documentation
 
