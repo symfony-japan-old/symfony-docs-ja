@@ -298,7 +298,7 @@ PHP テンプレートではそれとは異なり、それぞれのヘルパー�
 
     .. code-block:: html+php
 
-        <?php echo $view['form']->render($form['title'], array(), array(), 
+        <?php echo $view['form']->render($form['title'], array(), array(),
             'HelloBundle:Form:text_field.php'
         ) ?>
 
@@ -379,11 +379,11 @@ PHP テンプレートではそれとは異なり、それぞれのヘルパー�
             'resources' => array('BlogBundle::form.html.twig', 'TwigBundle::form.html.twig),
         )));
 
-.. tip::
+.. sidebar:: _self
 
-    フォーム関数やタグがテンプレート名を引数として取る場合はいつでも、 ``_self`` を代わりに使用することができます。また、そのテンプレートの中でカスタマイズを直接定義することも可能です。
+    フォーム関数やタグがテンプレート名を引数として取る場合はいつでも、\ ``_self`` を代わりに使用することができます。また、そのテンプレートの中でカスタマイズを直接定義することも可能です。
 
-    .. code-block:: jinja
+    .. code-block:: html+jinja
 
         {% form_theme form _self %}
 
