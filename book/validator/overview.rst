@@ -1,6 +1,11 @@
 バリデーション
 ==============
 
+.. 翻訳を更新するまで以下を表示
+.. tip::
+
+    このドキュメントの内容は古い内容です。最新の内容は公式の英語ドキュメントをご確認ください。
+
 .. Validation is a very common task in web applications. Data entered in forms
    needs to be validated. Data also needs to be validated before it is written
    into a database or passed to a web service.

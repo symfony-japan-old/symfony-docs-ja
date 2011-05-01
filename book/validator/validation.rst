@@ -1,6 +1,11 @@
 制約のバリデーション
 ====================
 
+.. 翻訳を更新するまで以下を表示
+.. tip::
+
+    このドキュメントの内容は古い内容です。最新の内容は公式の英語ドキュメントをご確認ください。
+
 .. Objects with constraints are validated by the
    :class:`Symfony\\Component\\Validator\\Validator` class. If you use Symfony2,
    this class is already registered as a service in the Dependency Injection

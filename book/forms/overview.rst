@@ -4,6 +4,11 @@
 フォームを扱う
 ==============
 
+.. 翻訳を更新するまで以下を表示
+.. tip::
+
+    このドキュメントの内容は古い内容です。最新の内容は公式の英語ドキュメントをご確認ください。
+
 Symfony2 はビルトインされたフォームコンポーネントを備えています。これにより、HTML フォームを表示したり、レンダリングしたり、送信したりすることができます。
 
 Symfony2 の :class:`Symfony\\Component\\HttpFoundation\\Request` クラス単独で送信したフォームを処理することが可能なだけでなく、フォームコンポーネントは以下のようなフォームに関連した数々の一般的処理の面倒も見ることができます。
@@ -47,7 +52,7 @@ Symfony2 の :class:`Symfony\\Component\\HttpFoundation\\Request` クラス単�
     use Symfony\Component\Form\TextField;
     use Symfony\Component\Form\TextareaField;
     use Symfony\Component\Form\CheckboxField;
-    
+
     class ContactForm extends Form
     {
         protected function configure()
@@ -77,11 +82,11 @@ Symfony2 の :class:`Symfony\\Component\\HttpFoundation\\Request` クラス単�
     {
         $contactRequest = new ContactRequest($this->get('mailer'));
         $form = ContactForm::create($this->get('form.context'), 'contact');
-        
+
         // POST リクエストが送信されたら、送信データを $contactRequest に入れ、
         // オブジェクトのバリデーションを行う
         $form->bind($this->get('request'), $contactRequest);
-        
+
         // フォームが送信され、内容が有効な場合は...
         if ($form->isValid()) {
             $contactRequest->send();
@@ -92,7 +97,7 @@ Symfony2 の :class:`Symfony\\Component\\HttpFoundation\\Request` クラス単�
             'form' => $form
         ));
     }
-   
+
 この例には2つのコードパスがあります。
 
 1. フォームが送信されないか有効でなかった場合、単純にテンプレートに移動します。
@@ -103,12 +108,12 @@ Symfony2 の :class:`Symfony\\Component\\HttpFoundation\\Request` クラス単�
 .. note:
 
     もし Symfony2 自体あるいは Symfony2 のサービスコンテナを使用しない場合でも心配ありません。 ``FormContext`` と ``Request`` は簡単に手動で作成できます。
-    
+
     .. code-block:: php
-    
+
         use Symfony\Component\Form\FormContext;
         use Symfony\Component\HttpFoundation\Request;
-        
+
         $context = FormContext::buildDefault();
         $request = Request::createFromGlobals();
 
@@ -125,33 +130,33 @@ Symfony2 の :class:`Symfony\\Component\\HttpFoundation\\Request` クラス単�
     class ContactRequest
     {
         protected $subject = 'Subject...';
-        
+
         protected $message;
-        
+
         protected $sender;
-        
+
         protected $ccmyself = false;
-        
+
         protected $mailer;
-        
+
         public function __construct(\Swift_Mailer $mailer)
         {
             $this->mailer = $mailer;
         }
-        
+
         public function setSubject($subject)
         {
             $this->subject = $subject;
         }
-        
+
         public function getSubject()
         {
             return $this->subject;
         }
-        
+
         // 他のプロパティ用のセッタとゲッタ
         // ...
-        
+
         public function send()
         {
             // メールを送信
@@ -160,11 +165,11 @@ Symfony2 の :class:`Symfony\\Component\\HttpFoundation\\Request` クラス単�
                 ->setFrom($this->sender)
                 ->setTo('me@example.com')
                 ->setBody($this->message);
-                
+
             $this->mailer->send($message);
         }
     }
-    
+
 .. note::
 
     メール送信についての詳細は :doc:`Emails </cookbook/email>` を参照してください。
@@ -173,7 +178,7 @@ Symfony2 の :class:`Symfony\\Component\\HttpFoundation\\Request` クラス単�
 
 1. フィールド名を含むパブリックなプロパティ、または
 2. "set" または "get" から始まり、先頭が大文字のフィールド名が続く、パブリックなセッターおよびゲッター
-   
+
 送信データのバリデーション
 --------------------------
 
@@ -191,23 +196,23 @@ Symfony2 の :class:`Symfony\\Component\\HttpFoundation\\Request` クラス単�
          * @validation:NotBlank
          */
         protected $subject = 'Subject...';
-        
+
         /**
          * @validation:NotBlank
          */
         protected $message;
-        
+
         /**
          * @validation:Email
          * @validation:NotBlank
          */
         protected $sender;
-        
+
         /**
          * @validation:AssertType("boolean")
          */
         protected $ccmyself = false;
-        
+
         // コードが続く...
     }
 
@@ -247,13 +252,13 @@ Doctrine2 または Symfony の ``Validator`` を使用しているのであれ�
         protected function configure()
         {
             $this->setDataClass('Sensio\\HelloBundle\\Contact\\ContactRequest');
-            $this->add('subject'); 
+            $this->add('subject');
             $this->add(new TextareaField('message'));
             $this->add('sender', array('max_length' => 50));
             $this->add('ccmyself');
         }
     }
-    
+
 フォームフィールドの自動生成は、開発速度を上げ、コードの重複を減らすのに役立ちます。クラスプロパティに関する情報を一度保存してしまえば、あとは Symfony2 に他の仕事を任せることができます。
 
 HTML としてフォームをレンダリングする
@@ -269,11 +274,11 @@ HTML としてフォームをレンダリングする
     {% block content %}
     <form action="#" method="post">
         {{ form_field(form) }}
-        
+
         <input type="submit" value="Send!" />
     </form>
     {% endblock %}
-    
+
 HTML 出力をカスタマイズする
 ---------------------------
 
@@ -287,7 +292,7 @@ HTML 出力をカスタマイズする
     {% block content %}
     <form action="#" method="post" {{ form_enctype(form) }}>
         {{ form_errors(form) }}
-        
+
         {% for field in form %}
             {% if not field.ishidden %}
             <div>
@@ -302,7 +307,7 @@ HTML 出力をカスタマイズする
         <input type="submit" />
     </form>
     {% endblock %}
-    
+
 Symfony2 には以下のヘルパーが用意されています。
 
 *``form_enctype``*

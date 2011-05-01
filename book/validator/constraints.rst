@@ -1,6 +1,11 @@
 制約
 ====
 
+.. 翻訳を更新するまで以下を表示
+.. tip::
+
+    このドキュメントの内容は古い内容です。最新の内容は公式の英語ドキュメントをご確認ください。
+
 .. The Validator is designed to validate objects against *constraints*.
    In real life, a constraint could be: "The cake must not be burned". In
    Symfony2, constraints are similar: They are assertions that a condition is
