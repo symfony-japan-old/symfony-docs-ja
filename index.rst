@@ -35,8 +35,4 @@ Symfony2 に貢献する方法についての説明です
 
 .. include:: contributing/map.rst.inc
 
-その他のドキュメント
---------------------
-
-:doc:`プロジェクトをアップデートする方法 <UPDATE>`
 
