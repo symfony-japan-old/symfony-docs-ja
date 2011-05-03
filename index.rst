@@ -1,10 +1,25 @@
 Symfony2 ドキュメント日本語版
 =============================
 
-ガイド
-------
+クイックツアー
+--------------
 
-Symfony2 の各機能ごとのガイドドキュメントです
+短時間で Symfony2 の基礎を学習 :doc:`Quick Tour <quick_tour/index>`
+
+.. toctree::
+    :hidden:
+
+    quick_tour/index
+
+* :doc:`quick_tour/the_big_picture` >
+* :doc:`quick_tour/the_view` >
+* :doc:`quick_tour/the_controller` >
+* :doc:`quick_tour/the_architecture`
+
+ガイドブック
+------------
+
+Symfony2 の各機能ごとのガイドドキュメント
 
 .. toctree::
     :hidden:
@@ -23,10 +38,22 @@ Symfony2 の各機能ごとのガイドドキュメントです
 
 :doc:`クックブック </cookbook/index>`
 
+リファレンス
+------------
+
+回答を素早く見つけるリファレンスドキュメント
+
+.. toctree::
+    :hidden:
+
+    reference/index
+
+.. include:: reference/map.rst.inc
+
 貢献
 ----
 
-Symfony2 に貢献する方法についての説明です
+Symfony2 に貢献する方法についての説明
 
 .. toctree::
     :hidden:
@@ -34,5 +61,3 @@ Symfony2 に貢献する方法についての説明です
     contributing/index
 
 .. include:: contributing/map.rst.inc
-
-
