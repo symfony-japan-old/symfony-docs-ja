@@ -11,4 +11,3 @@ Contributing Code
     standards
     conventions
     license
-
