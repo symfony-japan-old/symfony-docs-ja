@@ -1,4 +1,4 @@
-* **バンドルの設定*:
+* **バンドルの設定**:
 
   * :doc:`FrameworkBundle (framework) </reference/bundle_configuration/FrameworkBundle>`
   * :doc:`DoctrineBundle (doctrine) </reference/bundle_configuration/DoctrineBundle>`

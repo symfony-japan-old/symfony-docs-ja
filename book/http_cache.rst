@@ -1,4 +1,5 @@
-���Υڡ����������Ϥޤ��Ԥ��Ƥ��ޤ���
+このページの翻訳はまだ行われていません。
 ========================================
-�����ˤ����Ϥ�����������
-`github/symfony-japan <https://github.com/symfony-japan/symfony-docs-ja/wiki>`_�ޤǡ�
+
+翻訳にご協力くださる方は
+`github/symfony-japan <https://github.com/symfony-japan/symfony-docs-ja/wiki>`_ まで！
