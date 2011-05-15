@@ -15,3 +15,7 @@
   * :doc:`翻訳 </contributing/documentation/translations>` |
   * :doc:`ライセンス </contributing/documentation/license>`
 
+* **コミュニティ**:
+
+  * :doc:`IRCミーティング </contributing/community/irc>` |
+  * :doc:`その他のリソース </contributing/community/other>`
