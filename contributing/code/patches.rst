@@ -1,10 +1,7 @@
+.. 2011/05/18 doublemarket 1697e640
+
 パッチの投稿
 ============
-
-.. 翻訳を更新するまで以下を表示
-.. caution::
-
-    このドキュメントの内容は古い内容です。最新の内容は公式の英語ドキュメントをご確認ください。
 
 Symfony2 へ機能改善などを提案する最も効果的な方法は、パッチを投稿することです。
 
@@ -17,7 +14,7 @@ Symfony2 に関する作業を始める前に、次のソフトウェアをセ�
 
 * PHP バージョン 5.3.2 以降
 
-* PHPUnit 3.5.0 以降
+* PHPUnit 3.5.11 以降
 
 名前とメールアドレスを次のように設定します。
 
@@ -28,7 +25,7 @@ Symfony2 に関する作業を始める前に、次のソフトウェアをセ�
 
 .. tip::
 
-    Git に慣れていない場合は、\ `ProGit`_\ を一読されることをおすすめします。
+    Git に慣れていない場合は、素晴らしい、しかも無料の \ `ProGit`_\ を一読されることをおすすめします。
 
 次の手順で Symfony2 のソースコードを取得します。
 
@@ -47,7 +44,7 @@ Symfony2 に関する作業を始める前に、次のソフトウェアをセ�
 .. code-block:: bash
 
       $ cd symfony
-      $ git remote add upstream git://github.com/fabpot/symfony.git
+      $ git remote add upstream git://github.com/symfony/symfony.git
 
 これで Symfony2 リポジトリを取得できたので、\ :doc:`テストのドキュメント <tests>`\ で説明している手順にしたがって、ご自分の環境ですべてのユニットテストがパスするかどうか確認してください。
 
@@ -96,7 +93,7 @@ Symfony2 に関する作業を始める前に、次のソフトウェアをセ�
     $ git rebase master
 
 `rebase` コマンドを実行した後、マージの競合を解決しなければならない場合があります。\ `git
-st` コマンドを実行すると、\ *マージされなかった*\ ファイルを確認できます。すべての競合を解決し終わったら、rebase を続行します。
+status` コマンドを実行すると、\ *マージされなかった*\ ファイルを確認できます。すべての競合を解決し終わったら、 rebase を続行します。
 
 .. code-block:: bash
 
@@ -109,10 +106,16 @@ st` コマンドを実行すると、\ *マージされなかった*\ ファイ�
 
     $ git push origin BRANCH_NAME
 
-パッチについて `dev メーリングリスト`_\ に投稿するか、プルリクエストを送信してください（プルリクエストは、\ ``fabpot/symfony``\ リポジトリへ送信してください）。
+パッチについて `dev メーリングリスト`_\ に投稿するか、プルリクエストを送信してください（プルリクエストは、\ ``symfony/symfony``\ リポジトリへ送信してください）。
+コアチームの作業が簡単になるように、以下のようにプルリクエストのメッセージに変更したコンポーネントを常に含むようにしてください。
 
-メーリングリストへメールを送信する場合は、参照できるブランチの URL を記載してください（\ ``http://github.com/USERNAME/symfony.git
-BRANCH_NAME``\ ）。
+.. code-block:: text
+
+    [Yaml] foo bar
+    [Form] [Validator] [FrameworkBundle] foo bar
+
+メーリングリストへメールを送信する場合は、参照できるブランチの URL (\ ``http://github.com/USERNAME/symfony.git
+BRANCH_NAME``\ ) またはプルリクエストの URL を記載してください。
 
 メーリングリストや GitHub のプルリクエストへのフィードバックにしたがって、パッチを修正してください。パッチを再投稿する前に、master に対してマージではなく、必ず rebase
 してください。その後、次のようにして origin に対して強制的に push します。
@@ -122,7 +125,12 @@ BRANCH_NAME``\ ）。
     $ git rebase -f upstream/master
     $ git push -f origin BRANCH_NAME
 
+.. note::
+
+    投稿したすべてのパッチは、コードの中に明白に示されていない限り、
+    MIT ライセンスの元でリリースされます。
+
 .. _ProGit:              http://progit.org/
 .. _GitHub:              https://github.com/signup/free
-.. _Symfony2 リポジトリ: http://www.github.com/fabpot/symfony
+.. _Symfony2 repository: https://github.com/symfony/symfony
 .. _dev メーリングリスト:    http://groups.google.com/group/symfony-devs
