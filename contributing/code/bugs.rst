@@ -1,10 +1,7 @@
+.. 2011/05/18 doublemarket 8ec93896
+
 バグの報告
 ==========
-
-.. 翻訳を更新するまで以下を表示
-.. caution::
-
-    このドキュメントの内容は古い内容です。最新の内容は公式の英語ドキュメントをご確認ください。
 
 Symfony2 のバグを見つけた場合は、是非報告してください。
 報告して頂くことで、Symfony2 がよりよいものになります。
@@ -29,8 +26,8 @@ Symfony2 のバグを見つけた場合は、是非報告してください。
 
  * *(任意)*\ :doc:`パッチ <patches>`\ を添付してください。
 
-.. _公式ドキュメント: http://docs.symfony-reloaded.org/
+.. _公式ドキュメント: http://symfony.com/doc/2.0/
 .. _ユーザーメーリングリスト: http://groups.google.com/group/symfony-users
 .. _フォーラム: http://forum.symfony-project.org/
 .. _IRC チャンネル: irc://irc.freenode.net/symfony
-.. _公式のバグトラッカー: http://trac.symfony-project.org/
+.. _公式のバグトラッカー: https://github.com/symfony/symfony/issues
