@@ -1,10 +1,7 @@
+.. 2011/05/08 doublemarket e9e057b3
+
 ドキュメントのフォーマット
 ===========================
-
-.. 翻訳を更新するまで以下を表示
-.. caution::
-
-    このドキュメントの内容は古い内容です。最新の内容は公式の英語ドキュメントをご確認ください。
 
 Symfony2 のドキュメントはマークアップ言語として `reStructuredText`_ を使っており、\ `Sphinx`_ を使って HTML、PDF などのドキュメントを出力しています。
 
@@ -15,9 +12,9 @@ reStructuredText は、「読みやすく、見たままのプレーンテキス
 
 構文について詳しく学びたい方は、Symfony2 の\ `ドキュメント`_\ のソースを読むか、Sphinx Web サイトの\ `reStructuredText Primer`_\ を読んでください。
 
-Markdown フォーマットを扱ったことがあるなら、次のような似ているが異なる構文に注意してください:
+Markdown フォーマットを扱ったことがあるなら、次のような似ているが異なる構文に注意してください。
 
-* リストは行の先頭で開始します (インデントはできません);
+* リストは行の先頭で開始します (インデントはできません)
 
 * インラインのコードブロックには 2 重のバッククォートを使います (````このように````)。
 
@@ -31,7 +28,7 @@ Sphinx は、reStructuredText ファイルからドキュメントを生成す�
 ~~~~~~~~~~~~~~~~
 
 すべてのサンプルコードは、ハイライトされるデフォルトの言語として PHP を使います。
-このデフォルト設定は、次のように ``code-block`` ディレクティブで変更できます:
+このデフォルト設定は、次のように ``code-block`` ディレクティブで変更できます。
 
 .. code-block:: rst
 
@@ -39,7 +36,7 @@ Sphinx は、reStructuredText ファイルからドキュメントを生成す�
 
         { foo: bar, bar: { foo: bar, bar: baz } }
 
-PHP コードが ``<?php`` で始まる場合、ハイライト用の擬似言語として ``html+php`` を使ってください:
+PHP コードが ``<?php`` で始まる場合、ハイライト用の擬似言語として ``html+php`` を使ってください。
 
 .. code-block:: rst
 
@@ -72,7 +69,7 @@ PHP コードが ``<?php`` で始まる場合、ハイライト用の擬似言�
 
             // PHP での設定
 
-この reST スニペットは、次のようにレンダリングされます:
+この reST スニペットは、次のようにレンダリングされます。
 
 .. configuration-block::
 
@@ -88,27 +85,61 @@ PHP コードが ``<?php`` で始まる場合、ハイライト用の擬似言�
 
         // PHP での設定
 
-現在サポートされているフォーマットの一覧は以下のとおりです:
+現在サポートされているフォーマットの一覧は以下のとおりです。
 
-======================== ===========
-マークアップフォーマット 表示
-======================== ===========
-html                     HTML
-xml                      XML
-php                      PHP
-yaml                     YAML
-jinja                    Twig
-html+jinja               Twig
-jinja+html               Twig
-php+html                 PHP
-html+php                 PHP
-ini                      INI
-php-annotations          Annotations
-======================== ===========
++--------------------------+-------------+
+| マークアップフォーマット | 表示        |
++==========================+=============+
+| html                     | HTML        |
+| xml                      | XML         |
+| php                      | PHP         |
+| yaml                     | YAML        |
+| jinja                    | Twig        |
+| html+jinja               | Twig        |
+| jinja+html               | Twig        |
+| php+html                 | PHP         |
+| html+php                 | PHP         |
+| ini                      | INI         |
+| php-annotations          | Annotations |
++--------------------------+-------------+
 
-.. _reStructuredText:        http://docutils.sf.net/rst.html
-.. _Sphinx:                  http://sphinx.pocoo.org/
-.. _ドキュメント:            http://github.com/symfony/symfony-docs
-.. _reStructuredText Primer: http://sphinx.pocoo.org/rest.html
-.. _マークアップ:            http://sphinx.pocoo.org/markup/
-.. _Pygments website:        http://pygments.org/languages/
+ドキュメントのテスト
+~~~~~~~~~~~~~~~~~~~~
+
+コミット前にドキュメントをテストするには、次の手順に従います。
+
+* `Sphinx`_; をインストールします。
+
+* `Sphinx quick setup`_; を実行します。
+
+* 設定ブロックの Sphinx エクステンションをインストールします (下の項を参照)。
+
+* ``make html`` を実行し、 ``build`` ディレクトリ内に生成された HTML を確認します。
+
+設定ブロックの Sphinx エクステンションのインストール
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* `configuration-block source`_ リポジトリからエクステンションをダウンロードします。
+
+* ``configurationblock.py`` をソースフォルダ内の ``_exts`` にコピーします
+  (``conf.py`` が置かれているフォルダです) 。
+
+* ``conf.py`` ファイルに以下を追加します。
+
+.. code-block:: py
+    
+    # ...
+    sys.path.append(os.path.abspath('_exts'))
+    
+    # ...
+    # エクステンションのリストに configurationblock を追加
+    extensions = ['configurationblock']
+
+.. _reStructuredText:           http://docutils.sf.net/rst.html
+.. _Sphinx:                     http://sphinx.pocoo.org/
+.. _ドキュメント:               http://github.com/symfony/symfony-docs
+.. _reStructuredText Primer:    http://sphinx.pocoo.org/rest.html
+.. _マークアップ:               http://sphinx.pocoo.org/markup/
+.. _Pygments website:           http://pygments.org/languages/
+.. _configuration-block source: https://github.com/fabpot/sphinx-php
+.. _Sphinx quick setup:         http://sphinx.pocoo.org/tutorial.html#setting-up-the-documentation-sources
