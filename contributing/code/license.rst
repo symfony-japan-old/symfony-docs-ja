@@ -1,10 +1,7 @@
+.. 2011/05/18 doublemarket 57f0b01b
+
 Symfony2 のライセンス
 =====================
-
-.. 翻訳を更新するまで以下を表示
-.. caution::
-
-    このドキュメントの内容は古い内容です。最新の内容は公式の英語ドキュメントをご確認ください。
 
 Symfony2 は、MIT license の元で公開されています。
 
@@ -15,7 +12,7 @@ Symfony2 は、MIT license の元で公開されています。
 ライセンス
 ----------
 
-Copyright (c) 2004-2010 Fabien Potencier
+Copyright (c) 2004-2011 Fabien Potencier
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

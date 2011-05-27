@@ -1,10 +1,7 @@
+.. 2011/05/25 doublemarket 57f0b01b
+
 翻訳
 ====
-
-.. 翻訳を更新するまで以下を表示
-.. caution::
-
-    このドキュメントの内容は古い内容です。最新の内容は公式の英語ドキュメントをご確認ください。
 
 Symfony2 のドキュメントは英語で書かれており、多くのユーザーが翻訳を行っています。
 
@@ -25,6 +22,7 @@ Symfony2 のドキュメントは英語で書かれており、多くのユー�
 * *英語*:  http://github.com/symfony/symfony-docs
 * *ロシア語*:  http://github.com/avalanche123/symfony-docs-ru
 * *ルーマニア語*: http://github.com/sebastian-ionescu/symfony-docs-ro
+* *日本語*: https://github.com/symfony-japan/symfony-docs-ja
 
 .. note::
 
@@ -60,7 +58,7 @@ Symfony2 のドキュメントは英語で書かれており、多くのユー�
 
 これで、チームは翻訳作業を開始できます。
 
-チームでの翻訳が完了し、リポジトリの内容の一貫性や安定度（すべての翻訳が完了するか、未翻訳のドキュメントが toctree -- ``index.rst`` と ``map.rst.inc`` という名前のファイルから削除された状態）が確認できた後、チームマネージャーは公式の\ *マスター*\ リポジトリの一覧への追加を Fabien（fabien.potencier at symfony-project.org）へメールで依頼してください。
+チームでの翻訳が完了し、リポジトリの内容の一貫性や安定度（すべての翻訳が完了するか、未翻訳のドキュメントが toctree -- ``index.rst`` と ``map.rst.inc`` という名前のファイルから削除された状態）が確認できた後、チームマネージャーは公式の\ *マスター*\ リポジトリの一覧への追加を Fabien（fabien at symfony.com）へメールで依頼してください。
 
 メンテナンス
 ------------

@@ -1,10 +1,7 @@
+.. 2011/05/18 doublemarket fb4f4ce4
+
 Symfony2 のテストを実行する
 ===========================
-
-.. 翻訳を更新するまで以下を表示
-.. caution::
-
-    このドキュメントの内容は古い内容です。最新の内容は公式の英語ドキュメントをご確認ください。
 
 :doc:`パッチ <patches>`\ を投稿する前に、必ず Symfony2 のテストスイートを実行し、予期せぬ不具合が発生していないことを確認してください。
 
@@ -31,23 +28,18 @@ Symfony2 のテストスイートを実行するには、PHPUnit 3.5.0 以降が
 * Doctrine Migrations
 * Swiftmailer
 * Twig
-* Zend Framework
 
 これらのすべてをインストールするには、\ `install_vendors.sh` スクリプトを実行します。
 
 .. code-block:: bash
 
-    $ sh install_vendors.sh
+    $ sh vendors.sh
 
 .. note::
 
     このスクリプトの実行が完了するまで、しばらく時間がかかります。
 
-一度インストールが完了している環境であれば、\ `update_vendors.sh` スクリプトを実行していつでも vendor を更新できます。
-
-.. code-block:: bash
-
-    $ sh update_vendors.sh
+一度インストールが完了している環境であれば、\ `vendors.sh` スクリプトを再度実行していつでも vendor を更新できます。
 
 実行
 ----
@@ -81,4 +73,4 @@ Symfony2 のテストスイートを実行するには、PHPUnit 3.5.0 以降が
 
     コードカバレッジの機能を利用するには、XDebug とすべての依存ライブラリがインストールされている必要があります。
 
-.. _インストール: http://www.phpunit.de/manual/current/en/installation.html
+.. _インストール: http://www.phpunit.de/manual/current/ja/installation.html
