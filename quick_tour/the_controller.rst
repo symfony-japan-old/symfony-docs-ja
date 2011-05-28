@@ -1,3 +1,4 @@
+.. 2011/05/29 hidenorigoto 06f3bcba3d245cdaf7fc8bc21eb83b03e7258be7
 .. 2011/05/02 hidenorigoto 310854fe
 
 コントローラ
@@ -16,9 +17,12 @@ Symfony2 におけるフォーマットのサポートは、とても単純で�
 ::
 
     // src/Acme/DemoBundle/Controller/DemoController.php
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
     /**
-     * @extra:Route("/hello/{name}", defaults={"_format"="xml"}, name="_demo_hello")
-     * @extra:Template()
+     * @Route("/hello/{name}", defaults={"_format"="xml"}, name="_demo_hello")
+     * @Template()
      */
     public function helloAction($name)
     {
@@ -42,9 +46,12 @@ Symfony2 におけるフォーマットのサポートは、とても単純で�
 ::
 
     // src/Acme/DemoBundle/Controller/DemoController.php
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
     /**
-     * @extra:Route("/hello/{name}.{_format}", defaults={"_format"="html"}, requirements={"_format"="html|xml|json"}, name="_demo_hello")
-     * @extra:Template()
+     * @Route("/hello/{name}.{_format}", defaults={"_format"="html"}, requirements={"_format"="html|xml|json"}, name="_demo_hello")
+     * @Template()
      */
     public function helloAction($name)
     {
@@ -180,14 +187,18 @@ Symfony Standard Edition には、よく使われる要件にあう単純なセ�
 
 ``http://localhost/Symfony/web/app_dev.php/demo/secured/hello`` という URL へアクセスした場合、このリソースは\ ``ファイアウォール``\ で保護されているため、ユーザーは自動的にログインフォームへリダイレクトされます。
 
-コントローラで ``@extra:Secure`` アノテーションを使って、アクションで任意のロールを要求するように設定することもできます。
+コントローラで ``@Secure`` アノテーションを使って、アクションで任意のロールを要求するように設定することもできます。
 
 ::
 
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+    use JMS\SecurityExtraBundle\Annotation\Secure;
+
     /**
-     * @extra:Route("/hello/admin/{name}", name="_demo_secured_hello_admin")
-     * @extra:Secure(roles="ROLE_ADMIN")
-     * @extra:Template()
+     * @Route("/hello/admin/{name}", name="_demo_secured_hello_admin")
+     * @Secure(roles="ROLE_ADMIN")
+     * @Template()
      */
     public function helloAdminAction($name)
     {
@@ -201,20 +212,24 @@ Symfony2 により HTTP 403 ステータスコードが返されます。
 .. note::
 
     Symfony2 セキュリティーレイヤーはとても柔軟で、たとえば Doctrine ORM 向けなどのさまざまなユーザープロバイダや、HTTP 基本認証、HTTP ダイジェスト認証、X509 証明書での認証といった認証プロバイダなどが組み込まれています。
-    セキュリティーレイヤーの使い方と設定方法の詳細については、ガイドブックの ":doc:`/book/security/overview`" の章を参照してください。
+    セキュリティーレイヤーの使い方と設定方法の詳細については、ガイドブックの ":doc:`/book/security`" の章を参照してください。
 
 リソースをキャッシュする
 ------------------------
 
 構築したサイトのトラフィックが日に日に増えてくると、同一のリソースを何度も生成することを避けたいと考えるでしょう。
-Symfony2 では HTTP キャッシュヘッダーを使ってリソースのキャッシュを管理できます。単純なキャッシュ戦略では、便利な ``@extra:Cache()`` アノテーションを使います。
+Symfony2 では HTTP キャッシュヘッダーを使ってリソースのキャッシュを管理できます。単純なキャッシュ戦略では、便利な ``@Cache()`` アノテーションを使います。
 
 ::
 
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+
     /**
-     * @extra:Route("/hello/{name}", name="_demo_hello")
-     * @extra:Template()
-     * @extra:Cache(maxage="86400")
+     * @Route("/hello/{name}", name="_demo_hello")
+     * @Template()
+     * @Cache(maxage="86400")
      */
     public function helloAction($name)
     {

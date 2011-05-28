@@ -1,3 +1,4 @@
+.. 2011/05/29 hidenorigoto 79a9f5847d260c2a6ed63917029f67bd213879fc
 .. 2011/05/01 hidenorigoto 7d4e2238
 
 アーキテクチャ
@@ -146,14 +147,14 @@ Symfony2 では、バンドルは第一級オブジェクトです。
         - { resource: security.yml }
 
     framework:
-        secret:        %csrf_secret%
-        charset:       UTF-8
-        error_handler: null
-        csrf_protection:
-            enabled: true
-        router:        { resource: "%kernel.root_dir%/config/routing.yml" }
-        validation:    { enabled: true, annotations: true }
-        templating:    { engines: ['twig'] } #assets_version: SomeVersionScheme
+        secret:          %csrf_secret%
+        charset:         UTF-8
+        error_handler:   null
+        form:            true
+        csrf_protection: true
+        router:          { resource: "%kernel.root_dir%/config/routing.yml" }
+        validation:      { annotations: true }
+        templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
         session:
             default_locale: %locale%
             lifetime:       3600
@@ -243,6 +244,8 @@ Symfony2 により、\ ``@BUNDLE_NAME`` はバンドルの実際のパスに置�
 
 Symfony2 の柔軟性が少しずつ分かってきたでしょうか。
 アプリケーション間でバンドルを共有したり、プロジェクトローカルやサーバー上のグローバルな位置に配置するといったことも自由にできます。
+
+.. _using-vendors:
 
 vendor ディレクトリの使い方
 ---------------------------

@@ -1,3 +1,4 @@
+.. 2011/05/29 hidenorigoto 7a3ee2a8dafded4561dbd
 .. 2011/05/11 hidenorigoto 778e9aca
 
 Symfony2 の全体像
@@ -207,11 +208,14 @@ Symfony2 では、YAML、XML、PHP での設定や、PHP のアノテーショ�
 ::
 
     // src/Acme/DemoBundle/Controller/DemoController.php
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
     class DemoController extends Controller
     {
         /**
-         * @extra:Route("/hello/{name}", name="_demo_hello")
-         * @extra:Template()
+         * @Route("/hello/{name}", name="_demo_hello")
+         * @Template()
          */
         public function helloAction($name)
         {
@@ -221,7 +225,7 @@ Symfony2 では、YAML、XML、PHP での設定や、PHP のアノテーショ�
         // ...
     }
 
-``@extra:Route()`` アノテーションにより ``/hello/{name}`` というパターンの新しいルートが定義され、このルートにマッチした場合は ``helloAction`` メソッドが実行されることになります。
+``@Route()`` アノテーションにより ``/hello/{name}`` というパターンの新しいルートが定義され、このルートにマッチした場合は ``helloAction`` メソッドが実行されることになります。
 ``{name}`` のように波括弧で囲まれた文字列をプレースホルダと呼びます。
 すでに見てきたように、この部分の値はメソッドの ``$name`` という引数に渡されます。
 
@@ -231,13 +235,13 @@ Symfony2 では、YAML、XML、PHP での設定や、PHP のアノテーショ�
     アノテーションを使うと、フレームワークの振舞を簡単に設定できるだけでなく、コードのすぐ近くに設定を記述しておけるので便利です。
 
 アクションのコードを良く見てみましょう。先ほどの例ではテンプレートをレンダリングしていましたが、このアクションでは単にパラメータの配列を返しています。
-``@extra:Template()`` アノテーションによりレンダリングするテンプレートが決定され、戻り値の配列のそれぞれの値がテンプレートに引き渡されます。
+``@Template()`` アノテーションによりレンダリングするテンプレートが決定され、戻り値の配列のそれぞれの値がテンプレートに引き渡されます。
 レンダリングされるテンプレートの名前は、コントローラの名前に基づいて決定されます。
 この例の場合、\ ``AcmeDemoBundle:Demo:hello.html.twig`` テンプレートがレンダリングされます（\ ``src/Acme/DemoBundle/Resources/views/Demo/hello.html.twig`` ファイルに対応しています）。
 
 .. tip::
 
-    ``@extra:Route()`` アノテーションと ``@extra:Template()`` アノテーションには、このチュートリアルで説明したものよりもさらに多くの機能があります。
+    ``@Route()`` アノテーションと ``@Template()`` アノテーションには、このチュートリアルで説明したものよりもさらに多くの機能があります。
     詳細は、\ "`annotations in controllers`_" ドキュメントを参照してください。
 
 テンプレート

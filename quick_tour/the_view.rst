@@ -1,3 +1,4 @@
+.. 2011/05/29 hidenorigoto 06f3bcba3d245cdaf7fc8bc21eb83b03e7258be7
 .. 2011/05/01 hidenorigoto 9ca7ce48
 
 ビュー
@@ -212,9 +213,12 @@ Web アプリケーションでは、ページ間のリンク作成は必須の�
 ::
 
     // src/Acme/DemoBundle/Controller/DemoController.php
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
     /**
-     * @extra:Route("/hello/{name}", name="_demo_hello")
-     * @extra:Template()
+     * @Route("/hello/{name}", name="_demo_hello")
+     * @Template()
      */
     public function helloAction($name)
     {
