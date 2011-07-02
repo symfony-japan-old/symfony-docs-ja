@@ -1,10 +1,12 @@
+.. 2011/07/01 jptomo 17c2f3eab78d60b89ba1
+
 .. index::
    single: Configuration Reference; WebProfiler
 
-WebProfilerBundle Configuration
+WebProfilerBundle 設定
 ===============================
 
-Full Default Configuration
+すべての設定値の説明および初期値
 --------------------------
 
 .. configuration-block::
