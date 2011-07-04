@@ -1,5 +1,33 @@
-このページの翻訳はまだ行われていません。
-========================================
+.. 2011/07/04 jptomo 8ac37d1c76f2d6ad73fd1d24b73ee159542c719d
 
-翻訳にご協力くださる方は
-`github/symfony-japan <https://github.com/symfony-japan/symfony-docs-ja/wiki>`_ まで！
+.. index::
+   single: Configuration Reference; Swiftmailer
+
+SwiftmailerBundle �ݒ�
+===============================
+
+���ׂĂ̐ݒ�l�̐�������я����l
+--------------------------
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        swiftmailer:
+            transport:            smtp
+            username:             ~
+            password:             ~
+            host:                 localhost
+            port:                 false
+            encryption:           ~
+            auth_mode:            ~
+            spool:
+                type:                 file
+                path:                 %kernel.cache_dir%/swiftmailer/spool
+            sender_address:       ~
+            antiflood:
+                threshold:            99
+                sleep:                0
+            delivery_address:     ~
+            disable_delivery:     ~
+            logging:              true
