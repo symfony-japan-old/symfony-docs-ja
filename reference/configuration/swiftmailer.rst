@@ -3,10 +3,10 @@
 .. index::
    single: Configuration Reference; Swiftmailer
 
-SwiftmailerBundle İ’è
+SwiftmailerBundle è¨­å®š
 ===============================
 
-‚·‚×‚Ä‚Ìİ’è’l‚Ìà–¾‚¨‚æ‚Ñ‰Šú’l
+ã™ã¹ã¦ã®è¨­å®šå€¤ã®èª¬æ˜ãŠã‚ˆã³åˆæœŸå€¤
 --------------------------
 
 .. configuration-block::
