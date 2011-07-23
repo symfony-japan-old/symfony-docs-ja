@@ -20,8 +20,8 @@ Symfony2 :term:`アプリケーション` のディレクトリ構造の制限�
 * ``vendor/``: サードパーティの依存ライブラリ
 * ``web/``:    Web ルートディレクトリ
 
-web ディレクトリ
-~~~~~~~~~~~~~~~~
+``web/`` ディレクトリ
+~~~~~~~~~~~~~~~~~~~~~
 
 web ディレクトリは、画像やJavaScript、スタイルシートなどの Web に公開する静的ファイルの基点となるディレクトリです。
 また、各\ :term:`フロントコントローラ`\ ファイルもこのディレクトリに配置されます。
@@ -29,21 +29,22 @@ web ディレクトリは、画像やJavaScript、スタイルシートなどの
 ::
 
     // web/app.php
-    require_once __DIR__.'/../app/bootstrap.php';
+    require_once __DIR__.'/../app/bootstrap.php.cache';
     require_once __DIR__.'/../app/AppKernel.php';
 
     use Symfony\Component\HttpFoundation\Request;
 
     $kernel = new AppKernel('prod', false);
+    $kernel->loadClassCache();
     $kernel->handle(Request::createFromGlobals())->send();
 
-カーネルは最初に ``bootstrap.php`` ファイルを読み込みます。
+カーネルは最初に ``bootstrap.php.cache`` ファイルを読み込みます。
 このファイルでは、フレームワークの初期化処理とオートローダの登録処理が行われます。
 
 フロントコントローラのファイルである ``app.php`` は、カーネルクラスとして ``AppKernel`` を使い、アプリケーションを起動します。
 
-アプリケーションディレクトリ
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``app/`` ディレクトリ
+~~~~~~~~~~~~~~~~~~~~~
 
 ``AppKernel`` クラスは、アプリケーションコンフィギュレーションの中心となるエントリポイントで、ファイルは ``app/`` ディレクトリにあります。
 
@@ -70,12 +71,17 @@ PHP のオートロードは、\ ``app/autoload.php`` ファイルで設定し�
         'Doctrine'         => __DIR__.'/../vendor/doctrine/lib',
         'Monolog'          => __DIR__.'/../vendor/monolog/src',
         'Assetic'          => __DIR__.'/../vendor/assetic/src',
-        'Acme'             => __DIR__.'/../src',
+        'Metadata'         => __DIR__.'/../vendor/metadata/src',
     ));
     $loader->registerPrefixes(array(
         'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',
         'Twig_'            => __DIR__.'/../vendor/twig/lib',
-        'Swift_'           => __DIR__.'/../vendor/swiftmailer/lib/classes',
+    ));
+
+    // ...
+
+    $loader->registerNamespaceFallbacks(array(
+        __DIR__.'/../src',
     ));
     $loader->register();
 
@@ -98,11 +104,13 @@ PHP 5.3 の名前空間に関する\ `技術的な互換性の標準`_\ や PEAR
 Symfony2 では、バンドルは第一級オブジェクトです。
 バンドルの柔軟性により、よく使う機能が実装されパッケージングされたサードパーティ製のバンドルを自分のアプリケーションで使ったり、自分のバンドルを配布したりできます。
 アプリケーションで有効にする機能を選択したり、好きな方法で最適化することも簡単です。
+最終的には、作成するアプリケーションコードはコアフレームワークと同じくらい重要になっていきます。
 
 バンドルを登録する
 ~~~~~~~~~~~~~~~~~~
 
 アプリケーションは、\ ``AppKernel`` クラスの ``registerBundles()`` メソッドで定義されたバンドルで構成されます。
+各バンドルはディレクトリになっており、バンドル自身を表す ``Bundle`` クラスが 1 つあります。
 
 ::
 
@@ -119,12 +127,13 @@ Symfony2 では、バンドルは第一級オブジェクトです。
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-            new Acme\DemoBundle\AcmeDemoBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+            $bundles[] = new Acme\DemoBundle\AcmeDemoBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
-            $bundles[] = new Symfony\Bundle\WebConfiguratorBundle\SymfonyWebConfiguratorBundle();
+            $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
+            $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
         }
 
         return $bundles;
@@ -147,17 +156,15 @@ Symfony2 では、バンドルは第一級オブジェクトです。
         - { resource: security.yml }
 
     framework:
-        secret:          %csrf_secret%
+        secret:          %secret%
         charset:         UTF-8
-        error_handler:   null
+        router:          { resource: "%kernel.root_dir%/config/routing.yml" }
         form:            true
         csrf_protection: true
-        router:          { resource: "%kernel.root_dir%/config/routing.yml" }
-        validation:      { annotations: true }
+        validation:      { enable_annotations: true }
         templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
         session:
             default_locale: %locale%
-            lifetime:       3600
             auto_start:     true
 
     # Twig Configuration
@@ -169,6 +176,12 @@ Symfony2 では、バンドルは第一級オブジェクトです。
     assetic:
         debug:          %kernel.debug%
         use_controller: false
+        filters:
+            cssrewrite: ~
+            # closure:
+            #     jar: %kernel.root_dir%/java/compiler.jar
+            # yui_css:
+            #     jar: %kernel.root_dir%/java/yuicompressor-2.4.2.jar
 
     # Doctrine Configuration
     doctrine:
@@ -178,12 +191,11 @@ Symfony2 では、バンドルは第一級オブジェクトです。
             dbname:   %database_name%
             user:     %database_user%
             password: %database_password%
+            charset:  UTF8
 
         orm:
             auto_generate_proxy_classes: %kernel.debug%
-            default_entity_manager: default
-            mappings:
-                auto_mapping: true
+            auto_mapping: true
 
     # Swiftmailer Configuration
     swiftmailer:
@@ -230,17 +242,32 @@ Symfony2 では、バンドルは第一級オブジェクトです。
 
 バンドルはコードの整理方法や設定方法を提供するだけでなく、他のバンドルを拡張することもできます。
 バンドルを継承すると、既存のバンドルの機能をオーバーライドしてコントローラやテンプレート、その他バンドルに含まれる任意のファイルをカスタマイズできます。
-このようにバンドルを継承する場合、リソースに論理名を使うと、リソースが実際に格納されている場所を抽象化して扱えるため便利です。
+このようにバンドルを継承する場合、リソースに論理名 (\ ``@AcmeDemoBundle/Controller/SecuredController.php`` など) を使うと、リソースが実際に格納されている場所を抽象化して扱えるため便利です。
+
+論理ファイル名
+..............
 
 バンドルにあるファイルを参照したい場合、\ ``@BUNDLE_NAME/path/to/file`` という記法を使います。
 Symfony2 により、\ ``@BUNDLE_NAME`` はバンドルの実際のパスに置き換えられます。
-たとえば、\ ``@AcmeDemoBundle/Controller/DemoController.php`` という論理パスの場合、\ ``src/Acme/DemoBundle/Controller/DemoController.php`` というパスに変換されます。
+たとえば、\ ``@AcmeDemoBundle/Controller/DemoController.php`` という論理パスの場合、``AcmeDemoBundle`` バンドルのパスは Symfony で管理されているため、\ ``src/Acme/DemoBundle/Controller/DemoController.php`` というパスに変換されます。
+
+論理コントローラ名
+..................
 
 コントローラを参照する場合、\ ``BUNDLE_NAME:CONTROLLER_NAME:ACTION_NAME`` という記法でアクションメソッドを指定します。
 たとえば、\ ``AcmeDemoBundle:Welcome:index`` の場合は\ ``Acme\DemoBundle\Controller\WelcomeController`` クラスの ``indexAction`` メソッドにマップされます。
 
+論理テンプレート名
+..................
+
 テンプレートを参照する場合、\ ``AcmeDemoBundle:Welcome:index.html.twig`` という論理名は ``src/Acme/DemoBundle/Resources/views/Welcome/index.html.twig`` というファイルのパスに変換されます。
 テンプレートに関する面白い機能としては、必ずしもファイルシステムに保存されている必要はないというものがあります。たとえばデータベースのテーブルに保存するように簡単に変更できます。
+
+バンドルを拡張する
+..................
+
+これらの規約に従うことで、\ :doc:`バンドルの継承</cookbook/bundles/inheritance>` の機能を使ってファイル、コントローラ、テンプレートを "上書き" できるようになります。
+たとえば、新しい ``AcmeNewBundle`` という名前のバンドルが ``AcmeDemoBundle`` を継承している場合、Symfony により、まず最初に ``AcmeNewBundle`` の中にある ``AcmeDemoBundle:Welcome:index`` コントローラが検索され、次に ``AcmeDemoBundle`` のコントローラが検索されます。
 
 Symfony2 の柔軟性が少しずつ分かってきたでしょうか。
 アプリケーション間でバンドルを共有したり、プロジェクトローカルやサーバー上のグローバルな位置に配置するといったことも自由にできます。
@@ -277,13 +304,13 @@ Symfony2 アプリケーションにはコマンドラインインターフェ�
 
 .. code-block:: bash
 
-    $ php app/console
+    php app/console
 
 ``--help`` オプションを指定して実行すると、コマンドの使用方法が表示されます。
 
 .. code-block:: bash
 
-    $ php app/console router:debug --help
+    php app/console router:debug --help
 
 まとめ
 ------
