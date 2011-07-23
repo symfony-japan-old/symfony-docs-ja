@@ -1,5 +1,18 @@
-このページの翻訳はまだ行われていません。
-========================================
+.. 2011/07/23 yanchi 36a165e88363fd6e5b5eb0ae712303dd362545be
 
-翻訳にご協力くださる方は
-`github/symfony-japan <https://github.com/symfony-japan/symfony-docs-ja/wiki>`_ まで！
+Email
+=====
+
+値が有効なメールアドレスであることを検証します。
+
+.. code-block:: yaml
+
+    properties:
+        email:
+            - Email: ~
+
+オプション
+-------
+
+* ``checkMX``: ドメインに対してMXレコードをチェックするべきかどうか。 デフォルト: ``false``
+* ``message``: 検証に失敗した場合のエラーメッセージ
