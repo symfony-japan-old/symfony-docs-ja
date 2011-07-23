@@ -1,4 +1,5 @@
-﻿.. index::
+﻿.. 2011/07/23 yuchimiri 53a2b313
+.. index::
    single: Translations
 
 翻訳
@@ -39,8 +40,8 @@
 1. Symfony の ``Translation`` コンポーネントを有効化し、設定します。
 2. ``Translator`` の呼び出しの中で文字列 (例えば「メッセージ」)をラッピングして
    抽出します。
-3. アプリケーション内で各メッセージを翻訳する、サポートされるロケールごとの翻訳
-   リソースを作ります。
+3. アプリケーション内で各メッセージを翻訳するための翻訳リソースを、
+   サポートされるロケールごとに作成します。
 4. セッション内でユーザーのロケールを判断し、設定し、管理します。
 
 .. index::
@@ -104,18 +105,18 @@
         return new Response($t);
     }
 
-このコードが実行されると、 Symfony2 はユーザーの ``locale`` に基づいた
+このコードが実行されると、 Symfony2 はユーザーの ``locale`` を基に
 "Symfony2 is great" というメッセージを翻訳しようとします。この動作のために、
-与えられたロケールで翻訳されたメッセージの集まりである「翻訳リソース」を通じて
+ロケールごとに翻訳されたメッセージの集まりである「翻訳リソース」を通じて
 どのようにメッセージを翻訳するのかを Symfony2 に教える必要があります。翻訳の
-「辞書」は幾つかの異なるフォーマットで作られる必要があります。 XML が推奨される
+「辞書」は幾つかの異なるフォーマットで作成することができます。 XLIFF が推奨される
 フォーマットです。
 
 .. configuration-block::
 
     .. code-block:: xml
 
-        <!-- messages.fr.xml -->
+        <!-- messages.fr.xliff -->
         <?xml version="1.0"?>
         <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
             <file source-language="en" datatype="plaintext" original="file.ext">
@@ -199,7 +200,7 @@
 
     .. code-block:: xml
 
-        <!-- messages.fr.xml -->
+        <!-- messages.fr.xliff -->
         <?xml version="1.0"?>
         <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
             <file source-language="en" datatype="plaintext" original="file.ext">
@@ -255,6 +256,15 @@
 の責任です。翻訳はファイルシステム上に保存され、いくつかの規約の結果、
 Symfony に発見されます。
 
+.. tip::
+
+    新しく翻訳リソースを作成（または翻訳リソースを含んだバンドルをインストール）するたび、
+    Symfonyが新しい翻訳リソースを検出できるようキャッシュをクリアする必要があります。
+    
+    .. code-block:: bash
+    
+        php app/console cache:clear
+
 .. index::
    single: Translations; Translation resource locations
 
@@ -266,7 +276,7 @@ Symfony2 はメッセージファイル (例として翻訳) を2つの場所か
 * バンドル内で見つけたメッセージに対しては、対応するメッセージファイルは
   バンドルの ``Resources/translations/`` ディレクトリに存在する必要があります。
 
-* バンドルの翻訳をオーバーライドするには、メッセージファイルを ``app/translations``
+* バンドルの翻訳をオーバーライドするには、メッセージファイルを ``app/Resources/translations``
   に置いてください。
 
 Symfony2 が翻訳の詳細を理解するのに規約を使用するので、翻訳のファイルネームも重要です。
@@ -280,12 +290,12 @@ Symfony2 が翻訳の詳細を理解するのに規約を使用するので、�
 * **ロケール**: その翻訳のロケールです (例えば ``en_GB`` や ``en`` など)。
 
 * **ローダー**: Symfony2 がどのようにファイルをロードし、パースするかです (例えば
-  ``xml`` や ``php``\ 、\ ``yml``)。
+  ``xliff`` や ``php``\ 、\ ``yml``)。
 
 ローダーは、あらゆる登録済みのローダーの名前になり得ます。デフォルトでは、
 Symfony は以下のローダーを提供しています。
 
-* ``xml``: XLIFF ファイル
+* ``xliff``: XLIFF ファイル
 * ``php``:   PHP ファイル
 * ``yml``:  YAML ファイル
 
@@ -308,13 +318,13 @@ Symfony は以下のローダーを提供しています。
 それぞれのファイルは、与えられたドメインとロケールに対する ID と翻訳のペアの連なりから
 できています。この ID はそれぞれの翻訳の識別子になっており、アプリケーションあるいは
 ユニークな識別子 (例えば "symfony2.great" といったものです。詳しくはこの後の補足を
-参照してください) のメインロケールのメッセージを引くことができます。
+参照してください) のメインロケールのメッセージ（例えば "Symfony is great"）を引くことができます。
 
 .. configuration-block::
 
     .. code-block:: xml
 
-        <!-- src/Sensio/MyBundle/Resources/translations/messages.fr.xml -->
+        <!-- src/Acme/DemoBundle/Resources/translations/messages.fr.xliff -->
         <?xml version="1.0"?>
         <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
             <file source-language="en" datatype="plaintext" original="file.ext">
@@ -333,7 +343,7 @@ Symfony は以下のローダーを提供しています。
 
     .. code-block:: php
 
-        // src/Sensio/MyBundle/Resources/translations/messages.fr.php
+        // src/Acme/DemoBundle/Resources/translations/messages.fr.php
         return array(
             'Symfony2 is great' => 'J\'aime Symfony2',
             'symfony2.great'    => 'J\'aime Symfony2',
@@ -341,7 +351,7 @@ Symfony は以下のローダーを提供しています。
 
     .. code-block:: yaml
 
-        # src/Sensio/MyBundle/Resources/translations/messages.fr.yml
+        # src/Acme/DemoBundle/Resources/translations/messages.fr.yml
         Symfony2 is great: J'aime Symfony2
         symfony2.great:    J'aime Symfony2
 
@@ -441,9 +451,9 @@ Symfony2 はこれらのファイルを見つけ出し、\ "Symfony2 is great" �
 という 3 つのドメインに分けられていると考えてください。フランス語の翻訳は以下の
 メッセージファイルになります。
 
-* ``messages.fr.xml``
-* ``admin.fr.xml``
-* ``navigation.fr.xml``
+* ``messages.fr.xliff``
+* ``admin.fr.xliff``
+* ``navigation.fr.xliff``
 
 デフォルトドメイン (``messages``) 内に翻訳文字列がない時には、 ``trans()`` の
 3 番目の引数としてドメイン名を指定する必要があります。
@@ -524,14 +534,14 @@ Symfony2 はここでユーザーのロケールの ``admin`` ドメイン内の
 
         contact:
             pattern:   /{_locale}/contact
-            defaults:  { _controller: MyContactBundle:Contact:index, _locale: en }
+            defaults:  { _controller: AcmeDemoBundle:Contact:index, _locale: en }
             requirements:
                 _locale: en|fr|de
 
     .. code-block:: xml
 
         <route id="contact" pattern="/{_locale}/contact">
-            <default key="_controller">MyContactBundle:Contact:index</default>
+            <default key="_controller">AcmeDemoBundle:Contact:index</default>
             <default key="_locale">en</default>
             <requirement key="_locale">en|fr|de</requirement>
         </route>
@@ -543,12 +553,11 @@ Symfony2 はここでユーザーのロケールの ``admin`` ドメイン内の
 
         $collection = new RouteCollection();
         $collection->add('contact', new Route('/{_locale}/contact', array(
-            '_controller' => 'MyContactBundle:Contact:index',
+            '_controller' => 'AcmeDemoBundle:Contact:index',
             '_locale'     => 'en',
         ), array(
             '_locale'     => 'en|fr|de'
         )));
-        $collection->addCollection($loader->import("HelloBundle/Resources/config/routing.php"));
 
         return $collection;
 
@@ -696,13 +705,7 @@ Symfony2 はメッセージの翻訳に役立つよう特別な Twig タグ (``t
 
 .. code-block:: jinja
 
-    {{ "Symfony2 is great" | trans }}
-
-    {% trans "Symfony2 is great" %}
-
-    {% trans %}
-        Foo %name%
-    {% endtrans %}
+    {% trans %}Hello %name%{% endtrans %}
 
     {% transchoice count %}
         {0} There is no apples|{1} There is one apple|]1,Inf] There are %count% apples
@@ -712,21 +715,51 @@ Symfony2 はメッセージの翻訳に役立つよう特別な Twig タグ (``t
 トランスレータに渡します。このメカニズムは ``%var%`` というパターンに従った
 プレースホルダーを使用した場合にのみ動作します。
 
-メッセージドメインも指定することができます。
+.. tip::
+
+    もし文字列内に（``%``）を使用する必要がある場合は、%の数を倍にすることでエスケープできます。``{% trans %}Percent: %percent%%%{% endtrans %}``
+
+メッセージドメインを指定して、追加の変数を渡すこともできます。
 
 .. code-block:: jinja
 
-    {{ "Symfony2 is great" | trans([], "app") }}
+    {% trans with {'%name%': 'Fabien'} from "app" %}Hello %name%{% endtrans %}
 
-    {% trans "Symfony2 is great" from "app" %}
-
-    {% trans from "app" %}
-        Foo %name%
-    {% endtrans %}
-
-    {% transchoice count from "app" %}
+    {% transchoice count with {'%name%': 'Fabien'} from "app" %}
         {0} There is no apples|{1} There is one apple|]1,Inf] There are %count% apples
     {% endtranschoice %}
+
+``trans``、``transchoice``フィルターは、*variable texts*や複雑な式を変換するために使用できます。
+
+.. code-block:: jinja
+
+    {{ message | trans }}
+
+    {{ message | transchoice(5) }}
+
+    {{ message | trans({'%name%': 'Fabien'}, "app") }}
+
+    {{ message | transchoice(5, {'%name%': 'Fabien'}, 'app') }}
+
+.. tip::
+
+    翻訳タグやフィルターには同じ効果がありますが、ひとつだけはっきりと違う部分があります。フィルターを使用した場合のみ、変数の自動エスケープ出力が行われるという点です。
+    もし翻訳した変数をエスケープ *したくない* 場合は、翻訳フィルターの後にrawフィルターを適用しなければなりません。
+
+    .. code-block:: jinja
+
+            {# text translated between tags is never escaped #}
+            {% trans %}
+                <h3>foo</h3>
+            {% endtrans %}
+
+            {% set message = '<h3>foo</h3>' %}
+
+            {# a variable translated via a filter is escaped by default #}
+            {{ message | trans | raw }}
+
+            {# but static strings are never escaped #}
+            {{ '<h3>foo</h3>' | trans }}
 
 PHP テンプレート
 ~~~~~~~~~~~~~~~~
@@ -753,14 +786,14 @@ PHP テンプレート
 
 .. code-block:: php
 
-    $this->get('translation')->trans(
+    $this->get('translator')->trans(
         'Symfony2 is great',
         array(),
         'messages',
         'fr_FR',
     );
 
-    $this->get('translation')->trans(
+    $this->get('translator')->trans(
         '{0} There is no apples|{1} There is one apple|]1,Inf[ There are %count% apples',
         10,
         array('%count%' => 10),
