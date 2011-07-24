@@ -3,7 +3,7 @@
 NotBlank
 ========
 
-値が空ではないことを検証します。(`empty <http://php.net/empty>`_construct によって決定します)。
+値が空ではないことを検証します。(`empty <http://php.net/empty>`_ construct によって決定します)。
 
 .. code-block:: yaml
 
