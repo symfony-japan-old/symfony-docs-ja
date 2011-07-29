@@ -50,6 +50,18 @@ Symfony2 の各機能ごとのガイドドキュメント
 
 .. include:: reference/map.rst.inc
 
+バンドル
+--------
+
+Symfony Standard Edition にはいくつかのバンドルが組み込まれています。これらのバンドルについてのドキュメント
+
+.. toctree::
+    :hidden:
+
+    bundles/index
+
+.. include:: /bundles/map.rst.inc
+
 貢献
 ----
 
