@@ -1,3 +1,4 @@
+.. 2011/07/30 hidenorigoto 10e5d2683b1fe4ee76730843edb432b014632ebb
 .. 2011/07/24 uechoco 6b7cca4814e689473ae6033da196d8591aeaa634
 .. index::
    single: Page creation
@@ -66,6 +67,8 @@ Symfony2 では、アプリケーション内のすべてのコードはバン�
 裏側では ``src/Acme/HelloBundle`` にバンドルのディレクトリが作成されます。
 カーネルにバンドルを登録するために ``app/AppKernel.php`` にも自動的に行が追加されます。
 
+.. code-block:: php
+
     // app/AppKernel.php
     public function registerBundles()
     {
@@ -74,7 +77,7 @@ Symfony2 では、アプリケーション内のすべてのコードはバン�
             new Acme\HelloBundle\AcmeHelloBundle(),
         );
         // ...
-        
+
         return $bundles;
     }
 
@@ -174,7 +177,7 @@ Symfony2 のすべての設定と同様にに、ルートの設定すること�
 このルートがマッチする URL のことです。２つ目は ``defaults`` 配列で、
 実行されるべきコントローラを特定しています。
 パターンの中のプレースホルダー文法(``{name}``)はワイルドカードです。
-`/hello/Ryan`` や ``/hello/Fabien`` や他の同様の URL がマッチすることを意味しています。
+``/hello/Ryan`` や ``/hello/Fabien`` や他の同様の URL がマッチすることを意味しています。
 ``{name}`` プレースホルダーパラメータも、値をあいさつに使えるようにコントローラに通ります。
 
 .. note::
@@ -191,8 +194,10 @@ Symfony2 のすべての設定と同様にに、ルートの設定すること�
 ページ作成手順の２つ目のステップはそのコントローラを作成することです。
 
 ``AcmeHelloBundle:Hello:index`` はコントローラの\ *論理*\ 名で、
-``Acme\HelloBundle\Controller\Hello`` クラスの``indexAction`` メソッドにマッピングされています。
+``Acme\HelloBundle\Controller\Hello`` クラスの ``indexAction`` メソッドにマッピングされています。
 ``AcmeHelloBundle`` の中にこのファイルを作成することから始めましょう。
+
+.. code-block:: php
 
     // src/Acme/HelloBundle/Controller/HelloController.php
     namespace Acme\HelloBundle\Controller;
@@ -209,6 +214,10 @@ Symfony2 のすべての設定と同様にに、ルートの設定すること�
 Symfony2 の ``Response`` オブジェクトです。
 
 ``hello`` ルートがマッチしたときに Symfony が実行する ``indexAction`` メソッドを作りましょう。
+.. code-block:: text
+.. code-block:: text
+
+.. code-block:: php
 
     // src/Acme/HelloBundle/Controller/HelloController.php
 
@@ -237,7 +246,7 @@ Symfony2 の ``Response`` オブジェクトです。
 .. note::
 
    ページを作成するときにはコントローラは、書いたコードのメインのエントリポイントになり、
-  重要な構成要素でもあります。詳しくは :doc:`コントローラの章</book/controller>` を参照してください。
+   重要な構成要素でもあります。詳しくは :doc:`コントローラの章</book/controller>` を参照してください。
 
 オプションのステップ3: テンプレートの作成
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -247,7 +256,6 @@ Symfony2 の ``Response`` オブジェクトです。
 コントローラの中に HTML を書く代わりにテンプレートを描画します。
 
 .. code-block:: php
-    :linenos:
 
     // src/Acme/HelloBundle/Controller/HelloController.php
     namespace Acme\HelloBundle\Controller;
@@ -301,7 +309,7 @@ Symfony2 の ``Response`` オブジェクトです。
        :linenos:
 
         {# src/Acme/HelloBundle/Resources/views/Hello/index.html.twig #}
-        {% extends '::layout.html.twig' %}
+        {% extends '::base.html.twig' %}
 
         {% block body %}
             Hello {{ name }}!
@@ -310,7 +318,7 @@ Symfony2 の ``Response`` オブジェクトです。
     .. code-block:: php
 
         <!-- src/Acme/HelloBundle/Resources/views/Hello/index.html.php -->
-        <?php $view->extend('::layout.html.php') ?>
+        <?php $view->extend('::base.html.php') ?>
 
         Hello <?php echo $view->escape($name) ?>!
 
@@ -320,10 +328,10 @@ Twig テンプレートを１行１行見ていきましょう。
   親のテンプレートでは明示的にレイアウトファイルがどこに置かれるかを定義しています。
 
 * *line 4*: ``block`` トークンは ``body`` という名前のブロックの中に挿入されるものを
-  示しています。ご覧のとおり、親のテンプレート(``layout.html.twig``) は
+  示しています。ご覧のとおり、親のテンプレート(``base.html.twig``) は
   ``body`` という名前のブロックが最終的に描画されることに対して責任を負います。
 
-親のテンプレートである ``::layout.html.twig`` は、
+親のテンプレートである ``::base.html.twig`` は、
 名前から **バンドル名** と **コントローラ名** が無くなっていて、
 先頭が二重コロン(``::``)になっています。
 これはテンプレートがバンドルの外に存在していて、\ ``app`` ディレクトリの中にあることを意味しています。
@@ -332,29 +340,35 @@ Twig テンプレートを１行１行見ていきましょう。
 
     .. code-block:: html+jinja
 
-        {# app/Resources/views/layout.html.twig #}
+        {# app/Resources/views/base.html.twig #}
         <!DOCTYPE html>
         <html>
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-                <title>{% block title %}Hello Application{% endblock %}</title>
+                <title>{% block title %}Welcome!{% endblock %}</title>
+                {% block stylesheets %}{% endblock %}
+                <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
             </head>
             <body>
                 {% block body %}{% endblock %}
+                {% block javascripts %}{% endblock %}
             </body>
         </html>
 
     .. code-block:: php
 
-        <!-- app/Resources/views/layout.html.php -->
+        <!-- app/Resources/views/base.html.php -->
         <!DOCTYPE html>
         <html>
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-                <title><?php $view['slots']->output('title', 'Hello Application') ?></title>
+                <title><?php $view['slots']->output('title', 'Welcome!') ?></title>
+                <?php $view['slots']->output('stylesheets') ?>
+                <link rel="shortcut icon" href="<?php echo $view['assets']->getUrl('favicon.ico') ?>" />
             </head>
             <body>
                 <?php $view['slots']->output('_content') ?>
+                <?php $view['slots']->output('stylesheets') ?>
             </body>
         </html>
 
@@ -376,7 +390,7 @@ Twig テンプレートを１行１行見ていきましょう。
    single: Directory Structure
 
 ディレクトリ構造
------------------------
+----------------
 
 ほんのいくつかの節を経たことで、 Symfony2 においてページを作り描画する作業の裏側にある哲学をもう理解できました。
 また Symfony2 のプロジェクトがどのように構造化され整理されているかも分かり始めてきたでしょう。
@@ -394,11 +408,13 @@ Twig テンプレートを１行１行見ていきましょう。
 * ``web/``: ここはウェブルートディレクトリで、公開してアクセス可能なファイルはここに含めます
 
 ウェブディレクトリ
-~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
 
 ウェブルートディレクトリは公開する静的なファイルすべてを置く場所です。
 画像やスタイルシート、そして JavaScript も含みます。
 また次のような :term:`フロントコントローラ` を置く場所でもあります:
+
+.. code-block:: php
 
     // web/app.php
     require_once __DIR__.'/../app/bootstrap.php.cache';
@@ -410,7 +426,7 @@ Twig テンプレートを１行１行見ていきましょう。
     $kernel->loadClassCache();
     $kernel->handle(Request::createFromGlobals())->send();
 
-フロントコントローラは(``app.php`` を例にすると)\ Symfony2 を使うときに実行される
+フロントコントローラは (``app.php`` を例にすると) Symfony2 を使うときに実行される
 PHP ファイルで、アプリケーションを起動するために ``AppKernel`` クラスを使います。
 
 .. tip::
@@ -423,7 +439,7 @@ PHP ファイルで、アプリケーションを起動するために ``AppKern
 
         http://localhost/app.php/hello/Ryan
 
-    フロントコントローラの ``app.php`` が実行され、\ "内部的な:" URL の
+    フロントコントローラの ``app.php`` が実行され、"内部的な:" URL の
     ``/hello/Ryan`` はルートの設定を使って内部的にルートされます。
     Apache の ``mod_rewrite`` ルールを使えば、次のような URL でファイル名を特定しなくても
     ``app.php`` を実行させることができます。
@@ -449,10 +465,10 @@ PHP ファイルで、アプリケーションを起動するために ``AppKern
 Symfony が実用的な標準設定をしてくれています。
 
 * ``registerBundles()``: アプリケーションで実行する必要があるバンドルの配列を返します。
-  (:ref:`page-creation-bundles` を参照);
+  (:ref:`page-creation-bundles` を参照)
 
 * ``registerContainerConfiguration()``: メインアプリケーションのリソースファイルを読み込みます。
-  (see the `アプリケーション設定`_ section).
+  (`アプリケーション設定`_ の節を参照)
 
 日常的な開発においては、\ ``app/config/`` ディレクトリの中の設定やルーティングファイルを
 編集するために ``app/`` ディレクトリをよく使うでしょう(`アプリケーション設定`_ を参照)。
@@ -524,6 +540,8 @@ PHP ファイルやテンプレート、スタイルシート、\ JavaScript\ �
 
 あるアプリケーションは、\ ``AppKernel`` クラスの ``registerBundles()`` メソッドの中で定義されたバンドルで構成されます。
 
+.. code-block:: php
+
     // app/AppKernel.php
     public function registerBundles()
     {
@@ -574,6 +592,8 @@ Symfony スタンダードエディションには、ちゃんと動作するバ
 ``src/Acme/TestBundle/`` ディレクトリを作成して、次のような ``AcmeTestBundle.php`` という名前の
 新しいファイルを追加してください。
 
+.. code-block:: php
+
     // src/Acme/TestBundle/AcmeTestBundle.php
     namespace Acme\TestBundle;
 
@@ -592,6 +612,8 @@ Symfony スタンダードエディションには、ちゃんと動作するバ
 通常はからですが、このクラスはバンドルの動作をカスタマイズできてとても強力です。
 
 バンドルを作成したので、\ ``AppKernel`` クラスで有効化しまししょう。
+
+.. code-block:: php
 
     // app/AppKernel.php
     public function registerBundles()
@@ -671,7 +693,7 @@ Symfony2 のコマンドラインツールについては、後ほど詳しく�
         imports:
             - { resource: parameters.ini }
             - { resource: security.yml }
-        
+
         framework:
             secret:          %secret%
             charset:         UTF-8
@@ -698,7 +720,7 @@ Symfony2 のコマンドラインツールについては、後ほど詳しく�
             <import resource="parameters.ini" />
             <import resource="security.yml" />
         </imports>
-        
+
         <framework:config charset="UTF-8" secret="%secret%">
             <framework:router resource="%kernel.root_dir%/config/routing.xml" />
             <framework:form />
@@ -776,7 +798,7 @@ Symfony2 の各部分を読んだり探検したりするにつれて、
 .. _environments-summary:
 
 環境
-------------
+----
 
 アプリケーションは様々な環境で実行することができます。
 環境が異なっていも同じ PHP コードを共有していますが(フロントコントローラは別ですが)、
@@ -806,6 +828,8 @@ Symfony2 のプロジェクトは一般的には３つの環境(``dev``\ 、\ ``
 
    ``web/app.php`` ファイルを開いたら、明示的に ``prod`` 環境を使う設定がされているのがわかるでしょう。
 
+   .. code-block:: php
+
        $kernel = new AppKernel('prod', false);
 
    このファイルをコピーして ``prod`` を別の値に変更すれば、
@@ -816,6 +840,8 @@ Symfony2 のプロジェクトは一般的には３つの環境(``dev``\ 、\ ``
 ``prod`` 環境の表示結果を変更したいときは、
 これらのキャッシュファイルをクリアする必要がありますが、
 次のコマンドでこれらを再構築できます。
+
+.. code-block:: bash
 
     php app/console cache:clear --env=prod
 
@@ -831,6 +857,8 @@ Symfony2 のプロジェクトは一般的には３つの環境(``dev``\ 、\ ``
 ~~~~~~~~~~~~~~
 
 ``AppKernel`` クラスは、選択した設定ファイルを実際に読み込むことに責任があります。
+
+.. code-block:: php
 
     // app/AppKernel.php
     public function registerContainerConfiguration(LoaderInterface $loader)
@@ -895,7 +923,7 @@ Symfony2 のプロジェクトは一般的には３つの環境(``dev``\ 、\ ``
 環境間のちょっとした違いをカスタマイズすることができます。
 
 要約
--------
+----
 
 おめでとう！ Symfony2 の様々な基本的な側面を見てきましたが、
 それらがいかに簡単で柔軟にできることが分かっていただけたでしょう。
