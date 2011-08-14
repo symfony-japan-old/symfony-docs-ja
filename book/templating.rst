@@ -79,7 +79,7 @@ Twig には2種類の構文があります。
 
    もう一つ、次のようなコメント用の構文もあります。
    ``{# this is a comment #}``
-   この構文では、PHP の ``/* comment */`` とじように複数行に渡るコメントも記述できます。
+   この構文では、PHP の ``/* comment */`` と同じように複数行に渡るコメントも記述できます。
 
 Twig には\ **フィルタ**\ という機能もあります。フィルタを使うと、レンダリングされる前に、コンテンツを修飾することができます。\
 次の例では、フィルタを使って変数 ``title`` の内容をすべて大文字に変換して出力します。
@@ -1089,15 +1089,11 @@ PHP テンプレートを使用している場合は、アウトプットエス�
 ほとんどはHTML コンテンツをレンダリングするのにテンプレートを使うことになるでしょうが、\
 Javascript や CSS、XML、その他考えうるフォーマットでも簡単に生成することもできます。
 
-たとえば、同じ「リソース」でも、複数のフォーマットでレンダリングされることはよくあります。\
+たとえば、同一の「リソース」でも、複数のフォーマットでレンダリングされることはよくあります。\
 index ページを XML でレンダリングしたいときは、テンプレート名にフォーマットを含ませてやります。
 
-*XML テンプレート名*: ``AcmeArticleBundle:Article:index.xml.twig``
-*XML テンプレートファイル名*: ``index.xml.twig``
-
-.. todo 日本語訳間違ってそう。
-.. In reality, this is nothing more than a naming convention and the template
-.. isn't actually rendered differently based on its format.
+* *XML テンプレート名*: ``AcmeArticleBundle:Article:index.xml.twig``
+* *XML テンプレートファイル名*: ``index.xml.twig``
 
 ただし、これは命名規則以外の何者でもなく、\
 フォーマットに基づいたテンプレートレンダリングがされるわけではありません。
@@ -1127,8 +1123,8 @@ index ページを XML でレンダリングしたいときは、テンプレー
     .. code-block:: html+jinja
 
         <a href="{{ path('article_show', {'id': 123, '_format': 'pdf'}) }}">
-	        PDF Version
-	    </a>
+            PDF Version
+        </a>
 
     .. code-block:: html+php
 
