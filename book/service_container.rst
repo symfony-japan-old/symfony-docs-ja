@@ -2,8 +2,8 @@
    single: Service Container
    single: Dependency Injection Container
 
- サービスコンテナ
-==================
+サービスコンテナ
+================
 
 モダンな PHP アプリケーションにはたくさんのオブジェクトがあります。あるオブジェクトが E メールメッセージの配信を容易にしている間に、別のオブジェクトは情報をデータベースに永続化できます。あなたのアプリケーションでは、プロダクト一覧を管理するオブジェクトを作成したり、サードパーティの API からのデータを処理するオブジェクトを作成できます。モダンなアプリケーション多くのことを行い、各タスクを扱うために多くのオブジェクトで構成されているのがポイントです。
 
@@ -29,7 +29,7 @@
    single: Service Container; What is?
 
 サービスコンテナとは何か？
--------------------------
+--------------------------
 
 :term:`Service Container` (サービスコンテナ) (or *依存性注入コンテナ*) は単純にサービスのインスタンス化を管理する PHP オブジェクト (他の一般的なオブジェクトのように) です。
 例えば、E メールメッセージを配信する単純な PHP クラスを考えてみます。サービスコンテナがなければ、必要なときにいつも手動でオブジェクトを作成しなければなりません。
@@ -86,10 +86,10 @@
    Symfony2 の初期化時に、アプリケーション設定を使用して(デフォルトでは ``app/config/config.yml``)サービスコンテナがビルドされます。
    実際に読み込まれるファイルは 環境独自のコンフィグレーションファイル (``config_dev.yml`` は ``dev`` 環境、¥ ``config_prod.yml`` は ``prod`` 環境のように) を読み込む ``AppKernel::registerContainerConfiguration()`` メソッドによって命令されます。
 
-An instance of the ``Acme\HelloBundle\Mailer`` object is now available via
-the service container. The container is available in any traditional Symfony2
-controller where you can access the services of the container via the ``get()``
-shortcut method::
+これで、サービスコンテナから ``Acme\HelloBundle\Mailer`` オブジェクトを利用できるようになりました。
+コンテナは、通常の Symfony2 のコントローラから利用可能で、コンテナのサービスにアクセスするには、次のようにショートカットメソッドである ``get()`` を使います。
+
+::
 
     class HelloController extends Controller
     {
@@ -103,26 +103,25 @@ shortcut method::
         }
     }
 
-When we ask for the ``my_mailer`` service from the container, the container
-constructs the object and returns it. This is another major advantage of
-using the service container. Namely, a service is *never* constructed until
-it's needed. If you define a service and never use it on a request, the service
-is never created. This saves memory and increases the speed of your application.
-This also means that there's very little or no performance hit for defining
-lots of services. Services that are never used are never constructed.
+コンテナに対して ``my_mailer`` サービスを要求すると、コンテナによりオブジェクトが生成され、返されます。
+これは、サービスコンテナを使う利点の 1 つでもあります。
+つまり、実際に使う状況になるまで、サービスのオブジェクトが生成されることはありません。
+定義したサービスをあるサービスでは利用しない場合、サービスのオブジェクトは作成されません。
+これにより、メモリ使用量が低下し、アプリケーションの速度が向上します。
+また、サービスの定義が増えたとしても、パフォーマンスにはほとんど影響を与えないことも意味します。
+繰り返しますが、使われないサービスは、作成されないのです。
 
-As an added bonus, the ``Mailer`` service is only created once and the same
-instance is returned each time you ask for the service. This is almost always
-the behavior you'll need (it's more flexible and powerful), but we'll learn
-later how you can configure a service that has multiple instances.
+さらに、たとえば ``Mailer`` サービスをコンテナから取得する場合、最初の 1 回のみオブジェクトが生成され、それ以降は最初に生成されたのと同じインスタンスが返されます。
+ほとんどの状況ではこの振る舞いをそのまま使えば良いのですが、もちろんさまざまなカスタマイズを加えることもできます。
+また、同一のサービスオブジェクトを共有するのではなく、サービスの要求ごとに別々のインスタンスを作成するようにも設定できます。
 
 .. _book-service-container-parameters:
 
-Service Parameters
-------------------
+サービスのパラメータ化
+----------------------
 
-The creation of new services (i.e. objects) via the container is pretty
-straightforward. Parameters make defining services more organized and flexible:
+コンテナによるサービス（たとえばオブジェクト）の作成は直線的に行われます。
+サービスの定義にパラメータを使うと、管理しやすく柔軟になります。
 
 .. configuration-block::
 
@@ -165,39 +164,33 @@ straightforward. Parameters make defining services more organized and flexible:
             array('%my_mailer.transport%')
         ));
 
-The end result is exactly the same as before - the difference is only in
-*how* we defined the service. By surrounding the ``my_mailer.class`` and
-``my_mailer.transport`` strings in percent (``%``) signs, the container knows
-to look for parameters with those names. When the container is built, it
-looks up the value of each parameter and uses it in the service definition.
+結果としては、以前のものと全く同じですが、サービスの定義方法が異なっている点に注意してください。
+``my_mailer.class`` と ``my_mailer.transport`` をパーセント記号 (``%``) で囲むと、コンテナは、その名前のパラメータを探します。
+コンテナが構築される際、パラメータの値が取得され、その値がサービスの定義に適用されます。
 
-The purpose of parameters is to feed information into services. Of course
-there was nothing wrong with defining the service without using any parameters.
-Parameters, however, have several advantages:
+パラメータを使うと、サービスに対して外から情報を与えることができます。
+もちろん、パラメータを使わずに定義したサービスと、動作自体に違いはありません。
+ですが、パラメータには次に挙げるようないくつかの利点があります。
 
-* separation and organization of all service "options" under a single
-  ``parameters`` key;
+* サービスのオプションを定義から分離し、\ ``parameters`` という単一のキー配下で管理できる。
 
-* parameter values can be used in multiple service definitions;
+* 複数のサービス定義で同じ値を重複して使っている場合でも、パラメータであれば複数のサービス定義で共有できる。
 
-* when creating a service in a bundle (we'll show this shortly), using parameters
-  allows the service to be easily customized in your application.
+* すぐ後で解説するようにバンドル内でサービスを定義している場合、パラメータを使った定義にしておくことで、
+  アプリケーションごとにサービスをカスタマイズしやすくなります。
 
-The choice of using or not using parameters is up to you. High-quality
-third-party bundles will *always* use parameters as they make the service
-stored in the container more configurable. For the services in your application,
-however, you may not need the flexibility of parameters.
+パラメータを使うかどうかは、開発者次第です。
+クオリティの高いサードパーティのバンドルであれば、コンテナに保存されるサービスのコンフィギュレーションを容易にするために、パラメータを使うでしょう。
+ですが、アプリケーション内でのみ使うサービスであれば、パラメータを使った柔軟性が不要な場合もあります。
 
-Importing other Container Configuration Resources
--------------------------------------------------
+別のコンテナコンフィギュレーションリソースをインポートする
+----------------------------------------------------------
 
 .. tip::
 
-    In this section, we'll refer to service configuration files as *resources*.
-    This is to highlight that fact that, while most configuration resources
-    will be files (e.g. YAML, XML, PHP), Symfony2 is so flexible that configuration
-    could be loaded from anywhere (e.g. a database or even via an external
-    web service).
+    この節では、サービスコンフィギュレーション・ファイルを\ *リソース*\ として参照します。
+    Symfony2 では、ほとんどのサービスコンフィギュレーションリソースは YAML、XML、PHP といったファイルですが、
+    データベースや外部の Web サービスなど、どこからでもコンフィギュレーションを読み込めます。
 
 The service container is built using a single configuration resource
 (``app/config/config.yml`` by default). All other service configuration
@@ -216,8 +209,8 @@ configuration from third-party bundles.
 
 .. _service-container-imports-directive:
 
-Importing Configuration with ``imports``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``imports`` を使ってコンフィギュレーションをインポートする
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 So far, we've placed our ``my_mailer`` service container definition directly
 in the application configuration file (e.g. ``app/config/config.yml``). Of
@@ -309,8 +302,8 @@ directory.
 
 .. _service-container-extension-configuration:
 
-Importing Configuration via Container Extensions
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コンテナエクステンションでコンフィギュレーションをインポートする
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 When developing in Symfony2, you'll most commonly use the ``imports`` directive
 to import container configuration from the bundles you've created specifically
@@ -413,8 +406,8 @@ available for the core bundles can be found inside the :doc:`Reference Guide</re
 .. index::
    single: Service Container; Referencing services
 
-Referencing (Injecting) Services
---------------------------------
+サービスの参照（注入）
+----------------------
 
 So far, our original ``my_mailer`` service is simple: it takes just one argument
 in its constructor, which is easily configurable. As you'll see, the real
@@ -520,8 +513,8 @@ service needs the ``my_mailer`` service in order to function. When you define
 this dependency in the service container, the container takes care of all
 the work of instantiating the objects.
 
-Optional Dependencies: Setter Injection
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+任意の依存性: セッターによる注入
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Injecting dependencies into the constructor in this manner is an excellent
 way of ensuring that the dependency is available to use. If you have optional
@@ -605,8 +598,8 @@ Injecting the dependency by the setter method just needs a change of syntax:
     and "setter injection". The Symfony2 service container also supports
     "property injection".
 
-Making References Optional
---------------------------
+参照を任意にする
+----------------
 
 Sometimes, one of your services may have an optional dependency, meaning
 that the dependency is not required for your service to work properly. In
@@ -668,8 +661,8 @@ allow for an optional dependency:
             // ...
         }
 
-Core Symfony and Third-Party Bundle Services
---------------------------------------------
+Symfony コアバンドルとサードパーティバンドルのサービス
+------------------------------------------------------
 
 Since Symfony2 and all third-party bundles configure and retrieve their services
 via the container, you can easily access them or even use them in your own
@@ -759,8 +752,8 @@ the framework.
 .. index::
    single: Service Container; Advanced configuration
 
-Advanced Container Configuration
---------------------------------
+コンテナの高度なコンフィギュレーション
+--------------------------------------
 
 As we've seen, defining services inside the container is easy, generally
 involving a ``service`` configuration key and a few parameters. However,
@@ -768,8 +761,8 @@ the container has several other tools available that help to *tag* services
 for special functionality, create more complex services, and perform operations
 after the container is built.
 
-Marking Services as public / private
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+サービスを public / private にする
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 When defining services, you'll usually want to be able to access these definitions
 within your application code. These services are called ``public``. For example,
@@ -823,8 +816,8 @@ below) to access this service (via the alias).
 
    Services are by default public.
 
-Aliasing
-~~~~~~~~
+エイリアス（別名）
+~~~~~~~~~~~~~~~~~~
 
 When using core or third party bundles within your application, you may want
 to use shortcuts to access some services. You can do so by aliasing them and,
@@ -858,8 +851,8 @@ service by asking for the ``bar`` service like this::
 
     $container->get('bar'); // Would return the foo service
 
-Requiring files
-~~~~~~~~~~~~~~~
+ファイルの require
+~~~~~~~~~~~~~~~~~~
 
 There might be use cases when you need to include another file just before
 the service itself gets loaded. To do so, you can use the ``file`` directive.
@@ -890,7 +883,7 @@ which means that your file will be included only once per request.
 
 .. _book-service-container-tags:
 
-Tags (``tags``)
+タグ (``tags``)
 ~~~~~~~~~~~~~~~
 
 In the same way that a blog post on the Web might be tagged with things such
@@ -957,5 +950,6 @@ Learn more from the Cookbook
 
 .. _`service-oriented architecture`: http://wikipedia.org/wiki/Service-oriented_architecture
 
-.. shishi 55da9acdca0c74ab1b80a152c48b3f3d3e5eb62b
+.. 2011/07/22 shishi 55da9acdca0c74ab1b80a152c48b3f3d3e5eb62b
+.. 2011/08/27 hidenorigoto 
 
