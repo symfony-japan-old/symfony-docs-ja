@@ -1,5 +1,7 @@
-このページの翻訳はまだ行われていません。
-========================================
+years
+~~~~~
 
-翻訳にご協力くださる方は
-`github/symfony-japan <https://github.com/symfony-japan/symfony-docs-ja/wiki>`_ まで！
+**type**: ``array`` **default**: five years before to five years after the current year
+
+List of years available to the year field type.  This option is only relevant
+when the ``widget`` option is set to ``choice``.

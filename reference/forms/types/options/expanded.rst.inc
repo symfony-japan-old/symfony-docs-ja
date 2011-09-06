@@ -1,5 +1,7 @@
-このページの翻訳はまだ行われていません。
-========================================
+expanded
+~~~~~~~~
 
-翻訳にご協力くださる方は
-`github/symfony-japan <https://github.com/symfony-japan/symfony-docs-ja/wiki>`_ まで！
+**type**: ``Boolean`` **default**: ``false``
+
+If set to true, radio buttons or checkboxes will be rendered (depending
+on the ``multiple`` value). If false, a select element will be rendered.

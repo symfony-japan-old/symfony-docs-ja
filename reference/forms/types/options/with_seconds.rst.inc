@@ -1,5 +1,7 @@
-このページの翻訳はまだ行われていません。
-========================================
+with_seconds
+~~~~~~~~~~~~
 
-翻訳にご協力くださる方は
-`github/symfony-japan <https://github.com/symfony-japan/symfony-docs-ja/wiki>`_ まで！
+**type**: ``Boolean`` **default**: ``false``
+
+Whether or not to include seconds in the input. This will result in an additional
+input to capture seconds.
