@@ -1,5 +1,7 @@
-このページの翻訳はまだ行われていません。
-========================================
+max_length
+~~~~~~~~~~
 
-翻訳にご協力くださる方は
-`github/symfony-japan <https://github.com/symfony-japan/symfony-docs-ja/wiki>`_ まで！
+**type**: ``integer``
+
+This option is used to add a ``max_length`` attribute, which is used by
+some browsers to limit the amount of text in a field.

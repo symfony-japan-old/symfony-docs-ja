@@ -1,5 +1,7 @@
-このページの翻訳はまだ行われていません。
-========================================
+minutes
+~~~~~~~
 
-翻訳にご協力くださる方は
-`github/symfony-japan <https://github.com/symfony-japan/symfony-docs-ja/wiki>`_ まで！
+**type**: ``integer`` **default**: 1 to 59
+
+List of minutes available to the minutes field type.  This option is only
+relevant when the ``widget`` option is set to ``choice``.

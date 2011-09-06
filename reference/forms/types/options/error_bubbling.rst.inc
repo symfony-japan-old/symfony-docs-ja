@@ -1,5 +1,8 @@
-このページの翻訳はまだ行われていません。
-========================================
+error_bubbling
+~~~~~~~~~~~~~~
 
-翻訳にご協力くださる方は
-`github/symfony-japan <https://github.com/symfony-japan/symfony-docs-ja/wiki>`_ まで！
+**type**: ``Boolean`` **default**: ``false``
+
+If true, any errors for this field will be passed to the parent field
+or form. For example, if set to true on a normal field, any errors for
+that field will be attached to the main form, not to the specific field.

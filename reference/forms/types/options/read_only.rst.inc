@@ -1,5 +1,7 @@
-このページの翻訳はまだ行われていません。
-========================================
+read_only
+~~~~~~~~~
 
-翻訳にご協力くださる方は
-`github/symfony-japan <https://github.com/symfony-japan/symfony-docs-ja/wiki>`_ まで！
+**type**: ``Boolean`` **default**: ``false``
+
+If this option is true, the field will be rendered with the ``disabled``
+attribute so that the field is not editable.
