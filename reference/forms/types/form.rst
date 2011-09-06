@@ -1,5 +1,7 @@
-このページの翻訳はまだ行われていません。
-========================================
+.. index::
+   single: Forms; Fields; form
 
-翻訳にご協力くださる方は
-`github/symfony-japan <https://github.com/symfony-japan/symfony-docs-ja/wiki>`_ まで！
+form Field Type
+===============
+
+See :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\FormType`.

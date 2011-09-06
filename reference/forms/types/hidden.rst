@@ -1,5 +1,15 @@
-このページの翻訳はまだ行われていません。
-========================================
+.. index::
+   single: Forms; Fields; hidden
 
-翻訳にご協力くださる方は
-`github/symfony-japan <https://github.com/symfony-japan/symfony-docs-ja/wiki>`_ まで！
+hidden Field Type
+=================
+
+The hidden type represents a hidden input field.
+
++-------------+----------------------------------------------------------------------+
+| Rendered as | ``input`` ``hidden`` field                                           |
++-------------+----------------------------------------------------------------------+
+| Parent type | ``field``                                                            |
++-------------+----------------------------------------------------------------------+
+| Class       | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\HiddenType` |
++-------------+----------------------------------------------------------------------+

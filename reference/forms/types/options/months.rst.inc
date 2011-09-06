@@ -1,5 +1,7 @@
-このページの翻訳はまだ行われていません。
-========================================
+months
+~~~~~~
 
-翻訳にご協力くださる方は
-`github/symfony-japan <https://github.com/symfony-japan/symfony-docs-ja/wiki>`_ まで！
+**type**: ``array`` **default**: 1 to 12
+
+List of months available to the month field type. This option is only relevant
+when the ``widget`` option is set to ``choice``.

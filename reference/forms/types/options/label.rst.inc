@@ -1,5 +1,11 @@
-このページの翻訳はまだ行われていません。
-========================================
+label
+~~~~~
 
-翻訳にご協力くださる方は
-`github/symfony-japan <https://github.com/symfony-japan/symfony-docs-ja/wiki>`_ まで！
+**type**: ``string`` **default**: The label is "guessed" from the field name
+
+Sets the label that will be used when rendering the field. The label can
+also be directly set inside the template:
+    
+.. code-block:: jinja
+
+    {{ render_label(form.name, 'Your name') }}
