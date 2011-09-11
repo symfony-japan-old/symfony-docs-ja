@@ -106,15 +106,16 @@ Symfony2 リバースプロキシもこの 1 つです。
 Symfony2 リバースプロキシ
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Symfony2 comes with a reverse proxy (also called a gateway cache) written
-in PHP. Enable it and cacheable responses from your application will start
-to be cached right away. Installing it is just as easy. Each new Symfony2
-application comes with a pre-configured caching kernel (``AppCache``) that
-wraps the default one (``AppKernel``). The caching Kernel *is* the reverse
-proxy.
+Symfony2 には、PHP で記述されたリバースプロキシ（またはゲートウェイキャッシュと呼ばれる）が組み込まれています。
+リバースプロキシを有効にすると、アプリケーションからキャッシュ可能なレスポンスが返された場合、すぐにキャッシュされます。
+リバースプロキシのインストールはとても簡単です。
+Symfony2 アプリケーションには、あらかじめキャッシュカーネル (``AppCache``) の設定がされています。
+キャッシュカーネルは、デフォルトのカーネル (``AppKernel``) をラップします。
+このキャッシュカーネルが、リバースプロキシとして機能します。
 
-To enabling caching, modify the code of a front controller to use the caching
-kernel::
+キャッシュを有効にするには、キャッシュカーネルを使うようにフロントコントローラのコードを次のように変更します。
+
+::
 
     // web/app.php
 
@@ -126,24 +127,25 @@ kernel::
 
     $kernel = new AppKernel('prod', false);
     $kernel->loadClassCache();
-    // wrap the default AppKernel with the AppCache one
+    // デフォルトの AppKernel を AppCache でラップ
     $kernel = new AppCache($kernel);
     $kernel->handle(Request::createFromGlobals())->send();
 
-The caching kernel will immediately act as a reverse proxy - caching responses
-from your application and returning them to the client.
+これですぐに、キャッシュカーネルがリバースプロキシとして動作し始めます。
+つまり、アプリケーションからのレスポンスをキャッシュし、クライアントにキャッシュを返します。
 
 .. tip::
 
-    The cache kernel has a special ``getLog()`` method that returns a string
-    representation of what happened in the cache layer. In the development
-    environment, use it to debug and validate your cache strategy::
+    キャッシュカーネルには、キャッシュレイヤーでの処理内容を文字列で返す ``getLog()`` メソッドがあります。
+    開発環境では、このメソッドを使ってキャッシュ戦略を検証できます。
+    
+    ::
 
         error_log($kernel->getLog());
 
-The ``AppCache`` object has a sensible default configuration, but it can be
-finely tuned via a set of options you can set by overriding the ``getOptions()``
-method::
+``AppCache`` オブジェクトのデフォルトコンフィギュレーションは、十分に実用的ですが、開発するアプリケーションに合わせて細かく調整したい場合は ``getOptions()`` メソッドをオーバーライドして、キャッシュ用の一連のオプションを書き換えることができます。
+
+::
 
     // app/AppCache.php
     class AppCache extends Cache
@@ -164,64 +166,44 @@ method::
 
 .. tip::
 
-    Unless overridden in ``getOptions()``, the ``debug`` option will be set
-    to automatically be the debug value of the wrapped ``AppKernel``.
+    ``debug`` の値は、\ ``getOptions()``\ メソッドで指定しない場合、\ ``AppKernel``\ で設定された値に自動的に設定されます。
 
-Here is a list of the main options:
+主要なオプションの一覧は以下のとおりです:
 
-* ``default_ttl``: The number of seconds that a cache entry should be
-  considered fresh when no explicit freshness information is provided in a
-  response. Explicit ``Cache-Control`` or ``Expires`` headers override this
-  value (default: ``0``);
+* ``default_ttl``: レスポンスで明示的に最新かどうかを判定する情報が指定されなかった場合に、キャッシュエントリが最新であると判定される秒数。
+  明示的に ``Cache-Control`` または ``Expires`` ヘッダーを指定した場合、この値は上書きされます (デフォルト: ``0``);
 
-* ``private_headers``: Set of request headers that trigger "private"
-  ``Cache-Control`` behavior on responses that don't explicitly state whether
-  the response is ``public`` or ``private`` via a ``Cache-Control`` directive.
-  (default: ``Authorization`` and ``Cookie``);
+* ``private_headers``: レスポンスの ``Cache-Control`` ディレクティブによって ``public`` ステートまたは ``private`` ステートが明示的に指定されていない場合でも、自動的に ``Cache-Control`` を "private" として扱う他のヘッダー (デフォルト: ``Authorization`` と ``Cookie``)。
 
-* ``allow_reload``: Specifies whether the client can force a cache reload by
-  including a ``Cache-Control`` "no-cache" directive in the request. Set it to
-  ``true`` for compliance with RFC 2616 (default: ``false``);
+* ``allow_reload``: クライアントからリクエストに ``Cache-Control`` "no-cache" ディレクティブを指定して、キャッシュを強制的にリロード可能かどうか。
+  RFC 2616 に従うには ``true`` に設定してください (デフォルト: ``false``)
 
-* ``allow_revalidate``: Specifies whether the client can force a cache
-  revalidate by including a ``Cache-Control`` "max-age=0" directive in the
-  request. Set it to ``true`` for compliance with RFC 2616 (default: false);
+* ``allow_revalidate``: クライアントからリクエストに ``Cache-Control`` "max-age=0" ディレクティブを指定して、キャッシュの有効期限を強制的に再検証させることが可能かどうか。
+  RFC 2616 に従うには ``true`` に設定してください (デフォルト: ``false``)
 
-* ``stale_while_revalidate``: Specifies the default number of seconds (the
-  granularity is the second as the Response TTL precision is a second) during
-  which the cache can immediately return a stale response while it revalidates
-  it in the background (default: ``2``); this setting is overridden by the
-  ``stale-while-revalidate`` HTTP ``Cache-Control`` extension (see RFC 5861);
+* ``stale_while_revalidate``: キャッシュが有効期限切れになりバックグラウンドで再検証が実行されている間、"stale" レスポンスを即座に返すデフォルトの秒数 (レスポンスの TTL の精度が秒なので、このオプションの精度も秒です) (デフォルト: ``2``)。
+  この設定値は HTTP ``Cache-Control`` 拡張の ``stale-while-revalidate`` で上書きされます (RFC 5861 を参照)
 
-* ``stale_if_error``: Specifies the default number of seconds (the granularity
-  is the second) during which the cache can serve a stale response when an
-  error is encountered (default: ``60``). This setting is overridden by the
-  ``stale-if-error`` HTTP ``Cache-Control`` extension (see RFC 5861).
+* ``stale_if_error``: エラーが発生してから、キャッシュが "stale" レスポンスを返す秒数を指定します (デフォルト: ``60``)。
+  この設定値は HTTP ``Cache-Control`` 拡張の ``stale-if-error`` で上書きされます (RFC 5861 を参照)
 
-If ``debug`` is ``true``, Symfony2 automatically adds a ``X-Symfony-Cache``
-header to the response containing useful information about cache hits and
-misses.
+``debug`` が ``true`` に設定されている場合、Symfony2 により自動的に ``X-Symfony-Cache`` ヘッダーがレスポンスに付加されるので、キャッシュのヒットやミスなどに関する調査に役立ちます。
 
-.. sidebar:: Changing from one Reverse Proxy to Another
+.. sidebar:: リバースプロキシを別の製品で置き換える
 
-    The Symfony2 reverse proxy is a great tool to use when developing your
-    website or when you deploy your website to a shared host where you cannot
-    install anything beyond PHP code. But being written in PHP, it cannot
-    be as fast as a proxy written in C. That's why we highly recommend you
-    to use Varnish or Squid on your production servers if possible. The good
-    news is that the switch from one proxy server to another is easy and
-    transparent as no code modification is needed in your application. Start
-    easy with the Symfony2 reverse proxy and upgrade later to Varnish when
-    your traffic increases.
+    Symfony2 リバースプロキシは、Web サイトの開発中や、PHP コード以外をインストールできない共有サーバーへアプリケーションをデプロイしなければいけない場合などには、とても強力なツールです。
+    しかし、Symfony2 リバースプロキシは PHP で書かれていますので、C で書かれた他のプロキシほど高速ではありません。
+    ですので、もし可能であれば、運用環境では Varnish や Squid を使うことを推奨します。
+    このようにリバースプロキシを切り替えるのはとても簡単で、透過的です。
+    アプリケーションのコードを書き換える必要はありません。
+    最初は Symfony2 に組み込まれたリバースプロキシを利用し、トラフィックが増えた段階で Varnish にアップグレードするとよいでしょう。
 
-    For more information on using Varnish with Symfony2, see the
-    :doc:`How to use Varnish </cookbook/cache/varnish>` cookbook chapter.
+    Symfony2 で Varnish を使う方法については、クックブックの :doc:`How to use Varnish </cookbook/cache/varnish>` を参照してください。
 
 .. note::
 
-    The performance of the Symfony2 reverse proxy is independent of the
-    complexity of the application. That's because the application kernel is
-    only booted when the request needs to be forwarded to it.
+    Symfony2 リバースプロキシのパフォーマンスは、アプリケーションの複雑度には依存しません。
+    リクエストがアプリケーションへフォワードされた場合にのみ、アプリケーションカーネルが起動されるからです。
 
 .. index::
    single: Cache; HTTP
@@ -231,28 +213,23 @@ misses.
 HTTP キャッシュの導入
 ---------------------
 
-To take advantage of the available cache layers, your application must be
-able to communicate which responses are cacheable and the rules that govern
-when/how that cache should become stale. This is done by setting HTTP cache
-headers on the response.
+キャッシュレイヤーの機能を利用するには、どのレスポンスがキャッシュ可能か、および各キャッシュを有効期限切れとみなす時間や方法をアプリケーションからチェックできる必要があります。
+通常、このようなチェックを行うには、レスポンスの HTTP キャッシュヘッダーを使います。
 
 .. tip::
 
-    Keep in mind that "HTTP" is nothing more than the language (a simple text
-    language) that web clients (e.g. browsers) and web servers use to communicate
-    with each other. When we talk about HTTP caching, we're talking about the
-    part of that language that allows clients and servers to exchange information
-    related to caching.
+    "HTTP" というのは、Web クライアントと Web サーバーがお互いに通信するのに使う、単なる言語 (単純なテキストの言語) 以上のものではないことに注意してください。
+    HTTP キャッシュについて話す場合、このテキスト言語の一部分で、クライアントとサーバーがキャッシュに関連する情報をやりとりできるようにすることについて話しています。
 
-HTTP specifies four response cache headers that we're concerned with:
+HTTP では、次の 4 つのレスポンスキャッシュヘッダーが定義されています:
 
 * ``Cache-Control``
 * ``Expires``
 * ``ETag``
 * ``Last-Modified``
 
-The most important and versatile header is the ``Cache-Control`` header,
-which is actually a collection of various cache information.
+もっとも重要で広く利用されるヘッダーは、\ ``Cache-Control`` ヘッダーです。
+このヘッダーには、キャッシュに関するさまざまな情報が含まれています。
 
 .. note::
 
