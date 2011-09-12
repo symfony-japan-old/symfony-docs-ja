@@ -4,7 +4,7 @@
    pair: Twig; Configuration Reference
 
 TwigBundle 設定
-==================================
+===============
 
 .. configuration-block::
 

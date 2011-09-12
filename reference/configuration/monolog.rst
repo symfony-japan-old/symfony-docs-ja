@@ -4,7 +4,7 @@
    pair: Monolog; Configuration Reference
 
 MonologBundle 設定
-=======================
+==================
 
 .. configuration-block::
 

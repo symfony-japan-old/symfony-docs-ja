@@ -4,10 +4,10 @@
    single: Configuration Reference; Swiftmailer
 
 SwiftmailerBundle 設定
-===============================
+======================
 
 すべての設定値の説明および初期値
---------------------------
+--------------------------------
 
 .. configuration-block::
 
