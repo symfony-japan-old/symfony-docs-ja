@@ -78,7 +78,7 @@ Symfony2 プロジェクトによって処理されるリクエストは、全�
 シンプルなコントローラ
 ----------------------
 
-コントローラは、PHP callable(関数、オブジェクトのメソッド、\ ``Clusure``)であれば良いのですが、\
+コントローラは、PHP callable(関数、オブジェクトのメソッド、\ ``クロージャー``)であれば良いのですが、\
 特に Symfony2 では、コントローラオブジェクト内の1つのメソッドのことを指します。\
 コントローラは、\ *アクション*\ とも呼びます。
 
@@ -293,7 +293,7 @@ dafault の ``color`` 変数も、コントローラの引数として有効で�
     このパラメータは、マッチしたルートの名前(``hello``)を意味します。\
     いつも便利かというとそうでもありませんが、これもコントローラの引数として同様に有効です。
 
-コントローラ引数としての ``Request`` 
+コントローラ引数としての ``Request``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 簡単にするため、コントローラに引数として ``Request`` オブジェクトを渡すようにすることも可能です。\
@@ -304,7 +304,7 @@ dafault の ``color`` 変数も、コントローラの引数として有効で�
     public function updateAction(Request $request)
     {
         $form = $this->createForm(...);
-        
+
         $form->bindRequest($request);
         // ...
     }
@@ -426,7 +426,7 @@ Symfony2 では、リダイレクトやフォワーディング、テンプレ�
         ));
 
         // further modify the response or return it directly
-        
+
         return $response;
     }
 
@@ -450,7 +450,7 @@ Symfony2 は、キー(``name``) をメソッドの引数名(``$name``)とマッ�
     基底 ``Controller`` の他のメソッドと同様に、\ ``forward`` メソッドは Symfony2 コア機能へのショートカットに過ぎません。\
     フォワーディングは ``http_kernel`` サービスを通じて直接的に行うことができます。\
     フォワーディングは ``Resopnse`` オブジェクトを返します。\ ::
-    
+
         $httpKernel = $this->container->get('http_kernel');
         $response = $httpKernel->forward('AcmeHelloBundle:Hello:fancy', array(
             'name'  => $name,
@@ -487,7 +487,7 @@ Symfony のテンプレートエンジンについては\ :doc:`テンプレー�
 
     ``renderView`` メソッドは、\ ``templating`` サービスを使用するショートカットです。\
     ``templating`` サービスは、直接利用することもできます。\ ::
-    
+
         $templating = $this->get('templating');
         $content = $templating->render('AcmeHelloBundle:Hello:index.html.twig', array('name' => $name));
 
@@ -563,7 +563,7 @@ Symfony2 は、自動的に 500 HTTP レスポンスコードを返します。
 セッション管理
 --------------
 
-Symfony2 は、ナイスなセッションオブジェクトを提供しています。\
+Symfony2 は、素敵なセッションオブジェクトを提供しています。\
 セッションオブジェクトを使って、リクエスト間でユーザ(ブラウザを使用しているユーザや、ボット、WEB サービスでも)の情報をストアしておくことができます。\
 デフォルトでは、Symfony2 はネイティブな PHP セッションを使用して、アトリビュートをクッキーにストアします。
 
@@ -627,7 +627,7 @@ Symfony2 は、ナイスなセッションオブジェクトを提供してい�
         {% endif %}
 
     .. code-block:: php
-    
+
         <?php if ($view['session']->hasFlash('notice')): ?>
             <div class="flash-notice">
                 <?php echo $view['session']->getFlash('notice') ?>
@@ -649,7 +649,7 @@ HTTP レスポンス(HTTP ヘッダーのテキストメッセージとクライ
 
     // ステータスコード 200(デフォルト)の Response を作成
     $response = new Response('Hello '.$name, 200);
-    
+
     // ステータスコード 200 の JSON レスポンスをを作成
     $response = new Response(json_encode(array('name' => $name)));
     $response->headers->set('Content-Type', 'application/json');
@@ -689,7 +689,7 @@ Final Thoughts
 Symfony では、これをコントローラと呼んでいます。\
 コントローラは、ユーザに返される最終的な ``Response`` オブジェクトを返すために必要なことがなんでもできる PHP 関数です。
 
-簡単のために、基底 ``Controller`` クラスを継承することもできます。\
+簡単にコントローラを実装するために、基底 ``Controller`` クラスを継承することもできます。\
 この基底クラスは、多くの一般的なコントローラタスクへのショートカットメソッドを備えています。\
 例えば、コントローラ内に HTML コードを書きたくはないでしょうから、\ ``render()`` メソッドを使って、\
 テンプレートからコンテンツをレンダリングし、返してもらうことができます。
@@ -704,4 +704,4 @@ Symfony では、これをコントローラと呼んでいます。\
 * :doc:`/cookbook/controller/service`
 
 .. 2011/08/28 hidenorigoto 07d55eff273cfc4cc4cd9a40352bf5e9d55965bb（タイトル翻訳のみ）
-.. 2011/09/11 gilbite  07d55eff273cfc4cc4cd9a40352bf5e9d55965bb 
+.. 2011/09/11 gilbite  07d55eff273cfc4cc4cd9a40352bf5e9d55965bb
