@@ -971,7 +971,7 @@ Symfony2 フレームワークこれ自体もバンドルですので、コア�
             {% block content %}{% endblock %}
         {% endblock %}
 
-* 各ページ専用のテンプレートをさくせいします。\
+* 各ページ専用のテンプレートを作成します。\
   それぞれ、適切なセクションのテンプレートを継承してください。\
   "index" ページであれば、\ ``AcmeBlogBundle:Blog:index.html.twig`` のようなファイルに、ブログエントリをリストすればよいでしょう。
 
@@ -993,7 +993,7 @@ Symfony2 フレームワークこれ自体もバンドルですので、コア�
 
 アプリケーションを作るときは、たいてい、この 3-level 継承を使うか、もしくは、\
 各ページテンプレートがアプリケーションテンプレートを直に継承する(たとえば ``{% extends '::base.html.twig' %}``)ことになるでしょう。\
-3-level モデルは、ヴェンダーバンドルにより使用されるベストプラクティスで、\
+3-level モデルは、ベンダーバンドルにより使用されるベストプラクティスで、\
 バンドルのベーステンプレートが、アプリケーションのベースレイアウトを適切に継承するように、\
 簡単にオーバーライドできます。
 
@@ -1027,11 +1027,9 @@ Javascript のアラートボックスがポップアップしてしまうでし
 
     Hello <script>alert('hello!')</script>
 
-.. todo to translate
-
-And while this seems harmless, if a user can get this far, that same user
-should also be able to write JavaScript that performs malicious actions
-inside the secure area of an unknowing, legitimate user.
+上のスクリプトでは問題がないように見えますが、\
+ここまでできてしまうことを知ったユーザに悪意があれば、\
+何も知らない正当なユーザのセキュアな場所で悪さをするJavaScripを書くことがでできてしまうでしょう。
 
 この問題への答えは、アウトプットエスケープをすることです。\
 これが有効になっていれば、テンプレートは害を及ぼさない形でレンダリングされ、\
