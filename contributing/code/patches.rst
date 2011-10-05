@@ -1,5 +1,3 @@
-.. 2011/05/18 doublemarket 1697e640
-
 パッチの投稿
 ============
 
@@ -134,3 +132,6 @@ BRANCH_NAME``\ ) またはプルリクエストの URL を記載してくださ�
 .. _GitHub:              https://github.com/signup/free
 .. _Symfony2 repository: https://github.com/symfony/symfony
 .. _dev メーリングリスト:    http://groups.google.com/group/symfony-devs
+
+.. 2011/05/18 doublemarket 1697e640
+
