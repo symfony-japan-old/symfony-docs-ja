@@ -3,6 +3,39 @@
 
 Symfony2 へ機能改善などを提案する最も効果的な方法は、パッチを投稿することです。
 
+チェックリスト
+--------------
+
+パッチを投稿する際に次のチェックリストに従うことで、レビュー時の不要なフィードバックループを避け、より迅速に Symfony2 本体へ取り込めるようになります。
+
+プルリクエストの説明には、必ず次のテンプレートを使ってください。
+
+.. code-block:: text
+
+    Bug fix: [yes|no]
+    Feature addition: [yes|no]
+    Backwards compatibility break: [yes|no]
+    Symfony2 tests pass: [yes|no]
+    Fixes the following tickets: [comma separated list of tickets fixed by the PR]
+
+記述例は次のとおりです:
+
+.. code-block:: text
+
+    Bug fix: no
+    Feature addition: yes
+    Backwards compatibility break: no
+    Symfony2 tests pass: yes
+    Fixes the following tickets: -
+
+パッチ投稿時にこのテンプレートに従うよう、協力をお願いします。
+
+.. tip::
+
+    機能追加のリクエストについては、必ず "master" ブランチへ送信してください。バグフィックスの場合は、アクティブなブランチのうち最も古いものへ送信してください。
+    また、パッチで後方互換性が損なわれてはいけません。
+    パッチで、たとえばパスしないテストが残っている等、完了していない作業がある場合は、パッチのタイトルに "[WIP]" と付けてください。
+
 初期セットアップ
 ----------------
 
@@ -49,11 +82,16 @@ Symfony2 に関する作業を始める前に、次のソフトウェアをセ�
 パッチを作成する
 ----------------
 
-バグレポートや機能拡張の提案のためにパッチを作成する場合は、次のようにトピックブランチを作成します。
+バグや機能改善のパッチを作成する場合、必ずトピックブランチを作成してください。
+
+このブランチは、新しい機能を追加する場合は `master` ブランチを元に作成してください。
+バグフィックスの場合は、Symfony のメンテナンスされているバージョンで、バグが発生した最も古いバージョン（たとえば `2.0`\ ）を元に作成してください。
+
+トピックブランチを作成するには、次のコマンドを実行します:
 
 .. code-block:: bash
 
-    $ git checkout -b BRANCH_NAME
+    $ git checkout -b BRANCH_NAME master
 
 .. tip::
 
@@ -128,10 +166,14 @@ BRANCH_NAME``\ ) またはプルリクエストの URL を記載してくださ�
     投稿したすべてのパッチは、コードの中に明白に示されていない限り、
     MIT ライセンスの元でリリースされます。
 
+メンテナンスブランチに対するバグフィックスは、対象となるより新しいすべてのブランチへもマージされます。
+たとえば、パッチを `2.0` ブランチへ投稿した場合、コアチームにより `master` ブランチへも適用されます。
+
 .. _ProGit:              http://progit.org/
 .. _GitHub:              https://github.com/signup/free
-.. _Symfony2 repository: https://github.com/symfony/symfony
+.. _Symfony2 リポジトリ: https://github.com/symfony/symfony
 .. _dev メーリングリスト:    http://groups.google.com/group/symfony-devs
 
 .. 2011/05/18 doublemarket 1697e640
+.. 2011/10/05 hidenorigoto 2a6c0596172b23192b0b810b4096093aee14e334
 
