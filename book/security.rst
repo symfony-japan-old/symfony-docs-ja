@@ -1,37 +1,25 @@
 セキュリティ
 ============
 
-Security is a two-step process whose goal is to prevent a user from accessing
-a resource that he/she should not have access to.
+あるリソースに対するアクセス権限を持たないユーザからのアクセスを、適切に制御を行うために、セキュリティ機能は２つのステップの工程を踏みます。
 
-In the first step of the process, the security system identifies who the user
-is by requiring the user to submit some sort of identification. This is called
-**authentication**, and it means that the system is trying to find out who
-you are.
+まず第一のステップは、セキュリティシステムが、ユーザ認証で送られてくる情報から、そのユーザが誰かを識別することです。この工程は、 **認証** と呼ばれ、同セキュリティシステムが、そのユーザが誰であるかを探そうとします。
 
-Once the system knows who you are, the next step is to determine if you should
-have access to a given resource. This part of the process is called **authorization**,
-and it means that the system is checking to see if you have privileges to
-perform a certain action.
+そしてユーザを特定した後に、第二のステップとして、アクセスしようとしているリソースに対して、そのユーザによるアクセスが可能かどうかを決定します。この工程は、 **承認** と呼ばれ、同セキュリティシステムが、そのユーザがある特定のアクションを行うことのできる権限を保持しているかどうかをチェックします。
 
 .. image:: /images/book/security_authentication_authorization.png
    :align: center
 
-Since the best way to learn is to see an example, let's dive right in.
+もっとも良い学習方法はサンプルを見ることですので、早速始めましょう。
 
 .. note::
 
-    Symfony's `security component`_ is available as a standalone PHP library
-    for use inside any PHP project.
+    あらゆるPHPのプロジェクトにおいて、Symfonyの `security component` をスタンドアロンのPHPライブラリとして使用することができます。
 
-Basic Example: HTTP Authentication
+基本的なサンプル: HTTP認証 
 ----------------------------------
 
-The security component can be configured via your application configuration.
-In fact, most standard security setups are just matter of using the right
-configuration. The following configuration tells Symfony to secure any URL
-matching ``/admin/*`` and to ask the user for credentials using basic HTTP
-authentication (i.e. the old-school username/password box):
+セキュリティコンポーネントは、アプリケーションのコンフィギュレーションで、設定することができます。実際、最も標準的なセキュリティ機構は、正しい設定をするだけです。以下の設定では ``/admin/*`` にマッチする全てのURLをセキュアにするように、Symfonyに 伝えています。そして、HTTPベーシック認証 (古風な ユーザ名/パスワードの入力ボックス) によってそのユーザの証明をSymfonyに尋ねています:
 
 .. configuration-block::
 
@@ -116,140 +104,83 @@ authentication (i.e. the old-school username/password box):
 
 .. tip::
 
-    A standard Symfony distribution separates the security configuration
-    into a separate file (e.g. ``app/config/security.yml``). If you don't
-    have a separate security file, you can put the configuration directly
-    into your main config file (e.g. ``app/config/config.yml``).
+    Symfonyの標準的なディストリビューションでは、セキュリティコンフィギュレーションは、別ファイルに分けてあります(例えば、 ``app/config.security.yml`` など)。別ファイルに分けない際には、メインの設定ファイル(例えば、 ``app/config/config.yml`` )に直接書くこともできます。
 
-The end result of this configuration is a fully-functional security system
-that looks like the following:
+この設定の結果、以下のような設定が、完全に機能するセキュリティシステムになりました:
 
-* There are two users in the system (``ryan`` and ``admin``);
-* Users authenticate themselves via the basic HTTP authentication prompt;
-* Any URL matching ``/admin/*`` is secured, and only the ``admin`` user
-  can access it;
-* All URLs *not* matching ``/admin/*`` are accessible by all users (and the
-  user is never prompted to login).
+* このシステムには２人のユーザがいます(``ryan`` と ``admin``);
+* HTTPベーシック認証によってユーザ認証を行います;
+* ``/admin/*`` にマッチする全てのURLがセキュアになり、そのURLには ``admin`` ユーザのみアクセス可能です;
+* ``/admin/*`` にマッチしない全てのURLには、認証が無く、アクセス制限はありません。
 
-Let's look briefly at how security works and how each part of the configuration
-comes into play.
+セキュリティ機能がどのようになっているか、そして、設定の各部分がどう作用しているか、簡単に見てみましょう。
 
-How Security Works: Authentication and Authorization
+セキュリティ機能の仕組み: 認証と承認
 ----------------------------------------------------
 
-Symfony's security system works by determining who a user is (i.e. authentication)
-and then checking to see if that user should have access to a specific resource
-or URL.
+Symfonyのセキュリティシステムは認証によってユーザの特定を行います。そして、次にそのユーザが特定のリソースやURLにアクセス可能かどうかをチェックします。
 
-Firewalls (Authentication)
+ファイアーウォール (認証)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When a user makes a request to a URL that's protected by a firewall, the
-security system is activated. The job of the firewall is to determine whether
-or not the user needs to be authenticated, and if he does, to send a response
-back to the user initiating the authentication process.
+あるユーザからファイアーウォールによって保護されているURLにリクエストがあった際に、セキュリティシステムは作動します。ファイアーウォールは、ユーザ認証が必要かどうかを決定し、必要であれば、同ユーザにレスポンスを返し、認証のプロセスを開始します。
 
-A firewall is activated when the URL of an incoming request matches the configured
-firewall's regular expression ``pattern`` config value. In this example, the
-``pattern`` (``^/``) will match *every* incoming request. The fact that the
-firewall is activated does *not* mean, however, that the HTTP authentication
-username and password box is displayed for every URL. For example, any user
-can access ``/foo`` without being prompted to authenticate.
+ファイアーウォールは、受け取るリクエストのURLが設定された正規表現 ``pattern`` の値にマッチした際に作動します。この例では、 *全ての* 受け取るリクエストは ``pattern`` (``^/``) にマッチします。ファイアーウォールが作動しているからといっても、全てのURLに対してユーザ名とパスワードの入力ボックスによるHTTP認証が *表示されるわけではありません* 。例えば、全てのユーザは ``/foo`` に認証のプロンプト無しにアクセスできます。
 
 .. image:: /images/book/security_anonymous_user_access.png
    :align: center
 
-This works first because the firewall allows *anonymous users* via the ``anonymous``
-configuration parameter. In other words, the firewall doesn't require the
-user to fully authenticate immediately. And because no special ``role`` is
-needed to access ``/foo`` (under the ``access_control`` section), the request
-can be fulfilled without ever asking the user to authenticate.
+このファイアーウォールは ``anonymous`` 設定パラメータによって、 *匿名ユーザ* を許可しているからです。つまり、このファイアーウォールは完全な認証を必要としてません。 ``foo`` にアクセスするための特別な ``権限`` が存在しないので、全くユーザ認証無しに、このリクエストを行うことができます。
 
-If you remove the ``anonymous`` key, the firewall will *always* make a user
-fully authenticate immediately.
+``anonymous`` キーを削除してしまうと、このファイアーウォールは *毎回* ユーザの完全な認証を行うようになります。
 
-Access Controls (Authorization)
+アクセス制御 (承認)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If a user requests ``/admin/foo``, however, the process behaves differently.
-This is because of the ``access_control`` configuration section that says
-that any URL matching the regular expression pattern ``^/admin`` (i.e. ``/admin``
-or anything matching ``/admin/*``) requires the ``ROLE_ADMIN`` role. Roles
-are the basis for most authorization: a user can access ``/admin/foo`` only
-if it has the ``ROLE_ADMIN`` role.
+しかし、ユーザが ``/admin/foo`` にリクエストする際には工程は異なります。 ``access_control`` 設定のセクションにより、正規表現のパターン ``^/admin`` (``/admin`` や ``/admin/*`` にマッチする全て)にマッチする全てのURLに ``ROLE_ADMIN`` 権限を必要としているからです。権限はほとんどの承認の基礎となります。 ``ROLE_ADMIN`` 権限を持つユーザのみが ``/admin/foo`` にアクセスが可能です。
 
 .. image:: /images/book/security_anonymous_user_denied_authorization.png
    :align: center
 
-Like before, when the user originally makes the request, the firewall doesn't
-ask for any identification. However, as soon as the access control layer
-denies the user access (because the anonymous user doesn't have the ``ROLE_ADMIN``
-role), the firewall jumps into action and initiates the authentication process.
-The authentication process depends on the authentication mechanism you're
-using. For example, if you're using the form login authentication method,
-the user will be redirected to the login page. If you're using HTTP authentication,
-the user will be sent an HTTP 401 response so that the user sees the username
-and password box.
+前のケースと同じように、ユーザが最初にリクエストを投げても、このファイアーウォールはユーザ識別を行いません。しかし、アクセス制御のレイヤーがユーザのアクセスを拒否する(匿名ユーザは ``ROLE_ADMIN`` 権限がありません)とすぐに、ファイアーウォールは認証工程を開始します。認証工程は、あなたの使用する認証メカニズム次第です。例えば、フォームログイン認証を使用する際には、ユーザはログインページへリダイレクトされます。また、HTTP認証を使用する際にはユーザにHTTP 401のレンスポンスを返し、ユーザ名とパスワードの入力ボックスを表示します。
 
-The user now has the opportunity to submit its credentials back to the application.
-If the credentials are valid, the original request can be re-tried.
+そしてユーザはHTTP認証を求めるアプリケーションに対し証明を送信します。証明が有効であれば、最初に送ったリクエストを再び試みることができます。
 
 .. image:: /images/book/security_ryan_no_role_admin_access.png
    :align: center
 
-In this example, the user ``ryan`` successfully authenticates with the firewall.
-But since ``ryan`` doesn't have the ``ROLE_ADMIN`` role, he's still denied
-access to ``/admin/foo``. Ultimately, this means that the user will see some
-sort of message indicating that access has been denied.
+この例では、ユーザ ``ryan`` はこのファイアーウォールにおいて、認証に成功します。しかし、 ``ryan`` は ``ROLE_ADMIN`` の権限がないため、 ``/admin/foo`` にはアクセスすると拒否されます。結局、このユーザはアクセスが拒否されたというメッセージを見ることになります。
 
 .. tip::
 
-    When Symfony denies the user access, the user sees an error screen and
-    receives a 403 HTTP status code (``Forbidden``). You can customize the
-    access denied error screen by following the directions in the
-    :ref:`Error Pages<cookbook-error-pages-by-status-code>` cookbook entry
-    to customize the 403 error page.
+    Symfonyがユーザのアクセスを拒否すると、そのユーザにはエラー画面を表示し、 HTTPの403ステータスコード(``Forbidden``) を送ります。アクセス拒否のエラー画面は、クックブック :ref:`Error Pages<cookbook-error-pages-by-status-code>` の403エラーページのカスタマイズを参考に、カスタマイズすることができます。
 
-Finally, if the ``admin`` user requests ``/admin/foo``, a similar process
-takes place, except now, after being authenticated, the access control layer
-will let the request pass through:
+最終的、 ``admin`` ユーザが ``admin/foo`` にリクエストをした際に、同じ工程が行われます。しかし、 認証された後であれば、アクセス制御のレイヤーはそのリクエストを通すことになります:
 
 .. image:: /images/book/security_admin_role_access.png
    :align: center
 
-The request flow when a user requests a protected resource is straightforward,
-but incredibly flexible. As you'll see later, authentication can be handled
-in any number of ways, including via a form login, X.509 certificate, or by
-authenticating the user via Twitter. Regardless of the authentication method,
-the request flow is always the same:
+あるユーザが保護されているリソースにリクエストをする際のフローは分かりやすく、またとても柔軟です。後で見ることになりますが、認証はフォームログイン、X.509認証、Twitter認証など、いろんな方法で操作することが可能です。認証方法に関係なく、リクエストフローはすべて同じなのです:
 
-#. A user accesses a protected resource;
-#. The application redirects the user to the login form;
-#. The user submits its credentials (e.g. username/password);
-#. The firewall authenticates the user;
-#. The authenticated user re-tries the original request.
+#. ユーザが保護されたリソースにアクセスする;
+#. アプリケーションがユーザをログインフォームへリダイレクトする;
+#. ユーザがユーザ名とパスワードなどの証明を送信する;
+#. ファイアーウォールがユーザを認証する;
+#. 認証されたユーザは最初に送ったリクエストを再度試みる。
 
 .. note::
 
-    The *exact* process actually depends a little bit on which authentication
-    mechanism you're using. For example, when using form login, the user
-    submits its credentials to one URL that processes the form (e.g. ``/login_check``)
-    and then is redirected back to the originally requested URL (e.g. ``/admin/foo``).
-    But with HTTP authentication, the user submits its credentials directly
-    to the original URL (e.g. ``/admin/foo``) and then the page is returned
-    to the user in that same request (i.e. no redirect).
+     実際は、ユーザ認証の *厳密な* 工程では、使用する認証メカニズムに多少よるところがあります。例えば、フォームログインを使用する際には、ユーザはフォームを処理するURL(``/login_check``)に、証明を送信します。そして、最初に送ったリクエストのURL(``/admin/foo``)にリダイレクトされます。しかし、HTTP認証の際には、ユーザは同じURL(``/admin/foo``)に直接証明を送信することになります。そして、同じリクエストの結果ページをリダイレクト無しにユーザに返します。
 
-    These types of idiosyncrasies shouldn't cause you any problems, but they're
-    good to keep in mind.
+    こういった違いは、問題となることはないはずですが、覚えておくと良いでしょう。
 
 .. tip::
 
-    You'll also learn later how *anything* can be secured in Symfony2, including
-    specific controllers, objects, or even PHP methods.
+    また、Symfony2では *あらゆるもの* をセキュアにすることができるということを、後で学ぶことになります。特定のコントローラやオブジェクト、そしてPHPのメソッドまでもです。
 
 .. _book-security-form-login:
 
-Using a Traditional Login Form
+従来のログインフォームの使用
 ------------------------------
 
 So far, you've seen how to blanket your application beneath a firewall and
