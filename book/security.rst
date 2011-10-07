@@ -1,37 +1,25 @@
 セキュリティ
 ============
 
-Security is a two-step process whose goal is to prevent a user from accessing
-a resource that he/she should not have access to.
+あるリソースに対するアクセス権限を持たないユーザからのアクセスを、適切に制御を行うために、セキュリティ機能は２つのステップの処理を踏みます。
 
-In the first step of the process, the security system identifies who the user
-is by requiring the user to submit some sort of identification. This is called
-**authentication**, and it means that the system is trying to find out who
-you are.
+まず第一のステップは、セキュリティシステムが、ユーザ認証で送られてくる情報から、そのユーザが誰かを識別することです。この処理は、 **認証** と呼ばれ、同セキュリティシステムが、そのユーザが誰であるかを探そうとします。
 
-Once the system knows who you are, the next step is to determine if you should
-have access to a given resource. This part of the process is called **authorization**,
-and it means that the system is checking to see if you have privileges to
-perform a certain action.
+そしてユーザを特定した後に、第二のステップとして、アクセスしようとしているリソースに対して、そのユーザによるアクセスが可能かどうかを決定します。この処理は、 **承認** と呼ばれ、同セキュリティシステムが、そのユーザがある特定のアクションを行うことのできる権限を保持しているかどうかをチェックします。
 
 .. image:: /images/book/security_authentication_authorization.png
    :align: center
 
-Since the best way to learn is to see an example, let's dive right in.
+もっとも良い学習方法はサンプルを見ることですので、早速始めましょう。
 
 .. note::
 
-    Symfony's `security component`_ is available as a standalone PHP library
-    for use inside any PHP project.
+    あらゆるPHPのプロジェクトにおいて、Symfony の `security component` をスタンドアロンのPHPライブラリとして使用することができます。
 
-Basic Example: HTTP Authentication
+基本的なサンプル: HTTP 認証 
 ----------------------------------
 
-The security component can be configured via your application configuration.
-In fact, most standard security setups are just matter of using the right
-configuration. The following configuration tells Symfony to secure any URL
-matching ``/admin/*`` and to ask the user for credentials using basic HTTP
-authentication (i.e. the old-school username/password box):
+セキュリティコンポーネントは、アプリケーションのコンフィギュレーションで、設定することができます。実際、最も標準的なセキュリティ機構は、正しい設定をするだけです。以下の設定では ``/admin/*`` にマッチする全ての URL をセキュアにするように、Symfony に 伝えています。そして、 HTTP ベーシック認証 (古風な ユーザ名/パスワードの入力ボックス) によってそのユーザの証明書を Symfony に尋ねています:
 
 .. configuration-block::
 
@@ -116,153 +104,90 @@ authentication (i.e. the old-school username/password box):
 
 .. tip::
 
-    A standard Symfony distribution separates the security configuration
-    into a separate file (e.g. ``app/config/security.yml``). If you don't
-    have a separate security file, you can put the configuration directly
-    into your main config file (e.g. ``app/config/config.yml``).
+    Symfony のスタンダードディストリビューションでは、セキュリティコンフィギュレーションは、別ファイルに分けてあります(例えば、 ``app/config.security.yml`` など)。別ファイルに分けない際には、メインの設定ファイル(例えば、 ``app/config/config.yml`` )に直接書くこともできます。
 
-The end result of this configuration is a fully-functional security system
-that looks like the following:
+この設定の結果、以下のような設定が、完全に機能するセキュリティシステムになりました:
 
-* There are two users in the system (``ryan`` and ``admin``);
-* Users authenticate themselves via the basic HTTP authentication prompt;
-* Any URL matching ``/admin/*`` is secured, and only the ``admin`` user
-  can access it;
-* All URLs *not* matching ``/admin/*`` are accessible by all users (and the
-  user is never prompted to login).
+* このシステムには２人のユーザがいます(``ryan`` と ``admin``);
+* HTTP ベーシック認証によってユーザ認証を行います;
+* ``/admin/*`` にマッチする全ての URL がセキュアになり、そのURLには ``admin`` ユーザのみアクセス可能です;
+* ``/admin/*`` にマッチしない全ての URL には、認証が無く、アクセス制限はありません。
 
-Let's look briefly at how security works and how each part of the configuration
-comes into play.
+セキュリティ機能がどのようになっているか、そして、設定の各部分がどう作用しているか、簡単に見てみましょう。
 
-How Security Works: Authentication and Authorization
+セキュリティ機能の仕組み: 認証と承認
 ----------------------------------------------------
 
-Symfony's security system works by determining who a user is (i.e. authentication)
-and then checking to see if that user should have access to a specific resource
-or URL.
+Symfony のセキュリティシステムは認証によってユーザの特定を行います。そして、次にそのユーザが特定のリソースや URL にアクセス可能かどうかをチェックします。
 
-Firewalls (Authentication)
+ファイアーウォール (認証)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When a user makes a request to a URL that's protected by a firewall, the
-security system is activated. The job of the firewall is to determine whether
-or not the user needs to be authenticated, and if he does, to send a response
-back to the user initiating the authentication process.
+あるユーザからファイアーウォールによって保護されている URL にリクエストがあった際に、セキュリティシステムは作動します。ファイアーウォールは、ユーザ認証が必要かどうかを決定し、必要であれば、同ユーザにレスポンスを返し、認証のプロセスを開始します。
 
-A firewall is activated when the URL of an incoming request matches the configured
-firewall's regular expression ``pattern`` config value. In this example, the
-``pattern`` (``^/``) will match *every* incoming request. The fact that the
-firewall is activated does *not* mean, however, that the HTTP authentication
-username and password box is displayed for every URL. For example, any user
-can access ``/foo`` without being prompted to authenticate.
+ファイアーウォールは、受け取るリクエストの URL が設定された正規表現 ``pattern`` の値にマッチした際に作動します。この例では、 *全ての* 受け取るリクエストは ``pattern`` (``^/``) にマッチします。ファイアーウォールが作動しているからといっても、全ての URL に対してユーザ名とパスワードの入力ボックスによる HTTP 認証が *表示されるわけではありません* 。例えば、全てのユーザは ``/foo`` に認証のプロンプト無しにアクセスできます。
 
 .. image:: /images/book/security_anonymous_user_access.png
    :align: center
 
-This works first because the firewall allows *anonymous users* via the ``anonymous``
-configuration parameter. In other words, the firewall doesn't require the
-user to fully authenticate immediately. And because no special ``role`` is
-needed to access ``/foo`` (under the ``access_control`` section), the request
-can be fulfilled without ever asking the user to authenticate.
+このファイアーウォールは ``anonymous`` 設定パラメータによって、 *匿名ユーザ* を許可しているからです。つまり、このファイアーウォールは完全な認証を必要としてません。 ``foo`` にアクセスするための特別な ``権限`` が存在しないので、全くユーザ認証無しに、このリクエストを行うことができます。
 
-If you remove the ``anonymous`` key, the firewall will *always* make a user
-fully authenticate immediately.
+``anonymous`` キーを削除してしまうと、このファイアーウォールは *毎回* ユーザの完全な認証を行うようになります。
 
-Access Controls (Authorization)
+アクセス制御 (承認)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If a user requests ``/admin/foo``, however, the process behaves differently.
-This is because of the ``access_control`` configuration section that says
-that any URL matching the regular expression pattern ``^/admin`` (i.e. ``/admin``
-or anything matching ``/admin/*``) requires the ``ROLE_ADMIN`` role. Roles
-are the basis for most authorization: a user can access ``/admin/foo`` only
-if it has the ``ROLE_ADMIN`` role.
+しかし、ユーザが ``/admin/foo`` にリクエストする際には処理は異なります。 ``access_control`` 設定のセクションにより、正規表現のパターン ``^/admin`` (``/admin`` や ``/admin/*`` にマッチする全て)にマッチする全ての URL に ``ROLE_ADMIN`` 権限を必要としているからです。権限はほとんどの承認の基礎となります。 ``ROLE_ADMIN`` 権限を持つユーザのみが ``/admin/foo`` にアクセスが可能です。
 
 .. image:: /images/book/security_anonymous_user_denied_authorization.png
    :align: center
 
-Like before, when the user originally makes the request, the firewall doesn't
-ask for any identification. However, as soon as the access control layer
-denies the user access (because the anonymous user doesn't have the ``ROLE_ADMIN``
-role), the firewall jumps into action and initiates the authentication process.
-The authentication process depends on the authentication mechanism you're
-using. For example, if you're using the form login authentication method,
-the user will be redirected to the login page. If you're using HTTP authentication,
-the user will be sent an HTTP 401 response so that the user sees the username
-and password box.
+前のケースと同じように、ユーザが最初にリクエストを投げても、このファイアーウォールはユーザ識別を行いません。しかし、アクセス制御のレイヤーがユーザのアクセスを拒否する(匿名ユーザは ``ROLE_ADMIN`` 権限がありません)とすぐに、ファイアーウォールは認証処理を開始します。認証処理は、あなたの使用する認証メカニズム次第です。例えば、フォームログイン認証を使用する際には、ユーザはログインページへリダイレクトされます。また、 HTTP 認証を使用する際にはユーザに HTTP 401のレンスポンスを返し、ユーザ名とパスワードの入力ボックスを表示します。
 
-The user now has the opportunity to submit its credentials back to the application.
-If the credentials are valid, the original request can be re-tried.
+そしてユーザは HTTP 認証を求めるアプリケーションに対し証明書を送信します。証明書が有効であれば、最初に送ったリクエストを再び試みることができます。
 
 .. image:: /images/book/security_ryan_no_role_admin_access.png
    :align: center
 
-In this example, the user ``ryan`` successfully authenticates with the firewall.
-But since ``ryan`` doesn't have the ``ROLE_ADMIN`` role, he's still denied
-access to ``/admin/foo``. Ultimately, this means that the user will see some
-sort of message indicating that access has been denied.
+この例では、ユーザ ``ryan`` はこのファイアーウォールにおいて、認証に成功します。しかし、 ``ryan`` は ``ROLE_ADMIN`` の権限がないため、 ``/admin/foo`` にはアクセスすると拒否されます。結局、このユーザはアクセスが拒否されたというメッセージを見ることになります。
 
 .. tip::
 
-    When Symfony denies the user access, the user sees an error screen and
-    receives a 403 HTTP status code (``Forbidden``). You can customize the
-    access denied error screen by following the directions in the
-    :ref:`Error Pages<cookbook-error-pages-by-status-code>` cookbook entry
-    to customize the 403 error page.
+    Symfony がユーザのアクセスを拒否すると、そのユーザにはエラー画面を表示し、 HTTP の403ステータスコード(``Forbidden``) を送ります。アクセス拒否のエラー画面は、クックブック :ref:`Error Pages<cookbook-error-pages-by-status-code>` の403エラーページのカスタマイズを参考に、カスタマイズすることができます。
 
-Finally, if the ``admin`` user requests ``/admin/foo``, a similar process
-takes place, except now, after being authenticated, the access control layer
-will let the request pass through:
+最終的、 ``admin`` ユーザが ``admin/foo`` にリクエストをした際に、同じ処理が行われます。しかし、 認証された後であれば、アクセス制御のレイヤーはそのリクエストを通すことになります:
 
 .. image:: /images/book/security_admin_role_access.png
    :align: center
 
-The request flow when a user requests a protected resource is straightforward,
-but incredibly flexible. As you'll see later, authentication can be handled
-in any number of ways, including via a form login, X.509 certificate, or by
-authenticating the user via Twitter. Regardless of the authentication method,
-the request flow is always the same:
+あるユーザが保護されているリソースにリクエストをする際のフローは分かりやすく、またとても柔軟です。後で見ることになりますが、認証はフォームログイン、X.509認証、Twitter認証など、いろんな方法で操作することが可能です。認証方法に関係なく、リクエストフローはすべて同じなのです:
 
-#. A user accesses a protected resource;
-#. The application redirects the user to the login form;
-#. The user submits its credentials (e.g. username/password);
-#. The firewall authenticates the user;
-#. The authenticated user re-tries the original request.
+#. ユーザが保護されたリソースにアクセスする;
+#. アプリケーションがユーザをログインフォームへリダイレクトする;
+#. ユーザがユーザ名とパスワードなどの証明書を送信する;
+#. ファイアーウォールがユーザを認証する;
+#. 認証されたユーザは最初に送ったリクエストを再度試みる。
 
 .. note::
 
-    The *exact* process actually depends a little bit on which authentication
-    mechanism you're using. For example, when using form login, the user
-    submits its credentials to one URL that processes the form (e.g. ``/login_check``)
-    and then is redirected back to the originally requested URL (e.g. ``/admin/foo``).
-    But with HTTP authentication, the user submits its credentials directly
-    to the original URL (e.g. ``/admin/foo``) and then the page is returned
-    to the user in that same request (i.e. no redirect).
+     実際は、ユーザ認証の *厳密な* 処理では、使用する認証メカニズムに多少よるところがあります。例えば、フォームログインを使用する際には、ユーザはフォームを処理する URL (``/login_check``)に、証明書を送信します。そして、最初に送ったリクエストの URL (``/admin/foo``)にリダイレクトされます。しかし、 HTTP 認証の際には、ユーザは同じ URL (``/admin/foo``)に直接証明書を送信することになります。そして、同じリクエストの結果ページをリダイレクト無しにユーザに返します。
 
-    These types of idiosyncrasies shouldn't cause you any problems, but they're
-    good to keep in mind.
+    こういった違いは、問題となることはないはずですが、覚えておくと良いでしょう。
 
 .. tip::
 
-    You'll also learn later how *anything* can be secured in Symfony2, including
-    specific controllers, objects, or even PHP methods.
+    また、Symfony2 では *あらゆるもの* をセキュアにすることができるということを、後で学ぶことになります。特定のコントローラやオブジェクト、そしてPHPのメソッドまでもです。
 
 .. _book-security-form-login:
 
-Using a Traditional Login Form
+従来のログインフォームの使用
 ------------------------------
 
-So far, you've seen how to blanket your application beneath a firewall and
-then protect access to certain areas with roles. By using HTTP Authentication,
-you can effortlessly tap into the native username/password box offered by
-all browsers. However, Symfony supports many authentication mechanisms out
-of the box. For details on all of them, see the
-:doc:`Security Configuration Reference</reference/configuration/security>`.
+ファイアーウォールの管理下にあなたのアプリケーションを配置する方法を学びました。そして、権限の必要な場所へのアクセスを保護する方法も学びました。 HTTP 認証を使用すれば、全てのブラウザで動くユーザ名とパスワードの入力ボックスを、楽に活用することができますね。しかし、 Symfony はそれ以外の多くの認証メカニズムもサポートしています。詳細は :doc:`Security Configuration Reference</reference/configuration/security>` を参照してください。
 
-In this section, you'll enhance this process by allowing the user to authenticate
-via a traditional HTML login form.
+このセクションでは、従来の HTML のログインフォームを用いたユーザ認証で、この処理を強化していきます。
 
-First, enable form login under your firewall:
+まず、ファイアーウォールの元でフォームログインを有効化します:
 
 .. configuration-block::
 
@@ -312,9 +237,7 @@ First, enable form login under your firewall:
 
 .. tip::
 
-    If you don't need to customize your ``login_path`` or ``check_path``
-    values (the values used here are the default values), you can shorten
-    your configuration:
+    ``login_path`` や ``check_path`` の値をデフォルト値のまま使用し、カスタマイズする必要がなければ、設定は短くすることができます:
 
     .. configuration-block::
 
@@ -330,11 +253,7 @@ First, enable form login under your firewall:
 
             'form_login' => array(),
 
-Now, when the security system initiates the authentication process, it will
-redirect the user to the login form (``/login`` by default). Implementing
-this login form visually is your job. First, create two routes: one that
-will display the login form (i.e. ``/login``) and one that will handle the
-login form submission (i.e. ``/login_check``):
+これで、セキュリティシステムは認証処理を初期化することができましたので、ユーザをログインフォーム(デフォルトでは ``/login``)へリダイレクトするようになりました。ログインフォームの見た目の実装はする必要があります。まず、２つのルートを作成します。１つはログインフォームを表示するルート(``/login``)です。もう１つはログインフォーム値を処理するルート(``/login_check``)です:
 
 .. configuration-block::
 
@@ -379,17 +298,11 @@ login form submission (i.e. ``/login_check``):
 
 .. note::
 
-    You will *not* need to implement a controller for the ``/login_check``
-    URL as the firewall will automatically catch and process any form submitted
-    to this URL. It's optional, but helpful, to create a route so that you
-    can use it to generate the form submission URL in the login template below.
+    ファイアーウォールが ``/login_check`` URL へのフォーム送信を自動的に見つけて処理するので、この URL のコントローラを実装する必要は *ありません* 。しかし、下のログインテンプレートで使用するフォーム送信先 URL を生成するために、任意ですが有用なオプションとして、ルートを作ることができます。
 
-Notice that the name of the ``login`` route isn't important. What's important
-is that the URL of the route (``/login``) matches the ``login_path`` config
-value, as that's where the security system will redirect users that need
-to login.
+``login`` ルートの名前は重要ではありません。セキュリティシステムがログインが必要なユーザにリダイレクトするので、重要なのは(``/login``)ルートの URL が ``login_path`` の設定値にマッチすることです。
 
-Next, create the controller that will display the login form:
+次はログインフォームを表示するコントローラを作成します:
 
 .. code-block:: php
 
@@ -406,7 +319,7 @@ Next, create the controller that will display the login form:
             $request = $this->getRequest();
             $session = $request->getSession();
 
-            // get the login error if there is one
+            // ログインエラーがあれば、ここで取得
             if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
                 $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
             } else {
@@ -414,24 +327,18 @@ Next, create the controller that will display the login form:
             }
 
             return $this->render('AcmeSecurityBundle:Security:login.html.twig', array(
-                // last username entered by the user
+                // ユーザによって前回入力された username
                 'last_username' => $session->get(SecurityContext::LAST_USERNAME),
                 'error'         => $error,
             ));
         }
     }
 
-Don't let this controller confuse you. As you'll see in a moment, when the
-user submits the form, the security system automatically handles the form
-submission for you. If the user had submitted an invalid username or password,
-this controller reads the form submission error from the security system so
-that it can be displayed back to the user.
+このコントローラによって混乱しないでください。すぐわかるように、ユーザがフォーム送信を行うお、セキュリティシステムは自動的にフォーム送信値を処理します。有効でないユーザ名とパスワードであった際には、このコントローラはセキュリティシステムからフォームエラーの有無を受け取り、有る場合はユーザにその内容を表示します。
 
-In other words, your job is to display the login form and any login errors
-that may have occurred, but the security system itself takes care of checking
-the submitted username and password and authenticating the user.
+言い換えると、セキュリティシステムがユーザ名とパスワードを処理し、ユーザ認証を行なってくれるので、あなたの実装するべきことは、ログインフォームの表示、そしてログインエラーがある際にはその内容の表示になります。
 
-Finally, create the corresponding template:
+そして、対応するテンプレートを作成します:
 
 .. configuration-block::
 
@@ -450,7 +357,7 @@ Finally, create the corresponding template:
             <input type="password" id="password" name="_password" />
 
             {#
-                If you want to control the URL the user is redirected to on success (more details below)
+                認証成功した際のリダイレクト URL を制御したい場合(詳細は以下に説明する)
                 <input type="hidden" name="_target_path" value="/account" />
             #}
 
@@ -472,7 +379,7 @@ Finally, create the corresponding template:
             <input type="password" id="password" name="_password" />
 
             <!--
-                If you want to control the URL the user is redirected to on success (more details below)
+                認証成功した際のリダイレクト URL を制御したい場合(詳細は以下に説明する)
                 <input type="hidden" name="_target_path" value="/account" />
             -->
 
@@ -481,63 +388,37 @@ Finally, create the corresponding template:
 
 .. tip::
 
-    The ``error`` variable passed into the template is an instance of
-    :class:`Symfony\\Component\\Security\\Core\\Exception\\AuthenticationException`.
-    It may contain more information - or even sensitive information - about
-    the authentication failure, so use it wisely!
+    ``error`` 変数は :class:`Symfony\\Component\\Security\\Core\\Exception\\AuthenticationException` のインスタンスであるテンプレートに渡されます。 ``error`` 変数は、認証失敗に関する機密な情報など、たくさんの情報を保持していますので、賢く使ってください。
 
-The form has very few requirements. First, by submitting the form to ``/login_check``
-(via the ``login_check`` route), the security system will intercept the form
-submission and process the form for you automatically. Second, the security
-system expects the submitted fields to be called ``_username`` and ``_password``
-(these field names can be :ref:`configured<reference-security-firewall-form-login>`).
+このフォームには、必須条件はほとんどありません。まず ``login_check`` ルートに基づき、 ``/login_check`` にフォーム送信されますので、セキュリティシステムがフォーム送信値をインターセプトして、自動的にフォームを処理します。次に、セキュリティシステムは ``_username`` と ``_password`` で指定されているフィールド(これらのフィールド名は :ref:`configured<reference-security-firewall-form-login>` で参照してください)が送信されていることを想定します。
 
-And that's it! When you submit the form, the security system will automatically
-check the user's credentials and either authenticate the user or send the
-user back to the login form where the error can be displayed.
+これでできましたね。フォームを送信すると、セキュリティシステムは自動的にユーザの証明書を行い、ユーザの認証を行います、また、認証に失敗した際には、エラーを表示して再びログインフォームを返します。
 
-Let's review the whole process:
+全ての処理を復讐します:
 
-#. The user tries to access a resource that is protected;
-#. The firewall initiates the authentication process by redirecting the
-   user to the login form (``/login``);
-#. The ``/login`` page renders login form via the route and controller created
-   in this example;
-#. The user submits the login form to ``/login_check``;
-#. The security system intercepts the request, checks the user's submitted
-   credentials, authenticates the user if they are correct, and sends the
-   user back to the login form if they are not.
+#. ユーザは保護されたろソースへのアクセスを試みます;
+#. ファイアーウォールは、ログインフォーム(``/login``)へユーザをリダイレクトし、認証処理を開始します;
+#. ``/login`` ページはこのサンプルで作られたルートとコントローラを経て、ログインフォームを返します;
+#. ユーザはログインフォームを ``/login_check`` に送信します;
+#. セキュリティシステムは、リクエストをインターセプトし、ユーザが送信した証明書を調べ、認証を行います。そして、認証失敗をした際には、ログインフォームを再び返します。
 
-By default, if the submitted credentials are correct, the user will be redirected
-to the original page that was requested (e.g. ``/admin/foo``). If the user
-originally went straight to the login page, he'll be redirected to the homepage.
-This can be highly customized, allowing you to, for example, redirect the
-user to a specific URL.
+デフォルトでは、送信された証明書は正しければ、ユーザは最初にリクエストしたページリダイレクトされます(``/admin/foo`` など)。ユーザが直接ログインページにリクエストしていた際には、 ``homepage`` にリダイレクトされます。もちろん特定の URL にリダイレクトするなど、カスタマイズもできます。
 
-For more details on this and how to customize the form login process in general,
-see :doc:`/cookbook/security/form_login`.
+一般的なフォームログインの処理をカスタマイズする方法など、詳細は :doc:`/cookbook/security/form_login` を参照してください。
 
 .. _book-security-common-pitfalls:
 
-.. sidebar:: Avoid Common Pitfalls
+.. sidebar:: よくある落とし穴を避ける
 
-    When setting up your login form, watch out for a few common pitfalls.
+    ログインフォームを組み立てる差には、少しよくある落とし穴に注意してください。
 
-    **1. Create the correct routes**
+    **1. 正しいルートを作成すること**
 
-    First, be sure that you've defined the ``/login`` and ``/login_check``
-    routes correctly and that they correspond to the ``login_path`` and
-    ``check_path`` config values. A misconfiguration here can mean that you're
-    redirected to a 404 page instead of the login page, or that submitting
-    the login form does nothing (you just see the login form over and over
-    again).
+    まず、 ``/login`` と ``/login_check`` ルートが、それぞれ対応する ``login_path`` と ``check_path`` の設定値に正しく定義されているか確認してください。ここでの設定ミスはログインページではなく、404ページへのへリダイレクトされることを意味します。または、ログインフォームの送信先が存在しないこととなります(同じログインフォームを何度も見ることになります)。
 
-    **2. Be sure the login page isn't secure**
+    **2. ログインページがセキュアになっていないこと**
 
-    Also, be sure that the login page does *not* require any roles to be
-    viewed. For example, the following configuration - which requires the
-    ``ROLE_ADMIN`` role for all URLs (including the ``/login`` URL), will
-    cause a redirect loop:
+    また、ログインページを閲覧するのに権限が *不要* にしてあるを確認してください。例えば次の設定では、 ``/login`` URL を含む全て URL で ``ROLE_ADMIN`` 権限を必須にしているため、リダイレクトループに陥ります:
 
     .. configuration-block::
 
@@ -558,7 +439,7 @@ see :doc:`/cookbook/security/form_login`.
                 array('path' => '^/', 'role' => 'ROLE_ADMIN'),
             ),
 
-    Removing the access control on the ``/login`` URL fixes the problem:
+    ``/login`` URL へのアクセス制御を取り除くことでこの問題は解決されます:
 
     .. configuration-block::
 
@@ -582,9 +463,7 @@ see :doc:`/cookbook/security/form_login`.
                 array('path' => '^/', 'role' => 'ROLE_ADMIN'),
             ),
 
-    Also, if your firewall does *not* allow for anonymous users, you'll need
-    to create a special firewall that allows anonymous users for the login
-    page:
+    また、ファイアーウォールで匿名ユーザによるアクセスを *許可していなければ* 、もう一つ特別なファイアーウォールを用意し、ログインページのために匿名ユーザによるアクセスを許可してください:
 
     .. configuration-block::
 
@@ -620,51 +499,34 @@ see :doc:`/cookbook/security/form_login`.
                 ),
             ),
 
-    **3. Be sure ``/login_check`` is behind a firewall**
+    **3. ``/login_check`` がファイアーウォール内にあること**
 
-    Next, make sure that your ``check_path`` URL (e.g. ``/login_check``)
-    is behind the firewall you're using for your form login (in this example,
-    the single firewall matches *all* URLs, including ``/login_check``). If
-    ``/login_check`` doesn't match any firewall, you'll receive a ``Unable
-    to find the controller for path "/login_check"`` exception.
+    次に ``check_path`` の URL ``/login_check`` がフォームログインで使用するファイアーウォール内にあることを確認してください。この例では、１つのファイアーウォールが ``/login_check`` を含む *全ての* URL にマッチします。もし ``/login_check`` がどのファイアーウォールにもマッチしなければ、 ``Unable to find the controller for path "login_check"`` 例外に引っかかるでしょう。
 
-    **4. Multiple firewalls don't share security context**
+    **4. 複数のファイアーウォールでセキュリティコンテキストを共有しないこと**
 
-    If you're using multiple firewalls and you authenticate against one firewall,
-    you will *not* be authenticated against any other firewalls automatically.
-    Different firewalls are like different security systems. That's why,
-    for most applications, having one main firewall is enough.
+    複数のファイアーウォールを使用しており、そのうちの１つのファイアーウォールに対して認証をする際には、他のファイアーウォールに対して自動的に *認証はされません* 。異なるファイアーウォールは、異なるセキュリティシステムと。ほとんどのアプリケーションでは、１つのファイアーウォールで十分です。
 
-Authorization
+承認
 -------------
 
-The first step in security is always authentication: the process of verifying
-who the user is. With Symfony, authentication can be done in any way - via
-a form login, basic HTTP Authentication, or even via Facebook.
+セキュリティ機能の第一ステップは必ずユーザの誰かを証明書する処理をする認証となります。Symfony では、認証はフォームログイン、HTTP ベーシック認証、Facebook 認証など、あらゆる認証方法をすることができます。
 
-Once the user has been authenticated, authorization begins. Authorization
-provides a standard and powerful way to decide if a user can access any resource
-(a URL, a model object, a method call, ...). This works by assigning specific
-roles to each user, and then requiring different roles for different resources.
+一度、ユーザが認証されると、承認を開始します。承認は、標準的で強力な方法を提供をしし、URL 、モデルオブジェクト、メソッド呼び出しなどのリソースにあるユーザがアクセス可能かどうかを判断します。つまり、承認処理は、れぞれのユーザに特定の権限を割り当てて、異なるリソースに対し異なる権限が必要である、ということによって作動します。
 
-The process of authorization has two different sides:
+承認処理は、２つの異なる側面があります:
 
-#. The user has a specific set of roles;
-#. A resource requires a specific role in order to be accessed.
+#. あるユーザが特定の権限のセットを保持している;
+#. あるリソースは、アクセスするための特定の権限を必要としている。
 
-In this section, you'll focus on how to secure different resources (e.g. URLs,
-method calls, etc) with different roles. Later, you'll learn more about how
-roles are created and assigned to users.
+このセクションでは、URL やメソッド呼び出しなどの異なるリソースをセキュアにする方法に集中することにします。後に、どのように権限が作られて、ユーザに割り当てられるのかを学びます。
 
-Securing Specific URL Patterns
+特定の URL パターンをセキュアにする
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The most basic way to secure part of your application is to secure an entire
-URL pattern. You've seen this already in the first example of this chapter,
-where anything matching the regular expression pattern ``^/admin`` requires
-the ``ROLE_ADMIN`` role.
+アプリケーションの一部をセキュアにする最も基本的な方法は、全ての URL パターンをセキュアにすることです。それは、この章の最初のサンプルにありましたように、正規表現パターンの ``/^admin`` にマッチする全ての URL に ``ROLE_ADMIN`` 権限を必須にすることでした。
 
-You can define as many URL patterns as you need - each is a regular expression.
+必要なだけ、たくさんの URL パターンを正規表現で定義することができます。
 
 .. configuration-block::
 
@@ -701,34 +563,20 @@ You can define as many URL patterns as you need - each is a regular expression.
 
 .. tip::
 
-    Prepending the path with ``^`` ensures that only URLs *beginning* with
-    the pattern are matched. For example, a path of simply ``/admin`` would
-    match ``/admin/foo`` but not ``/foo/admin``.
+    ``^`` をパスの先頭に追加することは、 そのパターンから *始まる* URLのみにマッチすることを保証します。例えば、 ``^`` の無い単なる ``/admin`` パスでは ``/admin/foo`` にマッチしますし、 ``/foo/admin`` にもマッチしてしまいます。
 
-For each incoming request, Symfony2 tries to find a matching access control
-rule (the first one wins). If the user isn't authenticated yet, the authentication
-process is initiated (i.e. the user is given a chance to login). However,
-if the user *is* authenticated but doesn't have the required role, an
-:class:`Symfony\\Component\\Security\\Core\\Exception\\AccessDeniedException`
-exception is thrown, which you can handle and turn into a nice "access denied"
-error page for the user. See :doc:`/cookbook/controller/error_pages` for
-more information.
+やってくる全てのリクエストは、Symfony2 はアクセス制御ルールへのマッチを探そうと試みます(最初にマッチしたものが優先されます)。ユーザが認証されていなければ、ユーザにログインする機会が与えられ、認証処理が始まります。しかし、ユーザが *認証されている* が、必要な権限がない際には :class:`Symfony\\Component\\Security\\Core\\Exception\\AccessDeniedException` 例外が投げられます。そして、"access denied" のエラーページをユーザに返します。エラーページの詳細は、 :doc:`/cookbook/controller/error_pages` を参照してください。
 
-Since Symfony uses the first access control rule it matches, a URL like ``/admin/users/new``
-will match the first rule and require only the ``ROLE_SUPER_ADMIN`` role.
-Any URL like ``/admin/blog`` will match the second rule and require ``ROLE_ADMIN``.
+Symfony は最初にマッチしたアクセス制御ルールを使用するので、 ``/admin/users/new`` のようなURLは ``ROLE_SUPER_ADMIN`` 権限を必要とする最初のルールにマッチします。 ``/admin/blog`` のような全てのURLは ``ROLE_ADMIN`` を必要とする２番目のルールにマッチします。
 
-You can also force ``HTTP`` or ``HTTPS`` via an ``access_control`` entry.
-For more information, see :doc:`/cookbook/security/force_https`.
+``access_controle`` のエントリによって、 ``HTTP`` や ``HTTPS`` を強制とさせることも可能です。詳細は、 :doc:`/cookbook/security/force_https` を参照してください。
 
 .. _book-security-securing-controller:
 
-Securing a Controller
+コントローラをセキュアにする
 ~~~~~~~~~~~~~~~~~~~~~
 
-Protecting your application based on URL patterns is easy, but may not be
-fine-grained enough in certain cases. When necessary, you can easily force
-authorization from inside a controller:
+URLパターンに基づくアプリケーションの保護は簡単でした。しかし、全てのケースにおいて、十分きめ細かいとは言えません。必要であれば、コントローラの内部から認証を強制化させることも簡単にできます。
 
 .. code-block:: php
 
@@ -746,8 +594,7 @@ authorization from inside a controller:
 
 .. _book-security-securing-controller-annotations:
 
-You can also choose to install and use the optional ``JMSSecurityExtraBundle``,
-which can secure your controller using annotations:
+任意ですが、 ``JMSSecurityExtraBundle`` をインストールして、アノテーションを用いてコントローラをセキュアにすることもできます:
 
 .. code-block:: php
 
@@ -761,64 +608,41 @@ which can secure your controller using annotations:
         // ...
     }
 
-For more information, see the `JMSSecurityExtraBundle`_ documentation. If you're
-using Symfony's Standard Distribution, this bundle is available by default.
-If not, you can easily download and install it.
+詳細は `JMSSecurityExtraBundle`_ のドキュメントを参照してください。Symfony のスタンダードディストリビューションを使用する際は、このバンドルはデフォルトで有効になっています。そうでなくても、簡単にダウンロードしてインストールすることができます。
 
-Securing other Services
+他のサービスをセキュアにする
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-In fact, anything in Symfony can be protected using a strategy similar to
-the one seen in the previous section. For example, suppose you have a service
-(i.e. a PHP class) whose job is to send emails from one user to another.
-You can restrict use of this class - no matter where it's being used from -
-to users that have a specific role.
+実際は、前のセクションで見た戦略と同じように、Symfony における全てのものは保護することができます。例えば,、PHPクラスによって、あるユーザから他のユーザにメールを送信するといった処理をするサービスがあったとします。特定の権限を持つユーザは、使用場所に関係無く、このクラスの使用を制限することができるのです。
 
-For more information on how you can use the security component to secure
-different services and methods in your application, see :doc:`/cookbook/security/securing_services`.
+アプリケーション内の異なるサービスやメソッド間をセキュアにする、セキュリティコンポーネントの使用方法に関する詳細は、:doc:`/cookbook/security/securing_services` を参照してください。
 
-Access Control Lists (ACLs): Securing Individual Database Objects
+アクセス制御リスト (ACLs): 個々のデータベースオブジェクトをセキュアにする
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Imagine you are designing a blog system where your users can comment on your
-posts. Now, you want a user to be able to edit his own comments, but not
-those of other users. Also, as the admin user, you yourself want to be able
-to edit *all* comments.
+ユーザが投稿に対してコメントのできるブログシステムを設計していることを想像してみてください。ユーザには自分のコメントを編集できるようにしたいとします。しかし、他のユーザのコメントの編集はできないようにしたいとします。また、管理者ユーザであれば、 *全て* のコメントの編集を可能にしたいとします。
 
-The security component comes with an optional access control list (ACL) system
-that you can use when you need to control access to individual instances
-of an object in your system. *Without* ACL, you can secure your system so that
-only certain users can edit blog comments in general. But *with* ACL, you
-can restrict or allow access on a comment-by-comment basis.
+セキュリティコンポーネントは、任意のアクセス制御リスト(ACL)システムが付いてきます。アクセス制御リストシステムは、あなたのシステムのオブジェクトの個々のインスタンスへのアクセスを制御する必要する際に使用することができます。 ACL *無し* で、あなたのシステムをセキュアにして、特定のユーザのみブログのコメントを編集できるようにすることはできます。しかし、 ACLが *有れば* 、コメントごとの制限やアクセスを受け入れることもできるのです。
 
-For more information, see the cookbook article: :doc:`/cookbook/security/acl`.
+詳細は、クックブックの :doc:`/cookbook/security/acl` を参照してください。
+For more information, see the cookbook article:
 
-Users
+ユーザ
 -----
 
-In the previous sections, you learned how you can protect different resources
-by requiring a set of *roles* for a resource. In this section we'll explore
-the other side of authorization: users.
+前のセクションでは、あるリソースへの *権限* のセットを必須とすることによって、異なるリソースの保護の仕方を学びました。このセクションでは、ユーザの承認の他の側面を探っていきます。
 
-Where do Users come from? (*User Providers*)
+ユーザはどこから来た？ (*ユーザプロバイダ*)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-During authentication, the user submits a set of credentials (usually a username
-and password). The job of the authentication system is to match those credentials
-against some pool of users. So where does this list of users come from?
+認証の際に、ユーザは証明書のセット(だいたいの場合ユーザ名とパスワードになります)を送信します。認証システムの仕事は、ユーザのプールに対し、証明書のマッチをすることです。では、そのユーザのリストはどこから来るのでしょうか？
 
-In Symfony2, users can come from anywhere - a configuration file, a database
-table, a web service, or anything else you can dream up. Anything that provides
-one or more users to the authentication system is known as a "user provider".
-Symfony2 comes standard with the two most common user providers: one that
-loads users from a configuration file and one that loads users from a database
-table.
+Symfony2 では、ユーザは、コンフィギュレーションファイル、データベーステーブル、ウェブサービスなど、あらゆるところから来ます。ユーザを認証システムに提供するする機能は総称して、"ユーザプロバイダ"と呼びます。Symfony2 では、２つの一般的なユーザプロバイダが標準で付いてきます。１つは、コンフィギュレーションファイルからユーザをロードし、もう１つは、データベーステーブルからユーザをロードします。
 
-Specifying Users in a Configuration File
+コンフィギュレーションファイルでユーザを特定する
 ........................................
 
-The easiest way to specify your users is directly in a configuration file.
-In fact, you've seen this already in the example in this chapter.
+ユーザを特定する最も簡単な方法は直接コンフィギュレーションファイルで指定する方法です。実際のところ、それは、この章のサンプルで今まで見てきた方法です。
 
 .. configuration-block::
 
@@ -859,19 +683,14 @@ In fact, you've seen this already in the example in this chapter.
             ),
         ));
 
-This user provider is called the "in-memory" user provider, since the users
-aren't stored anywhere in a database. The actual user object is provided
-by Symfony (:class:`Symfony\\Component\\Security\\Core\\User\\User`).
+このユーザプロバイダは、ユーザ情報がデータベースに保管されていないので、"in-memory"ユーザプロバイダと呼ばれます。実際のユーザオブジェクトは Symfony によって提供されます(:class:`Symfony\\Component\\Security\\Core\\User\\User`)。
 
 .. tip::
-    Any user provider can load users directly from configuration by specifying
-    the ``users`` configuration parameter and listing the users beneath it.
+    全てのユーザプロバイダは、 ``users`` 設定値にユーザをリスト化して特定化することにより、コンフィギュレーションから直接ユーザをロードすることができます。
 
 .. caution::
 
-    If your username is completely numeric (e.g. ``77``) or contains a dash
-    (e.g. ``user-name``), you should use that alternative syntax when specifying
-    users in YAML:
+    ユーザ名が ``77`` などの数字であった際や、 ``user-name`` のようにハイフンを含んでいる際には、YAMLでのユーザ指定は他のシンタックスを使用する必要があります:
 
     .. code-block:: yaml
 
@@ -879,25 +698,20 @@ by Symfony (:class:`Symfony\\Component\\Security\\Core\\User\\User`).
             - { name: 77, password: pass, roles: 'ROLE_USER' }
             - { name: user-name, password: pass, roles: 'ROLE_USER' }
 
-For smaller sites, this method is quick and easy to setup. For more complex
-systems, you'll want to load your users from the database.
+小さなサイトにおいては、この方法によるセットアップが速く簡単でしょう。より複雑なシステムでは、データベースからユーザをロードすることになるでしょう。
 
 .. _book-security-user-entity:
 
-Loading Users from the Database
+データベースからユーザをロードする
 ...............................
 
-If you'd like to load your users via the Doctrine ORM, you can easily do
-this by creating a ``User`` class and configuring the ``entity`` provider.
+Doctrine ORMを介してユーザをロードする際は、 ``User`` クラスを作成し ``entity`` プロバイダを設定することによって簡単にすることができます。
 
 .. tip:
 
-    A high-quality open source bundle is available that allows your users
-    to be stored via the Doctrine ORM or ODM. Read more about the `FOSUserBundle`_
-    on GitHub.
+    Doctrine ORMやODMを介してユーザを保存するすることを可能とする、質の高いオープンソースのバンドルが入手可能です。詳細はGitHub上の `FOSUserBundle`_ を参照してください。
 
-With this approach, you'll first create your own ``User`` class, which will
-be stored in the database.
+このアプローチでは、まず、独自の ``User`` クラスを作成します。これはデータベースに保存されます。
 
 .. code-block:: php
 
@@ -920,20 +734,12 @@ be stored in the database.
         // ...
     }
 
-As far as the security system is concerned, the only requirement for your
-custom user class is that it implements the :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`
-interface. This means that your concept of a "user" can be anything, as long
-as it implements this interface.
+セキュリティシステムを考慮する限り、独自に作成するカスタムユーザクラスの唯一の必須条件は、 :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface` インタフェースを実装することです。つまり、このインタフェースさえ実装すれば"user"はどんなものでも構いません。
 
 .. note::
+    ユーザオブジェクトは、リクエストの間中、 シリアライズ化され、セッションに保存されますので、ユーザオブジェクトに `\Serializalbe interface の実装` を推奨します。特に ``User`` クラスがプライベート属性を持つ親クラスから継承している際に、重要です。
 
-    The user object will be serialized and saved in the session during requests,
-    therefore it is recommended that you `implement the \Serializable interface`_
-    in your user object. This is especially important if your ``User`` class
-    has a parent class with private properties.
-
-Next, configure an ``entity`` user provider, and point it to your ``User``
-class:
+次に ``entity`` ユーザプロバイダを設定して、作成した ``User`` クラスを指定します:
 
 .. configuration-block::
 
@@ -965,27 +771,17 @@ class:
             ),
         ));
 
-With the introduction of this new provider, the authentication system will
-attempt to load a ``User`` object from the database by using the ``username``
-field of that class.
+この新しいプロバイダの導入では、認証システムはデータベースから ``username`` フィールドを使用して ``User`` オブジェクトをロードしようとします。
 
 .. note::
-    This example is just meant to show you the basic idea behind the ``entity``
-    provider. For a full working example, see :doc:`/cookbook/security/entity_provider`.
+    このサンプルでは、 ``entity`` プロバイダの背後にある基本的な考え方を見せました。より実践的なサンプルは  :doc:`/cookbook/security/entity_provider` を参照してください。
 
-For more information on creating your own custom provider (e.g. if you needed
-to load users via a web service), see :doc:`/cookbook/security/custom_provider`.
+ウェブサービスを介してユーザをロードするなどの、カスタムプロバイダの作成方法に関する詳細は、 :doc:`/cookbook/security/custom_provider` を参照してください。
 
-Encoding the User's Password
+ユーザパスワードのエンコーディング
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-So far, for simplicity, all the examples have stored the users' passwords
-in plain text (whether those users are stored in a configuration file or in
-a database somewhere). Of course, in a real application, you'll want to encode
-your users' passwords for security reasons. This is easily accomplished by
-mapping your User class to one of several built-in "encoders". For example,
-to store your users in memory, but obscure their passwords via ``sha1``,
-do the following:
+シンプルにするために、これまでの全てのサンプルでは、コンフィギュレーションファイル、データベースに保存されているユーザのパスワードを平文で保存してきました。もちろん実際のアプリケーションでは、セキュリティの理由から、ユーザのパスワードをエンコードしたいと思うでしょう。パスワードのエンコードは、Userクラスをいくつかのビルトインされている "encoders"にマッピングすることによって簡単に行うことができます。例えばユーザをメモリ上に保存するためが、 ``sha1`` を介してパスワードをわかりにくくするためには次のようにします:
 
 .. configuration-block::
 
@@ -1041,16 +837,9 @@ do the following:
             ),
         ));
 
-By setting the ``iterations`` to ``1`` and the ``encode_as_base64`` to false,
-the password is simply run through the ``sha1`` algorithm one time and without
-any extra encoding. You can now calculate the hashed password either programmatically
-(e.g. ``hash('sha1', 'ryanpass')``) or via some online tool like `functions-online.com`_
+``iterations`` を ``1`` に、 ``encode_as_base64`` をfalseにセットすることによって、パスワードは追加のエンコード無しに ``sha1`` アルゴリズムを一度走らせたパスワードとなります。ハッシュ化されたパスワードはプログラム(``hash('sha1', ryanpass')``)でも、 `functions-online.com`_ のようなオンラインツールでも作ることができます。
 
-If you're creating your users dynamically (and storing them in a database),
-you can use even tougher hashing algorithms and then rely on an actual password
-encoder object to help you encode passwords. For example, suppose your User
-object is ``Acme\UserBundle\Entity\User`` (like in the above example). First,
-configure the encoder for that user:
+もしユーザを動的に作成して、データベースに保存しているのであれば、さらに強固なハッシュアルゴリズムを使うことができ、実際のパスワードエンコーダーオブジェクトをパスワードをエンコードさせることができます。例えば、上のサンプルのように、Userオブジェクトが ``Acme\UserBundle\Entity\User`` であったとします。まず、ユーザのエンコードを設定します。
 
 .. configuration-block::
 
@@ -1083,17 +872,9 @@ configure the encoder for that user:
             ),
         ));
 
-In this case, you're using the stronger ``sha512`` algorithm. Also, since
-you've simply specified the algorithm (``sha512``) as a string, the system
-will default to hashing your password 5000 times in a row and then encoding
-it as base64. In other words, the password has been greatly obfuscated so
-that the hashed password can't be decoded (i.e. you can't determine the password
-from the hashed password).
+このケースでは、さらに強力な ``sha512`` アルゴリズムを使用しています。また、単にアルゴリズムを (``sha512``)と文字列で指定したため、システムはパスワードを5000回連続でハッシュ化し、base64でエンコードをします。言い換えると、パスワードは難読化され、ハッシュ化されたパスワードはデコードできなくなります(ハッシュ化されたパスワードから実際のパスワードを決定することができません)。
 
-If you have some sort of registration form for users, you'll need to be able
-to determine the hashed password so that you can set it on your user. No
-matter what algorithm you configure for your user object, the hashed password
-can always be determined in the following way from a controller:
+ユーザ登録フォームのようなものがあれば、あなたがユーザのためにハッシュ化されたパスワードを決定できるべきす。Userオブジェクトに、どんなアルゴリズムで設定していても、ハッシュ化されたパスワードは常にコントローラから以下の方法で決定されます:
 
 .. code-block:: php
 
@@ -1104,12 +885,10 @@ can always be determined in the following way from a controller:
     $password = $encoder->encodePassword('ryanpass', $user->getSalt());
     $user->setPassword($password);
 
-Retrieving the User Object
+Userオブジェクトの読み出し
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-After authentication, the ``User`` object of the current user can be accessed
-via the ``security.context`` service. From inside a controller, this will
-look like:
+認証後、現在のユーザの ``User`` オブジェクトは ``security.context`` サービスを介してアクサスできます。コントローラの中からは次のようになります:
 
 .. code-block:: php
 
@@ -1120,19 +899,12 @@ look like:
 
 .. note::
 
-    Anonymous users are technically authenticated, meaning that the ``isAuthenticated()``
-    method of an anonymous user object will return true. To check if your
-    user is actually authenticated, check for the ``IS_AUTHENTICATED_FULLY``
-    role.
+    匿名ユーザは、表向きには、匿名ユーザのオブジェクトの ``isAuthenticated()`` メソッドがtrueを返すので認証されます。ユーザが実際に認証されたかを確認するには、 ``IS_AUTHENTICATED_ANONYMOUSLY`` 権限をチェックしてください。
 
-Using Multiple User Providers
+複数のユーザプロバイダの使用
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Each authentication mechanism (e.g. HTTP Authentication, form login, etc)
-uses exactly one user provider, and will use the first declared user provider
-by default. But what if you want to specify a few users via configuration
-and the rest of your users in the database? This is possible by creating
-a new provider that chains the two together:
+HTTP 認証やフォームログインなどの全ての認証メカニズムは、厳密に１つのユーザプロバイダを使用し、デフォルトとして最初に宣言されたユーザプロバイダを使用します。しかし、特定のユーザはコンフィギュレーションファイルから、残りのユーザはデータベースから認証したいときはどうでしょう？これは、２つ一緒につなげる新しいプロバイダを作成することにより可能になります:
 
 .. configuration-block::
 
@@ -1184,15 +956,11 @@ a new provider that chains the two together:
             ),
         ));
 
-Now, all authentication mechanisms will use the ``chain_provider``, since
-it's the first specified. The ``chain_provider`` will, in turn, try to load
-the user from both the ``in_memory`` and ``user_db`` providers.
+これで、 ``chain_provider`` を最初に指定したため、全ての認証メカニズムは  ``chain_provider`` を使用するようになりました。 ``chain_provider`` は、 ``in_memory`` と ``user_db`` のプロバイダの両方からユーザをロードしようとします。
 
 .. tip::
 
-    If you have no reasons to separate your ``in_memory`` users from your
-    ``user_db`` users, you can accomplish this even more easily by combining
-    the two sources into a single provider:
+    ``in_memory`` のユーザと ``user_db`` のユーザを分ける理由がなければ、２つのソースを１つのプロバイダとして結合することによって、より簡単に達成することができます:
 
     .. configuration-block::
 
@@ -1230,9 +998,7 @@ the user from both the ``in_memory`` and ``user_db`` providers.
                 ),
             ));
 
-You can also configure the firewall or individual authentication mechanisms
-to use a specific provider. Again, unless a provider is specified explicitly,
-the first provider is always used:
+また、特定のプロバイダを使用するため、ファイアーウォールや個々の認証メカニズムを設定することも可能です。くどいようですが、プロバイダが明確に指定されていなければ、最初のプロバイダが常に使用されます:
 
 .. configuration-block::
 
@@ -1277,38 +1043,26 @@ the first provider is always used:
             ),
         ));
 
-In this example, if a user tries to login via HTTP authentication, the authentication
-system will use the ``in_memory`` user provider. But if the user tries to
-login via the form login, the ``user_db`` provider will be used (since it's
-the default for the firewall as a whole).
+この例では、ユーザが HTTP 認証を介してログインを試みようとすると、認証システムは ``in_memory`` ユーザプロバイダを使用します。しかし、ユーザがフォームログインを介してログインを試みようとすると、全体の
+のデフォルトである ``user_db`` プロバイダが使用されます。
 
-For more information about user provider and firewall configuration, see
-the :doc:`/reference/configuration/security`.
+ユーザプロバイダとファイアーウォールの設定に関する詳細は、 :doc:`/reference/configuration/security` を参照してください。
 
-Roles
+権限
 -----
 
-The idea of a "role" is key to the authorization process. Each user is assigned
-a set of roles and then each resource requires one or more roles. If the user
-has the required roles, access is granted. Otherwise access is denied.
+"role" のアイデアは、認証処理のキーとなります。それぞれのユーザは権限のセットを割り当てられ、それぞれのリソースは１つ、またはそれ以上の権限を必要とします。ユーザが必要な権限を持ってれば、アクセスは可能となり、そうでなければ拒否されます。
 
-Roles are pretty simple, and are basically strings that you can invent and
-use as needed (though roles are objects internally). For example, if you
-need to start limiting access to the blog admin section of your website,
-you could protect that section using a ``ROLE_BLOG_ADMIN`` role. This role
-doesn't need to be defined anywhere - you can just start using it.
+権限はとてもシンプルで、必要であれば独自に作り、使うことができるように、基本的にひと続きになっています。例えば、ウェブサイトのブログ管理のセクションへのアクセスを制限する必要があったとします。その際には、 ``ROLE_BLOG_ADMIN`` 権限を使用しそのセクションを保護することができます。この権限は、どこでも定義することができます。これからだって使うことができます。
 
 .. note::
 
-    All roles **must** begin with the ``ROLE_`` prefix to be managed by
-    Symfony2. If you define your own roles with a dedicated ``Role`` class
-    (more advanced), don't use the ``ROLE_`` prefix.
+    すべての権限は、Symfony2 によって管理されるため、 ``ROLE_`` 接頭辞から始め **なければなりません**。より高度な ``Role`` 専用のクラスを定義する際には、 ``ROLE_`` 接頭辞は使用しないでください。
 
-Hierarchical Roles
+階層的な権限
 ~~~~~~~~~~~~~~~~~~
 
-Instead of associating many roles to users, you can define role inheritance
-rules by creating a role hierarchy:
+ユーザにたくさんの権限を結びつける代わりに、権限の階層を作成し、権限の継承ルールを定義することができます:
 
 .. configuration-block::
 
@@ -1340,16 +1094,12 @@ rules by creating a role hierarchy:
             ),
         ));
 
-In the above configuration, users with ``ROLE_ADMIN`` role will also have the
-``ROLE_USER`` role. The ``ROLE_SUPER_ADMIN`` role has ``ROLE_ADMIN``, ``ROLE_ALLOWED_TO_SWITCH``
-and ``ROLE_USER`` (inherited from ``ROLE_ADMIN``).
+上記の設定では、 ``ROLE_ADMIN`` 権限を持つユーザは、 ``ROLE_USER`` 権限をも持つことになります。 ``ROLE_SUPER_ADMIN`` 権限は、 ``ROLE_ADMIN``, ``ROLE_ALLOWED_TO_SWITCH``, そして ``ROLE_USER`` を持つことになります。
 
-Logging Out
+ログアウト
 -----------
 
-Usually, you'll also want your users to be able to log out. Fortunately,
-the firewall can handle this automatically for you when you activate the
-``logout`` config parameter:
+ほとんどの場合、ユーザにログアウトもできるようにさせたいでしょう。幸いにも、 ``logout`` の設定値を有効化することにより、ファイアーウォールはログアウトを自動的に処理することができます:
 
 .. configuration-block::
 
@@ -1389,12 +1139,7 @@ the firewall can handle this automatically for you when you activate the
             // ...
         ));
 
-Once this is configured under your firewall, sending a user to ``/logout``
-(or whatever you configure the ``path`` to be), will un-authenticate the
-current user. The user will then be sent to the homepage (the value defined
-by the ``target`` parameter). Both the ``path`` and ``target`` config parameters
-default to what's specified here. In other words, unless you need to customize
-them, you can omit them entirely and shorten your configuration:
+ファイアーウォール内で上記のように設定すれば、ユーザを ``/logout`` (``path`` で設定したルートURL)に導けば、現在のユーザの認証を解きます。 ``path`` と ``target`` の設定値の両方のデフォルトはここで指定した値です。言い換えると、それらをカスタマイズしなければ、省略することができ、コンフィギュレーションを短くすることができます。
 
 .. configuration-block::
 
@@ -1410,9 +1155,7 @@ them, you can omit them entirely and shorten your configuration:
 
         'logout' => array(),
 
-Note that you will *not* need to implement a controller for the ``/logout``
-URL as the firewall takes care of everything. You may, however, want to create
-a route so that you can use it to generate the URL:
+ファイアーウォールが全てを面倒見るため、``/logout`` URLのコントローラを実装する *必要がない* ことを気に留めておいてください。しかし、そのURLを生成するために使うルートを作成したいと思うかもしれません:
 
 .. configuration-block::
 
@@ -1446,16 +1189,12 @@ a route so that you can use it to generate the URL:
 
         return $collection;
 
-Once the user has been logged out, he will be redirected to whatever path
-is defined by the ``target`` parameter above (e.g. the ``homepage``). For
-more information on configuring the logout, see the
-:doc:`Security Configuration Reference</reference/configuration/security>`.
+ユーザが一旦ログアウトすると、そのユーザは、上記の ``target`` の値によって定義されたパス(``homepage`` など)にリダイレクトされます。ログアウトの設定に関する詳細は :doc:`Security Configuration Reference</reference/configuration/security>` を参照してください。
 
-Access Control in Templates
+テンプレートにおけるアクセス制御
 ---------------------------
 
-If you want to check if the current user has a role inside a template, use
-the built-in helper function:
+テンプレートの中で、現在のユーザが権限を持っているかを調べるには、ビルトインヘルパー関数を使用します:
 
 .. configuration-block::
 
@@ -1473,40 +1212,32 @@ the built-in helper function:
 
 .. note::
 
-    If you use this function and are *not* at a URL where there is a firewall
-    active, an exception will be thrown. Again, it's almost always a good
-    idea to have a main firewall that covers all URLs (as has been shown
-    in this chapter).
+    ファイアーウォールが有効でないURLで、この関数を使用しますと例外が投げられます。くどいようですが、この章で見られるように、全てのURLをカバーするメインのファイアーウォールはほとんど場合において、良いアイデアです。
 
-Access Control in Controllers
+コントロラーにおけるアクセス制御
 -----------------------------
 
-If you want to check if the current user has a role in your controller, use
-the ``isGranted`` method of the security context:
+コントローラから、現在のユーザが権限を持っているか調べるには、セキュリティコンテキストの ``isGranted`` メソッドを使用してください:
 
 .. code-block:: php
 
     public function indexAction()
     {
-        // show different content to admin users
+        // 管理者ユーザには異なる内容を表示します
         if($this->get('security.context')->isGranted('ADMIN')) {
-            // Load admin content here
+            // 管理者ユーザ用の内容のロードはここ
         }
-        // load other regular content here
+        // 正規の内容のロードはここ
     }
 
 .. note::
 
-    A firewall must be active or an exception will be thrown when the ``isGranted``
-    method is called. See the note above about templates for more details.
+    ファイアーウォールは有効になっている必要があります。そうでなければ、 ``isGranted`` メソッドが呼ばれた際に例外が投げられます。詳細は、上記のテンプレートのセクションにおけるNoteを参照してください。
 
-Impersonating a User
+他のユーザになりすます
 --------------------
 
-Sometimes, it's useful to be able to switch from one user to another without
-having to logout and login again (for instance when you are debugging or trying
-to understand a bug a user sees that you can't reproduce). This can be easily
-done by activating the ``switch_user`` firewall listener:
+ときどき、ログアウト、ログインを繰り返すこと無しに、あるユーザから他のユーザに切り替えることができると便利ですね。例えばデバッグをしている際や、特定のユーザのみ再現されるバグを理解する際などです。 ``switch_user`` ファイアーウォールリスナーを有効化することによって簡単に実現することができます:
 
 .. configuration-block::
 
@@ -1541,20 +1272,15 @@ done by activating the ``switch_user`` firewall listener:
             ),
         ));
 
-To switch to another user, just add a query string with the ``_switch_user``
-parameter and the username as the value to the current URL:
+他のユーザに切り替えるには、現在のURLに ``_switch_user`` パラメターをクエリーストリングに加えて、ユーザ名をその値に加えるだけです:
 
     http://example.com/somewhere?_switch_user=thomas
 
-To switch back to the original user, use the special ``_exit`` username:
+元のユーザに戻りたいときは、特別なユーザ名 ``exit`` を使用します:
 
     http://example.com/somewhere?_switch_user=_exit
 
-Of course, this feature needs to be made available to a small group of users.
-By default, access is restricted to users having the ``ROLE_ALLOWED_TO_SWITCH``
-role. The name of this role can be modified via the ``role`` setting. For
-extra security, you can also change the query parameter name via the ``parameter``
-setting:
+もちろん、この機能は特定の小さなユーザグループに利用可能とさせる必要があります。デフォルトでは、 ``ROLE_ALLOWED_TO_SWITCH`` 権限を持つユーザのみがアクセス可能です。権限の名前は、 ``role`` のセッティングから変更することができます。追加のセキュリティ対策として、 ``parameter`` セッティングからクエリーパラメターを変更することもできます:
 
 .. configuration-block::
 
@@ -1589,15 +1315,10 @@ setting:
             ),
         ));
 
-Stateless Authentication
+ステートレス認証
 ------------------------
 
-By default, Symfony2 relies on a cookie (the Session) to persist the security
-context of the user. But if you use certificates or HTTP authentication for
-instance, persistence is not needed as credentials are available for each
-request. In that case, and if you don't need to store anything else between
-requests, you can activate the stateless authentication (which means that no
-cookie will be ever created by Symfony2):
+デフォルトでは、Symfony2 は、ユーザのセキュリティコンテキストを持続するためにクッキー(セッション)を使用します。しかし、証明書や HTTP 認証を使用する際には、毎回のリクエストで証明書が利用可能なため、持続する必要ありません。こういったケースでは、リクエスト以外何も保存する必要がなければ、ステートレス認証を有効化することができます。つまり、Symfony2 によってクッキーは作られません:
 
 .. configuration-block::
 
@@ -1630,30 +1351,16 @@ cookie will be ever created by Symfony2):
 
 .. note::
 
-    If you use a form login, Symfony2 will create a cookie even if you set
-    ``stateless`` to ``true``.
+    フォームログインを使用する際には、 ``stateless`` を ``true`` に指定していても、Symfony2 はクッキーを作成します。
 
-Final Words
+Final Thoughts
 -----------
 
-Security can be a deep and complex issue to solve correctly in your application.
-Fortunately, Symfony's security component follows a well-proven security
-model based around *authentication* and *authorization*. Authentication,
-which always happens first, is handled by a firewall whose job is to determine
-the identity of the user through several different methods (e.g. HTTP authentication,
-login form, etc). In the cookbook, you'll find examples of other methods
-for handling authentication, including how to implement a "remember me" cookie
-functionality.
+セキュリティ機能は、あなたのアプリケーションの深く複雑な問題を正しく解決してくれます。幸いにも、Symfony のセキュリティコンポーネントは、 *認証* と *承認* をベースにした実績のあるセキュリティモデルに沿っています。認証は、常に最初に起こり、 HTTP 認証やログインフォームなどのいくつもの異なる方法を通して、ユーザの同一性を決定するファイアーウォールによって処理されます。クックブックでは、"remember me"クッキー機能の実装方法を含め、他の方法で認証処理を実装したサンプルを見つけることができます。
 
-Once a user is authenticated, the authorization layer can determine whether
-or not the user should have access to a specific resource. Most commonly,
-*roles* are applied to URLs, classes or methods and if the current user
-doesn't have that role, access is denied. The authorization layer, however,
-is much deeper, and follows a system of "voting" so that multiple parties
-can determine if the current user should have access to a given resource.
-Find out more about this and other topics in the cookbook.
+ユーザがいったん認証されれば、認証の層は、ユーザが特定のリソースへのアクセス権を保持しているか決定することができます。ほとんどの場合において、 *権限* はURL、クラス、メソッドに適用され、ユーザに権限が無い際には、アクセスが拒否されます。しかし、認証レイヤーはもっと深く考えられており、ユーザが与えられたリソースにアクセスできるかどうかを、複数の関係者が決定できるといったような "voting" のシステムに沿っています。このことに関するトピックの詳細は、クックブックを参照してください。
 
-Learn more from the Cookbook
+クックブック でもっと学ぶ
 ----------------------------
 
 * :doc:`Forcing HTTP/HTTPS </cookbook/security/force_https>`
