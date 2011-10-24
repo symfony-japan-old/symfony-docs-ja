@@ -11,7 +11,7 @@ Symfony2 内で例外が投げられると、その例外は ``Kernel`` クラ�
 
 .. tip::
 
-    ２つ目の方法である例外処理のカスタマイズの方が、ここに書かれていることよりも、より強力です。内部のイベントである``kernel.exception`` が投げれ、例外処理をすべて制御できるからです。将来は、 :ref:`ernel-kernel.exception` を参照してください。
+    ２つ目の方法である例外処理のカスタマイズの方が、ここに書かれていることよりも、より強力です。内部のイベントである``kernel.exception`` が投げられ、例外処理をすべて制御できるからです。将来は、 :ref:`ernel-kernel.exception` を参照してください。
 
 全てのエラーテンプレートは、 `TwigBundle`` 内にあります。これらのテンプレートをオーバーライドするには、制御したいバンドル内で、テンプレートのオーバーライドするための標準メソッドを呼べば良いのです。詳細は、 :ref:`overriding-bundle-templates` を参照してください。
 
@@ -35,7 +35,7 @@ Symfony2 内で例外が投げられると、その例外は ``Kernel`` クラ�
 
     Twig に慣れていなくても大丈夫です。Twig は ``Symfony2`` に統合されている簡単で強力なテンプレートエンジンです。Twig の詳細は :doc:`/book/templating` を参照してください。
 
-標準的な HTML のエラーページに加え、Symfony はたくさんの一般的なレスポンスフォーマットのデフォルトエラーページを提供します。例を上げると、 JSON(``error.json.twig``)、XML(``error.xml.twig``)、JavaScript(``error.js.twig``) などです。これらのテンプレートをオーバーライドするには、同じ名前のテンプレートファイルを ``app/Resources/TwigBundle/views/Exception`` ディレクトリに作成すればいいのです。また、これがバンドル内にあるエラーテンプレートのみならずあらゆるテンプレートをオーバーライドする標準的な方法です。
+標準的な HTML のエラーページに加え、Symfony はたくさんの一般的なレスポンスフォーマットのデフォルトエラーページを提供します。例を上げると、 JSON(``error.json.twig``)、XML(``error.xml.twig``)、JavaScript(``error.js.twig``) などです。これらのテンプレートをオーバーライドするには、同じ名前のテンプレートファイルを ``app/Resources/TwigBundle/views/Exception`` ディレクトリに作成すればいいのです。また、この方法は、バンドル内にあるエラーテンプレートのみの方法ではなく、あらゆるテンプレートをオーバーライドする標準的な方法になります。
 
 .. _cookbook-error-pages-by-status-code:
 
