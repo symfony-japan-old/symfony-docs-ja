@@ -1,5 +1,3 @@
-.. 2011/07/23 hidenorigoto a509d3609bd1f698c8d368bacf7bc7fc149caf13
-
 .. index::
    single: Bundle; Inheritance
 
@@ -8,7 +6,9 @@
 
 サードパーティのバンドルを使用する際に遭遇する問題として、サードパーティのバンドルのファイルを自分の開発するバンドル内でオーバーライドする必要があるときがあります。 Symfony はコントローラ、テンプレート、翻訳、その他バンドルの ``Resources/`` ディレクトリ内のファイルをオーバーライドする便利な方法を用意しています。
 
-例として、 `FOSUserBundle`_ をインストールして、ベーステンプレートである ``laout.html.twig`` と、コントローラを１つオーバーライドしてみます。また、独自に ``AcmeUserBundle`` を開発しており、ファイルをオーバーライドすることにします。まず、 ``FOSUserBundle`` をあなたのバンドル ``AcmeUserBundle`` の "parent" として登録してください。::
+例として、 `FOSUserBundle`_ をインストールして、ベーステンプレートである ``laout.html.twig`` と、コントローラを１つオーバーライドしてみます。また、独自に ``AcmeUserBundle`` を開発しており、ファイルをオーバーライドすることにします。まず、 ``FOSUserBundle`` をあなたのバンドル ``AcmeUserBundle`` の "parent" として登録してください。
+
+::
 
     // src/Acme/UserBundle/AcmeUserBundle.php
     namespace Acme\UserBundle;
@@ -26,9 +26,11 @@
 このシンプルな変更により、同じ名前のファイルを作成すれば ``FOSUserBundle`` のいくつかの部分をオーバーライドできるようになりました。
 
 コントローラのオーバライド
-~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-``FOSUserBundle`` にある ``RegistrationController`` の ``registerAction`` にいくつか機能を追加してみます。必要なことは、独自に ``RegistrationController.php`` ファイルを作成して、同じ名前のメソッドを作り、追加したい機能を変更するだけです。::
+``FOSUserBundle`` にある ``RegistrationController`` の ``registerAction`` にいくつか機能を追加してみます。必要なことは、独自に ``RegistrationController.php`` ファイルを作成して、同じ名前のメソッドを作り、追加したい機能を変更するだけです。
+
+::
 
     // src/Acme/UserBundle/Controller/RegistrationController.php
     namespace Acme\UserBundle\Controller;
@@ -56,7 +58,7 @@
     バンドルがルーティングルールやテンプレートの中で、コントローラの標準的なシンタックスである ``FOSUserBundle:Registration:register`` を使用しているときのみ、この方法でコントローラをオーバーライドができます。また、これはバンドル作成に関するベストプラクティスです。
 
 リソースのオーバライド: テンプレート、ルーティング、翻訳、バリデーションなど
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ほとんどのリソースは、独自で作成したバンドルを親バンドルとして同じ場所にファイルを作成するだけで、オーバーライドすることができます。
 

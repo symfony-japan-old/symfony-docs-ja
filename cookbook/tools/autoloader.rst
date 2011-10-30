@@ -18,7 +18,9 @@
 .. versionadded:: 2.1
    ``useIncludePath`` メソッドは Symfony2.1 で加えられます。
 
-:class:`Symfony\\Component\\ClassLoader\\UniversalClassLoader` オートローダーの登録は、簡単です::
+:class:`Symfony\\Component\\ClassLoader\\UniversalClassLoader` オートローダーの登録は、簡単です
+
+::
 
     require_once '/path/to/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
 
@@ -31,7 +33,9 @@
 
     $loader->register();
 
- :class:`Symfony\\Component\\ClassLoader\\ApcUniversalClassLoader` クラスを登録して、APC を使ったメモリ上のクラスパスのキャッシュ化する小さいパフォーマンス改善もできます::
+ :class:`Symfony\\Component\\ClassLoader\\ApcUniversalClassLoader` クラスを登録して、APC を使ったメモリ上のクラスパスのキャッシュ化する小さいパフォーマンス改善もできます
+
+::
 
     require_once '/path/to/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
     require_once '/path/to/src/Symfony/Component/ClassLoader/ApcUniversalClassLoader.php';
@@ -50,8 +54,9 @@
 ネームスペースを使用しているクラスをオートロードするには
 :method:`Symfony\\Component\\ClassLoader\\UniversalClassLoader::registerNamespace` メソッドを使用する
 もしくは、
-:method:`Symfony\\Component\\ClassLoader\\UniversalClassLoader::registerNamespaces` メソッドを使用してください。::
+:method:`Symfony\\Component\\ClassLoader\\UniversalClassLoader::registerNamespaces` メソッドを使用してください。
 
+::
 
     $loader->registerNamespace('Symfony', __DIR__.'/vendor/symfony/src');
 
@@ -65,6 +70,8 @@ PEAR の命名規則に従ったクラスをオートロードするには
 もしくは、
 :method:`Symfony\\Component\\ClassLoader\\UniversalClassLoader::registerPrefixes` メソッドを使用してください。
 
+::
+
     $loader->registerPrefix('Twig_', __DIR__.'/vendor/twig/lib');
 
     $loader->registerPrefixes(array(
@@ -76,7 +83,9 @@ PEAR の命名規則に従ったクラスをオートロードするには
 
     PHP の include pathにライブラリのルートパスの登録が必要なライブラリもあります(``set_include_path()``)。
 
-PEAR のクラスのサブネームスペースや下の階層にあるクラスは、大きなプロジェクトのクラスの集合のベンダーとしたディレクトリのリストより見つけることができます。::
+PEAR のクラスのサブネームスペースや下の階層にあるクラスは、大きなプロジェクトのクラスの集合のベンダーとしたディレクトリのリストより見つけることができます。
+
+::
 
     $loader->registerNamespaces(array(
         'Doctrine\\Common'           => __DIR__.'/vendor/doctrine-common/lib',
