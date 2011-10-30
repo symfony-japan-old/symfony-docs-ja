@@ -225,3 +225,6 @@
 * :doc:`/cookbook/bundles/extension`
 
 .. _standards: http://groups.google.com/group/php-standards/web/psr-0-final-proposal
+
+.. 2011/10/26 ganchiku 1deee7b7a80181f318853a495c4aa06866129172
+

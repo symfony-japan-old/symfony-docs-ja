@@ -250,3 +250,6 @@ Twig Functionのより短い書き方
         ));
 
 .. _`Jpegoptim`: http://www.kokkonen.net/tjko/projects.html
+
+.. 2011/07/31 chobie 9367dc0ae03119f8c1bba228d9f2682ffdea63a5
+

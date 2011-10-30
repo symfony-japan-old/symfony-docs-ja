@@ -70,3 +70,5 @@
 
 .. _`FOSUserBundle`: https://github.com/friendsofsymfony/fosuserbundle
 
+.. 2011/10/26 ganchiku 8c977955dd659249df896e21c4eab044f044e90b
+

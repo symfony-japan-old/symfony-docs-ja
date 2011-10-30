@@ -2,7 +2,7 @@
     single: Cache; Varnish
 
 Varnish を使ってウェブサイトを高速化する方法
-=========================================
+============================================
 
 Symfony2 のキャッシュは標準的な HTTP キャッシュヘッダを使用しているので、 :ref:`symfony-gateway-cache` は簡単に他のリバースプロクシに変更することができます。 Varnish は強力なオープンソースの HTTP アクセラレータで キャッシュの利用を速くすることができ、また、 :ref:`Edge Side Includes<edge-side-includes>` のサポートもしています。
 
@@ -10,7 +10,7 @@ Symfony2 のキャッシュは標準的な HTTP キャッシュヘッダを使�
     single: Varnish; configuration
 
 コンフィギュレーション
--------------
+----------------------
 
 前に見たように、 Symfony2 はとてもスマートで、リバースプロクシが ESI を理解できるか検知することができます。 Symfony2 のリバースプロクシを使用している際には、そのままで動作します。しかし、 Varnish を使用する際には、特別なコンフィギュレーションが必要になります。 Symfony2 は `Edge Architecture` と呼ばれる Akamai によって作られた標準に従っていますので、たとえ Symfony2 を使っていなくても、この章のコンフィギュレーションのティップスは便利です。
 
@@ -76,3 +76,6 @@ Symfony2 のキャッシュは標準的な HTTP キャッシュヘッダを使�
 
 .. _`Edge Architecture`: http://www.w3.org/TR/edge-arch
 .. _`GZIP and Varnish`: https://www.varnish-cache.org/docs/3.0/phk/gzip.html
+
+.. 2011/10/27 ganchiku d540e14acc8db6048279d0fed18b9403082710a9
+
