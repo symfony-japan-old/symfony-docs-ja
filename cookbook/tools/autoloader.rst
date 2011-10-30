@@ -2,7 +2,7 @@
    pair: Autoloader; Configuration
 
 クラスのオートローディングの方法
-=======================
+================================
 
 未定のクラスを使用すると常に、 PHP は、クラオートローディングのメカニズムを使用して、クラス定義をしてあるファイルをロードしてしようとします。 Symfony2 は、 "universal autoloader" を提供しており、次のいずれかの慣習に従って実装されたファイルからクラスを読み込むことができます。:
 
@@ -13,7 +13,7 @@
 あなたのクラスとサードパーティのライブラリが、この標準に従っていれば、 Symfony2 のオートローダーのみで全て解決できます。
 
 使用方法
------
+--------
 
 .. versionadded:: 2.1
    ``useIncludePath`` メソッドは Symfony2.1 で加えられます。
@@ -89,3 +89,6 @@ PEAR のクラスのサブネームスペースや下の階層にあるクラス
 
 .. _standards: http://groups.google.com/group/php-standards/web/psr-0-final-proposal
 .. _PEAR:      http://pear.php.net/manual/en/standards.php
+
+.. 2011/10/28 ganchiku e8ea59aa073139915feb38ef2471c16045c0a7bd
+
