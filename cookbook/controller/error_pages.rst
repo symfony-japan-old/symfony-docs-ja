@@ -7,13 +7,13 @@ Symfony2 内で例外が投げられると、その例外は ``Kernel`` クラ�
 
 1. 以下で説明しますが、異なるエラーページのエラーテンプレートをカスタマイズします。
 
-2. デフォルトのエラーコントローラである ``TwigBundle::Exception:show`` を自分で作ったコントローラに置き換えて、例外を好きなように処理します。( :ref:`exception_controller in the Twig reference<config-twig-exception-controller>` を参照してください)
+2. デフォルトのエラーコントローラである ``TwigBundle::Exception:show`` を自分で作ったコントローラに置き換えて、例外を好きなように処理します。(\ :ref:`exception_controller in the Twig reference<config-twig-exception-controller>` を参照してください)
 
 .. tip::
 
-    ２つ目の方法である例外処理のカスタマイズの方が、ここに書かれていることよりも、より強力です。内部のイベントである``kernel.exception`` が投げられ、例外処理をすべて制御できるからです。将来は、 :ref:`ernel-kernel.exception` を参照してください。
+    ２つ目の方法である例外処理のカスタマイズの方が、ここに書かれていることよりも、より強力です。内部のイベントである ``kernel.exception`` が投げられ、例外処理をすべて制御できるからです。詳細は、\ :ref:`kernel-kernel.exception` を参照してください。
 
-全てのエラーテンプレートは、 `TwigBundle`` 内にあります。これらのテンプレートをオーバーライドするには、制御したいバンドル内で、テンプレートのオーバーライドするための標準メソッドを呼べば良いのです。詳細は、 :ref:`overriding-bundle-templates` を参照してください。
+全てのエラーテンプレートは、\ `TwigBundle`` 内にあります。これらのテンプレートをオーバーライドするには、制御したいバンドル内で、テンプレートのオーバーライドするための標準メソッドを呼べば良いのです。詳細は、\ :ref:`overriding-bundle-templates` を参照してください。
 
 例として、エンドユーザに表示するデフォルトのエラーテンプレートをオーバーライドしてみます。新しいテンプレートを ``app/Resources/TwigBundle/views/Exception/error.html.twig`` に作成してください。
 
@@ -42,7 +42,7 @@ Symfony2 内で例外が投げられると、その例外は ``Kernel`` クラ�
 404 ページや他のエラーページをカスタマイズする
 ----------------------------------------------
 
-HTTP のステータスコードに準じて、特定のエラーテンプレートをカスタマイズすることもできます。例えば、 ``app/Resources/TwigBundle/views/Exception/error404.html.twig`` テンプレートを作成して Page not Found の 404 エラーのための特別なページを表示させることができます。
+HTTP のステータスコードに準じて、特定のエラーテンプレートをカスタマイズすることもできます。例えば、\ ``app/Resources/TwigBundle/views/Exception/error404.html.twig`` テンプレートを作成して Page not Found の 404 エラーのための特別なページを表示させることができます。
 
 Symfony は、次のアルゴリズムを使用し、どのテンプレートを使うか決定します。
 
@@ -50,11 +50,11 @@ Symfony は、次のアルゴリズムを使用し、どのテンプレートを
 
 * もし一致するテンプレートが無ければ、フォーマットに一致するテンプレートを探します(``error.json.twig`` のように)。
 
-* それでも一致するテンプレートが無ければ、 HTML テンプレートを使用します(``error.html.twig`` のように)
+* それでも一致するテンプレートが無ければ、HTML テンプレートを使用します(``error.html.twig`` のように)
 
 .. tip::
 
-    デフォルトエラーテンプレートの一覧は、 ``TwigBundle`` 内の ``Resources/views/Exception`` ディレクトリにあります。標準的な Symfony2 のインストールでは、 ``TwigBundle`` は ``vendor/symfony/src/Symfony/Bundle/TwigBundle`` にあります。エラーページをカスタマイズするための一番簡単な方法は、 ``TwigBundle`` からカスタマイズしたいエラーページを ``app/Resources/TwigBundle/views/Exception`` にコピーして、それを元にカスタマイズすることです。
+    デフォルトエラーテンプレートの一覧は、\ ``TwigBundle`` 内の ``Resources/views/Exception`` ディレクトリにあります。標準的な Symfony2 のインストールでは、\ ``TwigBundle`` は ``vendor/symfony/src/Symfony/Bundle/TwigBundle`` にあります。エラーページをカスタマイズするための一番簡単な方法は、\ ``TwigBundle`` からカスタマイズしたいエラーページを ``app/Resources/TwigBundle/views/Exception`` にコピーして、それを元にカスタマイズすることです。
 
 .. note::
 

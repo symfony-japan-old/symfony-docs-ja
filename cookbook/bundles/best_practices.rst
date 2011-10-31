@@ -16,7 +16,7 @@
 
 １つバンドルは同時に１つの PHP のネームスペースでもあります。ネームスペースは、 PHP5.3 のネームスペースとクラス名の技術的な相互運用の `standards_` に沿う必要があります。つまり、ベンダーの区分から始まり、カテゴリの区分(無い場合もあるし、複数ある場合もあります)が続き、必ず ``Bundle`` という接尾辞で終わる短いネームスペースになります。
 
-バンドルクラスを追加すると同時にネームスペースはバンドルになります。バンドルのクラス名は次のルールに沿う必要があります。:
+バンドルクラスを追加すると同時にネームスペースはバンドルになります。バンドルのクラス名は次のルールに沿う必要があります。
 
 * 半角英数字、アンダースコアのみ使用すること
 * ネーミングには、キャメルケースを使用すること
@@ -40,13 +40,13 @@
 
 .. note::
 
-    バンドルをパブリックに共有する際には、バンドルのクラス名をリポジトリの名前として使用するようにしなければなりません。例えば、 ``BlogBundle`` ではなく、``AcmeBlogBundle`` としてください。
+    バンドルをパブリックに共有する際には、バンドルのクラス名をリポジトリの名前として使用するようにしなければなりません。例えば ``BlogBundle`` ではなく、\ ``AcmeBlogBundle`` としてください。
 
 .. note::
 
-    Symfony2 のコアのバンドルは、バンドルのクラス名に ``Symfony`` という名前を前に置いておらず、常にサブネームスペースである ``Bundle`` を追加しています。例えば、 :class:`Symfony\\Bundle\\FrameworkBundle\\FrameworkBundle` のようにです。
+    Symfony2 のコアのバンドルは、バンドルのクラス名に ``Symfony`` という名前を前に置いておらず、常にサブネームスペースである ``Bundle`` を追加しています。例えば、\ :class:`Symfony\\Bundle\\FrameworkBundle\\FrameworkBundle` のようにです。
 
-それぞれのバンドルの名前には、小文字とアンダースコアを使用して短くしたエイリアスがあります。例えば、 ``AcmeHelloBundle`` は ``acme_hello`` になり、 ``Acme\Social\BlogBundle`` は ``acme_social_blog`` になります。エイリアスは、同バンドル内で一意である必要があります。以下のセクションで使用方法の例を示します。
+それぞれのバンドルの名前には、小文字とアンダースコアを使用して短くしたエイリアスがあります。例えば、\ ``AcmeHelloBundle`` は ``acme_hello`` になり、\ ``Acme\Social\BlogBundle`` は ``acme_social_blog`` になります。エイリアスは、同バンドル内で一意である必要があります。以下のセクションで使用方法の例を示します。
 
 ディレクトリ構造
 ----------------
@@ -113,27 +113,27 @@
 クラス
 ------
 
-バンドルディレクトリの構造は、ネームスペースの階層として使用されます。例えば、 ``HelloController`` コントローラは、 ``Bundle/HelloBundle/Controller/HelloController.php`` に保管されますし、完全なクラス名は、 ``Bundle\HelloBundle\Controller\HelloController`` になります。
+バンドルディレクトリの構造は、ネームスペースの階層として使用されます。例えば ``HelloController`` コントローラは、\ ``Bundle/HelloBundle/Controller/HelloController.php`` に保管されますし、完全なクラス名は、\ ``Bundle\HelloBundle\Controller\HelloController`` になります。
 
-全てのクラスとファイルは、 Symfony2 の基準に沿う必要があります。:doc:`standards </contributing/code/standards>`
+全てのクラスとファイルは、 Symfony2 の基準に沿う必要があります。\ :doc:`コーディング規約 </contributing/code/standards>`
 
-クラスのいくつかは、わかりやすくするために、可能な限り短くあるべきです。例えば、 Commands, Helpers, Listeners, Controllers などです。
+クラスのいくつかは、わかりやすくするために、可能な限り短くあるべきです。例えば、Commands、Helpers、Listeners、Controllers などです。
 
-イベントディスパッチャーに接続するクラスは、 ``Listener`` の接尾辞をつけるべきです。
+イベントディスパッチャーに接続するクラスは、\ ``Listener`` の接尾辞をつけるべきです。
 
-例外クラスは、 ``Exception`` のサブネームスペース内に保管するべきです。
+例外クラスは、\ ``Exception`` のサブネームスペース内に保管するべきです。
 
 ベンダー
 --------
 
 バンドルは、サードパーティの PHP ライブラリを含んではいけません。その代わりに、標準的な Symfony2 のオートローディングを使いましょう。
 
-バンドルは、サードパーティの JavaScript  や CSS などのライブラリを含んではいけません。
+バンドルは、サードパーティの JavaScript や CSS などのライブラリを含んではいけません。
 
 テスト
 ------
 
-バンドルは、 ``Tests/`` ディレクトリ以下に PHPUnit で書かれたテストスイートを用意すべきです。テストは以下の原則に沿ってください。:
+バンドルは、\ ``Tests/`` ディレクトリ以下に PHPUnit で書かれたテストスイートを用意すべきです。テストは以下の原則に沿ってください。
 
 * テストスイートは、サンプルアプリケーションから ``phpunit`` コマンドのみを走らせるだけで実行できなければなりません。
 * 機能テストは、レスポンスの出力とプロファイル情報のみをテストすべきです。
@@ -147,12 +147,12 @@
 
 全てのクラスと関数は PHPDoc が必要です。
 
-詳細なドキュメントを用意する際は、 ``Resources/doc/`` ディレクトリ以下に、 :doc:`reStructuredText </contributing/documentation/format>` フォーマットで用意してください。 ``Resources/doc/index.rst`` ファイルは唯一必要なファイルで、詳細なドキュメントへのエントリポイントとしてください。
+詳細なドキュメントを用意する際は、\ ``Resources/doc/`` ディレクトリ以下に、\ :doc:`reStructuredText </contributing/documentation/format>` フォーマットで用意してください。\ ``Resources/doc/index.rst`` ファイルは唯一必要なファイルで、詳細なドキュメントへのエントリポイントとしてください。
 
 コントローラ
 ------------
 
-ベストプラクティスとして、他人に配布することを考慮する必要があるので、バンドル内のコントローラは、 :class:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller` のベースクラスを拡張してはなりません。代わりに、　:class:`Symfony\\Component\\DependencyInjection\\ContainerAwareInterface` インタフェースを実装するか、  :class:`Symfony\\Component\\DependencyInjection\\ContainerAware` クラスを拡張してください。
+ベストプラクティスとして、他人に配布することを考慮する必要があるので、バンドル内のコントローラは、\ :class:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller` のベースクラスを拡張してはなりません。代わりに、\ :class:`Symfony\\Component\\DependencyInjection\\ContainerAwareInterface` インタフェースを実装するか、\ :class:`Symfony\\Component\\DependencyInjection\\ContainerAware` クラスを拡張してください。
 
 .. note::
 
@@ -161,7 +161,7 @@
 ルーティング
 ------------
 
-バンドルでルーティングを提供するには、ルート名にバンドルエイリアスの接頭辞を付ける必要があります。例えば、 ``AcmeBlogBundle`` であれば、全てのルート名は、 ``acme_blog_`` の接頭辞を必ず付けてください。
+バンドルでルーティングを提供するには、ルート名にバンドルエイリアスの接頭辞を付ける必要があります。例えば、\ ``AcmeBlogBundle`` であれば、全てのルート名は、 ``acme_blog_`` の接頭辞を必ず付けてください。
 
 テンプレート
 ------------
@@ -182,7 +182,7 @@
 
 簡単なコンフィギュレーションの設定は、Symfony2 のコンフィギュレーションのデフォルトの ``parameters`` のエントリに依存しています。Symfony2 のパラメターは、簡単なキーとバリューのペアになります。バリューは、 PHP で有効な値になります。それぞれのパラメター名は、バンドルエイリアスの接頭辞を付ける必要があります。ただし、これは単にベストプラクティスとしての提案です。パラメター名の残りは、異なる部分のセパレータとして、ピリオド (``.``)を使うことになります。例えば、 ``acme_hello.email.from`` のようになります。
 
-以下のように、エンドユーザはどんなコンフィギュレーションファイル内の値も規定することができます。:
+以下のように、エンドユーザはどんなコンフィギュレーションファイル内の値も規定することができます。
 
 .. configuration-block::
 
@@ -209,11 +209,13 @@
         [parameters]
         acme_hello.email.from = fabien@example.com
 
-コードでは、コンテナから設定パラメターを取得します。::
+コードでは、コンテナから設定パラメターを取得します。
+
+::
 
     $container->getParameter('acme_hello.email.from');
 
-このメカニズムはとてもシンプルですが、他のクックブックの記事( :doc:`/cookbook/bundles/extension`) にあるように意味的なコンフィギュレーションを使用した方が良いえしょう。
+このメカニズムはとてもシンプルですが、他のクックブックの記事(\ :doc:`/cookbook/bundles/extension`) にあるように意味的なコンフィギュレーションを使用した方が良いえしょう。
 
 .. note::
 
