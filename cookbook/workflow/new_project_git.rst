@@ -82,7 +82,9 @@ bin/vendors と deps でベンダーライブラリを管理する
 
 .. caution::
 
-    また、\ ``php bin/vendors update`` コマンドに関してですが、このコマンドはあなたのプロジェクトをアップグレードすることとは関係ありませんし、普段使うことはないでしょう。このコマンドは、 あなたの現在使用しているベンダーライブラリ群の全てのバージョンを読み込んで、\ ``deps.lock`` ファイルに記録します。これは、バージョンをフリーズさせるときに使われます。
+    また、\ ``php bin/vendors update`` コマンドに関してですが、このコマンドはあなたのプロジェクトをアップグレードすることとは関係ありませんし、普段使うことはないでしょう。このコマンドは、あなたの使用しているベンダーライブラリ群を、 ``deps`` ファイルで指定したバージョンにアップデートさせて、\ ``deps.lock`` ファイルに記録します。これは、バージョンをフリーズさせるときに使われます。
+
+    さらに、既にインストールされたもので ``deps.lock`` ファイルをアップデートさせたいだけであれば、 ``php bin/vendors lock`` を実行するだけで、適切な git の SHA ID を deps.lock ファイルに格納します。
 
 vendor コマンドと git submodule に関して
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -106,5 +108,5 @@ vendor コマンドと git submodule に関して
 .. _`barebones repository`: http://progit.org/book/ch4-4.html
 .. _`Gitolite`: https://github.com/sitaramc/gitolite
 
-.. 2011/10/24 ganchiku d739c578e765de86a8ad54d6ce9cd32b8a098a1f
+.. 2011/11/02 ganchiku 8ed337cb24830941cf6ac62dd3f03796e48e6cc8
 
