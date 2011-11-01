@@ -86,6 +86,7 @@
 * **テンプレート**
 
   * :doc:`/cookbook/templating/PHP`
+  * :doc:`/cookbook/templating/global_variables`
 
 * **ツール、ロギング、内部構造**
 
