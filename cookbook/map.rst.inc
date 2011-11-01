@@ -21,9 +21,6 @@
 
 * **データベース (Doctrine)**
 
-  * :doc:`/cookbook/doctrine/doctrine_fixtures`
-  * :doc:`/cookbook/doctrine/mongodb`
-  * :doc:`/cookbook/doctrine/migrations`
   * :doc:`/cookbook/doctrine/file_uploads`
   * :doc:`/cookbook/doctrine/common_extensions`
   * :doc:`/cookbook/doctrine/event_listeners_subscribers`
