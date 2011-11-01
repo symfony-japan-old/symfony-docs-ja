@@ -334,3 +334,6 @@ Doctrine のエンティティでファイルアップロードを扱う方法�
             return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->id.'.'.$this->path;
         }
     }
+
+
+.. 2011/11/01 ganchiku 4ff78e97ea813537be372e49540d0e7a3ba41cac
