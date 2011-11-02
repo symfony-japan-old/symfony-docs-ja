@@ -4,19 +4,19 @@
 クラスのオートローディングの方法
 ================================
 
-未定のクラスを使用すると常に、 PHP は、クラオートローディングのメカニズムを使用して、クラス定義をしてあるファイルをロードしてしようとします。 Symfony2 は、 "universal autoloader" を提供しており、次のいずれかの慣習に従って実装されたファイルからクラスを読み込むことができます。:
+未定のクラスを使用すると常に、PHP は、クラオートローディングのメカニズムを使用して、クラスが定義されているファイルをロードしようとします。Symfony2 は、"universal autoloader" を提供しており、次のいずれかの慣習に従って実装されたファイルからクラスを読み込むことができます。
 
-* PHP 5.3 のネームスペースとクラス名による、技術的な相互運用標準(`standards`_ )
+* PHP 5.3 のネームスペースとクラス名による、技術的な相互運用標準(\ `PSR-0標準`_\ )
 
 * `PEAR`_ のクラスの命名規則
 
-あなたのクラスとサードパーティのライブラリが、この標準に従っていれば、 Symfony2 のオートローダーのみで全て解決できます。
+あなたのクラスとサードパーティのライブラリが、この標準に従っていれば、Symfony2 のオートローダーのみで全て解決できます。
 
 使用方法
 --------
 
 .. versionadded:: 2.1
-   ``useIncludePath`` メソッドは Symfony2.1 で加えられます。
+   ``useIncludePath`` メソッドは Symfony2.1 で追加されます。
 
 :class:`Symfony\\Component\\ClassLoader\\UniversalClassLoader` オートローダーの登録は、簡単です
 
@@ -33,7 +33,7 @@
 
     $loader->register();
 
- :class:`Symfony\\Component\\ClassLoader\\ApcUniversalClassLoader` クラスを登録して、APC を使ったメモリ上のクラスパスのキャッシュ化する小さいパフォーマンス改善もできます
+:class:`Symfony\\Component\\ClassLoader\\ApcUniversalClassLoader` クラスを登録して、APC を使ってメモリ上にクラスパスをキャッシュすることで、パフォーマンスを少し改善できます。
 
 ::
 
@@ -49,7 +49,7 @@
 
 .. note::
 
-    Symfony2 のアプリケーションでは、オートローダーは自動的に登録されます。 ``app/autoload.php`` を参照してください。
+    Symfony2 のアプリケーションでは、オートローダーは自動的に登録されます。\ ``app/autoload.php`` を参照してください。
 
 ネームスペースを使用しているクラスをオートロードするには
 :method:`Symfony\\Component\\ClassLoader\\UniversalClassLoader::registerNamespace` メソッドを使用する
@@ -94,9 +94,9 @@ PEAR のクラスのサブネームスペースや下の階層にあるクラス
         'Doctrine'                   => __DIR__.'/vendor/doctrine/lib',
     ));
 
-この例では、 ``Doctrine\Common`` ネームスペース内のクラス、もしくはその下のクラスを使用するには、オートーローダーは、まず ``doctrine-common`` ディレクトリの下を探します。見つからなければ、探すのを諦める前に、一番下に設定してある デフォルトの ``Doctrine`` ディレクトリを探します。この例においては、登録の順番は、重要です。
+この例では、\ ``Doctrine\Common`` ネームスペース内のクラス、もしくはその下のクラスを使用するには、オートーローダーは、まず ``doctrine-common`` ディレクトリの下を探します。見つからなければ、探すのを諦める前に、一番下に設定してある デフォルトの ``Doctrine`` ディレクトリを探します。この例においては、登録の順番は、重要です。
 
-.. _standards: http://groups.google.com/group/php-standards/web/psr-0-final-proposal
+.. _PSR-0標準: http://groups.google.com/group/php-standards/web/psr-0-final-proposal
 .. _PEAR:      http://pear.php.net/manual/en/standards.php
 
 .. 2011/10/28 ganchiku e8ea59aa073139915feb38ef2471c16045c0a7bd
