@@ -31,7 +31,6 @@
 
 * **フォームとバリデーション**
 
-  * :doc:`/cookbook/form/simple_signup_form_with_mongodb`
   * :doc:`/cookbook/form/form_customization`
   * :doc:`/cookbook/form/create_custom_field_type`
   * :doc:`/cookbook/validation/custom_constraint`
@@ -43,6 +42,7 @@
   * :doc:`/cookbook/configuration/external_parameters`
   * :doc:`/cookbook/service_container/factories`
   * :doc:`/cookbook/service_container/parentservices`
+  * :doc:`/cookbook/service_container/scopes`
   * :doc:`/cookbook/configuration/pdo_session_storage`
 
 * **バンドル**
