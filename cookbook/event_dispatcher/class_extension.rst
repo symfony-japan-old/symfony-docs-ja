@@ -5,8 +5,6 @@
 ===============================================
 
 複数のクラスにメソッドを追加ようにするために、次のように拡張したいクラス内でマジックメソッドの ``__call()`` メソッドを定義することができます。
-To allow multiple classes to add methods to another one, you can define the
-magic ``__call()`` method in the class you want to be extended like this:
 
 .. code-block:: php
 
@@ -122,5 +120,5 @@ magic ``__call()`` method in the class you want to be extended like this:
     $bar = new Bar();
     $dispatcher->addListener('foo.method_is_not_found', $bar);
 
-.. 2011/11/18 ganchiku 4021613d0c9a5a967fc50ed68dacebc06833bd50
+.. 2011/11/17 ganchiku 4021613d0c9a5a967fc50ed68dacebc06833bd50
 
