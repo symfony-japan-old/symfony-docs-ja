@@ -135,3 +135,6 @@ ProductType のフォームクラスに "name" ウィジェットを追加する
 .. _`FormEvents class`: https://github.com/symfony/Form/blob/master/FormEvents.php
 .. _`Form class`: https://github.com/symfony/symfony/blob/master/src/Symfony/Component/Form/Form.php
 .. _`FilterDataEvent`: https://github.com/symfony/symfony/blob/master/src/Symfony/Component/Form/Event/FilterDataEvent.php
+
+.. 2011/11/20 ganchiku 4068ee50c31fd31acb030d6773718b66d167fbf2
+
