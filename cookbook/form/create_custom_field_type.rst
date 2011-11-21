@@ -1,5 +1,7 @@
-このページの翻訳はまだ行われていません。
+カスタムフォームフィールドタイプの作成方法
 ========================================
 
-翻訳にご協力くださる方は
-`github/symfony-japan <https://github.com/symfony-japan/symfony-docs-ja/wiki>`_ まで！
+この記事は、まだ執筆されておりません。執筆に興味がありましたら、 :doc:`/contributing/documentation/overview` を参照してください。
+
+.. 2011/11/21 ganchiku 6ec385423860c428bac1fe1f7a1bd9f26e498efa
+
