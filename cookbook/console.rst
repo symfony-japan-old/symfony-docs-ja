@@ -1,3 +1,7 @@
+.. index::
+    single: Console; CLI
+
+
 コンソール/コマンドラインツールとしてのコマンドの作成方法
 ===========================================
 
@@ -154,6 +158,25 @@ Symfony2 において、コンソールコマンドを自動的に使用可能�
     app/console demo:greet Fabien --iterations=5 --yell
     app/console demo:greet Fabien --yell --iterations=5
 
+４つのオプションが使用できます。:
+
+===========================  =====================================================
+Option                       Value
+===========================  =====================================================
+InputOption::VALUE_IS_ARRAY  このオプションは複数の値を受け取ります
+InputOption::VALUE_NONE      このオプションへの入力を受け取りません (e.g. ``--yell``)
+InputOption::VALUE_REQUIRED  値は必須です (e.g. ``iterations=5``)
+InputOption::VALUE_OPTIONAL  値はオプショナルです
+===========================  =====================================================
+
+次のように VALUE_REQUIRED と VALUE_OPTIONAL を組み合わせた VALUE_IS_ARRAY も可能です。
+
+.. code-block:: php
+
+    $this
+        // ...
+        ->addOption('iterations', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'How many times should the message be printed?', 1)
+
 ユーザに情報を尋ねる
 -------------------------------
 
@@ -258,5 +281,5 @@ Symfony2 はコマンドを容易にテストできるようになるツール�
 
     ほとんどの場合、コマンドライン上で実行されないコードからコマンドを呼び出すのは、次の理由から良いアイデアではありません。まず、コマンドの出力は、コンソールのために最適化されています。しかし、より大事なこととして、コマンドをコントローラのように考えることができます。コントローラは、モデルを使用し処理を行い、ユーザにフィードバックを表示します。ウェブからコマンドを呼ぶのではなく、コードをリファクタリングして、ロジックを新しいクラスに移すべきです。
 
-.. 2011/10/30 ganchiku 9f80235603c9416e2b9821e29abaee70f3990221
+.. 2011/11/28 ganchiku e39f5a8b06c0f1ed0634829ac9fbc02a7ac5523d
 

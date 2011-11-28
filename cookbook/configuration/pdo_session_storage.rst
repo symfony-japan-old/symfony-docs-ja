@@ -41,7 +41,7 @@ Symfony2 はセッションストレージにデータベースを使用する�
 
         <!-- app/config/config.xml -->
         <framework:config>
-            <framework:session storage-id="session.storage.pdo" default-locale="en" lifetime="3600" auto-start="true"/>
+            <framework:session storage-id="session.storage.pdo" lifetime="3600" auto-start="true"/>
         </framework:config>
 
         <parameters>
@@ -85,7 +85,7 @@ Symfony2 はセッションストレージにデータベースを使用する�
             'db_table'      => 'session',
             'db_id_col'     => 'session_id',
             'db_data_col'   => 'session_value',
-            'db_time_col'   => 'session_time',
+            'db_time_col'   => 'session_time'
         ));
 
         $pdoDefinition = new Definition('PDO', array(
@@ -172,5 +172,5 @@ PostgreSQL では、構文は以下のようになります。
         CONSTRAINT session_pkey PRIMARY KEY (session_id),
     );
 
-.. 2011/11/04 ganchiku 28bd96435e96de15cc56f23cae88ca4ef5c937c6
+.. 2011/11/28 ganchiku dcb79048e06eeab6affab6b3c21c9a2d68740fc2
 

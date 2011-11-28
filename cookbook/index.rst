@@ -16,9 +16,10 @@
     form/twig_form_customization
     form/create_custom_field_type
     form/file_uploads
+    logging/monolog
+    logging/monolog_email
     tools/autoloader
     tools/finder
-    logging/monolog
     cache/varnish
     testing/http_authentication
     testing/insulating_clients
