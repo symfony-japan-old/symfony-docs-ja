@@ -91,13 +91,16 @@
   * :doc:`/cookbook/templating/PHP`
   * :doc:`/cookbook/templating/global_variables`
 
-* **ツール、ロギング、内部構造**
+* **ロギング**
+  * :doc:`/cookbook/logging/monolog`
+  * :doc:`/cookbook/logging/monolog_email`
+
+* **ツール、内部構造**
 
   * :doc:`/cookbook/tools/autoloader`
   * :doc:`/cookbook/tools/finder`
   * :doc:`/cookbook/console`
   * :doc:`/cookbook/debugging`
-  * :doc:`/cookbook/logging/monolog`
 
 * **Web サービス**
 

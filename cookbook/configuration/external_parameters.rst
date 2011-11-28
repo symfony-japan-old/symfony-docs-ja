@@ -32,6 +32,13 @@ Apache を使用してるのであれば、次の ``VirtualHost`` の設定を�
 
     上記の例は、  `SetEnv` ディレクティブを使用して Apache の設定をしています。環境変数のセットを支援する全てのウェブサーバであれば、このように使用することができます。
 
+    また、 Apache からではなく、コンソールから使用できるようにするために、シェル変数としてこれらの設定をエクスポートする必要があります。 Unix の場合であれば、次を実行してください。
+    
+    .. code-block:: bash
+    
+        export SYMFONY__DATABASE__USER=user
+        export SYMFONY__DATABASE__PASSWORD=secret
+
 これで環境変数を宣言したので、環境変数は、 PHP のグローバル変数 ``$_SERVER`` に入ります。そして Symfony は、自動的に ``$_SERVER`` 変数を ``SYMFONY__`` の接頭辞を付けてサービスコンテナのパラメターとしてセットします。
 
 これで必要なときに、これらのパラメターを参照することができます。
@@ -139,5 +146,5 @@ Apache を使用してるのであれば、次の ``VirtualHost`` の設定を�
 
 .. _`SetEnv`: http://httpd.apache.org/docs/current/env.html
 
-.. 2011/11/04 ganchiku 3c1906c6018d69960b81804d8d7ce56aebc0b4f6
+.. 2011/11/28 ganchiku c58e7a35072cd8ce6b711dff2acb740b2aef4cbe
 
