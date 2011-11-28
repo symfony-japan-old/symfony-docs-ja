@@ -92,6 +92,7 @@
   * :doc:`/cookbook/templating/global_variables`
 
 * **ロギング**
+
   * :doc:`/cookbook/logging/monolog`
   * :doc:`/cookbook/logging/monolog_email`
 
