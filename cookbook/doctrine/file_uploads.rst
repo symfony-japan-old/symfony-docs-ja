@@ -199,7 +199,7 @@ Doctrine のエンティティでファイルアップロードを扱う方法�
         $this->file->move($this->getUploadRootDir(), $this->file->getClientOriginalName());
 
         // パスのプロパティには、ファイルの保存先をセットします
-        $this->setPath($this->file->getClientOriginalName());
+        $this->path = $this->file->getClientOriginalName();
 
         // もう必要無いので、ファイルのプロパティを片付けます
         $this->file = null;
@@ -244,7 +244,7 @@ Doctrine のエンティティでファイルアップロードを扱う方法�
         {
             if (null !== $this->file) {
                 // ユニークな名前を生成できれば、何でも構いません
-                $this->setPath(uniqid().'.'.$this->file->guessExtension());
+                $this->path = uniqid().'.'.$this->file->guessExtension();
             }
         }
 
@@ -308,7 +308,7 @@ Doctrine のエンティティでファイルアップロードを扱う方法�
         public function preUpload()
         {
             if (null !== $this->file) {
-                $this->setPath($this->file->guessExtension());
+                $this->path = $this->file->guessExtension();
             }
         }
 
@@ -346,4 +346,4 @@ Doctrine のエンティティでファイルアップロードを扱う方法�
     }
 
 
-.. 2011/11/01 ganchiku 4ff78e97ea813537be372e49540d0e7a3ba41cac
+.. 2011/11/28 ganchiku 653a3747f6f07537ee0aafc17ac689559ba6d07d

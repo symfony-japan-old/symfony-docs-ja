@@ -174,7 +174,7 @@ Symfony2 のセキュリティコンテキストのトークンの役割は、�
             }
 
             // Validate nonce is unique within 5 minutes
-            if (file_exists($this->cacheDir.'/'.$nonce) && file_get_contents($this->cacheDir.'/'.$nonce) + 300 >= time()) {
+            if (file_exists($this->cacheDir.'/'.$nonce) && file_get_contents($this->cacheDir.'/'.$nonce) + 300 < time()) {
                 throw new NonceExpiredException('Previously used nonce detected');
             }
             file_put_contents($this->cacheDir.'/'.$nonce, time());
@@ -317,22 +317,35 @@ Symfony2 のセキュリティコンテキストのトークンの役割は、�
               new Reference('security.authentication.manager'))
         ));
 
-これでサービスを定義したので、セキュリティコンテキストに作成したファクトリを指定しましょう。現段階では、ファクトリは、個々のコンフィギュレーションファイルでインクルードされる必要があります。ファイルを作成する必要があります。そして、コンフィギュレーションの ``factories`` キーを使用してインポートします。
+これでサービスを定義したので、セキュリティコンテキストに作成したファクトリを指定しましょう。現時点では、ファクトリは、個々のコンフィギュレーションファイルでインクルードされる必要があります。まず、ファクトリサービスに ``security.listener.factory`` とタグ付けしてしたファイルを作成することから始めます。
 
-.. code-block:: xml
+.. configuration-block::
 
-    <!-- src/Acme/DemoBundle/Resources/config/security_factories.xml -->
-    <container xmlns="http://symfony.com/schema/dic/services"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    .. code-block:: yaml
 
-        <services>
-            <service id="security.authentication.factory.wsse"
-              class="Acme\DemoBundle\DependencyInjection\Security\Factory\WsseFactory" public="false">
-                <tag name="security.listener.factory" />
-            </service>
-        </services>
-    </container>
+        # src/Acme/DemoBundle/Resources/config/security_factories.yml
+        services:
+            security.authentication.factory.wsse:
+                class:  Acme\DemoBundle\DependencyInjection\Security\Factory\WsseFactory
+                tags:
+                    - { name: security.listener.factory }
+
+    .. code-block:: xml
+
+        <!-- src/Acme/DemoBundle/Resources/config/security_factories.xml -->
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="security.authentication.factory.wsse"
+                  class="Acme\DemoBundle\DependencyInjection\Security\Factory\WsseFactory" public="false">
+                    <tag name="security.listener.factory" />
+                </service>
+            </services>
+        </container>
+
+これでセキュリティコンフィギュレーションの中から ``factories`` キーを介してファクトリコンフィギュレーションをインポートができるようになりました。
 
 .. configuration-block::
 
@@ -341,7 +354,7 @@ Symfony2 のセキュリティコンテキストのトークンの役割は、�
         # app/config/security.yml
         security:
           factories:
-            - "%kernel.root_dir%/../src/Acme/DemoBundle/Resources/config/security_factories.xml"
+            - "%kernel.root_dir%/../src/Acme/DemoBundle/Resources/config/security_factories.yml"
 
     .. code-block:: xml
 
@@ -357,14 +370,15 @@ Symfony2 のセキュリティコンテキストのトークンの役割は、�
         // app/config/security.php
         $container->loadFromExtension('security', array(
             'factories' => array(
-              "%kernel.root_dir%/../src/Acme/DemoBundle/Resources/config/security_factories.xml"
+              "%kernel.root_dir%/../src/Acme/DemoBundle/Resources/config/security_factories.php"
             ),
         ));
 
 これで WSSE 保護下にアプリケーションを定義できるようになりました。
 
-.. code-block:: yaml
+.. configuration-block::
 
+    .. code-block:: yaml
     security:
         firewalls:
             wsse_secured:
@@ -440,5 +454,5 @@ WSSE 認証プロバイダをもっとエキサイティングにしてみまし
 .. _`WSSE`: http://www.xml.com/pub/a/2003/12/17/dive.html
 .. _`nonce`: http://en.wikipedia.org/wiki/Cryptographic_nonce
 
-.. 2011/11/18 ganchiku e04aa9a90bc1e3d0ea808a28ac96355e25d6e724
+.. 2011/11/28 ganchiku 9d51e14b4b50ff9a45609dc9a52fa77941f4dd1c
 
