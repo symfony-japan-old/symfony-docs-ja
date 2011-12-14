@@ -4,7 +4,7 @@
 カスタムデータコレクタの作成方法
 =====================================
 
-Symfony2 の  :doc:`Profiler </book/internals/profiler>` はデータの収集をデータコレクタに移譲します。 SYmfony2 にはいくつかデータコレクタが付属していますが、簡単に自分自身で作成することもできます。
+Symfony2 の  :doc:`Profiler </book/internals/profiler>` はデータの収集をデータコレクタに移譲します。 Symfony2 にはいくつかデータコレクタが付属していますが、簡単に自分自身で作成することもできます。
 
 カスタムデータコレクタを作成する
 --------------------------------
@@ -31,7 +31,7 @@ Symfony2 の  :doc:`Profiler </book/internals/profiler>` はデータの収集�
         function getName();
     }
 
-``getName()`` メソッドは、ユニークな名前を返す必要があります。この名前は、:doc:`/cookbook/testing/profiling` などで情報へのアクセスとして使用されます。
+``getName()`` メソッドは、ユニークな名前を返す必要があります。この名前は、 :doc:`/cookbook/testing/profiling` などで情報へのアクセスとして使用されます。
 
 ``collect()`` メソッドは、ローカルのプロパティでアクセスさせたいデータを格納する役割を担います。
 
