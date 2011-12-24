@@ -40,4 +40,5 @@ Symfony 2.0 では、次のコンポーネントで `@api` タグを使ったス
 * Yaml
 
 .. 2011/07/23 madapaja 6272eece5be43b5dca226c87672a0fce38b0bbf5
-.. 2011/12/14 hidenorigoto 
+.. 2011/12/14 hidenorigoto 3474fac4efb9373a97ea280ba2921b9d25760e40
+
