@@ -1,7 +1,7 @@
 開発中におけるメール送信の扱い方
 ================================
 
-メールを送信するアプリケーションを作成している際に、開発中では、実際に受信者にメールを送信したくないときもあると思います。 Symfony2 の ``SwiftmailerBundle`` を使用すれば、コードの変更をすることなしに、コンフィギュレーションの設定を変更するだけで、この問題を簡単に解決することができます。開発中では、メール送信の処理に関して、主に２つの選択をすることができます。: (a) メール送信を無効にする (b) 特定のメールアドレスにメールを送信する
+メールを送信するアプリケーションを開発している際に、開発中では、実際に受信者にメールを送信したくないときもあると思います。 Symfony2 の ``SwiftmailerBundle`` を使用すれば、コードの変更をすることなしに、コンフィギュレーションの設定を変更するだけで、この問題を簡単に解決することができます。開発中では、メール送信の処理に関して、主に２つの選択をすることができます。: (a) メール送信を無効にする (b) 特定のメールアドレスにメールを送信する
 
 メール送信を無効にする
 ----------------------
@@ -97,7 +97,40 @@
 
 ``dev`` 環境を使用していれば、そのページで送信されたメールは、ウェブデバッグツールバーを使って参照することができます。ツールバーのメールアイコンは送信したメールの数を表しています。そのアイコンをクリックすると、メールの詳細のレポートを見ることができます。
 
-メール送信後、すぐにリダイレクトをする場合は、 ``config_dev.yml`` ファイルの ``intercept_redirects`` オプションを ``true`` にすれば、リダイレクトする前のメールをウェブでバッグツールバーで参照することができます。
+メール送信処理の直後に他のページへリダイレクトする際にはウェブデバッグツールバーは、メールアイコンもレポートもそのリダイレクト後のページに表示されません。
 
-.. 2011/10/31 ganchiku 3db3df5db2c9150678d1f968683b33bd11809a4b
+そこで、 ``config_dev.yml`` ファイルの ``intercept_redirects`` オプションを ``true`` にして、リダイレクトを止め、送信メールの詳細のレポートを開くことができるようにすることができます。
+
+.. tip::
+
+    また、他の方法として、リダイレクト後のプロファイラを開き、前のリクエスト ( ``/contact/handle`` など)のサブミット URL を探すこともできます。プロファイラの検索機能を使えば、過去のリクエストを全てプロファイルした情報をロードすることができます。
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config_dev.yml
+        web_profiler:
+            intercept_redirects: true
+
+    .. code-block:: xml
+
+        <!-- app/config/config_dev.xml -->
+
+        <!-- xmlns:webprofiler="http://symfony.com/schema/dic/webprofiler" -->
+        <!-- xsi:schemaLocation="http://symfony.com/schema/dic/webprofiler http://symfony.com/schema/dic/webprofiler/webprofiler-1.0.xsd"> -->
+
+        <webprofiler:config
+            intercept-redirects="true"
+        />
+
+    .. code-block:: php
+
+        // app/config/config_dev.php
+        $container->loadFromExtension('web_profiler', array(
+            'intercept_redirects' => 'true',
+        ));
+
+
+.. 2011/12/27 ganchiku 91fd86acb06f8181da948e0439dca130806c5ccf
 

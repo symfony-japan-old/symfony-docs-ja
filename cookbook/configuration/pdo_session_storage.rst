@@ -155,7 +155,7 @@ MySQL
         `session_id` varchar(255) NOT NULL,
         `session_value` text NOT NULL,
         `session_time` int(11) NOT NULL,
-        PRIMARY KEY (`session_id`),
+        PRIMARY KEY (`session_id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 PostgreSQL
@@ -169,8 +169,8 @@ PostgreSQL では、構文は以下のようになります。
         session_id character varying(255) NOT NULL,
         session_value text NOT NULL,
         session_time integer NOT NULL,
-        CONSTRAINT session_pkey PRIMARY KEY (session_id),
+        CONSTRAINT session_pkey PRIMARY KEY (session_id)
     );
 
-.. 2011/11/28 ganchiku dcb79048e06eeab6affab6b3c21c9a2d68740fc2
+.. 2011/12/27 ganchiku f46507a719ea01269df44478c2afd8d229daa008
 

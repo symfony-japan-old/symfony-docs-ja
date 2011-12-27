@@ -70,7 +70,7 @@ Extension クラスの作成
 
 ::
 
-    // Acme/HelloBundle/DependencyInjection/HelloExtension.php
+    // Acme/HelloBundle/DependencyInjection/AcmeHelloExtension.php
     use Symfony\Component\HttpKernel\DependencyInjection\Extension;
     use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -446,5 +446,5 @@ Extension を作成する際に、次の簡単な規約に従ってください�
 .. _`FrameworkBundle Configuration`: https://github.com/symfony/symfony/blob/master/src/Symfony/Bundle/FrameworkBundle/DependencyInjection/Configuration.php
 .. _`TwigBundle Configuration`: https://github.com/symfony/symfony/blob/master/src/Symfony/Bundle/TwigBundle/DependencyInjection/Configuration.php
 
-.. 2011/10/30 ganchiku 2e0f1560cd2a1c3fa713ec337d8687e094c3cecd
+.. 2011/12/27 ganchiku addd5fcbf41149901e8915e1215f1cdfd2d3582a
 
