@@ -35,7 +35,7 @@ Monolog_ は、アプリケーションでエラーが起きた際にメール�
             <monolog:config>
                 <monolog:handler
                     name="mail"
-                    type="fingerscrossed"
+                    type="fingers_crossed"
                     action-level="critical"
                     handler="buffered"
                 />
@@ -54,7 +54,7 @@ Monolog_ は、アプリケーションでエラーが起きた際にメール�
             </monolog:config>
         </container>
 
-``mail`` ハンドラは ``fingerscrossed`` ハンドラで、これはつまり指定したアクションレベルに到達したときのみトリガーされます。上記の場合であれば、 ``critical`` の際に到達したとみなされます。そうなると ``critical`` より下のアクションレベルのメッセージも全てログをとるようになります。 ``critical`` レベルは HTTP のエラーステータスの 500 番台のときのみトリガーされます。 ``handler`` 設定は、出力が ``buffered`` ハンドラに渡されることを意味しています。
+``mail`` ハンドラは ``fingers_crossed`` ハンドラで、これはつまり指定したアクションレベルに到達したときのみトリガーされます。上記の場合であれば、 ``critical`` の際に到達したとみなされます。そうなると ``critical`` より下のアクションレベルのメッセージも全てログをとるようになります。 ``critical`` レベルは HTTP のエラーステータスの 500 番台のときのみトリガーされます。 ``handler`` 設定は、出力が ``buffered`` ハンドラに渡されることを意味しています。
 
 .. tip::
 
@@ -138,5 +138,5 @@ Monolog_ は、アプリケーションでエラーが起きた際にメール�
 
 .. _Monolog: https://github.com/Seldaek/monolog
 
-.. 2011/11/28 ganchiku b7d6ff30fc882caf6f0e67da164964b442adbdbf
+.. 2011/12/27 ganchiku 9ffb64717371401e9387f2499101b1628ce62c05
 

@@ -284,19 +284,24 @@ Symfony2 のセキュリティコンテキストのトークンの役割は、�
     .. code-block:: xml
 
         <!-- src/Acme/DemoBundle/Resources/config/services.xml -->
-        <services>
-            <service id="wsse.security.authentication.provider"
-              class="Acme\DemoBundle\Security\Authentication\Provider\WsseProvider" public="false">
-                <argument /> <!-- User Provider -->
-                <argument>%kernel.cache_dir%/security/nonces</argument>
-            </service>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-            <service id="wsse.security.authentication.listener"
-              class="Acme\DemoBundle\Security\Firewall\WsseListener" public="false">
-                <argument type="service" id="security.context"/>
-                <argument type="service" id="security.authentication.manager" />
-            </service>
-        </services>
+           <services>
+               <service id="wsse.security.authentication.provider"
+                 class="Acme\DemoBundle\Security\Authentication\Provider\WsseProvider" public="false">
+                   <argument /> <!-- User Provider -->
+                   <argument>%kernel.cache_dir%/security/nonces</argument>
+               </service>
+
+               <service id="wsse.security.authentication.listener"
+                 class="Acme\DemoBundle\Security\Firewall\WsseListener" public="false">
+                   <argument type="service" id="security.context"/>
+                   <argument type="service" id="security.authentication.manager" />
+               </service>
+           </services>
+        </container>
 
     .. code-block:: php
 
@@ -454,5 +459,5 @@ WSSE 認証プロバイダをもっとエキサイティングにしてみまし
 .. _`WSSE`: http://www.xml.com/pub/a/2003/12/17/dive.html
 .. _`nonce`: http://en.wikipedia.org/wiki/Cryptographic_nonce
 
-.. 2011/11/28 ganchiku 9d51e14b4b50ff9a45609dc9a52fa77941f4dd1c
+.. 2011/12/27 ganchiku ab0dc711804efb0cfe82f2ed8035367886bcb13f
 

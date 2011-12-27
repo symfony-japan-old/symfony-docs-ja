@@ -17,7 +17,7 @@ Monolog では、ロガーはそれぞれのロギングチャネルを定義し
 
 ベースとなるハンドラは、 ``StreamHandler`` で、ストリーム内でログを書きます。デフォルトでは、本番環境では、 ``app/logs/prod.log`` へ、開発環境では、 ``app/logs/dev.log`` になります。
 
-Monolog は、 ``FingersCrossedHandler`` と呼ばれる本番環境でのログ銀のための、強力なビルトインされたハンドラも付属しています。このハンドラを使用すれば、他のハンドラへのメッセージを転送することによって、メッセージがアクションレベルに到達したときのみ、バッファにメッセージを格納してそのメッセージをログに書くことができます。アクションレベルとは、 Standard edtion で提供されているコンフィギュレーション内の ERROR のことです。
+Monolog は、 ``FingersCrossedHandler`` と呼ばれる本番環境でのロギングのための、強力なビルトインされたハンドラも付属しています。このハンドラを使用すれば、他のハンドラへのメッセージを転送することによって、メッセージがアクションレベルに到達したときのみ、バッファにメッセージを格納してそのメッセージをログに書くことができます。アクションレベルとは、 Standard edtion で提供されているコンフィギュレーション内の ERROR のことです。
 
 メッセージをログに書くには、コントローラ内でコンテナからロガーサービスを取得(get)するだけです。::
 
@@ -45,7 +45,7 @@ Monolog は、 ``FingersCrossedHandler`` と呼ばれる本番環境でのログ
                     path: /var/log/symfony.log
                     level: error
                 main:
-                    type: fingerscrossed
+                    type: fingers_crossed
                     action_level: warning
                     handler: file
                 file:
@@ -69,7 +69,7 @@ Monolog は、 ``FingersCrossedHandler`` と呼ばれる本番環境でのログ
                 />
                 <monolog:handler
                     name="main"
-                    type="fingerscrossed"
+                    type="fingers_crossed"
                     action-level="warning"
                     handler="file"
                 />
@@ -85,7 +85,7 @@ Monolog は、 ``FingersCrossedHandler`` と呼ばれる本番環境でのログ
 
 .. tip::
 
-    "file" と名付けられたハンドラは、fingercrossed ハンドラの入れ子のハンドラとして使用されているので、スタックには入れられません。
+    "file" と名付けられたハンドラは、 ``finger_crossed`` ハンドラの入れ子のハンドラとして使用されているので、スタックには入れられません。
 
 .. note::
 
@@ -94,7 +94,7 @@ Monolog は、 ``FingersCrossedHandler`` と呼ばれる本番環境でのログ
 Formatter の変更
 ~~~~~~~~~~~~~~~~
 
-ハンドラは、 ``Formatter`` を使用して、実際のロギングの前にフォーマットを指定します。全ての Monologo のハンドラは、デフォルトでは ``Monolog`Formatter`LineFormatter`` のインスタンスを使用します。しかし、これの置き換えは簡単です。置き換える Formatter には ``Monolog\Formatter\FormatterInterface`` を実装する必要があります。
+ハンドラは、 ``Formatter`` を使用して、実際のロギングの前にフォーマットを指定します。全ての Monologo のハンドラは、デフォルトでは ``Monolog\Formatter\LineFormatter`` のインスタンスを使用します。しかし、これの置き換えは簡単です。置き換える Formatter には ``Monolog\Formatter\FormatterInterface`` を実装する必要があります。
 
 .. configuration-block::
 
@@ -207,5 +207,5 @@ Session/Request のトークンの追加
 
 .. _Monolog: https://github.com/Seldaek/monolog
 
-.. 2011/10/30 ganchiku 9ae9e13fe48319200162244fd3a471df45351721
+.. 2011/12/27 ganchiku 9ffb64717371401e9387f2499101b1628ce62c05
 
