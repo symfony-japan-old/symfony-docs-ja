@@ -9,10 +9,7 @@ Symfony2 アプリケーションに入ってきたリクエストを扱う役�
 ただし、実際は、コードのテストのしやすさや再利用性のために、重い処理を別の部分に任せていることもあります。\
 コントローラは、HTML や CSS その他のコンテンツを生成する際は、その生成処理をテンプレートエンジンに引き継ぎます。\
 本章では、ユーザに提示するコンテンツや、メール本文などのテンプレートの記述方法をマスターしていきます。\
-ショートカットや、テンプレートの継承、コードの再利用の方法を勉強していきましょう。
-
-.. shortcuts???
-
+テンプレートを継承したりコードを再利用する方法も勉強していきましょう。
 
 .. index::
    single: Templating; What is a template?
@@ -22,7 +19,9 @@ Symfony2 アプリケーションに入ってきたリクエストを扱う役�
 
 テンプレートとは、テキストベースのフォーマット(HTML、XML、CSV、LaTeX ...)なら何でも生成することが可能な、シンプルなテキストファイルです。\
 一番身近なのは PHP テンプレートでしょう。\
-テキストと PHP コードが混ざったテキストファイルが、 PHP によってパースされるものです。 ::
+テキストと PHP コードが混ざったテキストファイルが、 PHP によってパースされるものです。 
+
+.. code-block:: html+php
 
     <!DOCTYPE html>
     <html>
@@ -93,8 +92,8 @@ Twig には\ **フィルタ**\ という機能もあります。フィルタを�
 
 .. tip::
 
-    Twig エクステンションの登録は、新しいサービスを作って、\
-    それに ``twig.extension`` という\ :ref:`タグ<book-service-container-tags>`\ を付ければよいだけなので、\
+    新しく作成した Twig エクステンションを登録するには、新しいサービスを作って、\
+    それに ``twig.extension`` という\ :ref:`タグ<reference-dic-tags-twig-extension>`\ を付ければよいだけなので、\
     難しくありません。
 
 この後にも出てきますが、Twig は関数の使用をサポートしています。\
@@ -154,8 +153,8 @@ Twig テンプレートは、変更が加えられていれば自動的に再コ
 ですので、開発中は特にキャッシュを消す心配をすることなく、テンプレートに加えた変更を即座に確認できます。
 
 ``debug`` モードが無効の場合(``prod`` 環境ではそうします)は、\
-Twig のキャッシュディレクトリをクリアして、Twig テンプレートが再生成されるようにしなければなりません。\
-アプリケーションをデプロイする際は、必ずキャッシュをクリアするということも覚えておきましょう。
+Twig テンプレートを再生成するには Twig キャッシュディレクトリをクリアする必要があります。\
+アプリケーションをデプロイするときは、必ずキャッシュをクリアするということも覚えておきましょう。
 
 .. index::
    single: Templating; Inheritance
@@ -163,8 +162,8 @@ Twig のキャッシュディレクトリをクリアして、Twig テンプレ�
 テンプレートの継承とレイアウト
 ------------------------------
 
-開発するプロジェクト内の各テンプレートには、共通した要素が存在するということが多くあります。\
-たとえば、ヘッダやフッタ、サイドバーなどです。\
+開発するプロジェクト内の各テンプレートには、共通した要素が存在することが多くあります。\
+たとえば、ヘッダーやフッター、サイドバーなどです。\
 Symfony2 を使うのであれば、この問題を別の角度から見たいと思います。\
 すなわち、あるテンプレートを、別のテンプレートによってデコレートできる、と捉えます。\
 この考え方は、PHP のクラスの考えと全く同じです。\
@@ -203,7 +202,7 @@ Symfony2 を使うのであれば、この問題を別の角度から見たい�
             </body>
         </html>
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- app/Resources/views/base.html.php -->
         <!DOCTYPE html>
@@ -259,7 +258,7 @@ Symfony2 を使うのであれば、この問題を別の角度から見たい�
             {% endfor %}
         {% endblock %}
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- src/Acme/BlogBundle/Resources/views/Blog/index.html.php -->
         <?php $view->extend('::base.html.php') ?>
@@ -283,7 +282,9 @@ Symfony2 を使うのであれば、この問題を別の角度から見たい�
 このタグで、レイアウトや block が記述されているベーステンプレートを先に評価するよう、テンプレートエンジンに指示します。\
 その後、子のテンプレートがレンダリングされる際、\
 親テンプレートで定義された ``title`` ブロックや ``body`` ブロックが、子テンプレートの定義により置き換えられます。\
-``blog_entries`` の中身にもよりますが、たとえば次のようなレンダリング結果になります。 ::
+``blog_entries`` の中身にもよりますが、たとえば次のようなレンダリング結果になります。 
+
+.. code-block:: html
 
     <!DOCTYPE html>
     <html>
@@ -462,14 +463,14 @@ PHP のコードを書いている場合、再利用したいコードブロッ�
     .. code-block:: html+jinja
 
         {# src/Acme/ArticleBundle/Resources/views/Article/articleDetails.html.twig #}
-        <h1>{{ article.title }}</h1>
+        <h2>{{ article.title }}</h2>
         <h3 class="byline">by {{ article.authorName }}</h3>
 
         <p>
           {{ article.body }}
         </p>
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- src/Acme/ArticleBundle/Resources/views/Article/articleDetails.html.php -->
         <h2><?php echo $article->getTitle() ?></h2>
@@ -496,7 +497,7 @@ PHP のコードを書いている場合、再利用したいコードブロッ�
             {% endfor %}
         {% endblock %}
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- src/Acme/ArticleBundle/Resources/Article/list.html.php -->
         <?php $view->extend('AcmeArticleBundle::layout.html.php') ?>
@@ -563,7 +564,7 @@ PHP のコードを書いている場合、再利用したいコードブロッ�
           </a>
         {% endfor %}
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- src/Acme/ArticleBundle/Resources/views/Article/recentList.html.php -->
         <?php foreach ($articles in $article): ?>
@@ -591,7 +592,7 @@ PHP のコードを書いている場合、再利用したいコードブロッ�
             {% render "AcmeArticleBundle:Article:recentArticles" with {'max': 3} %}
         </div>
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- app/Resources/views/base.html.php -->
         ...
@@ -693,7 +694,7 @@ Twig 関数である ``path`` を使用し、ルートを参照します。
           </a>
         {% endfor %}
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- src/Acme/ArticleBundle/Resources/views/Article/recentList.html.php -->
         <?php foreach ($articles in $article): ?>
@@ -712,7 +713,7 @@ Twig 関数である ``path`` を使用し、ルートを参照します。
 
     PHP テンプレートの場合は、\ ``generate()`` メソッドに3番目の引数を渡します。
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <a href="<?php echo $view['router']->generate('_welcome', array(), true) ?>">Home</a>
 
@@ -722,9 +723,9 @@ Twig 関数である ``path`` を使用し、ルートを参照します。
 アセットへのリンク
 ~~~~~~~~~~~~~~~~~~
 
-テンプレートは、画像や、Javascript、スタイルシートやその他アセットを参照することもよくあります。\
+テンプレートでは、画像や、Javascript、スタイルシートやその他アセットを参照することもよくあります。\
 もちろんハードコード(``/images/logo.png``)するのもありでしょうが、\
-Symfony2 では Twig 関数 ``asset`` を経由させる、という、より動的なオプションもあります。\
+Symfony2 には Twig 関数 ``asset`` を経由させる、という、より動的なオプションもあります。\
 
 .. configuration-block::
 
@@ -734,20 +735,21 @@ Symfony2 では Twig 関数 ``asset`` を経由させる、という、より動
 
         <link href="{{ asset('css/blog.css') }}" rel="stylesheet" type="text/css" />
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <img src="<?php echo $view['assets']->getUrl('images/logo.png') ?>" alt="Symfony!" />
 
         <link href="<?php echo $view['assets']->getUrl('css/blog.css') ?>" rel="stylesheet" type="text/css" />
 
-``asset`` の一番の目的は、アプリケーションをよりポータブルにするということです。\
-アプリケーションが、ホストのルート(http://example.com)に配置椒されていた場合、\
-レンダリングされるパスは、 ``/images/logo.png`` になっているべきです。\
-では、ルートではなくてそのサブディレクトリ(http://example.com/my_app)に配置されていた場合はどうでしょう。\
+``asset`` 関数を使う一番の目的は、アプリケーションをよりポータブルにすることです。\
+アプリケーションが、ホストのルート(http://example.com)に配置されていた場合、\
+レンダリングされるパスは、\ ``/images/logo.png`` になっているべきです。\
+では、ルートではなくてサブディレクトリ(http://example.com/my_app)に配置されていた場合はどうでしょう。\
 アセットパスは、サブディレクトリ付き(``/my_app/images/logo.png``)で出力されなければいけません。\
-``asset`` は、アプリケーションがどのように使われているかみて、この点をケアし、\
-それに応じて、適切なパスを生成します。
+``asset`` 関数は、アプリケーションがどのように使われているかみて、この点をケアし、\
+それに応じて適切なパスを生成します。
 
+また、\ ``asset`` 関数を使うと、アセットの URL に自動的にクエリーストリングを追加できるので、デプロイ時に静的なアセットのキャッシュが残らず強制的に更新されるようにできます。たとえば、\ ``/images/logo.png`` という URL の場合は ``/images/logo.png?v2`` となります。詳細は、\ :ref:`ref-framework-assets-version` コンフィギュレーションオプションを参照してください。
 
 .. index::
    single: Templating; Including stylesheets and Javascripts
@@ -763,8 +765,8 @@ Symfony では、これらアセットのインクルードを、Symfony テン�
 .. tip::
 
     この節では、Symfony における、スタイルシートや Javascirpt のインクルードの背景にあるフィロソフィーを紹介します。\
-    Symfony は、assetic という、このフィロソフィに従っていて、かつ、アセットを使ったより興味深いことができるライブラリをパッケージしています。
-    assetic に関するより詳しい情報は、\ :doc:`/cookbook/assetic/asset_management`\ を参照してください。
+    Symfony は、Assetic という、このフィロソフィに従っていて、かつ、アセットを使ったより興味深いことができるライブラリをパッケージしています。
+    Assetic に関するより詳しい情報は、\ :doc:`/cookbook/assetic/asset_management`\ を参照してください。
 
 
 アセットが含まれたベーステンプレートに、2つの block を追加してみましょう。\
@@ -813,6 +815,14 @@ Symfony では、これらアセットのインクルードを、Symfony テン�
 子テンプレートでは、単に ``stylesheets`` をオーバーライドし、新しいスタイルシートタグを置いてやります。\
 とはいえ、親の block の内容に追加したい(、そして、\ *置き換え*\ たいわけではない)ので、\
 Twig 関数の ``parent()`` を使って、ベーステンプレートの ``stylesheets`` 内のすべてをインクルードしてやるべきでしょう。
+
+また、バンドルの ``Resources/public`` フォルダに配置したアセットをインクルードすることもできます。
+この場合、\ ``php app/console assets:install target [--symlink]``
+コマンドを実行して、アセットファイルを Web から参照できる正しい位置（デフォルトでは "web" ディレクトリ）へコピーまたはシンボリックリンクする必要があります。
+
+.. code-block:: html+jinja
+
+   <link href="{{ asset('bundles/acmedemo/css/contact.css') }}" type="text/css" rel="stylesheet" />
 
 この結果、\ ``main.css`` と ``contact.css`` のスタイルシートの両方共をインクルードしたページとなります。
 
@@ -886,7 +896,7 @@ Symfony2 におけるテンプレートシステムの心臓部は、テンプ�
 --------------------------
 
 Symfony2 コミュニティでは、たくさんの数の、そしてたくさんの機能を持ったバンドルを\
-作成し、メンテしており、自慢できることです(`Symfony2Bundles.org`_ 参照)。\
+作成し、メンテしており、自慢できることです(`KnpBundles.com`_ 参照)。\
 そのようなサードパーティ製のバンドルを使ったときに、そのテンプレートを、\
 オーバライドしたりカスタマイズする必要があるかもしれません。
 
@@ -1014,7 +1024,7 @@ Symfony2 フレームワークこれ自体もバンドルですので、コア�
 
         Hello {{ name }}
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         Hello <?php echo $name ?>
 
@@ -1162,12 +1172,13 @@ Cookbook でもっと学ぶ
 * :doc:`/cookbook/templating/PHP`
 * :doc:`/cookbook/controller/error_pages`
 
-.. _`Twig`: http://www.twig-project.org
-.. _`Symfony2Bundles.org`: http://symfony2bundles.org
+.. _`Twig`: http://twig.sensiolabs.org
+.. _`KnpBundles.com`: http://knpbundles.com
 .. _`Cross Site Scripting`: http://en.wikipedia.org/wiki/Cross-site_scripting
-.. _`Output Escaping`: http://www.twig-project.org
-.. _`タグ`: http://www.twig-project.org/doc/templates.html#list-of-control-structures
-.. _`フィルタ`: http://www.twig-project.org/doc/templates.html#list-of-built-in-filters
-.. _`エクステンションを追加する`: http://www.twig-project.org/doc/advanced.html
+.. _`Output Escaping`: http://twig.sensiolabs.org/doc/api.html#escaper-extension
+.. _`タグ`: http://twig.sensiolabs.org/doc/tags/index.html
+.. _`フィルタ`: http://twig.sensiolabs.org/doc/filters/index.html
+.. _`エクステンションを追加する`: http://twig.sensiolabs.org/doc/extensions.html
 
 .. 2011/08/08 gilbite d7f118ff2c3f5fb73f1d2be27d2c88f166fbc10d
+.. 2011/12/28 hidenorigoto 5034f36ebb0abe7aa86bb8d90f3a3454fb28e8b2
