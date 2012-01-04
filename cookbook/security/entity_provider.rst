@@ -141,27 +141,30 @@ Symfony のセキュリティレイヤーで ``AcmeUserBundle:User`` クラス�
 
 下記は、 HTTP ベーシック認証での username と password を入力するユーザの設定の例です。これらの情報は、データベースのユーザエンティティのレコードでチェックされます。
 
-.. code-block::yaml
 
-    # app/config/security.yml
-    security:
-        encoders:
-            Acme\UserBundle\Entity\User:
-                algorithm: sha1
-                encode_as_base64: false
-                iterations: 1
+.. configuration-block::
 
-        providers:
-            administrators:
-                entity: { class: AcmeUserBundle:User, property: username }
+    .. code-block:: yaml
 
-        firewalls:
-            admin_area:
-                pattern:    ^/admin
-                http_basic: ~
+        # app/config/security.yml
+        security:
+            encoders:
+                Acme\UserBundle\Entity\User:
+                    algorithm: sha1
+                    encode_as_base64: false
+                    iterations: 1
 
-        access_control:
-            - { path: ^/admin, roles: ROLE_ADMIN }
+            providers:
+                administrators:
+                    entity: { class: AcmeUserBundle:User, property: username }
+
+            firewalls:
+                admin_area:
+                    pattern:    ^/admin
+                    http_basic: ~
+
+            access_control:
+                - { path: ^/admin, roles: ROLE_ADMIN }
 
 ``encoders`` セクションは、エンティティクラスの ``sha1`` パスワードエンコーダーに関連付けています。これは、 Symfony がデータベースに保存するパスワードが ``sha1`` のアルゴリズムを使用してエンコードされるようにしています。正しくパスワードをエンコードして、新しくユーザオブジェクトを作成する方法の詳細は、セキュリティの章の :ref:`book-security-encoding-user-password` セクションを参照してください。
 
@@ -242,6 +245,7 @@ Symfony のセキュリティレイヤーで ``AcmeUserBundle:User`` クラス�
     use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
     use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
     use Doctrine\ORM\EntityRepository;
+    use Doctrine\ORM\NoResultException;
 
     class UserRepository extends EntityRepository implements UserProviderInterface
     {
@@ -259,7 +263,7 @@ Symfony のセキュリティレイヤーで ``AcmeUserBundle:User`` クラス�
                 // The Query::getSingleResult() method throws an exception
                 // if there is no record matching the criteria.
                 $user = $q->getSingleResult();
-            } catch (\Exception $e) {
+            } catch (\NoResultException $e) {
                 throw new UsernameNotFoundException(sprintf('Unable to find an active admin AcmeUserBundle:User object identified by "%s".', $username), null, 0, $e);
             }
 
@@ -285,15 +289,17 @@ Symfony のセキュリティレイヤーで ``AcmeUserBundle:User`` クラス�
 実装を終えるには、セキュリティレイヤーの設定を変更して、Symfony に、最初から入ってる値の Doctrine エンティティプロバイダではなく、今回作成したカスタムエンティティプロバイダを使用するように変更する必要があります。 ``security.yml`` ファイルの  ``security.providers.administrators.entity`` セクション内の ``property`` フィールドを削除するだけです。
  (It's trival to achieve by removing the ``property`` field in the ``security.providers.administrators.entity`` section of the ``security.yml`` file.)
 
-.. code-block:: yaml
+.. configuration-block::
 
-    # app/config/security.yml
-    security:
-        # ...
-        providers:
-            administrators:
-                entity: { class: AcmeUserBundle:User }
-        # ...
+    .. code-block:: yaml
+
+        # app/config/security.yml
+        security:
+            # ...
+            providers:
+                administrators:
+                    entity: { class: AcmeUserBundle:User }
+            # ...
 
 これで、セキュリティレイヤーは、 ``UserRepository`` のインスタンスを使用して ``loadUserByUsername()`` メソッドを呼ぶようになり、 username でも email でもデータベースからユーザを取得することができるようになります。
 
@@ -413,5 +419,5 @@ Symfony のセキュリティレイヤーで ``AcmeUserBundle:User`` クラス�
 
 email と username からユーザを取得する際に ``QueryBuilder::leftJoin()`` メソッドは、 ``AcmeUserBundle:User`` モデルクラスから、関連するグループをジョインし取得します。
 
-.. 2012/01/04 ganchiku 3858bd620aa0319e5a3caf379035792482f4352e
+.. 2012/01/04 ganchiku a990b142daa11ab05dbe5f1e7bf71190eb872343
 
