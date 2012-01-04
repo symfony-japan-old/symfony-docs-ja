@@ -1,25 +1,18 @@
 .. index::
    pair: Autoloader; Configuration
 
-The ClassLoader Component
+ClassLoaderコンポーネント
 =========================
 
-    The ClassLoader Component loads your project classes automatically if they
-    follow some standard PHP conventions.
+    ClassLoaderコンポーネントは、標準PHP規約に従っているプロジェクトのクラスを自動的に読みこみます。
 
-Whenever you use an undefined class, PHP uses the autoloading mechanism to
-delegate the loading of a file defining the class. Symfony2 provides a
-"universal" autoloader, which is able to load classes from files that
-implement one of the following conventions:
+未定義のクラスが使われている時、PHPはクラス定義のあるファイルを読みこむのにオートロードの仕組みを使います。 Symfony2は「汎用的」に使える自動読み込み機構を提供します。つまり、下記の規約のいずれかに従ってクラス定義を書いたファイルを読みこむことができるのです:
 
-* The technical interoperability `standards`_ for PHP 5.3 namespaces and class
-  names;
+* PHP5.3用の `相互標準規約`_ による名前空間及びクラス命名規則
 
-* The `PEAR`_ naming convention for classes.
+* `PEAR`_ のクラス命名規則
 
-If your classes and the third-party libraries you use for your project follow
-these standards, the Symfony2 autoloader is the only autoloader you will ever
-need.
+プロジェクトで利用するクラスやサードパーティのライブラリがこのような基準に従っているならば、Symfony2のオートローダが役立つでしょう。
 
 Installation
 ------------
