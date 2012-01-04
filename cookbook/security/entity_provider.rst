@@ -1,40 +1,21 @@
 データベースからセキュリティユーザをロードする方法(エンティティプロバイダ)
 ==================================================================
 
-The security layer is one of the smartest tools of Symfony. It handles two
-things: the authentication and the authorization processes. Although it may
-seem difficult to understand how it works internally, the security system
-is very flexible and allows you to integrate your application with any authentication
-backend, like Active Directory, an OAuth server or a database.
+Symfony の最もスマートツールの１つは、セキュリティレイヤーです。セキュリティレイヤーは、認証と承認のプロセスを処理します。内部的の動作を理解することは難しそうに見えます。しかし、セキュリティシステムはとても柔軟で、アクティブディレクトリ、OAuth認証、データベース認証などいろんな認証を統合することができるようになっています。
 
-Introduction
+イントロダクション
 ------------
 
-This article focuses on how to authenticate users against a database table
-managed by a Doctrine entity class. The content of this cookbook entry is split
-in three parts. The first part is about designing a Doctrine ``User`` entity
-class and making it usable in the security layer of Symfony. The second part
-describes how to easily authenticate a user with the Doctrine
-:class:`Symfony\\Bridge\\Doctrine\\Security\\User\\EntityUserProvider` object
-bundled with the framework and some configuration.
-Finally, the tutorial will demonstrate how to create a custom
-:class:`Symfony\\Bridge\\Doctrine\\Security\\User\\EntityUserProvider` object to
-retrieve users from a database with custom conditions.
+この記事では、 Doctrine のエンティティクラスによるデータベーステーブルに対するユーザ認証にフォーカスを当ててみます。このレシピの内容は、３つに別れています。まず第１のパートでは、 Doctrine ``User`` エンティティクラスを設計して、 Symfony のセキュリティレイヤーで利用可能にすることに関して説明します。第２のパートでは、 Doctrine の :class:`Symfony\\Bridge\\Doctrine\\Security\\User\\EntityUserProvider` オブジェクトとそのコンフィギュレーションを使用して、簡単にユーザ認証を行う方法を説明します。最後のパートでは、:class:`Symfony\\Bridge\\Doctrine\\Security\\User\\EntityUserProvider` のカスタムクラスを作成し、カスタム化した条件でデータベースからユーザを検索する方法を説明します。
 
-This tutorial assumes there is a bootstrapped and loaded
-``Acme\UserBundle`` bundle in the application kernel.
+このチュートリアルでは、アプリケーションカーネルで ``Acme\UserBundle`` バンドルをブートストラップしロードしてあることを想定います。
 
-The Data Model
+データモデル
 --------------
 
-For the purpose of this cookbook, the ``AcmeUserBundle`` bundle contains a
-``User`` entity class with the following fields: ``id``, ``username``, ``salt``,
-``password``, ``email`` and ``isActive``. The ``isActive`` field tells whether
-or not the user account is active.
+このレシピの目的のために、 ``AcmeUserBundle`` バンドルが ``User`` エンティティクラスを含んでおり、 ``User`` エンティティには、 ``id``, ``username``, ``salt``, ``password``, ``email``, ``isActive`` フィールドを持つようにしてください。 ``isActive`` フィールドはユーザアカウントが有効化どうかのフラグです。
 
-To make it shorter, the getter and setter methods for each have been removed to
-focus on the most important methods that come from the
-:class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`.
+短くするために、ゲッターメソッドとセッターメソッドを削除して、 :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface` インタフェースの重要なメソッドにフォーカスしています。
 
 .. code-block:: php
 
@@ -121,35 +102,22 @@ focus on the most important methods that come from the
         }
     }
 
-In order to use an instance of the ``AcmeUserBundle:User`` class in the Symfony
-security layer, the entity class must implement the
-:class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`. This
-interface forces the class to implement the six following methods:
+Symfony のセキュリティレイヤーで ``AcmeUserBundle:User`` クラスのインスタンスを利用するために、エンティティクラスは、 :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface` インタフェースを実装する必要があります。このインタフェースは、次の６つのメソッドを実装を強制します。:
 
-* ``getUsername()`` returns the unique username,
-* ``getSalt()`` returns the unique salt,
-* ``getPassword()`` returns the encoded password,
-* ``getRoles()`` returns an array of associated roles,
-* ``equals()`` compares the current object with another
-  :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`
-  instance,
-* ``eraseCredentials()`` removes sensitive information stored in the
-  :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface` object.
+* ``getUsername()`` ユニークな username を返します
+* ``getSalt()`` ユニークな salt を返します
+* ``getPassword()`` エンコードされたパスワードを返します
+* ``getRoles()`` 関連した権限の配列を返します
+* ``equals()`` 現在のオブジェクトと  :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface` インスタンスを比較します
+* ``eraseCredentials()`` :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface` オブジェクトに格納されている慎重に扱うべき情報を除去します
 
-To keep it simple, the ``equals()`` method just compares the ``username`` field
-but it's also possible to do more checks depending on the complexity of your
-data model. On the other hand, the ``eraseCredentials()`` method remains empty
-as we don't care about it in this tutorial.
+説明を簡単にするために、 ``equals()`` メソッドでは、 ``username`` フィールドを比較するのみにしています。しかし、もちろんあなたのデータモデルの複雑性に応じて、より多くチェックすることもできます。 ``eraseCredentials()`` メソッドでは、この記事では、重要でないため空のままとしています。
 
 .. note::
 
-    The ``eraseCredentials()`` method is important if, during your authentication
-    process, you store some sort of sensitive information on the user (e.g.
-    the raw password of the user). This is called after authentication, and
-    allows you to remove any of that information.
+    認証のプロセスで、ユーザに関する慎重に扱うべき情報を格納している(生のパスワードなど)際に、 ``eraseCredentials()`` メソッドは、重要になります。このメソッドは、認証の後に呼ばれ、そういった情報を除去させることができます。
 
-Below is an export of my ``User`` table from MySQL. For details on how to
-create user records and encode their password, see :ref:`book-security-encoding-user-password`.
+以下が、 MySQL の ``User`` テーブルの内容の一例です。ユーザレコードの作成やパスワードのエンコードの方法の詳細は、  :ref:`book-security-encoding-user-password` を参照してください。
 
 .. code-block:: text
 
@@ -164,22 +132,14 @@ create user records and encode their password, see :ref:`book-security-encoding-
     +----+----------+------------------------------------------+------------------------------------------+--------------------+-----------+
     4 rows in set (0.00 sec)
 
-The database now contains four users with different usernames, emails and
-statuses. The next part will focus on how to authenticate one of these users
-thanks to the Doctrine entity user provider and a couple of lines of
-configuration.
+テーブルには、４つのユーザが異なる username,  email で入っています。次の節では、 Doctrine エンティティユーザプロバイダを使用し、設定をして、これらのユーザの認証方法に着目します。
 
-Authenticating Someone against a Database
+データベースでユーザを承認する
 -----------------------------------------
 
-Authenticating a Doctrine user against the database with the Symfony security
-layer is a piece of cake. Everything resides in the configuration of the
-:doc:`SecurityBundle</reference/configuration/security>` stored in the
-``app/config/security.yml`` file.
+データベースに対して Doctrine のユーザを Symfony のセキュリティレイヤーで認証することはとても簡単です。 ``app/config/security.yml`` ファイルで :doc:`SecurityBundle</reference/configuration/security>` 設定を全てすることができるのです。
 
-Below is an example of configuration where the user will enter his/her
-username and password via HTTP basic authentication. That information will
-then be checked against our User entity records in the database:
+下記は、 HTTP ベーシック認証での username と password を入力するユーザの設定の例です。これらの情報は、データベースのユーザエンティティのレコードでチェックされます。
 
 .. code-block::yaml
 
@@ -203,45 +163,25 @@ then be checked against our User entity records in the database:
         access_control:
             - { path: ^/admin, roles: ROLE_ADMIN }
 
-The ``encoders`` section associates the ``sha1`` password encoder to the entity
-class. This means that Symfony will expect the password that's encoded in
-the database to be encoded using this algorithm. For details on how to create
-a new User object with a properly encoded password, see the
-:ref:`book-security-encoding-user-password` section of the security chapter.
+``encoders`` セクションは、エンティティクラスの ``sha1`` パスワードエンコーダーに関連付けています。これは、 Symfony がデータベースに保存するパスワードが ``sha1`` のアルゴリズムを使用してエンコードされるようにしています。正しくパスワードをエンコードして、新しくユーザオブジェクトを作成する方法の詳細は、セキュリティの章の :ref:`book-security-encoding-user-password` セクションを参照してください。
 
-The ``providers`` section defines an ``administrators`` user provider. A
-user provider is a "source" of where users are loaded during authentication.
-In this case, the ``entity`` keyword means that Symfony will use the Doctrine
-entity user provider to load User entity objects from the database by using
-the ``username`` unique field. In other words, this tells Symfony how to
-fetch the user from the database before checking the password validity.
+``providers`` セクションは、 ``administrators`` ユーザプロバイダを定義します。ユーザプロバイダは、認証の際にユーザがロードされる "source" になります。今回のケースでは、 ``entity`` キーワードは、次のことを意味いています。それは、ユニークなフィールドの ``username`` を使用して、データベースからユーザエンティティオブジェクトを検索するのに、 Symfony が Doctrine エンティティユーザプロバイダを使用するということです。つまり、これで Symfony がパスワードの妥当性をチェックする前いデータベースからユーザを取ってくることを意味いているのです。
 
-This code and configuration works but it's not enough to secure the application
-for **active** users. As of now, we still can authenticate with ``maxime``. The
-next section explains how to forbid non active users.
+このコードと設定で動作はしますが、 **有効** ユーザのアプリケーションをセキュアにするには不十分です。ですので、依然 ``maxime`` で認証できてしまいます。次のセクションでは、無効なユーザを拒否する方法を説明します。
 
-Forbid non Active Users
+無効なユーザを拒否する
 -----------------------
 
-The easiest way to exclude non active users is to implement the
-:class:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface`
-interface that takes care of checking the user's account status.
-The :class:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface`
-extends the :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`
-interface, so you just need to switch to the new interface in the ``AcmeUserBundle:User``
-entity class to benefit from simple and advanced authentication behaviors.
+無効なユーザを除外する最も簡単な方法は、ユーザアカウントの状態をチェックする :class:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface` インタフェースを実装することです。  :class:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface` インタフェースは、 :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface` インタフェースを拡張しているので、 ``AcmeUserBundle:User`` エンティティクラス内で新しいインタフェースをスイッチするだけでシンプルで高度な認証の仕組みの恩恵を受けることができます。
 
-The :class:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface`
-interface adds four extra methods to validate the account status:
+:class:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface` インタフェースは、アカウントの状態をバリデートするために、次の４つのメソッドを追加しています。
 
-* ``isAccountNonExpired()`` checks whether the user's account has expired,
-* ``isAccountNonLocked()`` checks whether the user is locked,
-* ``isCredentialsNonExpired()`` checks whether the user's credentials (password)
-  has expired,
-* ``isEnabled()`` checks whether the user is enabled.
+* ``isAccountNonExpired()`` ユーザアカウントが期限切れになっているかチェックします
+* ``isAccountNonLocked()`` ユーザがロックされているかチェックします
+* ``isCredentialsNonExpired()`` ユーザの証明 (パスワード)が期限切れなっているかチェックします
+* ``isEnabled()`` ユーザが有効かチェックします
 
-For this example, the first three methods will return ``true`` whereas the
-``isEnabled()`` method will return the boolean value in the ``isActive`` field.
+この例では、最初の３つのメソッドは、 ``true`` を返しますが、 ``isEnabled()`` メソッドは、 ``isActive`` フィールドの boolean の値を返しています。
 
 .. code-block:: php
 
@@ -277,43 +217,21 @@ For this example, the first three methods will return ``true`` whereas the
         }
     }
 
-If we try to authenticate a ``maxime``, the access is now forbidden as this
-user does not have an enabled account. The next session will focus on how
-to write a custom entity provider to authenticate a user with his username
-or his email address.
+これで ``maxime`` で認証しようとすれば、有効なアカウントではないので、アクセスは拒否されます。次のセクションでは、 username や email での認証を行うカスタムエンティティプロバイダの書き方に焦点を宛てます。
 
-Authenticating Someone with a Custom Entity Provider
+カスタムエンティティプロバイダで認証を行う
 ----------------------------------------------------
 
-The next step is to allow a user to authenticate with his username or his email
-address as they are both unique in the database. Unfortunately, the native
-entity provider is only able to handle a single property to fetch the user from
-the database.
+次のステップは、データベース内でユニークである username や email でユーザを認証させます。残念ながらネイティブのエンティティプロバイダは、データベースからユーザを取り出す際に、１つのプロパティしか処理することができません。
 
-To accomplish this, crate a custom entity provider that looks for a user
-whose username *or* email field matches the submitted login username.
-The good news is that a Doctrine repository object can act as an entity user
-provider if it implements the
-:class:`Symfony\\Component\\Security\\Core\\User\\UserProviderInterface`. This
-interface comes with three methods to implement:
+これを実現するために、サブミットされたログイン username が username *もしくは* email フィールドがマッチするかをチェックするカスタムエンティティプロバイダを作成します。幸いなことに、 :class:`Symfony\\Component\\Security\\Core\\User\\UserProviderInterface`. インタフェースを実装すれば、 Doctrine リポジトリオブジェクトは、エンティティユーザプロバイダとして振る舞うことができます。このインタフェースでは次の３つのメソッドを強制します。
 
-* ``loadUserByUsername()`` that fetches and returns a
-  :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`
-  instance by its unique username. Otherwise, it must throw a
-  :class:`Symfony\\Component\\Security\\Core\\Exception\\UsernameNotFoundException`
-  exception to indicate the security layer
-  there is no user matching the credentials.
-* ``refreshUser()`` that refreshes and returns a
-  :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface` instance.
-  Otherwise it must throw a
-  :class:`Symfony\\Component\\Security\\Core\\Exception\\UnsupportedUserException`
-  exception to indicate that we are unable to refresh the user.
-* ``supportsClass()`` must return ``true`` if the fully qualified class name
-  passed as its sole argument is supported by the entity provider.
+* ``loadUserByUsername()``  :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface` インスタンスをユニークな username で取得して、返します。取得できなければ、 :class:`Symfony\\Component\\Security\\Core\\Exception\\UsernameNotFoundException` 例外を投げ、セキュリティレイヤーに証明にマッチするユーザがいないことを伝えなければなりません。
+* ``refreshUser()`` :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface` インスタンスをリフレッシュして、返します。リフレッシュできなければ、 :class:`Symfony\\Component\\Security\\Core\\Exception\\UnsupportedUserException` 例外を投げ、ユーザをリフレッシュすることができなかったことを伝えなければなりません。
+* ``supportsClass()`` 引数として渡したクラス名が、エンティティプロバイダによてサポートされていれば、 ``true`` を返さなければなりません。
 
-The code below shows the implementation of the
-:class:`Symfony\\Component\\Security\\Core\\User\\UserProviderInterface` in the
-``UserRepository`` class::
+以下のコードは、 ``UserRepository`` クラス内の :class:`Symfony\\Component\\Security\\Core\\User\\UserProviderInterface` の実装になります。
+::
 
     // src/Acme/UserBundle/Entity/UserRepository.php
 
@@ -364,11 +282,8 @@ The code below shows the implementation of the
         }
     }
 
-To finish the implementation, the configuration of the security layer must be
-changed to tell Symfony to use the new custom entity provider instead of the
-generic Doctrine entity provider. It's trival to achieve by removing the
-``property`` field in the ``security.providers.administrators.entity`` section
-of the ``security.yml`` file.
+実装を終えるには、セキュリティレイヤーの設定を変更して、Symfony に、最初から入ってる値の Doctrine エンティティプロバイダではなく、今回作成したカスタムエンティティプロバイダを使用するように変更する必要があります。 ``security.yml`` ファイルの  ``security.providers.administrators.entity`` セクション内の ``property`` フィールドを削除するだけです。
+ (It's trival to achieve by removing the ``property`` field in the ``security.providers.administrators.entity`` section of the ``security.yml`` file.)
 
 .. code-block:: yaml
 
@@ -380,33 +295,19 @@ of the ``security.yml`` file.
                 entity: { class: AcmeUserBundle:User }
         # ...
 
-By doing this, the security layer will use an instance of ``UserRepository`` and
-call its ``loadUserByUsername()`` method to fetch a user from the database
-whether he filled in his username or email address.
+これで、セキュリティレイヤーは、 ``UserRepository`` のインスタンスを使用して ``loadUserByUsername()`` メソッドを呼ぶようになり、 username でも email でもデータベースからユーザを取得することができるようになります。
 
-Managing Roles in the Database
+データベースの権限を管理する
 ------------------------------
 
-The end of this tutorial focuses on how to store and retrieve a list of roles
-from the database. As mentioned previously, when your user is loaded, its
-``getRoles()`` method returns the array of security roles that should be
-assigned to the user. You can load this data from anywhere - a hardcoded
-list used for all users (e.g. ``array('ROLE_USER')``), a Doctrine array
-property called ``roles``, or via a Doctrine relationship, as we'll learn
-about in this section.
+このチュートリアルの最後では、 データベースに権限のリストを格納したり、取得したりする方法を説明します。上記で説明したように、ユーザがロードされると、 ``getRoles()`` メソッドがそのユーザのセキュリティ権限の配列を返します。このセキュリティ権限はどこに格納していてもロードすることができます。それは、全てのユーザのためのハードコードでも、 Doctrine の配列プロパティの ``roles`` でも、 Doctrine の関連するからもです。それでは、その方法をこのセクションで見ていきましょう。
 
 .. caution::
 
-    In a typical setup, you should always return at least 1 role from he ``getRoles()``
-    method. By convention, a role called ``ROLE_USER`` is usually returned.
-    If you fail to return any roles, it may appear as if your user isn't
-    authenticated at all.
+    標準的なセットアップでは、 ``getRoles()`` メソッドは必ず１つ以上の権限を返す必要があります。関連として、通常は ``ROLE_USER`` が返されます。権限を返すことに失敗すると、つまり、それはそのユーザは認証がされていないことになります。
 
-In this example, the ``AcmeUserBundle:User`` entity class defines a
-many-to-many relationship with a ``AcmeUserBundle:Group`` entity class. A user
-can be related several groups and a group can be composed of one or
-more users. As a group is also a role, the previous ``getRoles()`` method now
-returns the list of related groups::
+この例では、 ``AcmeUserBundle:User`` エンティティクラスは、 ``AcmeUserBundle:Group`` エンティティクラスと多対多の関連しています。ユーザは、複数のグループに関連することができますし、グループも複数のユーザから成ることもできます。グループもまた１つの権限なので、 ``getRoles()`` メソッドで関連するグループのリストを返すようにします。
+::
 
     // src/Acme/UserBundle/Entity/User.php
 
@@ -436,12 +337,8 @@ returns the list of related groups::
         }
     }
 
-The ``AcmeUserBundle:Group`` entity class defines three table fields (``id``,
-``name`` and ``role``). The unique ``role`` field contains the role name used by
-the Symfony security layer to secure parts of the application. The most
-important thing to notice is that the ``AcmeUserBundle:Group`` entity class
-implements the :class:`Symfony\\Component\\Security\\Core\\Role\\RoleInterface`
-that forces it to have a ``getRole()`` method::
+``AcmeUserBundle:Group`` エンティティクラスは、３つのテーブルフィールドを定義しています(``id``, ``name``, ``role``)。ユニークな ``role`` フィールドは、 Symfony アプリケーションのセキュアな部分への セキュリティレイヤーによって使用される権限の名前を含んでいます。最も重要なことは、 ``AcmeUserBundle:Group`` エンティティクラスが  :class:`Symfony\\Component\\Security\\Core\\Role\\RoleInterface` インタフェースを実装しており、 ``getRole()`` メソッドが強制となっていることです。
+::
 
     namespace Acme\Bundle\UserBundle\Entity;
 
@@ -485,10 +382,8 @@ that forces it to have a ``getRole()`` method::
         }
     }
 
-To improve performances and avoid lazy loading of groups when retrieving a user
-from the custom entity provider, the best solution is to join the groups
-relationship in the ``UserRepository::loadUserByUsername()`` method. This will
-fetch the user and his associated roles / groups with a single query::
+カスタムエンティティプロバイダからユーザを検索する際に、パフォーマンスを改良し、グループの遅延ローディングを避けるための最良の方法は、 ``UserRepository:loadUserByUsername()`` メソッドでグループリレーションをジョインすることです。こうすることで、１つのクエリーでユーザとそれに紐づいた権限やグループをまとめて取得します。
+::
 
     // src/Acme/UserBundle/Entity/UserRepository.php
 
@@ -516,9 +411,7 @@ fetch the user and his associated roles / groups with a single query::
         // ...
     }
 
-The ``QueryBuilder::leftJoin()`` method joins and fetches related groups from
-the ``AcmeUserBundle:User`` model class when a user is retrieved with his email
-address or username.
+email と username からユーザを取得する際に ``QueryBuilder::leftJoin()`` メソッドは、 ``AcmeUserBundle:User`` モデルクラスから、関連するグループをジョインし取得します。
 
-.. 2011/12/27 ganchiku 3858bd620aa0319e5a3caf379035792482f4352e
+.. 2012/01/04 ganchiku 3858bd620aa0319e5a3caf379035792482f4352e
 
