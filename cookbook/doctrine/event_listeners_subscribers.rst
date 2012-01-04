@@ -3,7 +3,7 @@
 イベントリスナーとサブスクライバーを登録する
 ===========================================
 
-Doctrine は、リッチなイベントシステムをパッケージしており、システム内のほとんどの処理の際にイベントを投げます。つまり、自由に :doc:`services</book/service_container>` を作成することができます。そして、 Doctrine に ``preSave`` などのアクションがあったときなどに、サービスコンテナに知らせるようにすることができます。例えば、オブジェクトがデータベースに保存されたときに、その処理とは別に検索インデックスを作成するときなどに便利です。
+Doctrine は、リッチなイベントシステムをパッケージしており、システム内のほとんどの処理の際にイベントを投げます。つまり、自由に :doc:`services</book/service_container>` を作成することができます。そして、 Doctrine に ``prePersist`` などのアクションがあったときなどに、サービスコンテナに知らせるようにすることができます。例えば、オブジェクトがデータベースに保存されたときに、その処理とは別に検索インデックスを作成するときなどに便利です。
 
 Doctrine は、 Doctine イベントをリッスンできるオブジェクトの２つのタイプを定義しています。それは、リスナーとサブスクライバーです。両方とも似てますが、リスナーの方がわかりやすくなっています。詳細は、 Doctrine のサイトの `The Event System`_ を参照してください。
 
@@ -29,13 +29,13 @@ Doctrine は、 Doctine イベントをリッスンできるオブジェクト�
             my.listener:
                 class: Acme\SearchBundle\Listener\SearchIndexer
                 tags:
-                    - { name: doctrine.event_listener, event: postSave }
+                    - { name: doctrine.event_listener, event: postPersist }
             my.listener2:
                 class: Acme\SearchBundle\Listener\SearchIndexer2
                 tags:
-                    - { name: doctrine.event_listener, event: postSave, connection: default }
+                    - { name: doctrine.event_listener, event: postPersist, connection: default }
             my.subscriber:
-                class: Acme\SearchBundle\Listener\SearchIndexerSubsriber
+                class: Acme\SearchBundle\Listener\SearchIndexerSubscriber
                 tags:
                     - { name: doctrine.event_subscriber, connection: default }
 
@@ -53,12 +53,12 @@ Doctrine は、 Doctine イベントをリッスンできるオブジェクト�
 
             <services>
                 <service id="my.listener" class="Acme\SearchBundle\Listener\SearchIndexer">
-                    <tag name="doctrine.event_listener" event="postSave" />
+                    <tag name="doctrine.event_listener" event="postPersist" />
                 </service>
                 <service id="my.listener2" class="Acme\SearchBundle\Listener\SearchIndexer2">
-                    <tag name="doctrine.event_listener" event="postSave" connection="default" />
+                    <tag name="doctrine.event_listener" event="postPersist" connection="default" />
                 </service>
-                <service id="my.subscriber" class="Acme\SearchBundle\Listener\SearchIndexerSubsriber">
+                <service id="my.subscriber" class="Acme\SearchBundle\Listener\SearchIndexerSubscriber">
                     <tag name="doctrine.event_subscriber" connection="default" />
                 </service>
             </services>
@@ -67,7 +67,7 @@ Doctrine は、 Doctine イベントをリッスンできるオブジェクト�
 リスナークラスの作成
 ---------------------------
 
-上記の例では、 ``my.listener`` と呼ばれるサービスが ``postSave`` イベントで Doctrine リスナーとして設定されています。このサービスのクラスは、必ず ``postSave`` メソッドを持っており、イベントが投げられたときに呼ばれます。
+上記の例では、 ``my.listener`` と呼ばれるサービスが ``postPersist`` イベントで Doctrine リスナーとして設定されています。このサービスのクラスは、必ず ``postPersist`` メソッドを持っており、イベントが投げられたときに呼ばれます。
 ::
 
     // src/Acme/SearchBundle/Listener/SearchIndexer.php
@@ -78,7 +78,7 @@ Doctrine は、 Doctine イベントをリッスンできるオブジェクト�
     
     class SearchIndexer
     {
-        public function postSave(LifecycleEventArgs $args)
+        public function postPersist(LifecycleEventArgs $args)
         {
             $entity = $args->getEntity();
             $entityManager = $args->getEntityManager();
@@ -96,5 +96,5 @@ Doctrine は、 Doctine イベントをリッスンできるオブジェクト�
 
 .. _`The Event System`: http://www.doctrine-project.org/docs/orm/2.0/en/reference/events.html
 
-.. 2011/11/01 ganchiku 200464adc758bf6bbf716761e6a0d7dbac7ed275
+.. 2012/01/04 ganchiku 9818ea3316d4fb8bb7e2a4fb4e7ffe777d05f2af
 

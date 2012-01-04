@@ -119,11 +119,11 @@ Swiftmailer ライブラリは、 ``Swift_Message`` オブジェクトを作成�
     :
 
     * :doc:`gmail`
-    * :doc:`email/dev_environment`
-    * :doc:`email/spool`
+    * :doc:`dev_environment`
+    * :doc:`spool`
 
 .. _`Swiftmailer`: http://www.swiftmailer.org/
 .. _`Creating Messages`: http://swiftmailer.org/docs/messages
 
-.. 2011/10/31 ganchiku 99eb43fff504594b2cea44a137939140620d26c4
+.. 2012/01/04 ganchiku 08372b0c69464d34e8441275872a36ea0a51be5a
 
