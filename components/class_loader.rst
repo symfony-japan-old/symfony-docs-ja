@@ -6,13 +6,13 @@ ClassLoaderコンポーネント
 
     ClassLoaderコンポーネントは、標準PHP規約に従っているプロジェクトのクラスを自動的に読みこみます。
 
-未定義のクラスが使われている時、PHPはクラス定義のあるファイルを読みこむのにオートロードの仕組みを使います。 Symfony2は「汎用的」に使える自動読み込み機構を提供します。つまり、下記の規約のいずれかに従ってクラス定義を書いたファイルを読みこむことができるのです:
+未定のクラスを使用すると常に、PHP は、クラスのオートローディングのメカニズムを使用して、クラスが定義されているファイルをロードしようとします。Symfony2 は、"universal autoloader" を提供しており、次のいずれかの慣習に従って実装されたファイルからクラスを読み込むことができます。
 
-* PHP5.3用の `相互標準規約`_ による名前空間及びクラス命名規則
+* PHP 5.3 のネームスペースとクラス名による、技術的な相互運用標準(\ `PSR-0標準`_\ )
 
-* `PEAR`_ のクラス命名規則
+* `PEAR`_ のクラスの命名規則
 
-プロジェクトで利用するクラスやサードパーティのライブラリがこのような基準に従っているならば、Symfony2のオートローダが役立つでしょう。
+あなたのクラスとサードパーティのライブラリが、この標準に従っていれば、Symfony2 のオートローダーのみで全て解決できます。
 
 Installation
 ------------
@@ -23,14 +23,16 @@ You can install the component in many different ways:
 * Install it via PEAR ( `pear.symfony.com/ClassLoader`);
 * Install it via Composer (`symfony/class-loader` on Packagist).
 
-Usage
------
+使用方法
+--------
 
 .. versionadded:: 2.1
-   The ``useIncludePath`` method was added in Symfony 2.1.
+   ``useIncludePath`` メソッドは Symfony2.1 で追加されます。
 
-Registering the :class:`Symfony\\Component\\ClassLoader\\UniversalClassLoader`
-autoloader is straightforward::
+
+:class:`Symfony\\Component\\ClassLoader\\UniversalClassLoader` オートローダーの登録は、簡単です
+
+::
 
     require_once '/path/to/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
 
@@ -43,9 +45,9 @@ autoloader is straightforward::
 
     $loader->register();
 
-For minor performance gains class paths can be cached in memory using APC by
-registering the :class:`Symfony\\Component\\ClassLoader\\ApcUniversalClassLoader`::
+:class:`Symfony\\Component\\ClassLoader\\ApcUniversalClassLoader` クラスを登録して、APC を使ってメモリ上にクラスパスをキャッシュすることで、パフォーマンスを少し改善できます。
 
+::
     require_once '/path/to/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
     require_once '/path/to/src/Symfony/Component/ClassLoader/ApcUniversalClassLoader.php';
 
@@ -54,18 +56,20 @@ registering the :class:`Symfony\\Component\\ClassLoader\\ApcUniversalClassLoader
     $loader = new ApcUniversalClassLoader('apc.prefix.');
     $loader->register();
 
-The autoloader is useful only if you add some libraries to autoload.
+オートロードすべきライブラリがある際には、オートローダーは便利です。
 
 .. note::
 
-    The autoloader is automatically registered in a Symfony2 application (see
-    ``app/autoload.php``).
+    Symfony2 のアプリケーションでは、オートローダーは自動的に登録されます。\ ``app/autoload.php`` を参照してください。
 
-If the classes to autoload use namespaces, use the
+ネームスペースを使用しているクラスをオートロードするには
 :method:`Symfony\\Component\\ClassLoader\\UniversalClassLoader::registerNamespace`
 or
-:method:`Symfony\\Component\\ClassLoader\\UniversalClassLoader::registerNamespaces`
-methods::
+:method:`Symfony\\Component\\ClassLoader\\UniversalClassLoader::registerNamespace` メソッドを使用する
+もしくは、
+:method:`Symfony\\Component\\ClassLoader\\UniversalClassLoader::registerNamespaces` メソッドを使用してください。
+
+::
 
     $loader->registerNamespace('Symfony', __DIR__.'/vendor/symfony/src');
 
@@ -76,11 +80,12 @@ methods::
 
     $loader->register();
 
-For classes that follow the PEAR naming convention, use the
-:method:`Symfony\\Component\\ClassLoader\\UniversalClassLoader::registerPrefix`
-or
-:method:`Symfony\\Component\\ClassLoader\\UniversalClassLoader::registerPrefixes`
-methods::
+PEAR の命名規則に従ったクラスをオートロードするには
+:method:`Symfony\\Component\\ClassLoader\\UniversalClassLoader::registerPrefix` メソッドを使用する
+もしくは、
+:method:`Symfony\\Component\\ClassLoader\\UniversalClassLoader::registerPrefixes` メソッドを使用してください。
+
+:
 
     $loader->registerPrefix('Twig_', __DIR__.'/vendor/twig/lib');
 
@@ -93,12 +98,11 @@ methods::
 
 .. note::
 
-    Some libraries also require their root path be registered in the PHP
-    include path (``set_include_path()``).
+    PHP の include pathにライブラリのルートパスの登録が必要なライブラリもあります(``set_include_path()``)。
 
-Classes from a sub-namespace or a sub-hierarchy of PEAR classes can be looked
-for in a location list to ease the vendoring of a sub-set of classes for large
-projects::
+PEAR のクラスのサブネームスペースや下の階層にあるクラスは、大きなプロジェクトのクラスの集合のベンダーとしたディレクトリのリストより見つけることができます。
+
+::
 
     $loader->registerNamespaces(array(
         'Doctrine\\Common'           => __DIR__.'/vendor/doctrine-common/lib',
@@ -107,13 +111,8 @@ projects::
         'Doctrine'                   => __DIR__.'/vendor/doctrine/lib',
     ));
 
-    $loader->register();
 
-In this example, if you try to use a class in the ``Doctrine\Common`` namespace
-or one of its children, the autoloader will first look for the class under the
-``doctrine-common`` directory, and it will then fallback to the default
-``Doctrine`` directory (the last one configured) if not found, before giving up.
-The order of the registrations is significant in this case.
+この例では、\ ``Doctrine\Common`` ネームスペース内のクラス、もしくはその下のクラスを使用するには、オートーローダーは、まず ``doctrine-common`` ディレクトリの下を探します。見つからなければ、探すのを諦める前に、一番下に設定してある デフォルトの ``Doctrine`` ディレクトリを探します。この例においては、登録の順番は、重要です。
 
-.. _standards: http://groups.google.com/group/php-standards/web/psr-0-final-proposal
+.. _PSR-0標準: http://groups.google.com/group/php-standards/web/psr-0-final-proposal
 .. _PEAR:      http://pear.php.net/manual/en/standards.php
