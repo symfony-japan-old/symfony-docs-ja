@@ -1,24 +1,21 @@
 .. index::
     single: Console; CLI
 
-The Console Component
+Consoleコンポーネント
 =====================
 
-    The Console component eases the creation of beautiful and testable command
-    line interfaces.
+    Consoleコンポーネントを使うと、美しくてテスト可能なコマンドラインインターフェイスを簡単に作ることができます。
 
-Symfony2 ships with a Console component, which allows you to create
-command-line commands. Your console commands can be used for any recurring
-task, such as cronjobs, imports, or other batch jobs.
+Symfony2 はコマンドラインツールとしてのコマンドを作成することのできるコンソールコンポーネントが付いてきます。コンソールコマンドは、cronジョブやインポートなどのバッチジョブなどの自動更新タスクに使用されます。
 
-Installation
+インストール
 ------------
 
-You can install the component in many different ways:
+Consoleコンポーネントをインストールする方法は何通りもあります。
 
-* Use the official Git repository (https://github.com/symfony/Console);
-* Install it via PEAR ( `pear.symfony.com/Console`);
-* Install it via Composer (`symfony/console` on Packagist).
+* 公式Gitレポジトリ (https://github.com/symfony/Console);
+* PEARコマンドでインストール ( `pear.symfony.com/Console` );
+* Composerを使ってインストール (Packagistの `symfony/console` ).
 
 ベーシックなコマンドの作成
 --------------------------
