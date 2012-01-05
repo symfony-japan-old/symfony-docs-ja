@@ -1,11 +1,10 @@
 .. index::
    single: Finder
 
-The Finder Component
+Finderコンポーネント
 ====================
 
-   The Finder Component finds files and directories via an intuitive fluent
-   interface.
+   Finderコンポーネントは、ファイルやディレクトリを速く簡単に見つけてくれます。
 
 Installation
 ------------
@@ -16,11 +15,10 @@ You can install the component in many different ways:
 * Install it via PEAR ( `pear.symfony.com/Finder`);
 * Install it via Composer (`symfony/finder` on Packagist).
 
-Usage
------
+使用方法
+--------
 
-The :class:`Symfony\\Component\\Finder\\Finder` class finds files and/or
-directories::
+:class:`Symfony\\Component\\Finder\\Finder` クラスは、ファイルやディレクトリ、またはその両方を見つけます。::
 
     use Symfony\Component\Finder\Finder;
 
@@ -31,46 +29,39 @@ directories::
         print $file->getRealpath()."\n";
     }
 
-The ``$file`` is an instance of :phpclass:`SplFileInfo`.
+``$file`` は :phpclass:`SplFileInfo` のインスタンスです。
 
-The above code prints the names of all the files in the current directory
-recursively. The Finder class uses a fluent interface, so all methods return
-the Finder instance.
+上記のコードでは、再帰的に現在のディレクトリ内の全てのファイルの名前を出力します。 Finder クラスは、綺麗なインタフェースを使用しており、全てのメソッドは、 Finder のインスタンスを返します。
 
 .. tip::
 
-    A Finder instance is a PHP `Iterator`_. So, instead of iterating over the
-    Finder with ``foreach``, you can also convert it to an array with the
-    :phpfunction:`iterator_to_array` method, or get the number of items with
-    :phpfunction:`iterator_count`.
+    Finder インスタンスは、PHPの `Iterator`_ です。つまり、Finder をイテレーションする際に ``foreach`` を使用せずに、 :phpfunction:`iterator_to_array` メソッドを使って配列に変換できますし、 :phpfunction:`iterator_count` を使用して要素を数えることもできます。
 
-Criteria
---------
+条件
+----
 
-Location
-~~~~~~~~
+位置(Location)
+~~~~~~~~~~~~~~
 
-The location is the only mandatory criteria. It tells the finder which
-directory to use for the search::
+唯一の強制的な条件は、位置を指定することです。これは、 Finder にどのディレクトリを検索するのか伝えるのに必要です。::
 
     $finder->in(__DIR__);
 
-Search in several locations by chaining calls to
-:method:`Symfony\\Component\\Finder\\Finder::in`::
+    $finder->in(__DIR__);
+
+複数の位置を検索するには、 :method:`Symfony\\Component\\Finder\\Finder::in` メソッドをつなげてください。::
 
     $finder->files()->in(__DIR__)->in('/elsewhere');
 
-Exclude directories from matching with the
-:method:`Symfony\\Component\\Finder\\Finder::exclude` method::
+特定のディレクトリを検索対象から外すには、 :method:`Symfony\\Component\\Finder\\Finder::exclude` メソッドを使用してください。::
 
     $finder->in(__DIR__)->exclude('ruby');
 
-As the Finder uses PHP iterators, you can pass any URL with a supported
-`protocol`_::
+Finder は PHP のイテレータを使用しているので、 `protocol`_ をサポートするどんな URL も渡すことができます。::
 
     $finder->in('ftp://example.com/pub/');
 
-And it also works with user-defined streams::
+もちろん、ユーザ定義のストリームも使用することができます。::
 
     use Symfony\Component\Finder\Finder;
 
@@ -87,32 +78,32 @@ And it also works with user-defined streams::
 
 .. note::
 
-    Read the `Streams`_ documentation to learn how to create your own streams.
+    自分自身でストリームを作成する際には、 `Streams`_ のドキュメントを参照してください。
 
-Files or Directories
-~~~~~~~~~~~~~~~~~~~~~
+ファイルもしくはディレクトリ
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-By default, the Finder returns files and directories; but the
-:method:`Symfony\\Component\\Finder\\Finder::files` and
+
+デフォルトでは、 Finder はファイルとディレクトリを返しますが、以下の指定の際は異なります。
+:method:`Symfony\\Component\\Finder\\Finder::files`
 :method:`Symfony\\Component\\Finder\\Finder::directories` methods control that::
 
     $finder->files();
 
     $finder->directories();
 
-If you want to follow links, use the ``followLinks()`` method::
+リンクをフォローしたい際には、 ``followLinks()`` メソッドを使用してください。::
 
     $finder->files()->followLinks();
 
-By default, the iterator ignores popular VCS files. This can be changed with
-the ``ignoreVCS()`` method::
+デフォルトでは、イテレータは VCS ファイルを無視します。 ``ignoreVCS()`` メソッドを使うと、無視しないようにできます。::
 
     $finder->ignoreVCS(false);
 
-Sorting
-~~~~~~~
+ソート
+~~~~~~
 
-Sort the result by name or by type (directories first, then files)::
+名前や種類(ディレクトリが先で、次にファイル)によるソート::
 
     $finder->sortByName();
 
@@ -120,10 +111,9 @@ Sort the result by name or by type (directories first, then files)::
 
 .. note::
 
-    Notice that the ``sort*`` methods need to get all matching elements to do
-    their jobs. For large iterators, it is slow.
+    ``sort*`` メソッドは、ソートをする際に、全ての要素が必要です。もちろん大きなイテレータにおいては、遅くなります。
 
-You can also define your own sorting algorithm with ``sort()`` method::
+``sort()`` メソッドを使用し、自分自身でソートのアルゴリズムを定義することもできます。::
 
     $sort = function (\SplFileInfo $a, \SplFileInfo $b)
     {
@@ -132,69 +122,61 @@ You can also define your own sorting algorithm with ``sort()`` method::
 
     $finder->sort($sort);
 
-File Name
-~~~~~~~~~
+ファイル名
+~~~~~~~~~~
 
-Restrict files by name with the
-:method:`Symfony\\Component\\Finder\\Finder::name` method::
+:method:`Symfony\\Component\\Finder\\Finder::name` メソッドを使用すれば、名前による絞り込みができます。::
 
     $finder->files()->name('*.php');
 
-The ``name()`` method accepts globs, strings, or regexes::
+``name()`` メソッドは、 グロブ、文字列、正規表現をサポートしています::
 
     $finder->files()->name('/\.php$/');
 
-The ``notNames()`` method excludes files matching a pattern::
+``notNames()`` メソッドは、パターンにマッチしたファイルを除外します。:
 
     $finder->files()->notName('*.rb');
 
-File Size
-~~~~~~~~~
+ファイルサイズ
+~~~~~~~~~~~~~~
 
-Restrict files by size with the
-:method:`Symfony\\Component\\Finder\\Finder::size` method::
+:method:`Symfony\\Component\\Finder\\Finder::size` メソッドを使用すれば、サイズによる絞り込みができます。::
 
     $finder->files()->size('< 1.5K');
 
-Restrict by a size range by chaining calls::
+``size()`` メソッドをつなげて呼ぶことによって、範囲の絞り込みができます。::
 
     $finder->files()->size('>= 1K')->size('<= 2K');
 
-The comparison operator can be any of the following: ``>``, ``>=``, ``<``, '<=',
-'=='.
+条件のオペレータは、次のものが使用可能です: ``>``, ``>=``, ``<``, '<=', '==' 。
 
-The target value may use magnitudes of kilobytes (``k``, ``ki``), megabytes
-(``m``, ``mi``), or gigabytes (``g``, ``gi``). Those suffixed with an ``i`` use
-the appropriate ``2**n`` version in accordance with the `IEC standard`_.
+対象となる値には、キロバイト(``k``, ``ki``)、メガバイト(``m``, ``mi``)、ギガバイト(``g``, ``gi``)といった大きさを使用することができます。接尾辞の ``i`` があると、 `IEC standard`_ に一致している適切な ``2xxn`` バージョンを使用します。
 
-File Date
-~~~~~~~~~
 
-Restrict files by last modified dates with the
-:method:`Symfony\\Component\\Finder\\Finder::date` method::
+ファイルの日付
+~~~~~~~~~~~~~~
+
+:method:`Symfony\\Component\\Finder\\Finder::date` メソッドを使用すれば、ファイルの更新日時による絞り込みができます。::
 
     $finder->date('since yesterday');
 
-The comparison operator can be any of the following: ``>``, ``>=``, ``<``, '<=',
-'=='. You can also use ``since`` or ``after`` as an alias for ``>``, and
-``until`` or ``before`` as an alias for ``<``.
+条件オペレータは、次のものが使用できます: ``>``, ``>=``, ``<``, '<=','==' 。 また、 ``since`` や ``after`` を、 ``>`` のエイリアスとして使用できます。同様に、 ``until`` や ``before`` を、 ``<`` のエイリアスとして使用できます。
 
-The target value can be any date supported by the `strtotime`_ function.
+対象とする値は、 `sttotime`_ 関数によってサポートされている日付なら大丈夫です。
 
-Directory Depth
-~~~~~~~~~~~~~~~
 
-By default, the Finder recursively traverse directories. Restrict the depth of
-traversing with :method:`Symfony\\Component\\Finder\\Finder::depth`::
+ディレクトリの深さ
+~~~~~~~~~~~~~~~~~~
+
+デフォルトでは、 Finder はディレクトリを再帰的に調べます。 :method:`Symfony\\Component\\Finder\\Finder::depth` を使用すれば、調べる深さを制限することができます。::
 
     $finder->depth('== 0');
     $finder->depth('< 3');
 
-Custom Filtering
-~~~~~~~~~~~~~~~~
+カスタムフィルター
+~~~~~~~~~~~~~~~~~~
 
-To restrict the matching file with your own strategy, use
-:method:`Symfony\\Component\\Finder\\Finder::filter`::
+:method:`Symfony\\Component\\Finder\\Finder::filter` メソッドを使用すれば、オリジナルの戦略でファイルの絞り込みができます。::
 
     $filter = function (\SplFileInfo $file)
     {
@@ -205,12 +187,11 @@ To restrict the matching file with your own strategy, use
 
     $finder->files()->filter($filter);
 
-The ``filter()`` method takes a Closure as an argument. For each matching file,
-it is called with the file as a :phpclass:`SplFileInfo` instance. The file is
-excluded from the result set if the Closure returns ``false``.
+``filter()`` メソッドは、引数としてクロージャを受け取ります。マッチしたファイルは、 :phpclass:`SplFileInfo` のインスタンスとして扱うことができます。クロージャが ``false`` を返すと、 そのファイルは検索結果から除外されます。
 
 .. _strtotime:   http://www.php.net/manual/en/datetime.formats.php
 .. _Iterator:     http://www.php.net/manual/en/spl.iterators.php
 .. _protocol:     http://www.php.net/manual/en/wrappers.php
 .. _Streams:      http://www.php.net/streams
 .. _IEC standard: http://physics.nist.gov/cuu/Units/binary.html
+
