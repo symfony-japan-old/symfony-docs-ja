@@ -14,14 +14,14 @@ ClassLoaderコンポーネント
 
 あなたのクラスとサードパーティのライブラリが、この標準に従っていれば、Symfony2 のオートローダーのみで全て解決できます。
 
-Installation
+インストール
 ------------
 
-You can install the component in many different ways:
+ClassLoaderコンポーネントをインストールする方法は何通りもあります。
 
-* Use the official Git repository (https://github.com/symfony/ClassLoader);
-* Install it via PEAR ( `pear.symfony.com/ClassLoader`);
-* Install it via Composer (`symfony/class-loader` on Packagist).
+* 公式Gitレポジトリ (https://github.com/symfony/ClassLoader)
+* PEARコマンドでインストール ( `pear.symfony.com/ClassLoader`)
+* Composerを使ってインストール (Packagistの `symfony/class-loader`)
 
 使用方法
 --------
