@@ -6,14 +6,14 @@ Finderコンポーネント
 
    Finderコンポーネントは、ファイルやディレクトリを速く簡単に見つけてくれます。
 
-Installation
+インストール
 ------------
 
-You can install the component in many different ways:
+コンポーネントをインストールする方法は何通りもあります。
 
-* Use the official Git repository (https://github.com/symfony/Finder);
-* Install it via PEAR ( `pear.symfony.com/Finder`);
-* Install it via Composer (`symfony/finder` on Packagist).
+* 公式Gitレポジトリ (https://github.com/symfony/Finder);
+* PEARコマンドでインストール ( `pear.symfony.com/Finder`);
+* Composerを使ってインストール (Packagistの `symfony/finder` ).
 
 使用方法
 --------
