@@ -1,25 +1,25 @@
 .. index::
    single: CSS Selector
 
-The CssSelector Component
+CssSelectorコンポーネント
 =========================
 
-    The CssSelector Component converts CSS selectors to XPath expressions.
+    CssSelectorコンポーネントを使うと、CSSセレクタをXPath表現に置き換えることができます。
 
-Installation
+インストール
 ------------
 
-You can install the component in many different ways:
+コンポーネントをインストールする方法は何通りもあります。
 
-* Use the official Git repository (https://github.com/symfony/CssSelector);
-* Install it via PEAR ( `pear.symfony.com/CssSelector`);
-* Install it via Composer (`symfony/css-selector` on Packagist).
+* 公式Gitレポジトリ (https://github.com/symfony/CssSelector);
+* PEARコマンドでインストール ( `pear.symfony.com/CssSelector`);
+* Composerを使ってインストール (Packagistの `symfony/css-selector`).
 
-Usage
------
+使い方
+-------
 
-The component only goal is to convert CSS selectors to their XPath
-equivalents::
+コンポーネントの唯一の目的はCSSセレクタをXPath表現に変換することです
+::
 
     use Symfony\Component\CssSelector\CssSelector;
 
