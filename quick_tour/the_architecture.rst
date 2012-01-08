@@ -148,7 +148,7 @@ Symfony2 では、バンドルは第一級オブジェクトです。
 各バンドルは、YAML、XML、PHP などの形式で記述されたコンフィギュレーションファイルでカスタマイズできます。
 デフォルトのコンフィギュレーションファイルの中身を見てみましょう。
 
-.. code-block:: yml
+.. code-block:: yaml
 
     # app/config/config.yml
     imports:
@@ -215,7 +215,7 @@ Symfony2 では、バンドルは第一級オブジェクトです。
 たとえば ``dev`` 環境では ``config_dev.yml`` ファイルが読み込まれます。
 このファイルではメインのコンフィギュレーションファイル（たとえば\ ``config.yml``\ ）を読み込み、その後デバッギングツール用の設定をいくつか追加します。
 
-.. code-block:: yml
+.. code-block:: yaml
 
     # app/config/config_dev.yml
     imports:

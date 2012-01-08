@@ -22,7 +22,7 @@ HTTP キャッシュ
 この章を読むと、Symfony2 のキャッシュのアプローチがとても優れていることが分かるでしょう。
 
 Symfony2 のキャッシュシステムは、これまで他の似たようなフレームワークで実装されていたキャッシュシステムとは一線を画しています。
-なぜなら、Symfony2 のキャッシュシステムは、\ :term:`HTTP specification` に定義されているとてもシンプルで強力な HTTP キャッシュを実装したものだからです。
+なぜなら、Symfony2 のキャッシュシステムは、\ :term:`HTTP 仕様` に定義されているとてもシンプルで強力な HTTP キャッシュを実装したものだからです。
 キャッシュの手法を再発明するのではなく、Web 上の基本的なプロトコルを定義している標準に準拠することにしたのです。
 ですので、HTTP キャッシュの有効期限や検証のモデルについて、基本を一度理解すれば、Symfony2 のキャッシュシステムも理解できます。
 
@@ -984,7 +984,7 @@ Learn more from the Cookbook
 .. _`Things Caches Do`: http://tomayko.com/writings/things-caches-do
 .. _`Cache Tutorial`: http://www.mnot.net/cache_docs/
 .. _`Varnish`: http://www.varnish-cache.org/
-.. _`Squid in reverse proxy mode`: http://wiki.squid-cache.org/SquidFaq/ReverseProxy
+.. _`リバースプロキシモードの squid`: http://wiki.squid-cache.org/SquidFaq/ReverseProxy
 .. _`expiration model`: http://tools.ietf.org/html/rfc2616#section-13.2
 .. _`validation model`: http://tools.ietf.org/html/rfc2616#section-13.3
 .. _`RFC 2616`: http://tools.ietf.org/html/rfc2616

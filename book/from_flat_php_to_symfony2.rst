@@ -691,7 +691,7 @@ PHP から Symfony2 に移行することがどのように生活の質を向上
   (Symfony を通じてそう強要したわけではありません)。これは **再利用性** を
   高め、新しい開発者がプロジェクト内ですばやく生産的になれるようにします。
 
-* コードの100%全てが *あなたの* アプリケーションのものです。
+* コードの100%全てが **あなたの** アプリケーションのものです。
   :ref:`autoloading<autoloading-introduction-sidebar>` や :doc:`routing</book/routing>` 、
   :doc:`controllers</book/controller>` のレンダリングといった
   **低レベルなユーティリティを開発したりメンテナンスする必要はありません**。
