@@ -1,3 +1,7 @@
+.. index::
+   single: Security; User Provider
+   single: Security; Entity Provider
+
 データベースからセキュリティユーザをロードする方法(エンティティプロバイダ)
 ==========================================================================
 
@@ -102,20 +106,9 @@ Symfony の最もスマートツールの１つは、セキュリティレイヤ
         }
     }
 
-Symfony のセキュリティレイヤーで ``AcmeUserBundle:User`` クラスのインスタンスを利用するために、エンティティクラスは、 :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface` インタフェースを実装する必要があります。このインタフェースは、次の６つのメソッドを実装を強制します。:
-
-* ``getUsername()`` ユニークな username を返します
-* ``getSalt()`` ユニークな salt を返します
-* ``getPassword()`` エンコードされたパスワードを返します
-* ``getRoles()`` 関連した権限の配列を返します
-* ``equals()`` 現在のオブジェクトと  :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface` インスタンスを比較します
-* ``eraseCredentials()`` :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface` オブジェクトに格納されている慎重に扱うべき情報を除去します
+Symfony のセキュリティレイヤーで ``AcmeUserBundle:User`` クラスのインスタンスを利用するために、エンティティクラスは、 :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface` インタフェースを実装する必要があります。このインタフェースは、次の６つのメソッドを実装を強制します。それは、 ``getRolls()``, ``getPassword()``, ``getSalt()``, ``getUsername()``, ``eraseCredentials()``, ``equals()`` です。それぞれのメソッドの詳細は、 :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface` を参照してください。
 
 説明を簡単にするために、 ``equals()`` メソッドでは、 ``username`` フィールドを比較するのみにしています。しかし、もちろんあなたのデータモデルの複雑性に応じて、より多くチェックすることもできます。 ``eraseCredentials()`` メソッドでは、この記事では、重要でないため空のままとしています。
-
-.. note::
-
-    認証のプロセスで、ユーザに関する慎重に扱うべき情報を格納している(生のパスワードなど)際に、 ``eraseCredentials()`` メソッドは、重要になります。このメソッドは、認証の後に呼ばれ、そういった情報を除去させることができます。
 
 以下が、 MySQL の ``User`` テーブルの内容の一例です。ユーザレコードの作成やパスワードのエンコードの方法の詳細は、  :ref:`book-security-encoding-user-password` を参照してください。
 
@@ -227,11 +220,7 @@ Symfony のセキュリティレイヤーで ``AcmeUserBundle:User`` クラス�
 
 次のステップは、データベース内でユニークである username や email でユーザを認証させます。残念ながらネイティブのエンティティプロバイダは、データベースからユーザを取り出す際に、１つのプロパティしか処理することができません。
 
-これを実現するために、サブミットされたログイン username が username *もしくは* email フィールドがマッチするかをチェックするカスタムエンティティプロバイダを作成します。幸いなことに、 :class:`Symfony\\Component\\Security\\Core\\User\\UserProviderInterface`. インタフェースを実装すれば、 Doctrine リポジトリオブジェクトは、エンティティユーザプロバイダとして振る舞うことができます。このインタフェースでは次の３つのメソッドを強制します。
-
-* ``loadUserByUsername()``  :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface` インスタンスをユニークな username で取得して、返します。取得できなければ、 :class:`Symfony\\Component\\Security\\Core\\Exception\\UsernameNotFoundException` 例外を投げ、セキュリティレイヤーに証明にマッチするユーザがいないことを伝えなければなりません。
-* ``refreshUser()`` :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface` インスタンスをリフレッシュして、返します。リフレッシュできなければ、 :class:`Symfony\\Component\\Security\\Core\\Exception\\UnsupportedUserException` 例外を投げ、ユーザをリフレッシュすることができなかったことを伝えなければなりません。
-* ``supportsClass()`` 引数として渡したクラス名が、エンティティプロバイダによてサポートされていれば、 ``true`` を返さなければなりません。
+これを実現するために、サブミットされたログイン username が username *もしくは* email フィールドがマッチするかをチェックするカスタムエンティティプロバイダを作成します。幸いなことに、 :class:`Symfony\\Component\\Security\\Core\\User\\UserProviderInterface`. インタフェースを実装すれば、 Doctrine リポジトリオブジェクトは、エンティティユーザプロバイダとして振る舞うことができます。このインタフェースでは次の３つのメソッドを強制します。 ``loadUserByUsername($username)``, ``refreshUser(UserInterface $user)``, ``supportsClass($class)`` です。詳細は、 :class:`Symfony\\Component\\Security\\Core\\User\\UserProviderInterface` を参照してください。
 
 以下のコードは、 ``UserRepository`` クラス内の :class:`Symfony\\Component\\Security\\Core\\User\\UserProviderInterface` の実装になります。
 ::
@@ -419,5 +408,5 @@ Symfony のセキュリティレイヤーで ``AcmeUserBundle:User`` クラス�
 
 email と username からユーザを取得する際に ``QueryBuilder::leftJoin()`` メソッドは、 ``AcmeUserBundle:User`` モデルクラスから、関連するグループをジョインし取得します。
 
-.. 2012/01/04 ganchiku a990b142daa11ab05dbe5f1e7bf71190eb872343
+.. 2012/01/04 ganchiku fddaa3f9210cb5626ec4bdc6ac0a2afe966d39c0
 
