@@ -1,25 +1,25 @@
 .. index::
    single: Process
 
-The Process Component
+Processコンポーネント
 =====================
 
-    The Process Component executes commands in sub-processes.
+    Processコンポーネントを使うと、サブプロセスでコマンドを実行することができます。
 
-Installation
+インストール
 ------------
 
-You can install the component in many different ways:
+コンポーネントをインストールする方法は何通りもあります。
 
-* Use the official Git repository (https://github.com/symfony/Process);
-* Install it via PEAR ( `pear.symfony.com/Process`);
-* Install it via Composer (`symfony/process` on Packagist).
+* 公式Gitレポジトリ (https://github.com/symfony/Process);
+* PEARコマンドでインストール ( `pear.symfony.com/Process`);
+* Composerを使ってインストール (Packagistの`symfony/process`).
 
-Usage
------
+使用方法
+--------
 
-The `:class:Symfony\\Component\\Process\\Process` class allows you to execute
-a command in a sub-process::
+`:class:Symfony\\Component\\Process\\Process` クラスを使うとサブプロセスでコマンドを実行することができます。
+::
 
     use Symfony\Component\Process\Process;
 
@@ -32,14 +32,10 @@ a command in a sub-process::
 
     print $process->getOutput();
 
-The ``:method::Symfony\\Component\\Process\\Process:run()`` method takes care
-of the subtle differences between the different platforms when executing the
-command.
+``:method::Symfony\\Component\\Process\\Process:run()`` メソッドは、コマンド実行時にプラットフォーム間の軽微な差異を考慮してくれます。 
 
-When executing a long running command (like rsync-ing files to a remote
-server), you can give feedback to the end user in real-time by passing an
-anonymous function to the
-``:method::Symfony\\Component\\Process\\Process:run()`` method::
+（リモートサーバーへのrsyncのような）長いコマンドを実行する時、``:method::Symfony\\Component\\Process\\Process:run()`` メソッドに無名関数を渡すことで、エンドユーザーに対するリアルタイムなフィードバックを表示させることができます。 
+::
 
     use Symfony\Component\Process\Process;
 
@@ -52,8 +48,8 @@ anonymous function to the
         }
     });
 
-If you want to execute some PHP code in isolation, use the ``PhpProcess``
-instead::
+何かPHPコードを独立して実行させたい時は、代わりに``PhpProcess``クラスを使ってください。
+::
 
     use Symfony\Component\Process\PhpProcess;
 
@@ -63,10 +59,9 @@ instead::
     $process->run();
 
 .. versionadded:: 2.1
-    The ``ProcessBuilder`` class has been as of 2.1.
+    ``ProcessBuilder`` は2.1で追加されました。
 
-To make your code work better on all platforms, you might want to use the
-``:class:Symfony\Component\Process\ProcessBuilder`` class instead::
+全てのプラットフォームでよりよく動かしたいなら、代わりに``:class:Symfony\Component\Process\ProcessBuilder``クラスを使うと良いかもしれません::
 
     use Symfony\Component\Process\ProcessBuilder;
 
