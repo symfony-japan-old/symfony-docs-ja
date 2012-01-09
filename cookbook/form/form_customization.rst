@@ -64,6 +64,8 @@ Symfony は、フォームのレンダリングをカスタマイズする方法
 
 このレシピの残りでは、フォームのマークアップの全てのパーツを、いろんな異なるレベルでどうやって変更するかについて説明します。一般的なフォームレンダリングに関しての詳細は、 :ref:`form-rendering-templates` を参照してください。
 
+.. _cookbook-form-customization-form-themes:
+
 フォームテーマとは何か？
 ------------------------
 
@@ -798,5 +800,5 @@ Twig を使用した際に、別のテンプレート内でフォームのカス
 
 .. _`form_div_layout.html.twig`: https://github.com/symfony/symfony/blob/master/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig
 
-.. 2011/11/02 ganchiku 526b9300290b9927bd771a0bc2ee30e06040aed6
+.. 2012/01/10 ganchiku 78fbe0505f42b091eca4dd42b780291e3eed950d
 
