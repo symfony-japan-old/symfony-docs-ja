@@ -143,8 +143,7 @@ YAML や XML ファイルに記述するか、アノテーションとして ``P
 
 .. configuration-block::
 
-    .. todo: code-block -> php-annotations
-    .. code-block:: php
+    .. code-block:: php-annotations
 
         // src/Acme/StoreBundle/Entity/Product.php
         namespace Acme\StoreBundle\Entity;
@@ -636,8 +635,7 @@ Doctrine Query Builder に関するより詳細は、Doctrine のドキュメン
 
 .. configuration-block::
 
-    .. todo: code-block -> php-annotations
-    .. code-block:: php
+    .. code-block:: php-annotations
 
         // src/Acme/StoreBundle/Entity/Product.php
         namespace Acme\StoreBundle\Entity;
@@ -1067,8 +1065,7 @@ Lifecycle Callback
 metadata としてアノテーションを使用している場合は、まず、lifecycle callback を有効にしてください。\
 YAML や XML を使用している場合は必要ありません。
 
-.. todo: code-block -> php-annotations
-.. code-block:: php
+.. code-block:: php-annotations
 
     /**
      * @ORM\Entity()
@@ -1087,8 +1084,7 @@ Doctrine にメソッドを実行するように伝えることができるよ�
 
 .. configuration-block::
 
-    .. todo: code-block -> php-annotations
-    .. code-block:: php
+    .. code-block:: php-annotations
 
         /**
          * @ORM\prePersist
@@ -1210,8 +1206,7 @@ Doctrine では、下記のフィールドタイプがサポートされてい�
 いくつかアノテーションの例を見てみましょう。
 
 
-.. todo: code-block -> php-annotations
-.. code-block:: php
+.. code-block:: php-annotations
 
     /**
      * 長さ 255 で null 不可の string
