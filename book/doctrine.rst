@@ -40,12 +40,12 @@ Doctrine の動作を理解するのに一番簡単な方法は、実際に動�
 ~~~~~~~~~~~~~~~~~~
 
 本当のスタート前に、まずは、データベース接続の設定を行う必要があります。\
-慣例として、通常は ``app/config/parameters.ini`` で設定を行います。
+慣例として、通常は ``app/config/parameters.yml`` で設定を行います。
 
 .. code-block:: ini
 
-    ;app/config/parameters.ini
-    [parameters]
+    # app/config/parameters.yml
+    parameters
         database_driver   = pdo_mysql
         database_host     = localhost
         database_name     = test_project
@@ -54,7 +54,7 @@ Doctrine の動作を理解するのに一番簡単な方法は、実際に動�
 
 .. note::
 
-    ``parameters.ini`` を通して設定を行うのは、単なる慣習です。\
+    ``parameters.yml`` を通して設定を行うのは、単なる慣習です。\
     このファイルで定義したパラメータは、Doctrine の設定時に、メインの設定ファイルから参照されます。
     
     .. code-block:: yaml
@@ -735,30 +735,46 @@ Doctrine にクラスを作らせてみましょう。
 このタスクは、エンティティである ``Category`` を作成し、\
 ``id`` 及び ``name`` フィールドとそれぞれのゲッター、セッター関数を作成するものです。
 
-リレーションの Metadata
-~~~~~~~~~~~~~~~~~~~~~~~
+Metadata をマッピングするリレーション
+|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ``Category`` と ``Product`` エンティティを関連付けるために、\
 まずは、\ ``Category`` クラスに ``products`` プロパティを作成することから始めましょう。\ ::
 
-    // src/Acme/StoreBundle/Entity/Category.php
-    // ...
-    use Doctrine\Common\Collections\ArrayCollection;
-    
-    class Category
-    {
-        // ...
-        
-        /**
-         * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
-         */
-        protected $products;
+.. configuration-block::
 
-        public function __construct()
+    .. code-block:: php-annotations
+
+        // src/Acme/StoreBundle/Entity/Category.php
+        // ...
+        use Doctrine\Common\Collections\ArrayCollection;
+        
+        class Category
         {
-            $this->products = new ArrayCollection();
+            // ...
+            
+            /**
+             * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
+             */
+            protected $products;
+    
+            public function __construct()
+            {
+                $this->products = new ArrayCollection();
+            }
         }
-    }
+
+    .. code-block:: yaml
+
+        # src/Acme/StoreBundle/Resources/config/doctrine/Category.orm.yml
+        Acme\StoreBundle\Entity\Category:
+            type: entity
+            # ...
+            oneToMany:
+                products:
+                    targetEntity: Product
+                    mappedBy: category
+            # don't forget to init the collection in entity __construct() method
 
 まず、\ ``Category`` クラスは複数(many)の ``Product`` オブジェクトと関連するので、\
 プロパティ ``products`` 配列を追加し、このプロパティがそれら ``Product`` オブジェクト群を保持するようにします。\
@@ -774,22 +790,45 @@ Doctrine にクラスを作らせてみましょう。
     もしあまり気に入らなくても、特に心配いりません。\
     単に ``array`` であるという風に仮定してください。そうすれば問題ありません。
 
+.. tip::
+
+   上記の Decorator の中の targetEntity の値は同じクラスで定義されたエンティティだけでなく、妥当な名前空間における任意のエンティティを参照できます。異なるクラスもしくはバンドルで定義されたエンティティを関連付けるには、targetEntity として完全な名前空間を入力します。
+
 次に、\ ``Product`` クラスですが、これは、ただ1つ(one) の ``Category`` というオブジェクトと関連しています。\
 ですので、\ ``Product`` クラスに ``$category`` プロパティを追加したくなりますよね。\ ::
 
-    // src/Acme/StoreBundle/Entity/Product.php
-    // ...
+.. configuration-block::
 
-    class Product
-    {
+    .. code-block:: php-annotations
+
+
+        // src/Acme/StoreBundle/Entity/Product.php
         // ...
     
-        /**
-         * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
-         * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
-         */
-        protected $category;
-    }
+        class Product
+        {
+            // ...
+        
+            /**
+             * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
+             * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+             */
+            protected $category;
+        }
+
+    .. code-block:: yaml
+
+        # src/Acme/StoreBundle/Resources/config/doctrine/Product.orm.yml
+        Acme\StoreBundle\Entity\Product:
+            type: entity
+            # ...
+            manyToOne:
+                category:
+                    targetEntity: Category
+                    inversedBy: products
+                    joinColumn:
+                        name: category_id
+                        referencedColumnName: id
 
 さて、これで ``Category`` と ``Product`` クラスの両方に新しいプロパティが追加されましたので、\
 Doctrine に足りないゲッターとセッターを作ってもらうようにお願いしましょう。
@@ -827,7 +866,7 @@ Doctrine の metadata のことは、一瞬忘れてみてください。\
 .. note::
 
     このタスクは、開発時においてのみしか実行するべきではありません。\
-    プロダクション環境のデータベースをより堅牢にそしてシステマチックに更新する際は、\ :doc:`Doctrine migrations</bundles/DoctrineFixturesBundle/index>` を参照してください。
+    プロダクション環境のデータベースをより堅牢にそしてシステマチックに更新する際は、\ :doc:`Doctrine migrations</bundles/DoctrineMigrationsBundle/index>` を参照してください。
 
 関連するエンティティの保存
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1116,15 +1155,15 @@ Doctrine は自動的にこのメソッドを呼ぶようになり、\ ``created
     それに必要なリソースを与えるべきです。\
     詳細は :doc:`/cookbook/doctrine/event_listeners_subscribers` を参照してください。
 
-Doctrine Extensions: Timestampable, Sluggable, etc.
----------------------------------------------------
+Doctrine のエクステンション: Timestampable、Sluggable など
+-----------------------------------------------------------
 
 Doctrine は非常に柔軟性に富んでおり、たくさんのサードパーティ製エクステンションが使用可能になっており、\
 エンティティに対して度々、そして一般的に起こりうるタスクを簡単にこなしてくれます。\
 *Sluggable*\ 、\ *Timestampable*\ 、\ *Loggable*\ 、\ *Translatable* や *Tree* などがあります。
 
 これらエクステンションの探し方やその使い方についてはクックブックの
-:doc:`using common Doctrine extensions</cookbook/doctrine/common_extensions>` を参照してください。
+:doc:`「共通の Doctrine エクステンションのドキュメント」 </cookbook/doctrine/common_extensions>` を参照してください。
 
 .. _book-doctrine-field-types:
 
@@ -1260,7 +1299,6 @@ Doctrine はシンプルなコンセプトを中心にしてはいるのです�
 Doctrineについてのより詳細な情報は、\ :doc:`cookbook</cookbook/index>` の *Doctrine* を参照してください。\
 次のような記事があります。
 
-* :doc:`/bundles/DoctrineFixturesBundle/index`
 * :doc:`/bundles/DoctrineFixturesBundle/index`
 * :doc:`/cookbook/doctrine/common_extensions`
 
