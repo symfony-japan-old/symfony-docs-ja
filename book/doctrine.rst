@@ -1312,3 +1312,4 @@ Doctrineについてのより詳細な情報は、\ :doc:`cookbook</cookbook/ind
 
 .. 2011/08/13 gilbite 7d4960d
 .. 2011/08/27 hidenorigoto 89d5fd5d7caac1dac690a62f1551dd0b5b3d6b8a
+.. 2012/01/10 masakielastic afa2a23c80a182379ac72708399832ae7886158b
