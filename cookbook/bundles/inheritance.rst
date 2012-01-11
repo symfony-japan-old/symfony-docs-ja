@@ -41,7 +41,7 @@
     {
         public function registerAction()
         {
-            $response = parent:registerAction();
+            $response = parent::registerAction();
             
             // do custom stuff
             
