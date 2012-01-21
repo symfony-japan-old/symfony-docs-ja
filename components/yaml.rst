@@ -9,7 +9,7 @@ YAMLコンポーネント
 Symfony2のYAMLコンポーネントはYAML文字列をパースしてPHPの配列に変換します。
 同様に、PHPの配列をYAML文字列に変換することもできます。 
 
-`YAML`_, *YAML Ain't Markup Language* は様々なプログラム言語で利用可能な、人間可読なデータのシリアル化方法です。YAMLは設定ファイルに最適のフォーマットです。 
+`YAML`_ 、 *YAML Ain't Markup Language* は様々なプログラム言語で利用可能な、人間可読なデータのシリアル化方法です。YAMLは設定ファイルに最適のフォーマットです。 
 YAMLはXMLのように様々なデータを表現でき、INIファイルのように読みやすくなっています。 
 
 Symfony2のYAMLコンポーネントは、YAMLのバージョン1.2に対応しています。
@@ -64,7 +64,7 @@ Symfony2のYAMLコンポーネントを使う
 ---------------------------------
 
 Symfony2のYAMLコンポーネントはとてもシンプルで、2つのクラスで構成されています。
-1つはYAML文字列をパースするクラス (:class:`Symfony\\Component\\Yaml\\Parser`)で、もう1つはPHP配列からYAML文字列を書き出すクラス(:class:`Symfony\\Component\\Yaml\\Dumper`)です。
+1つはYAML文字列をパースするクラス ( :class:`Symfony\\Component\\Yaml\\Parser` )で、もう1つはPHP配列からYAML文字列を書き出すクラス( :class:`Symfony\\Component\\Yaml\\Dumper` )です。
 
 2つのクラスの上位に :class:`Symfony\\Component\\Yaml\\Yaml` クラスがあり、一般的な使い方が簡単にできる薄いラッパーとして動作します。
 
@@ -81,7 +81,7 @@ YAMLファイルを読み込む
 
     $value = $yaml->parse(file_get_contents('/path/to/file.yml'));
 
-パース中にエラーが発生した時、パーサーはエラーの種類とエラーが発生したYAML文字列の行番号を示す:class:`Symfony\\Component\\Yaml\\Exception\\ParseException` 例外を投げます。:
+パース中にエラーが発生した時、パーサーはエラーの種類とエラーが発生したYAML文字列の行番号を示す :class:`Symfony\\Component\\Yaml\\Exception\\ParseException` 例外を投げます。:
 
 .. code-block:: php
 
@@ -97,7 +97,7 @@ YAMLファイルを読み込む
 
     パーサーは再入可能なので、同じパーサーインスタンスを違うYAMLファイルを読み込むのに再利用することができます。
 
-YAMLファイルを読み込む時、:method:`Symfony\\Component\\Yaml\\Yaml::parse` ラッパーメソッドの方がより便利かもしれません。:
+YAMLファイルを読み込む時、 :method:`Symfony\\Component\\Yaml\\Yaml::parse` ラッパーメソッドの方がより便利かもしれません。:
 
 .. code-block:: php
 
@@ -105,7 +105,7 @@ YAMLファイルを読み込む時、:method:`Symfony\\Component\\Yaml\\Yaml::pa
 
     $loader = Yaml::parse('/path/to/file.yml');
 
-:method:`Symfony\\Component\\Yaml\\Yaml::parse` 静的メソッドはYAML文字列またはYAMLを含むファイルを引数に取ります。内部では:method:`Symfony\\Component\\Yaml\\Parser::parse` メソッドを呼びますが、いくつかおまけをつけてくれます。:
+:method:`Symfony\\Component\\Yaml\\Yaml::parse` 静的メソッドはYAML文字列またはYAMLを含むファイルを引数に取ります。内部では :method:`Symfony\\Component\\Yaml\\Parser::parse` メソッドを呼びますが、いくつかおまけをつけてくれます。:
 
 * YAMLファイルをPHPファイルとして扱うため、YAMLファイル内にPHPの処理を埋め込むことができます。 
 
@@ -133,9 +133,9 @@ YAMLファイルを書く
     当然のことながら、Symfony2のYAMLダンパーはリソース型を書き出すことはできません。同様に、PHPのオブジェクトを書き出すことができるとしても、サポートされていない機能と考えられます。
 
 
-書き出し中にエラーが発生した場合、パーサーは:class:`Symfony\\Component\\Yaml\\Exception\\DumpException` 例外を投げます。
+書き出し中にエラーが発生した場合、パーサーは :class:`Symfony\\Component\\Yaml\\Exception\\DumpException` 例外を投げます。
 
-1つの配列を書き出すだけなら、ショートカットとして:method:`Symfony\\Component\\Yaml\\Yaml::dump` 静的メソッドを使う事ができます。:
+1つの配列を書き出すだけなら、ショートカットとして :method:`Symfony\\Component\\Yaml\\Yaml::dump` 静的メソッドを使う事ができます。:
 
 .. code-block:: php
 
