@@ -246,7 +246,7 @@ Symfony2 はコマンドを容易にテストできるようになるツール�
 サービスコンテナからサービスを取得する
 ------------------------------------------
 
-コマンドのベースクラスに :class:`Symfony\Component\Console\Command\Command` ではなく、 :class:`Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand` を使用すれば、サービスコンテナへのアクセスもできるようになります。 つまり、設定された全てのサービスにアクセスができるのです。例えば次のように、簡単にタスクを拡張して、翻訳可能にもできます。
+コマンドのベースクラスに :class:`Symfony\\Component\\Console\\Command\\Command` ではなく、 :class:`Symfony\\Bundle\\FrameworkBundle\\Command\\ContainerAwareCommand` を使用すれば、サービスコンテナへのアクセスもできるようになります。 つまり、設定された全てのサービスにアクセスができるのです。例えば次のように、簡単にタスクを拡張して、翻訳可能にもできます。
 ::
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -293,3 +293,6 @@ Symfony2 はコマンドを容易にテストできるようになるツール�
 .. note::
 
     ほとんどの場合、コマンドライン上で実行されないコードからコマンドを呼び出すのは、次の理由から良いアイデアではありません。まず、コマンドの出力は、コンソールのために最適化されています。しかし、より大事なこととして、コマンドをコントローラのように考えることができます。コントローラは、モデルを使用し処理を行い、ユーザにフィードバックを表示します。ウェブからコマンドを呼ぶのではなく、コードをリファクタリングして、ロジックを新しいクラスに移すべきです。
+
+
+.. 2012/01/21 77web 068bfa62d50062ec15db1942328d34f6c10a65b5
