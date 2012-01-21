@@ -118,4 +118,4 @@ PEAR のクラスのサブネームスペースや下の階層にあるクラス
 .. _PEAR:      http://pear.php.net/manual/en/standards.php
 
 
-.. 2012/01/21 
+.. 2012/01/21 77web f14f7b3d7875b8b97d728fc59a14d22d9034ae8d
