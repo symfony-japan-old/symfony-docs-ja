@@ -29,7 +29,8 @@ Finderコンポーネント
         print $file->getRealpath()."\n";
     }
 
-``$file`` は :phpclass:`SplFileInfo` のインスタンスです。
+``$file`` は :class:`Symfony\\Component\\Finder\\SplFileInfo` のインスタンスです。
+:class:`Symfony\\Component\\Finder\\SplFileInfo` は :phpclass:`SplFileInfo` を拡張して相対パスを扱うメソッドを提供するものです。
 
 上記のコードでは、再帰的に現在のディレクトリ内の全てのファイルの名前を出力します。 Finder クラスは、綺麗なインタフェースを使用しており、全てのメソッドは、 Finder のインスタンスを返します。
 
@@ -195,3 +196,5 @@ Finder は PHP のイテレータを使用しているので、 `protocol`_ を�
 .. _Streams:      http://www.php.net/streams
 .. _IEC standard: http://physics.nist.gov/cuu/Units/binary.html
 
+
+.. 2012/01/21 77web 43cdd28ff3970576ae63c59e3e43649901ed50df

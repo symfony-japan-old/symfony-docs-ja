@@ -32,9 +32,9 @@ Processコンポーネント
 
     print $process->getOutput();
 
-``:method::Symfony\\Component\\Process\\Process:run()`` メソッドは、コマンド実行時にプラットフォーム間の軽微な差異を考慮してくれます。 
+``:method::Symfony\\Component\\Process\\Process:run`` メソッドは、コマンド実行時にプラットフォーム間の軽微な差異を考慮してくれます。 
 
-（リモートサーバーへのrsyncのような）長いコマンドを実行する時、``:method::Symfony\\Component\\Process\\Process:run()`` メソッドに無名関数を渡すことで、エンドユーザーに対するリアルタイムなフィードバックを表示させることができます。 
+（リモートサーバーへのrsyncのような）長いコマンドを実行する時、``:method::Symfony\\Component\\Process\\Process:run`` メソッドに無名関数を渡すことで、エンドユーザーに対するリアルタイムなフィードバックを表示させることができます。 
 ::
 
     use Symfony\Component\Process\Process;
@@ -61,9 +61,12 @@ Processコンポーネント
 .. versionadded:: 2.1
     ``ProcessBuilder`` は2.1で追加されました。
 
-全てのプラットフォームでよりよく動かしたいなら、代わりに``:class:Symfony\Component\Process\ProcessBuilder``クラスを使うと良いかもしれません::
+全てのプラットフォームでよりよく動かしたいなら、代わりに``:class:Symfony\\Component\\Process\\ProcessBuilder``クラスを使うと良いかもしれません::
 
     use Symfony\Component\Process\ProcessBuilder;
 
     $builder = new ProcessBuilder(array('ls', '-lsa'));
     $builder->getProcess()->run();
+
+
+.. 2012/01/21 77web 115ff31eeb9b9661b5ff39b5be487d201fbd9c74

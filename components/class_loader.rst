@@ -116,3 +116,6 @@ PEAR のクラスのサブネームスペースや下の階層にあるクラス
 
 .. _PSR-0標準: http://groups.google.com/group/php-standards/web/psr-0-final-proposal
 .. _PEAR:      http://pear.php.net/manual/en/standards.php
+
+
+.. 2012/01/21 
