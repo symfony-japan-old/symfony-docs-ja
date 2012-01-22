@@ -38,6 +38,8 @@ Symfony2 の各機能ごとのガイドドキュメント
 
 :doc:`クックブック </cookbook/index>`
 
+コンポーネント
+--------------
 
 .. toctree::
     :hidden:
