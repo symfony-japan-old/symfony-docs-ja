@@ -38,6 +38,14 @@ Symfony2 の各機能ごとのガイドドキュメント
 
 :doc:`クックブック </cookbook/index>`
 
+
+.. toctree::
+    :hidden:
+
+    components/index
+
+:doc:`コンポーネント </components/index>`
+
 リファレンス
 ------------
 
@@ -73,3 +81,6 @@ Symfony2 に貢献する方法についての説明
     contributing/index
 
 .. include:: contributing/map.rst.inc
+
+.. 2011/01/22 hidenorigoto 7771a387c82c396b48cd07482499ea4bfc2a6ef1
+
