@@ -1363,9 +1363,9 @@ HTTP 認証やフォームログインなどの全ての認証メカニズムは
 クックブック でもっと学ぶ
 ----------------------------
 
-* :doc:`HTTP/HTTPS の強制 </cookbook/security/force_https>`
-* :doc:`Blacklist users by IP address with a custom voter </cookbook/security/voters>`
-* :doc:`Access Control Lists (ACLs) </cookbook/security/acl>`
+* :doc:`/cookbook/security/force_https`
+* :doc:`/cookbook/security/voters`
+* :doc:`/cookbook/security/acl`
 * :doc:`/cookbook/security/remember_me`
 
 .. _`Security コンポーネント`: https://github.com/symfony/Security
