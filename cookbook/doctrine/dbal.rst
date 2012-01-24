@@ -14,7 +14,7 @@ Doctrine の DBAL レイヤーの使用方法
 
     公式の Doctrine のドキュメント `DBAL Documentation`_ を読むと、 Doctrine の DBAL ライブラリの詳細や実現可能なことを全て学ぶことができます。
 
-まず、データベース接続のパラメターを設定してください。
+まず、データベース接続のパラメータを設定してください。
 :
 
 .. configuration-block::
