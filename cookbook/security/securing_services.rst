@@ -196,7 +196,7 @@
 
     セキュリティチェックとして機能するクラスのプロクシクラスを作成すれば、アノテーションは動作するようになります。アノテーションは、public と protected なメソッドには使用することができますが、 private なメソッドや final 指定のメソッドには使用することはできません。
 
-``JMSSecurityExtraBundle`` を使用すれば、パラメターとメソッドの返り値をセキュアにすることができます。詳細は、  `JMSSecurityExtraBundle`_ のドキュメントを参照してください。
+``JMSSecurityExtraBundle`` を使用すれば、パラメータとメソッドの返り値をセキュアにすることができます。詳細は、  `JMSSecurityExtraBundle`_ のドキュメントを参照してください。
 
 .. _securing-services-annotations-sidebar:
 
