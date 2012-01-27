@@ -1,5 +1,3 @@
-.. 2011/07/30 hidenorigoto bba67d83
-
 バリデータリファレンス
 ======================
 
@@ -7,25 +5,41 @@
    :maxdepth: 1
    :hidden:
 
-   constraints/False
+   constraints/NotBlank
+   constraints/Blank
+   constraints/NotNull
+   constraints/Null
    constraints/True
+   constraints/False
    constraints/Type
-   constraints/Callback
-   constraints/Choice
-   constraints/Collection
+
+   constraints/Email
+   constraints/MinLength
+   constraints/MaxLength
+   constraints/Url
+   constraints/Regex
+   constraints/Ip
+
+   constraints/Max
+   constraints/Min
+
    constraints/Date
    constraints/DateTime
-   constraints/Email
-   constraints/File
-   constraints/Max
-   constraints/MaxLength
-   constraints/Min
-   constraints/MinLength
-   constraints/NotBlank
-   constraints/NotNull
-   constraints/Regex
    constraints/Time
-   constraints/Url
+
+   constraints/Choice
+   constraints/Collection
+   constraints/UniqueEntity
+   constraints/Language
+   constraints/Locale
+   constraints/Country
+
+   constraints/File
+   constraints/Image
+
+   constraints/Callback
+   constraints/All
+   constraints/UserPassword
    constraints/Valid
 
 バリデータは、\ *制約* に対してオブジェクトを検証するように設計されています。
@@ -38,23 +52,7 @@ Symfony2 の世界でも同様です。
 
 Symfony2 では、次の制約が組み込みで利用できます。
 
-* :doc:`False <constraints/False>`
-* :doc:`True <constraints/True>`
-* :doc:`Type <constraints/Type>`
-* :doc:`Callback <constraints/Callback>`
-* :doc:`Choice <constraints/Choice>`
-* :doc:`Collection <constraints/Collection>`
-* :doc:`Date <constraints/Date>`
-* :doc:`DateTime <constraints/DateTime>`
-* :doc:`Email <constraints/Email>`
-* :doc:`File <constraints/File>`
-* :doc:`Max <constraints/Max>`
-* :doc:`MaxLength <constraints/MaxLength>`
-* :doc:`Min <constraints/Min>`
-* :doc:`MinLength <constraints/MinLength>`
-* :doc:`NotBlank <constraints/NotBlank>`
-* :doc:`NotNull <constraints/NotNull>`
-* :doc:`Regex <constraints/Regex>`
-* :doc:`Time <constraints/Time>`
-* :doc:`Url <constraints/Url>`
-* :doc:`Valid <constraints/Valid>`
+.. include:: /reference/constraints/map.rst.inc
+
+.. 2012/01/27 hidenorigoto f0b25f76d6e4637c1de5e5abdbab3d3bd0ee3c15
+

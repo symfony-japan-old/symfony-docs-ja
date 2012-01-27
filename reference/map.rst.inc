@@ -1,26 +1,27 @@
-.. 2011/07/03 jptomo b123264a5bc0c64f1c70f3dfabfa288e2dd3fe39
+* **コンフィギュレーションオプション**:
 
-* **バンドルの設定**:
+  ``app/config/config.yml`` といったファイルでどのようなコンフィギュレーションオプションが使えるのでしょうか。
+  ここでは、Symfony2 のコンフィギュレーションで使えるセクションとして定義されているキー(たとえば ``framework``)ごとに、利用可能なすべてのコンフィギュレーションについて解説します。
 
-  * :doc:`FrameworkBundle (framework) </reference/configuration/framework>`
-  * :doc:`AsseticBundle (assetic) </reference/configuration/assetic>`
-  * :doc:`DoctrineBundle (doctrine) </reference/configuration/doctrine>`
-  * :doc:`SecurityBundle (security) </reference/configuration/security>`
-  * :doc:`SwiftMailerBundle (swiftmailer) </reference/configuration/swiftmailer>`
-  * :doc:`TwigBundle (twig) </reference/configuration/twig>`
-  * :doc:`MonologBundle (monolog) </reference/configuration/monolog>`
-  * :doc:`WebProfilerBundle (web_profiler) </reference/configuration/web_profiler>`
-  * :doc:`DoctrineMongoDBBundle (doctrine_mongodb) </reference/configuration/mongodb>`
+  * :doc:`framework </reference/configuration/framework>`
+  * :doc:`doctrine </reference/configuration/doctrine>`
+  * :doc:`security </reference/configuration/security>`
+  * :doc:`assetic </reference/configuration/assetic>`
+  * :doc:`swiftmailer </reference/configuration/swiftmailer>`
+  * :doc:`twig </reference/configuration/twig>`
+  * :doc:`monolog </reference/configuration/monolog>`
+  * :doc:`web_profiler </reference/configuration/web_profiler>`
 
-* **フォーム**
+* **フォームとバリデーション**
 
   * :doc:`フォームフィールドタイプリファレンス</reference/forms/types>`
-  * :doc:`Twig テンプレート機能リファレンス</reference/forms/twig_reference>`
+  * :doc:`バリデーション制約リファレンス </reference/constraints>`
+  * :doc:`Twig テンプレート関数リファレンス</reference/forms/twig_reference>`
 
 * **その他**
 
-  * :doc:`/reference/constraints`
   * :doc:`/reference/dic_tags`
-  * :doc:`/reference/YAML`
   * :doc:`/reference/requirements`
-  * :doc:`/reference/model`
+
+.. 2012/01/27 hidenorigoto 7771a387c82c396b48cd07482499ea4bfc2a6ef1
+
