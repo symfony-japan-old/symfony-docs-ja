@@ -24,7 +24,7 @@ True
 
 .. code-block:: php
 
-    // Acme/HelloBundle/Author.php
+    // Acme/HelloBundle/Entity/Author.php
     class Author
     {
         protected $token;
