@@ -117,7 +117,7 @@ isTokenValid() メソッドの戻り値が ``True`` であることを強制す�
 message
 ~~~~~~~
 
-**タイプ**: ``string`` *デフォルト**: ``This value should be true``
+**タイプ**: ``string`` **デフォルト**: ``This value should be true``
 
 検証するデータが true ではなかった場合にこのメッセージが表示されます。
 
