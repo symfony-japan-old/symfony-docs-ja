@@ -33,7 +33,7 @@
       CONSTRAINT `blog_post_id` FOREIGN KEY (`post_id`) REFERENCES `blog_post` (`id`) ON DELETE CASCADE
     ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-レシピに入る前に、 ``app/config/parameters.yml`` ファイルなどのデータベースコンフィギュレーションファイルのデータベース接続のパラメターが正しくセットアップされているか調べてください。そして、エンティティクラスを置くことになるバンドルを初期化しておいてください。このチュートリアルでは、 ``src/Acme/BlogBundle`` フォルダに ``AcmeBlogBundle`` があることを想定しています。
+レシピに入る前に、 ``app/config/parameters.ini`` ファイルなどのデータベースコンフィギュレーションファイルのデータベース接続のパラメターが正しくセットアップされているか調べてください。そして、エンティティクラスを置くことになるバンドルを初期化しておいてください。このチュートリアルでは、 ``src/Acme/BlogBundle`` フォルダに ``AcmeBlogBundle`` があることを想定しています。
 
 既存のデータベースからエンティティクラスを作成するための最初のステップは、 Doctrine にデータベースの内部を調べさせて、一致するメタデータのファイルを生成することです。メタデータのファイルは、テーブルのフィールドに基づいて生成されたエンティティクラスを記述しています。
 

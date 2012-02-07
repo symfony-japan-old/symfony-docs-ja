@@ -24,7 +24,7 @@
 
 .. code-block:: ini
 
-    ; app/config/parameters.yml
+    ; app/config/parameters.ini
     [parameters]
         ga_tracking: UA-xxxxx-x
 
