@@ -1,9 +1,9 @@
 SensioFrameworkExtraBundle
 ==========================
 
-The default Symfony2 ``FrameworkBundle`` implements a basic but robust and
-flexible MVC framework. `SensioFrameworkExtraBundle`_ extends it to add sweet
-conventions and annotations. It allows for more concise controllers.
+Symfony2標準の ``FrameworkBundle`` は基本的でありながら頑丈で柔軟なMVCフレームワークを供給する。
+`SensioFrameworkExtraBundle`_ はそれに快適な慣例と注釈の追加を施す。
+それはより簡潔なコントローラを可能にする。
 
 Installation
 ------------
@@ -143,3 +143,5 @@ annotations::
 
 .. _`SensioFrameworkExtraBundle`: https://github.com/sensio/SensioFrameworkExtraBundle
 .. _`Download`: http://github.com/sensio/SensioFrameworkExtraBundle
+
+.. 2012/10/13 vectorxenon hogehoge
