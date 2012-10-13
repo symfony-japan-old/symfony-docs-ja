@@ -1,6 +1,6 @@
-.. 2011/05/07 doublemarket 88f8c07f
+.. 2012/10/13 brtriver f3474e18b34d3605a043e5b3a1ecc9ea099f370d
 
-フラットな PHP から Symfony2 へ
+Symfony2 vs フラットなPHP
 ===============================
 
 **なぜ Symfony2 は単にファイルを開いてフラットな PHP を書くよりも良いのでしょうか？**
@@ -28,7 +28,6 @@ Symfony2 を使うことで、フラットな PHP を使うよりも素早く、
     <?php
 
     // index.php
-
     $link = mysql_connect('localhost', 'myuser', 'mypassword');
     mysql_select_db('blog_db', $link);
 
@@ -36,6 +35,7 @@ Symfony2 を使うことで、フラットな PHP を使うよりも素早く、
 
     ?>
 
+    <!doctype html>
     <html>
         <head>
             <title>投稿の一覧</title>
@@ -56,6 +56,7 @@ Symfony2 を使うことで、フラットな PHP を使うよりも素早く、
 
     <?php
     mysql_close($link);
+    ?>
 
 素早く書けて高速に実行できますが、アプリケーションが大きくなるにつれてメンテナンスが手に負えなくなります。解決すべきいくつかの問題があります。
 
@@ -84,7 +85,6 @@ Symfony2 を使うことで、フラットな PHP を使うよりも素早く、
     <?php
 
     // index.php
-
     $link = mysql_connect('localhost', 'myuser', 'mypassword');
     mysql_select_db('blog_db', $link);
 
@@ -105,6 +105,7 @@ HTML コードは別のファイル (``templates/list.php``) に保存される�
 
 .. code-block:: html+php
 
+    <!doctype html>
     <html>
         <head>
             <title>投稿のリスト</title>
@@ -141,7 +142,6 @@ HTML コードは別のファイル (``templates/list.php``) に保存される�
     <?php
 
     // model.php
-
     function open_database_connection()
     {
         $link = mysql_connect('localhost', 'myuser', 'mypassword');
@@ -252,7 +252,7 @@ Symfony2 はクリーンで簡単にこれを実現できる ``Templating`` コ�
     {
         $link = open_database_connection();
 
-        $id = mysql_real_escape_string($id);
+        $id = intval($id);
         $query = 'SELECT date, title, body FROM post WHERE id = '.$id;
         $result = mysql_query($query);
         $row = mysql_fetch_assoc($result);
@@ -295,7 +295,7 @@ Symfony2 はクリーンで簡単にこれを実現できる ``Templating`` コ�
 まだこのページには、フレームワークが解決できるさらにやっかいな問題があります。\
 例えば、「id」クエリーパラメータが存在しなかったり不正な場合、ページがクラッシュする原因になります。\
 このような問題では 404 ページを表示する方がよいですが、まだこれは簡単には実現できません。\
-さらに問題なことに、\ ``mysql_real_escape_string()`` 関数を経由して ``id`` パラメータをクリーンにし忘れると、データベース全体が SQL インジェクション攻撃のリスクにさらされることになります。
+さらに問題なことに、\ ``intval()`` 関数を経由して ``id`` パラメータをクリーンにし忘れると、データベース全体が SQL インジェクション攻撃のリスクにさらされることになります。
 
 それ以外の大きな問題として、それぞれのコントローラのファイルが ``model.php`` ファイルを含まなくてはならないということです。\
 それぞれのコントローラファイルが、突然追加のファイルを読み込む必要に迫られたり、その他のグローバルなタスク(例えばセキュリティの向上など)を実行する必要が出た場合、どうなるでしょう。\
@@ -397,7 +397,7 @@ Symfony2 の出番です。\
 これは、 Symfony2 が提供するオートローダーを通じて実現されます。\
 オートローダーは、クラスを含むファイルを明確に含まなくても、 PHP のクラスを使い始められるようにするツールです。
 
-まず最初に、\ `Symfony をダウンロード`_\ し、\ ``vendor/symfony`` ディレクトリに配置してください。\
+まず最初に、\ `Symfony をダウンロード`_\ し、\ ``vendor/symfony/symfony`` ディレクトリに配置してください。\
 次に、\ ``app/bootstrap.php`` ファイルを作ってください。\
 アプリケーション内の2つのファイルを\ ``要求``\ し、オートローダーを設定するためにこのファイルを使います。
 
@@ -407,11 +407,11 @@ Symfony2 の出番です。\
     // bootstrap.php
     require_once 'model.php';
     require_once 'controllers.php';
-    require_once 'vendor/symfony/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
+    require_once 'vendor/symfony/symfony/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
 
     $loader = new Symfony\Component\ClassLoader\UniversalClassLoader();
     $loader->registerNamespaces(array(
-        'Symfony' => __DIR__.'/vendor/symfony/src',
+        'Symfony' => __DIR__.'/../vendor/symfony/symfony/src',
     ));
 
     $loader->register();
@@ -460,7 +460,7 @@ Symfony の哲学の核は、アプリケーションの主なジョブはそれ
     function list_action()
     {
         $posts = get_all_posts();
-        $html = render_template('templates/list.php');
+        $html = render_template('templates/list.php', array('posts' => $posts));
 
         return new Response($html);
     }
@@ -468,17 +468,18 @@ Symfony の哲学の核は、アプリケーションの主なジョブはそれ
     function show_action($id)
     {
         $post = get_post_by_id($id);
-        $html = render_template('templates/show.php');
+        $html = render_template('templates/show.php', array('post' => $post));
 
         return new Response($html);
     }
 
     // テンプレートをレンダリングするためのヘルパー関数
-    function render_template($path)
+    function render_template($path, array $args)
     {
+        extract($args);
         ob_start();
         require $path;
-        $html = ob_end_clean();
+        $html = ob_get_clean();
 
         return $html;
     }
@@ -496,7 +497,7 @@ Symfony2でのサンプルアプリケーション
 
 ブログは\ *大きな*\ 成長をしてきました。\
 しかし、まだこの程度の小さなアプリケーションなのにたくさんのコードを含んでいます。\
-ここに至るまで、単純なルーティングシステムや、テンプレートをレンダリングするため ``ob_start()`` と ``ob_end_clean()`` を使ったメソッドを開発してきました。\
+ここに至るまで、単純なルーティングシステムや、テンプレートをレンダリングするため ``ob_start()`` と ``ob_get_clean()`` を使ったメソッドを開発してきました。\
 もし、何らかの理由でこの「フレームワーク」を作り続ける必要があるのなら、これらの問題を既に解決している Symfony のスタンドアローンの `Routing`_ と `Templating`_ コンポーネントを使うこともできるでしょう。
 
 一般的な問題を改めて解決する代わりに、Symfony2 にそれらの面倒を見させることができます。\
@@ -506,29 +507,34 @@ Symfony2でのサンプルアプリケーション
 
     <?php
     // src/Acme/BlogBundle/Controller/BlogController.php
-
     namespace Acme\BlogBundle\Controller;
+
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
     class BlogController extends Controller
     {
         public function listAction()
         {
-            $blogs = $this->container->get('doctrine.orm.entity_manager')
-                ->createQuery('SELECT b FROM AcmeBlog:Blog b')
+            $posts = $this->get('doctrine')->getManager()
+                ->createQuery('SELECT p FROM AcmeBlogBundle:Post p')
                 ->execute();
 
-            return $this->render('AcmeBlogBundle:Blog:list.html.php', array('blogs' => $blogs));
+            return $this->render('AcmeBlogBundle:Blog:list.html.php', array('posts' => $posts));
         }
 
         public function showAction($id)
         {
-            $blog = $this->container->get('doctrine.orm.entity_manager')
-                ->createQuery('SELECT b FROM AcmeBlog:Blog b WHERE id = :id')
-                ->setParameter('id', $id)
-                ->getSingleResult();
+            $post = $this->get('doctrine')
+                ->getManager()
+                ->getRepository('AcmeBlogBundle:Post')
+                ->find($id);
 
-            return $this->render('AcmeBlogBundle:Blog:show.html.php', array('blog' => $blog));
+            if (!$post) {
+                // cause the 404 page not found to be displayed
+                throw $this->createNotFoundException();
+            }
+ 
+            return $this->render('AcmeBlogBundle:Blog:show.html.php', array('post' => $post));
         }
     }
 
@@ -559,6 +565,7 @@ Symfony2でのサンプルアプリケーション
 .. code-block:: html+php
 
     <!-- app/Resources/views/layout.html.php -->
+    <!doctype html>
     <html>
         <head>
             <title><?php echo $view['slots']->output('title', 'デフォルトのタイトル') ?></title>
@@ -576,7 +583,7 @@ Symfony2でのサンプルアプリケーション
 Symfony2 のエンジン(``カーネル`` と呼ばれます)が起動する時には、リクエスト情報を元にどのコントローラが実行されるかを知るためのマップを必要とします。\
 ルーティング設定のマップは、読みやすいフォーマットでこの情報を提供します。
 
-.. code-block:: php
+.. code-block:: yaml
 
     # app/config/routing.yml
     blog_list:
@@ -644,7 +651,6 @@ Symfony2 を使うことに決めたら、Symfony2 は 標準的に `Twig`_ と�
 .. code-block:: html+jinja
 
     {# src/Acme/BlogBundle/Resources/views/Blog/list.html.twig #}
-
     {% extends "::layout.html.twig" %}
     {% block title %}投稿のリスト{% endblock %}
 
@@ -653,7 +659,7 @@ Symfony2 を使うことに決めたら、Symfony2 は 標準的に `Twig`_ と�
         <ul>
             {% for post in posts %}
             <li>
-                <a href="{{ path('blog_show', { 'id': post.id }) }}">
+                <a href="{{ path('blog_show', {'id': post.id}) }}">
                     {{ post.title }}
                 </a>
             </li>
@@ -669,6 +675,7 @@ Symfony2 を使うことに決めたら、Symfony2 は 標準的に `Twig`_ と�
 
     {# app/Resources/views/layout.html.twig #}
 
+    <!doctype html>
     <html>
         <head>
             <title>{% block title %}デフォルトのタイトル{% endblock %}</title>
@@ -692,7 +699,7 @@ Twig は Symfony2 でうまくサポートされています。\
 .. _`Symfony をダウンロード`: http://symfony.com/download
 .. _`Routing`: https://github.com/symfony/Routing
 .. _`Templating`: https://github.com/symfony/Templating
-.. _`Symfony2Bundles.org`: http://symfony2bundles.org
-.. _`Twig`: http://www.twig-project.org
+.. _`KnpBundles.com`: http://knpbundles.com/
+.. _`Twig`: http://twig.sensiolabs.org
 .. _`Varnish`: http://www.varnish-cache.org
 .. _`PHPUnit`: http://www.phpunit.de
