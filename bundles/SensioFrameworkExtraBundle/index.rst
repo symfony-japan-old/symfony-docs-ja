@@ -22,13 +22,12 @@ SensioFrameworkExtraBundleを `ダウンロード`_ し、 ``Sensio\Bundle\`` �
         ...
     }
 
-Configuration
+設定
 -------------
 
-All features provided by the bundle are enabled by default when the bundle is
-registered in your Kernel class.
+全ての機能はKernelクラスに登録した時に標準で有効になり、利用できるようになります。
 
-The default configuration is as follow:
+標準の設定内容は以下のようになります。:
 
 .. configuration-block::
 
@@ -60,8 +59,8 @@ The default configuration is as follow:
             'cache'   => array('annotations' => true),
         ));
 
-You can disable some annotations and conventions by defining one or more
-settings to false.
+1つあるいは複数の設定をfalseにすることで、いくつかのアノテーションと慣習を無効化することができます。
+
 
 Annotations for Controllers
 ---------------------------
