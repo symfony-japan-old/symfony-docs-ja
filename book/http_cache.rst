@@ -1067,3 +1067,5 @@ Learn more from the Cookbook
 .. _`P4 - Conditional Requests`: http://tools.ietf.org/html/draft-ietf-httpbis-p4-conditional-12
 .. _`P6 - Caching: Browser and intermediary caches`: http://tools.ietf.org/html/draft-ietf-httpbis-p6-cache-12
 .. _`ESI`: http://www.w3.org/TR/esi-lang
+
+2012/10/13 gilbite 10598b9a36a4312d8a38cf23caf879da50740e1b
