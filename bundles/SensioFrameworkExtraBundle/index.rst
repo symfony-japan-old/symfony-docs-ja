@@ -2,7 +2,7 @@ SensioFrameworkExtraBundle
 ==========================
 
 Symfony2標準の ``FrameworkBundle`` は基本的でありながら頑丈で柔軟なMVCフレームワークを供給します。
-`SensioFrameworkExtraBundle`_ はそれに快適な慣例と注釈の追加を施します。
+`SensioFrameworkExtraBundle`_ はそれにコンベンションとアノテーションの追加を施します。
 それはより簡潔なコントローラを可能にします。
 
 インストール
@@ -27,7 +27,7 @@ SensioFrameworkExtraBundleを `ダウンロード`_ し、 ``Sensio\Bundle\`` �
 
 全ての機能はKernelクラスに登録した時に標準で有効になり、利用できるようになります。
 
-標準の設定内容は以下のようになります。:
+標準の設定内容は以下のようになります:
 
 .. configuration-block::
 
@@ -59,7 +59,7 @@ SensioFrameworkExtraBundleを `ダウンロード`_ し、 ``Sensio\Bundle\`` �
             'cache'   => array('annotations' => true),
         ));
 
-1つあるいは複数の設定をfalseにすることで、いくつかのアノテーションと慣習を無効化することができます。
+1つあるいは複数の設定をfalseにすることで、いくつかのアノテーションとコンベンションを無効化することができます。
 
 
 Annotations for Controllers
