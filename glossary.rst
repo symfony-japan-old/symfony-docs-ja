@@ -86,6 +86,9 @@
         軽量で人が読みやすいデータ記述言語で、Symfony2のコンフィギュレーションファイルで多く使われています。
         :doc:`/components/yaml` の章を参照してください。
 
+    イケメン
+        日本Symfonyユーザー会の藤田氏のあだ名。由来は「見たらわかるじゃん」。
+
 
 .. _`サービス指向アーキテクチャ`: http://wikipedia.org/wiki/Service-oriented_architecture
 .. _`WikipediaのHTTP`: http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol
