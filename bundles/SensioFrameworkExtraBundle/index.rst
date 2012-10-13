@@ -1,15 +1,15 @@
 SensioFrameworkExtraBundle
 ==========================
 
-Symfony2標準の ``FrameworkBundle`` は基本的でありながら頑丈で柔軟なMVCフレームワークを供給する。
-`SensioFrameworkExtraBundle`_ はそれに快適な慣例と注釈の追加を施す。
-それはより簡潔なコントローラを可能にする。
+Symfony2標準の ``FrameworkBundle`` は基本的でありながら頑丈で柔軟なMVCフレームワークを供給します。
+`SensioFrameworkExtraBundle`_ はそれに快適な慣例と注釈の追加を施します。
+それはより簡潔なコントローラを可能にします。
 
-Installation
+インストール
 ------------
 
-`Download`_ the bundle and put it under the ``Sensio\Bundle\`` namespace.
-Then, like for any other bundle, include it in your Kernel class::
+SensioFrameworkExtraBundleを `ダウンロード`_ し、 ``Sensio\Bundle\`` 名前空間に追加します。
+そして、他のバンドルと同じようにKernelクラスに登録します。::
 
     public function registerBundles()
     {
@@ -142,6 +142,6 @@ annotations::
     }
 
 .. _`SensioFrameworkExtraBundle`: https://github.com/sensio/SensioFrameworkExtraBundle
-.. _`Download`: http://github.com/sensio/SensioFrameworkExtraBundle
+.. _`ダウンロード`: http://github.com/sensio/SensioFrameworkExtraBundle
 
 .. 2012/10/13 vectorxenon hogehoge
