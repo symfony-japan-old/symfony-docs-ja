@@ -1,124 +1,149 @@
 .. index::
    single: Cache
 
-HTTP キャッシュ
-===============
+HTTP Cache
+==========
 
-リッチな Web アプリケーションの本質は、それが動的であるということでしょう。
-アプリケーションがどんなに効率的であったとしても、静的なファイルと比較して動的なファイルへのリクエストは必ずオーバーヘッドが発生します。
+The nature of rich web applications means that they're dynamic. No matter
+how efficient your application, each request will always contain more overhead
+than serving a static file.
 
-多くの Web アプリケーションのケースでは、Symfony2 はとても高速に動作するので、苦労してチューニングしなくても、サーバーに負荷をかけることなく、素早くレスポンスが返されます。
+And for most Web applications, that's fine. Symfony2 is lightning fast, and
+unless you're doing some serious heavy-lifting, each request will come back
+quickly without putting too much stress on your server.
 
-しかし、サイトへのアクセスが多くなると、小さなオーバーヘッドでも現実問題となってくるケースもあります。
-このような場合は、それまでリクエストのたびに実行していた処理を、1 回だけ実行されるようにします。
-これがキャッシュの目的です。
+But as your site grows, that overhead can become a problem. The processing
+that's normally performed on every request should be done only once. This
+is exactly what caching aims to accomplish.
 
-巨人の肩に乗ってキャッシュする
-------------------------------
+Caching on the Shoulders of Giants
+----------------------------------
 
-アプリケーションのパフォーマンスを向上させる最も効果的な方法は、ページ全体の出力をキャッシュし、それ以降のリクエストに対してはアプリケーションの処理が実行されないようにすることです。
-もちろん、動的な部分の多いサイトでは、この方法が使えない場合もあります。そういった場合に使える方法はないのでしょうか。
-この章では、Symfony2 のキャッシュシステムの機能を説明します。
-この章を読むと、Symfony2 のキャッシュのアプローチがとても優れていることが分かるでしょう。
+The most effective way to improve performance of an application is to cache
+the full output of a page and then bypass the application entirely on each
+subsequent request. Of course, this isn't always possible for highly dynamic
+websites, or is it? In this chapter, we'll show you how the Symfony2 cache
+system works and why we think this is the best possible approach.
 
-Symfony2 のキャッシュシステムは、これまで他の似たようなフレームワークで実装されていたキャッシュシステムとは一線を画しています。
-なぜなら、Symfony2 のキャッシュシステムは、\ :term:`HTTP 仕様` に定義されているとてもシンプルで強力な HTTP キャッシュを実装したものだからです。
-キャッシュの手法を再発明するのではなく、Web 上の基本的なプロトコルを定義している標準に準拠することにしたのです。
-ですので、HTTP キャッシュの有効期限や検証のモデルについて、基本を一度理解すれば、Symfony2 のキャッシュシステムも理解できます。
+The Symfony2 cache system is different because it relies on the simplicity
+and power of the HTTP cache as defined in the :term:`HTTP specification`.
+Instead of reinventing a caching methodology, Symfony2 embraces the standard
+that defines basic communication on the Web. Once you understand the fundamental
+HTTP validation and expiration caching models, you'll be ready to master
+the Symfony2 cache system.
 
-Symfony2 のキャッシュを学ぶにあたり、次の 4 つのステップで順に説明していきます。
+For the purposes of learning how to cache with Symfony2, we'll cover the
+subject in four steps:
 
-* **ステップ 1**: :ref:`ゲートウェイキャッシュ <gateway-caches>` またはリバースプロキシと呼ぶ、アプリケーションの手前に位置する独立したレイヤーについて解説します。
-  リバースプロキシでは、アプリケーションから返されたレスポンスをそのままキャッシュし、アプリケーションに対してリクエストがあると、代わりにキャッシュされたレスポンスを返します。
-  Symfony2 には独自のリバースプロキシが実装されていますが、他のリバースプロキシを利用することもできます。
+* **Step 1**: A :ref:`gateway cache <gateway-caches>`, or reverse proxy, is
+  an independent layer that sits in front of your application. The reverse
+  proxy caches responses as they're returned from your application and answers
+  requests with cached responses before they hit your application. Symfony2
+  provides its own reverse proxy, but any reverse proxy can be used.
 
-* **ステップ 2**: :ref:`HTTP キャッシュ <http-cache-introduction>` ヘッダーを使うと、アプリケーションとクライアントの間にある、ゲートウェイキャッシュ等のキャッシュシステムと情報をやりとりできます。
-  Symfony2 には、キャッシュヘッダーに関する使いやすいデフォルトの設定と、キャッシュヘッダーを操作するための強力なインタフェースがあります。
+* **Step 2**: :ref:`HTTP cache <http-cache-introduction>` headers are used
+  to communicate with the gateway cache and any other caches between your
+  application and the client. Symfony2 provides sensible defaults and a
+  powerful interface for interacting with the cache headers.
 
-* **ステップ 3**: HTTP :ref:`有効期限と検証 <http-expiration-validation>`
-  は、キャッシュされたコンテンツが *最新*
-  (キャッシュから利用可能) か *古い* (アプリケーションから再生性する必要がある) かを決定するために使う 2 つのモデルです。
+* **Step 3**: HTTP :ref:`expiration and validation <http-expiration-validation>`
+  are the two models used for determining whether cached content is *fresh*
+  (can be reused from the cache) or *stale* (should be regenerated by the
+  application).
 
-* **ステップ 4**: :ref:`Edge Side Includes <edge-side-includes>` (ESI) を使うと、HTTP キャッシュシステムでページの断片を個別にキャッシュできるようになります。ネストされたページ断片も扱えます。
-  ESI では、ページ全体は 60 分キャッシュし、そこに埋め込まれたサイドバーは 5 分のみキャッシュするということが可能になります。
+* **Step 4**: :ref:`Edge Side Includes <edge-side-includes>` (ESI) allow HTTP
+  cache to be used to cache page fragments (even nested fragments) independently.
+  With ESI, you can even cache an entire page for 60 minutes, but an embedded
+  sidebar for only 5 minutes.
 
-HTTP キャッシュは Symfony に限った技術ではありませんので、さまざまな解説記事がすでにあります。
-HTTP キャッシュについて初めて学ぶ方は、Ryan Tomayko 氏の記事 `Things Caches Do`_ を一読しておくことをおすすめします。
-さらに詳細な解説は、Mark Nottingham 氏の `Cache Tutorial`_ です。
+Since caching with HTTP isn't unique to Symfony, many articles already exist
+on the topic. If you're new to HTTP caching, we *highly* recommend Ryan
+Tomayko's article `Things Caches Do`_. Another in-depth resource is Mark
+Nottingham's `Cache Tutorial`_.
 
 .. index::
    single: Cache; Proxy
-   single: Cache; Reverse Proxy
+   single: Cache; Reverse proxy
    single: Cache; Gateway
 
 .. _gateway-caches:
 
-ゲートウェイキャッシュを使ったキャッシュ
-----------------------------------------
+Caching with a Gateway Cache
+----------------------------
 
-HTTP でキャッシュを行う場合、\ *キャッシュ*\ はアプリケーションから完全に分離され、アプリケーションとリクエストを送信するクライアントとの間で動作します。
+When caching with HTTP, the *cache* is separated from your application entirely
+and sits between your application and the client making the request.
 
-キャッシュの仕事は、クライアントからのリクエストを受け取り、それをアプリケーションへ引き渡すことです。
-同様に、アプリケーションからのレスポンスを受け取って、クライアントへ返します。
-つまり、キャッシュはクライアントとアプリケーションとの間でリクエストとレスポンスの通信を仲介します。
+The job of the cache is to accept requests from the client and pass them
+back to your application. The cache will also receive responses back from
+your application and forward them on to the client. The cache is the "middle-man"
+of the request-response communication between the client and your application.
 
-クライアントとアプリケーションの間で仲介をしながら、"キャッシュ可能" とみなせるレスポンス（\ :ref:`http-cache-introduction`\ ）をキャッシュに保存します。
-同じリソースが再度リクエストされた場合、キャッシュされたレスポンスがクライアントへ返され、アプリケーションは実行されません。
+Along the way, the cache will store each response that is deemed "cacheable"
+(See :ref:`http-cache-introduction`). If the same resource is requested again,
+the cache sends the cached response to the client, ignoring your application
+entirely.
 
-このように動作するキャッシュは、HTTP ゲートウェイキャッシュと呼ばれ、\ `Varnish`_\ 、\ `リバースプロキシモードの Squid`_\ 等、すでに多くのものが存在します。
-Symfony2 リバースプロキシもこの 1 つです。
+This type of cache is known as a HTTP gateway cache and many exist such
+as `Varnish`_, `Squid in reverse proxy mode`_, and the Symfony2 reverse proxy.
 
 .. index::
    single: Cache; Types of
 
-キャッシュの種類
-~~~~~~~~~~~~~~~~
+Types of Caches
+~~~~~~~~~~~~~~~
 
-ゲートウェイキャッシュがキャッシュの唯一の方法というわけではありません。
-実際、アプリケーションから送信される HTTP キャッシュヘッダーは、次の 3 種類のキャッシュシステムで受け取って処理されます。
+But a gateway cache isn't the only type of cache. In fact, the HTTP cache
+headers sent by your application are consumed and interpreted by up to three
+different types of caches:
 
-* *ブラウザのキャッシュ*: すべてのブラウザには、ローカルキャッシュ機能が実装されています。
-  "戻る" ボタンを押したときや、画像などのアセットが何度も表示される場合にローカルキャッシュが使われます。
-  ブラウザキャッシュは\ *プライベート*\ キャッシュなので、キャッシュされたリソースが他人と共有されることはありません。
+* *Browser caches*: Every browser comes with its own local cache that is
+  mainly useful for when you hit "back" or for images and other assets.
+  The browser cache is a *private* cache as cached resources aren't shared
+  with anyone else.
 
-* *プロキシキャッシュ*: プロキシは\ *共有*\ キャッシュで、多くのユーザーに代わって 1 人のユーザーがアクセスします。
-  通常は、大企業や ISP でレイテンシやネットワークのトラフィックを低下させる目的でインストールされます。
+* *Proxy caches*: A proxy is a *shared* cache as many people can be behind a
+  single one. It's usually installed by large corporations and ISPs to reduce
+  latency and network traffic.
 
-* *ゲートウェイキャッシュ*: プロキシと似ていますが、サーバーサイドで、キャッシュを\ *共有*\ します。
-  インストールはネットワーク管理者が行い、Web サイトの可用性、信頼性、パフォーマンスを向上させます。
+* *Gateway caches*: Like a proxy, it's also a *shared* cache but on the server
+  side. Installed by network administrators, it makes websites more scalable,
+  reliable and performant.
 
 .. tip::
 
-    ゲートウェイキャッシュは、リバースプロキシキャッシュ、サロゲートキャッシュ、HTTP アクセラレータと呼ばれることもあります。
+    Gateway caches are sometimes referred to as reverse proxy caches,
+    surrogate caches, or even HTTP accelerators.
 
 .. note::
 
-    キャッシュが *プライベート* であるか *共有* であるかは、たとえばアカウント情報画面のように厳密に 1 人のユーザーにのみ固有なコンテンツを含むレスポンスをキャッシュする場合に重要になります。
+    The significance of *private* versus *shared* caches will become more
+    obvious as we talk about caching responses containing content that is
+    specific to exactly one user (e.g. account information).
 
-アプリケーションのレスポンスには、最初の 2 つのうちのどちらか一方、または両方を利用できることが多いでしょう。
-これらのキャッシュを利用する場合、キャッシュデータを直接管理することはできませんので、レスポンスで HTTP キャシュの命令セットを使うことになります。
+Each response from your application will likely go through one or both of
+the first two cache types. These caches are outside of your control but follow
+the HTTP cache directions set in the response.
 
 .. index::
-   single: Cache; Symfony2 Reverse Proxy
+   single: Cache; Symfony2 reverse proxy
 
 .. _`symfony-gateway-cache`:
 
-Symfony2 リバースプロキシ
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Symfony2 Reverse Proxy
+~~~~~~~~~~~~~~~~~~~~~~
 
-Symfony2 には、PHP で記述されたリバースプロキシ（またはゲートウェイキャッシュと呼ばれる）が組み込まれています。
-リバースプロキシを有効にすると、アプリケーションからキャッシュ可能なレスポンスが返された場合、すぐにキャッシュされます。
-リバースプロキシのインストールはとても簡単です。
-Symfony2 アプリケーションには、あらかじめキャッシュカーネル (``AppCache``) の設定がされています。
-キャッシュカーネルは、デフォルトのカーネル (``AppKernel``) をラップします。
-このキャッシュカーネルが、リバースプロキシとして機能します。
+Symfony2 comes with a reverse proxy (also called a gateway cache) written
+in PHP. Enable it and cacheable responses from your application will start
+to be cached right away. Installing it is just as easy. Each new Symfony2
+application comes with a pre-configured caching kernel (``AppCache``) that
+wraps the default one (``AppKernel``). The caching Kernel *is* the reverse
+proxy.
 
-キャッシュを有効にするには、キャッシュカーネルを使うようにフロントコントローラのコードを次のように変更します。
-
-::
+To enable caching, modify the code of a front controller to use the caching
+kernel::
 
     // web/app.php
-
     require_once __DIR__.'/../app/bootstrap.php.cache';
     require_once __DIR__.'/../app/AppKernel.php';
     require_once __DIR__.'/../app/AppCache.php';
@@ -127,28 +152,32 @@ Symfony2 アプリケーションには、あらかじめキャッシュカー�
 
     $kernel = new AppKernel('prod', false);
     $kernel->loadClassCache();
-    // デフォルトの AppKernel を AppCache でラップ
+    // wrap the default AppKernel with the AppCache one
     $kernel = new AppCache($kernel);
-    $kernel->handle(Request::createFromGlobals())->send();
+    $request = Request::createFromGlobals();
+    $response = $kernel->handle($request);
+    $response->send();
+    $kernel->terminate($request, $response);
 
-これですぐに、キャッシュカーネルがリバースプロキシとして動作し始めます。
-つまり、アプリケーションからのレスポンスをキャッシュし、クライアントにキャッシュを返します。
+The caching kernel will immediately act as a reverse proxy - caching responses
+from your application and returning them to the client.
 
 .. tip::
 
-    キャッシュカーネルには、キャッシュレイヤーでの処理内容を文字列で返す ``getLog()`` メソッドがあります。
-    開発環境では、このメソッドを使ってキャッシュ戦略を検証できます。
-    
-    ::
+    The cache kernel has a special ``getLog()`` method that returns a string
+    representation of what happened in the cache layer. In the development
+    environment, use it to debug and validate your cache strategy::
 
         error_log($kernel->getLog());
 
-``AppCache`` オブジェクトのデフォルトコンフィギュレーションは、十分に実用的ですが、開発するアプリケーションに合わせて細かく調整したい場合は ``getOptions()`` メソッドをオーバーライドして、キャッシュ用の一連のオプションを書き換えることができます。
-
-::
+The ``AppCache`` object has a sensible default configuration, but it can be
+finely tuned via a set of options you can set by overriding the ``getOptions()``
+method::
 
     // app/AppCache.php
-    class AppCache extends Cache
+    use Symfony\Bundle\FrameworkBundle\HttpCache\HttpCache;
+
+    class AppCache extends HttpCache
     {
         protected function getOptions()
         {
@@ -166,70 +195,95 @@ Symfony2 アプリケーションには、あらかじめキャッシュカー�
 
 .. tip::
 
-    ``debug`` の値は、\ ``getOptions()``\ メソッドで指定しない場合、\ ``AppKernel``\ で設定された値に自動的に設定されます。
+    Unless overridden in ``getOptions()``, the ``debug`` option will be set
+    to automatically be the debug value of the wrapped ``AppKernel``.
 
-主要なオプションの一覧は以下のとおりです:
+Here is a list of the main options:
 
-* ``default_ttl``: レスポンスで明示的に最新かどうかを判定する情報が指定されなかった場合に、キャッシュエントリが最新であると判定される秒数。
-  明示的に ``Cache-Control`` または ``Expires`` ヘッダーを指定した場合、この値は上書きされます (デフォルト: ``0``);
+* ``default_ttl``: The number of seconds that a cache entry should be
+  considered fresh when no explicit freshness information is provided in a
+  response. Explicit ``Cache-Control`` or ``Expires`` headers override this
+  value (default: ``0``);
 
-* ``private_headers``: レスポンスの ``Cache-Control`` ディレクティブによって ``public`` ステートまたは ``private`` ステートが明示的に指定されていない場合でも、自動的に ``Cache-Control`` を "private" として扱う他のヘッダー (デフォルト: ``Authorization`` と ``Cookie``)。
+* ``private_headers``: Set of request headers that trigger "private"
+  ``Cache-Control`` behavior on responses that don't explicitly state whether
+  the response is ``public`` or ``private`` via a ``Cache-Control`` directive.
+  (default: ``Authorization`` and ``Cookie``);
 
-* ``allow_reload``: クライアントからリクエストに ``Cache-Control`` "no-cache" ディレクティブを指定して、キャッシュを強制的にリロード可能かどうか。
-  RFC 2616 に従うには ``true`` に設定してください (デフォルト: ``false``)
+* ``allow_reload``: Specifies whether the client can force a cache reload by
+  including a ``Cache-Control`` "no-cache" directive in the request. Set it to
+  ``true`` for compliance with RFC 2616 (default: ``false``);
 
-* ``allow_revalidate``: クライアントからリクエストに ``Cache-Control`` "max-age=0" ディレクティブを指定して、キャッシュの有効期限を強制的に再検証させることが可能かどうか。
-  RFC 2616 に従うには ``true`` に設定してください (デフォルト: ``false``)
+* ``allow_revalidate``: Specifies whether the client can force a cache
+  revalidate by including a ``Cache-Control`` "max-age=0" directive in the
+  request. Set it to ``true`` for compliance with RFC 2616 (default: false);
 
-* ``stale_while_revalidate``: キャッシュが有効期限切れになりバックグラウンドで再検証が実行されている間、"stale" レスポンスを即座に返すデフォルトの秒数 (レスポンスの TTL の精度が秒なので、このオプションの精度も秒です) (デフォルト: ``2``)。
-  この設定値は HTTP ``Cache-Control`` 拡張の ``stale-while-revalidate`` で上書きされます (RFC 5861 を参照)
+* ``stale_while_revalidate``: Specifies the default number of seconds (the
+  granularity is the second as the Response TTL precision is a second) during
+  which the cache can immediately return a stale response while it revalidates
+  it in the background (default: ``2``); this setting is overridden by the
+  ``stale-while-revalidate`` HTTP ``Cache-Control`` extension (see RFC 5861);
 
-* ``stale_if_error``: エラーが発生してから、キャッシュが "stale" レスポンスを返す秒数を指定します (デフォルト: ``60``)。
-  この設定値は HTTP ``Cache-Control`` 拡張の ``stale-if-error`` で上書きされます (RFC 5861 を参照)
+* ``stale_if_error``: Specifies the default number of seconds (the granularity
+  is the second) during which the cache can serve a stale response when an
+  error is encountered (default: ``60``). This setting is overridden by the
+  ``stale-if-error`` HTTP ``Cache-Control`` extension (see RFC 5861).
 
-``debug`` が ``true`` に設定されている場合、Symfony2 により自動的に ``X-Symfony-Cache`` ヘッダーがレスポンスに付加されるので、キャッシュのヒットやミスなどに関する調査に役立ちます。
+If ``debug`` is ``true``, Symfony2 automatically adds a ``X-Symfony-Cache``
+header to the response containing useful information about cache hits and
+misses.
 
-.. sidebar:: リバースプロキシを別の製品で置き換える
+.. sidebar:: Changing from one Reverse Proxy to Another
 
-    Symfony2 リバースプロキシは、Web サイトの開発中や、PHP コード以外をインストールできない共有サーバーへアプリケーションをデプロイしなければいけない場合などには、とても強力なツールです。
-    しかし、Symfony2 リバースプロキシは PHP で書かれていますので、C で書かれた他のプロキシほど高速ではありません。
-    ですので、もし可能であれば、運用環境では Varnish や Squid を使うことを推奨します。
-    このようにリバースプロキシを切り替えるのはとても簡単で、透過的です。
-    アプリケーションのコードを書き換える必要はありません。
-    最初は Symfony2 に組み込まれたリバースプロキシを利用し、トラフィックが増えた段階で Varnish にアップグレードするとよいでしょう。
+    The Symfony2 reverse proxy is a great tool to use when developing your
+    website or when you deploy your website to a shared host where you cannot
+    install anything beyond PHP code. But being written in PHP, it cannot
+    be as fast as a proxy written in C. That's why we highly recommend you
+    to use Varnish or Squid on your production servers if possible. The good
+    news is that the switch from one proxy server to another is easy and
+    transparent as no code modification is needed in your application. Start
+    easy with the Symfony2 reverse proxy and upgrade later to Varnish when
+    your traffic increases.
 
-    Symfony2 で Varnish を使う方法については、クックブックの :doc:`How to use Varnish </cookbook/cache/varnish>` を参照してください。
+    For more information on using Varnish with Symfony2, see the
+    :doc:`How to use Varnish </cookbook/cache/varnish>` cookbook chapter.
 
 .. note::
 
-    Symfony2 リバースプロキシのパフォーマンスは、アプリケーションの複雑度には依存しません。
-    リクエストがアプリケーションへフォワードされた場合にのみ、アプリケーションカーネルが起動されるからです。
+    The performance of the Symfony2 reverse proxy is independent of the
+    complexity of the application. That's because the application kernel is
+    only booted when the request needs to be forwarded to it.
 
 .. index::
    single: Cache; HTTP
 
 .. _http-cache-introduction:
 
-HTTP キャッシュの導入
----------------------
+Introduction to HTTP Caching
+----------------------------
 
-キャッシュレイヤーの機能を利用するには、どのレスポンスがキャッシュ可能か、および各キャッシュを有効期限切れとみなす時間や方法をアプリケーションからチェックできる必要があります。
-通常、このようなチェックを行うには、レスポンスの HTTP キャッシュヘッダーを使います。
+To take advantage of the available cache layers, your application must be
+able to communicate which responses are cacheable and the rules that govern
+when/how that cache should become stale. This is done by setting HTTP cache
+headers on the response.
 
 .. tip::
 
-    "HTTP" というのは、Web クライアントと Web サーバーがお互いに通信するのに使う、単なる言語 (単純なテキストの言語) 以上のものではないことに注意してください。
-    HTTP キャッシュについて話す場合、このテキスト言語の一部分で、クライアントとサーバーがキャッシュに関連する情報をやりとりできるようにすることについて話しています。
+    Keep in mind that "HTTP" is nothing more than the language (a simple text
+    language) that web clients (e.g. browsers) and web servers use to communicate
+    with each other. When we talk about HTTP caching, we're talking about the
+    part of that language that allows clients and servers to exchange information
+    related to caching.
 
-HTTP では、次の 4 つのレスポンスキャッシュヘッダーが定義されています:
+HTTP specifies four response cache headers that we're concerned with:
 
 * ``Cache-Control``
 * ``Expires``
 * ``ETag``
 * ``Last-Modified``
 
-もっとも重要で広く利用されるヘッダーは、\ ``Cache-Control`` ヘッダーです。
-このヘッダーには、キャッシュに関するさまざまな情報が含まれています。
+The most important and versatile header is the ``Cache-Control`` header,
+which is actually a collection of various cache information.
 
 .. note::
 
@@ -237,11 +291,11 @@ HTTP では、次の 4 つのレスポンスキャッシュヘッダーが定義
     :ref:`http-expiration-validation` section.
 
 .. index::
-   single: Cache; Cache-Control Header
+   single: Cache; Cache-Control header
    single: HTTP headers; Cache-Control
 
-Cache-Control ヘッダー
-~~~~~~~~~~~~~~~~~~~~~~
+The Cache-Control Header
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``Cache-Control`` header is unique in that it contains not one, but various
 pieces of information about the cacheability of a response. Each piece of
@@ -269,8 +323,8 @@ its creation more manageable:
     // set a custom Cache-Control directive
     $response->headers->addCacheControlDirective('must-revalidate', true);
 
-レスポンスの Public と Private
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Public vs Private Responses
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Both gateway and proxy caches are considered "shared" caches as the cached
 content is shared by more than one user. If a user-specific response were
@@ -293,8 +347,8 @@ to be explicitly set as public.
 .. index::
    single: Cache; Safe methods
 
-安全なメソッド
-~~~~~~~~~~~~~~
+Safe Methods
+~~~~~~~~~~~~
 
 HTTP caching only works for "safe" HTTP methods (like GET and HEAD). Being
 safe means that you never change the application's state on the server when
@@ -311,8 +365,8 @@ This has two very reasonable consequences:
   blog post). Caching them would prevent certain requests from hitting and
   mutating your application.
 
-キャッシュのルールとデフォルト
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Caching Rules and Defaults
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 HTTP 1.1 allows caching anything by default unless there is an explicit
 ``Cache-Control`` header. In practice, most caches do nothing when requests
@@ -335,8 +389,8 @@ header when none is set by the developer by following these rules:
 
 .. _http-expiration-validation:
 
-HTTP キャッシュの有効期限と期限切れの検証
------------------------------------------
+HTTP Expiration and Validation
+------------------------------
 
 The HTTP specification defines two caching models:
 
@@ -346,7 +400,7 @@ The HTTP specification defines two caching models:
   until the cached version reaches its expiration time and becomes "stale".
 
 * When pages are really dynamic (i.e. their representation changes often),
-  the `validation model`_ model is often necessary. With this model, the
+  the `validation model`_ is often necessary. With this model, the
   cache stores the response, but asks the server on each request whether
   or not the cached response is still valid. The application uses a unique
   response identifier (the ``Etag`` header) and/or a timestamp (the ``Last-Modified``
@@ -375,10 +429,10 @@ on a cache to store and return "fresh" responses.
     are much more beautiful than its cover.
 
 .. index::
-   single: Cache; HTTP Expiration
+   single: Cache; HTTP expiration
 
-有効期限
-~~~~~~~~
+Expiration
+~~~~~~~~~~
 
 The expiration model is the more efficient and straightforward of the two
 caching models and should be used whenever possible. When a response is cached
@@ -392,8 +446,8 @@ HTTP headers: ``Expires`` or ``Cache-Control``.
    single: Cache; Expires header
    single: HTTP headers; Expires
 
-``Expires`` ヘッダーを使った有効期限の設定
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Expiration with the ``Expires`` Header
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 According to the HTTP specification, "the ``Expires`` header field gives
 the date/time after which the response is considered stale." The ``Expires``
@@ -414,17 +468,19 @@ The resulting HTTP header will look like this::
     The ``setExpires()`` method automatically converts the date to the GMT
     timezone as required by the specification.
 
-The ``Expires`` header suffers from two limitations. First, the clocks on the
-Web server and the cache (e.g. the browser) must be synchronized. Then, the
-specification states that "HTTP/1.1 servers should not send ``Expires`` dates
-more than one year in the future."
+Note that in HTTP versions before 1.1 the origin server wasn't required to
+send the ``Date`` header. Consequently the cache (e.g. the browser) might
+need to rely onto his local clock to evaluate the ``Expires`` header making
+the lifetime calculation vulnerable to clock skew. Another limitation
+of the ``Expires`` header is that the specification states that "HTTP/1.1
+servers should not send ``Expires`` dates more than one year in the future."
 
 .. index::
    single: Cache; Cache-Control header
    single: HTTP headers; Cache-Control
 
-``Cache-Control`` ヘッダーを使った有効期限の設定
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Expiration with the ``Cache-Control`` Header
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Because of the ``Expires`` header limitations, most of the time, you should
 use the ``Cache-Control`` header instead. Recall that the ``Cache-Control``
@@ -448,8 +504,8 @@ additional directives)::
 .. index::
    single: Cache; Validation
 
-期限切れの検証
-~~~~~~~~~~~~~~
+Validation
+~~~~~~~~~~
 
 When a resource needs to be updated as soon as a change is made to the underlying
 data, the expiration model falls short. With the expiration model, the application
@@ -482,8 +538,8 @@ to implement the validation model: ``ETag`` and ``Last-Modified``.
    single: Cache; Etag header
    single: HTTP headers; Etag
 
-``ETag`` ヘッダーを使った検証
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Validation with the ``ETag`` Header
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``ETag`` header is a string header (called the "entity-tag") that uniquely
 identifies one representation of the target resource. It's entirely generated
@@ -500,6 +556,7 @@ md5 of the content::
     {
         $response = $this->render('MyBundle:Main:index.html.twig');
         $response->setETag(md5($response->getContent()));
+        $response->setPublic(); // make sure the response is public/cacheable
         $response->isNotModified($this->getRequest());
 
         return $response;
@@ -527,8 +584,8 @@ doing so much work.
    single: Cache; Last-Modified header
    single: HTTP headers; Last-Modified
 
-``Last-Modified`` ヘッダーを使った検証
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Validation with the ``Last-Modified`` Header
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``Last-Modified`` header is the second form of validation. According
 to the HTTP specification, "The ``Last-Modified`` header field indicates
@@ -551,7 +608,14 @@ header value::
         $date = $authorDate > $articleDate ? $authorDate : $articleDate;
 
         $response->setLastModified($date);
-        $response->isNotModified($this->getRequest());
+        // Set response as public. Otherwise it will be private by default.
+        $response->setPublic();
+
+        if ($response->isNotModified($this->getRequest())) {
+            return $response;
+        }
+
+        // do more work to populate the response will the full content
 
         return $response;
     }
@@ -569,13 +633,13 @@ code.
     whether or not the resource has been updated since it was cached.
 
 .. index::
-   single: Cache; Conditional Get
+   single: Cache; Conditional get
    single: HTTP; 304
 
 .. _optimizing-cache-validation:
 
-有効期限の検証を使ってコードを最適化する
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Optimizing your Code with Validation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The main goal of any caching strategy is to lighten the load on the application.
 Put another way, the less you do in your application to return a 304 response,
@@ -586,14 +650,17 @@ exposing a simple and efficient pattern::
     {
         // Get the minimum information to compute
         // the ETag or the Last-Modified value
-        // (based on the Request, data are retrieved from
+        // (based on the Request, data is retrieved from
         // a database or a key-value store for instance)
-        $article = // ...
+        $article = ...;
 
         // create a Response with a ETag and/or a Last-Modified header
         $response = new Response();
         $response->setETag($article->computeETag());
         $response->setLastModified($article->getPublishedAt());
+        
+        // Set response as public. Otherwise it will be private by default.
+        $response->setPublic();
 
         // Check that the Response is not modified for the given Request
         if ($response->isNotModified($this->getRequest())) {
@@ -601,8 +668,8 @@ exposing a simple and efficient pattern::
             return $response;
         } else {
             // do more work here - like retrieving more data
-            $comments = // ...
-            
+            $comments = ...;
+
             // or render a template with the $response you've already started
             return $this->render(
                 'MyBundle:MyController:article.html.twig',
@@ -661,20 +728,20 @@ header::
 The ``setVary()`` method takes a header name or an array of header names for
 which the response varies.
 
-有効期限と期限の検証
-~~~~~~~~~~~~~~~~~~~~
+Expiration and Validation
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You can of course use both validation and expiration within the same ``Response``.
 As expiration wins over validation, you can easily benefit from the best of
 both worlds. In other words, by using both expiration and validation, you
-can instruct the cache to server the cached content, while checking back
+can instruct the cache to serve the cached content, while checking back
 at some interval (the expiration) to verify that the content is still valid.
 
 .. index::
     pair: Cache; Configuration
 
-Response の他のメソッド
-~~~~~~~~~~~~~~~~~~~~~~~
+More Response Methods
+~~~~~~~~~~~~~~~~~~~~~
 
 The Response class provides many more methods related to the cache. Here are
 the most useful ones::
@@ -704,31 +771,32 @@ Additionally, most cache-related HTTP headers can be set via the single
 
 .. _edge-side-includes:
 
-Edge Side Includes の使い方
----------------------------
+Using Edge Side Includes
+------------------------
 
 Gateway caches are a great way to make your website perform better. But they
 have one limitation: they can only cache whole pages. If you can't cache
 whole pages or if parts of a page has "more" dynamic parts, you are out of
 luck. Fortunately, Symfony2 provides a solution for these cases, based on a
-technology called `ESI`_, or Edge Side Includes. Akama誰 wrote this specification
+technology called `ESI`_, or Edge Side Includes. Akamaï wrote this specification
 almost 10 years ago, and it allows specific parts of a page to have a different
 caching strategy than the main page.
 
 The ESI specification describes tags you can embed in your pages to communicate
 with the gateway cache. Only one tag is implemented in Symfony2, ``include``,
-as this is the only useful one outside of Akama誰 context:
+as this is the only useful one outside of Akamaï context:
 
 .. code-block:: html
 
+    <!doctype html>
     <html>
         <body>
-            Some content
+            ... some content
 
             <!-- Embed the content of another page here -->
             <esi:include src="http://..." />
 
-            More content
+            ... more content
         </body>
     </html>
 
@@ -789,6 +857,7 @@ independent of the rest of the page.
     public function indexAction()
     {
         $response = $this->render('MyBundle:MyController:index.html.twig');
+        // set the shared max age - the also marks the response as public
         $response->setSharedMaxAge(600);
 
         return $response;
@@ -796,7 +865,7 @@ independent of the rest of the page.
 
 In this example, we've given the full-page cache a lifetime of ten minutes.
 Next, let's include the news ticker in the template by embedding an action.
-This is done via the ``render`` helper (See `templating-embedding-controller`
+This is done via the ``render`` helper (See :ref:`templating-embedding-controller`
 for more details).
 
 As the embedded content comes from another page (or controller for that
@@ -828,7 +897,7 @@ done were standalone set to ``false``.
 
 .. note::
 
-    Symfony2 detects if a gateway cache supports ESI via another Akama誰
+    Symfony2 detects if a gateway cache supports ESI via another Akamaï
     specification that is supported out of the box by the Symfony2 reverse
     proxy.
 
@@ -889,7 +958,9 @@ the ``_internal`` route:
 
     Since this route allows all actions to be accessed via a URL, you might
     want to protect it by using the Symfony2 firewall feature (by allowing
-    access to your reverse proxy's IP range).
+    access to your reverse proxy's IP range). See the :ref:`Securing by IP<book-security-securing-ip>` 
+    section of the :doc:`Security Chapter </book/security>` for more information 
+    on how to do this.
 
 One great advantage of this caching strategy is that you can make your
 application as dynamic as needed and at the same time, hit the application as
@@ -931,8 +1002,9 @@ too far away in the future.
 
 .. note::
 
-    It's also because there is no invalidation mechanism that you can use any
-    reverse proxy without changing anything in your application code.
+    Since invalidation is a topic specific to each type of reverse proxy,
+    if you don't worry about invalidation, you can switch between reverse
+    proxies without changing anything in your application code.
 
 Actually, all reverse proxies provide ways to purge cached data, but you
 should avoid them as much as possible. The most standard way is to purge the
@@ -942,7 +1014,10 @@ Here is how you can configure the Symfony2 reverse proxy to support the
 ``PURGE`` HTTP method::
 
     // app/AppCache.php
-    class AppCache extends Cache
+
+    use Symfony\Bundle\FrameworkBundle\HttpCache\HttpCache;
+
+    class AppCache extends HttpCache
     {
         protected function invalidate(Request $request)
         {
@@ -951,7 +1026,7 @@ Here is how you can configure the Symfony2 reverse proxy to support the
             }
 
             $response = new Response();
-            if (!$this->store->purge($request->getUri())) {
+            if (!$this->getStore()->purge($request->getUri())) {
                 $response->setStatusCode(404, 'Not purged');
             } else {
                 $response->setStatusCode(200, 'Purged');
@@ -984,7 +1059,7 @@ Learn more from the Cookbook
 .. _`Things Caches Do`: http://tomayko.com/writings/things-caches-do
 .. _`Cache Tutorial`: http://www.mnot.net/cache_docs/
 .. _`Varnish`: http://www.varnish-cache.org/
-.. _`リバースプロキシモードの squid`: http://wiki.squid-cache.org/SquidFaq/ReverseProxy
+.. _`Squid in reverse proxy mode`: http://wiki.squid-cache.org/SquidFaq/ReverseProxy
 .. _`expiration model`: http://tools.ietf.org/html/rfc2616#section-13.2
 .. _`validation model`: http://tools.ietf.org/html/rfc2616#section-13.3
 .. _`RFC 2616`: http://tools.ietf.org/html/rfc2616
@@ -993,4 +1068,4 @@ Learn more from the Cookbook
 .. _`P6 - Caching: Browser and intermediary caches`: http://tools.ietf.org/html/draft-ietf-httpbis-p6-cache-12
 .. _`ESI`: http://www.w3.org/TR/esi-lang
 
-.. 2011/08/27 hidenorigoto dc6a5dc6c6afb671e1000839cb26b8a1d63e1c88
+2012/10/13 gilbite 10598b9a36a4312d8a38cf23caf879da50740e1b
