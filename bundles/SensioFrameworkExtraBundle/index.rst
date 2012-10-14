@@ -141,4 +141,4 @@ SensioFrameworkExtraBundleを `ダウンロード`_ し、 ``Sensio\Bundle\`` �
 .. _`SensioFrameworkExtraBundle`: https://github.com/sensio/SensioFrameworkExtraBundle
 .. _`ダウンロード`: http://github.com/sensio/SensioFrameworkExtraBundle
 
-.. 2012/10/13 vectorxenon hogehoge
+.. 2012/10/13 vectorxenon 9e0f169275102b62f9e16f1b7bfc8d596bc242ca
