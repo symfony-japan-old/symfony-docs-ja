@@ -1,3 +1,6 @@
+.. index::
+   single: Assetic; Apply filters
+
 特定の拡張子に Assetic フィルターを適用するには？
 =================================================
 
@@ -47,10 +50,8 @@ Assetic フィルターは、個々のファイル、ファイルを集めたグ
 
     .. code-block:: html+jinja
 
-        {% javascripts '@AcmeFooBundle/Resources/public/js/example.coffee'
-            filter='coffee'
-        %}
-        <script src="{{ asset_url }} type="text/javascript"></script>
+        {% javascripts '@AcmeFooBundle/Resources/public/js/example.coffee' filter='coffee' %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
@@ -74,9 +75,8 @@ CoffeeScript ファイルをコンパイルして JavaScript に変更するの�
 
         {% javascripts '@AcmeFooBundle/Resources/public/js/example.coffee'
                        '@AcmeFooBundle/Resources/public/js/another.coffee'
-            filter='coffee'
-        %}
-        <script src="{{ asset_url }} type="text/javascript"></script>
+            filter='coffee' %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
@@ -89,6 +89,8 @@ CoffeeScript ファイルをコンパイルして JavaScript に変更するの�
         <?php endforeach; ?>
 
 これで２つのファイルをコンパイルして １つの JavaScript ファイルとして出力することができました。
+
+.. _cookbook-assetic-apply-to:
 
 ファイル拡張子に基づいてフィルターする
 --------------------------------------
@@ -141,9 +143,8 @@ Assetic を使用する大きなアドバンテージは、たくさんのアセ
 
         {% javascripts '@AcmeFooBundle/Resources/public/js/example.coffee'
                        '@AcmeFooBundle/Resources/public/js/another.coffee'
-                       '@AcmeFooBundle/Resources/public/js/regular.js'
-        %}
-        <script src="{{ asset_url }} type="text/javascript"></script>
+                       '@AcmeFooBundle/Resources/public/js/regular.js' %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
@@ -156,5 +157,5 @@ Assetic を使用する大きなアドバンテージは、たくさんのアセ
         <script src="<?php echo $view->escape($url) ?>" type="text/javascript"></script>
         <?php endforeach; ?>
 
-.. 2011/10/25 ganchiku 74788cbbdc762ef7c59ca6c512fc0e1aea503b9d
+.. 2012/10/14 ganchiku c0e8a9a1e77b78d30c4645e144661cc8fafe6ad1
 
