@@ -62,27 +62,25 @@ SensioFrameworkExtraBundleを `ダウンロード`_ し、 ``Sensio\Bundle\`` �
 1つあるいは複数の設定をfalseにすることで、いくつかのアノテーションとコンベンションを無効化することができます。
 
 
-Annotations for Controllers
----------------------------
+コントローラのアノテーション
+-----------------------------
 
-Annotations are a great way to easily configure your controllers, from the
-routes to the cache configuration.
+アノテーションはコントローラやルートやキャッシュの設定を簡単にする素晴しい方法です。
 
-Even if annotations are not a native feature of PHP, it still has several
-advantages over the classic Symfony2 configuration methods:
+たとえアノテーションがPHPの標準機能じゃないとしても、それでもそれは標準的なSymfony2の設定方法を越えるいくつかの利点があります。:
 
-* Code and configuration are in the same place (the controller class);
-* Simple to learn and to use;
-* Concise to write;
-* Makes your Controller thin (as its sole responsibility is to get data from
-  the Model).
+* コードと設定が同じ場所にあります。(コントローラの場合)
+* 簡単に学べて使えます。
+* 簡潔に書けます。
+* 小さなコントローラを作れます。(モデルからデータを取得するだけのコントローラみたいな)
 
 .. tip::
 
    If you use view classes, annotations are a great way to avoid creating
    view classes for simple and common use cases.
+   もしビュークラスを使うなら、アノテーションは簡単で一般的な使用事例のためにビュークラスを作ることを避ける素晴しい方法です。
 
-The following annotations are defined by the bundle:
+以下のアノテーションがバンドルで定義されるものです。:
 
 .. toctree::
    :maxdepth: 1
@@ -92,7 +90,7 @@ The following annotations are defined by the bundle:
    annotations/view
    annotations/cache
 
-This example shows all the available annotations in action::
+この例はアクションの中で利用できる全てのアノテーションを全て設定しています。::
 
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
@@ -129,8 +127,8 @@ This example shows all the available annotations in action::
         }
     }
 
-As the ``showAction`` method follows some conventions, you can omit some
-annotations::
+``showAction`` はコンベンションを以下のようにでき、いくつかのアノテーションを省略することができます。::
+
 
     /**
      * @Route("/{id}")
