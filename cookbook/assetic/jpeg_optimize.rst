@@ -1,16 +1,19 @@
-Twigの関数で画像の最適化にAsseticをどうやって使うか?
+.. index::
+   single: Assetic; Image optimization
+
+Twig の関数で画像の最適化に Assetic をどうやって使うか?
 ====================================================
 
-沢山のフィルタの中でAsseticはオンザフライでの画像の最適化に使えるフィルタを4つ持っています。
+沢山のフィルタの中で Assetic はオンザフライでの画像の最適化に使えるフィルタを4つ持っています。
 このフィルタを使うことでフォトレタッチソフトを使わなくても簡単に画像のサイズを最適化できます。
 最適化された結果はキャッシュ、もしくは指定したディレクトリに保存することが出来るので
 プロダクション環境でのパフォーマンスに影響しません。
 
-Jpegoptimを使う
+Jpegoptim を使う
 ---------------
 
-`Jpegoptim`_ は JPEG ファイルの最適化の為のツールです. Asseticでこのフィルタを使うには
-下記のようなAsseticの設定を追加します。
+`Jpegoptim`_ は JPEG ファイルの最適化の為のツールです。 Assetic でこのフィルタを使うには
+下記のような Assetic の設定を追加します。:
 
 .. configuration-block::
 
@@ -44,20 +47,19 @@ Jpegoptimを使う
 
 .. note::
 
-    jpegoptimを使うには既にあなたの環境にjpegoptimがインストールされている
-    必要があります。 設定の ``bin`` にあなたの環境でjpegoptimがインストールされている
+    jpegoptim を使うには既にあなたの環境に jpegoptim がインストールされている
+    必要があります。 設定の ``bin`` にあなたの環境で jpegoptim がインストールされている
     場所を指定してください。
 
-これでテンプレートからjpegoptimを使うことが出来ます。
+これでテンプレートから jpegoptim を使うことが出来ます。
 
 .. configuration-block::
 
     .. code-block:: html+jinja
 
         {% image '@AcmeFooBundle/Resources/public/images/example.jpg'
-            filter='jpegoptim' output='/images/example.jpg'
-        %}
-        <img src="{{ asset_url }}" alt="Example"/>
+            filter='jpegoptim' output='/images/example.jpg' %}
+            <img src="{{ asset_url }}" alt="Example"/>
         {% endimage %}
 
     .. code-block:: html+php
@@ -65,15 +67,15 @@ Jpegoptimを使う
         <?php foreach ($view['assetic']->images(
             array('@AcmeFooBundle/Resources/public/images/example.jpg'),
             array('jpegoptim')) as $url): ?>
-        <img src="<?php echo $view->escape($url) ?>" alt="Example"/>
+            <img src="<?php echo $view->escape($url) ?>" alt="Example"/>
         <?php endforeach; ?>
 
-全てのEXIFデータを削除する
+全ての EXIF データを削除する
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 初期状態ではこのフィルタはいくつかのメタ情報だけを削除するようにしています。
-それ以外のEXIFデータやコメントは削除されません。 ``strip_all`` optionを
-つけることで全てのEXIFデータを削除することが出来ます。
+それ以外の EXIF データやコメントは削除されません。 ``strip_all`` option を
+つけることで全ての EXIF データを削除することが出来ます。
 
 .. configuration-block::
 
@@ -111,7 +113,7 @@ Jpegoptimを使う
 最適化クオリティを下げる
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-初期設定ではJPEGの最適化レベルは変更されません。現在の画像の最適化レベルを
+初期設定では JPEG の最適化レベルは変更されません。現在の画像の最適化レベルを
 下げる事でファイルサイズを更に小さくすることが出来ます。しかしこれは
 画像の見た目とのトレードオフとなってしまいます。
 
@@ -148,10 +150,10 @@ Jpegoptimを使う
             ),
         ));
 
-Twig Functionのより短い書き方
+Twig Function のより短い書き方
 -----------------------------
 
-もしTwigを使っているのであれば下記の設定をすることでより短いフィルタ名
+もし Twig を使っているのであれば下記の設定をすることでより短いフィルタ名
 を使うことが出来ます。
 
 .. configuration-block::
@@ -199,8 +201,7 @@ Twig Functionのより短い書き方
 
 .. code-block:: html+jinja
 
-    <img src="{{ jpegoptim('@AcmeFooBundle/Resources/public/images/example.jpg') }}"
-         alt="Example"/>
+    <img src="{{ jpegoptim('@AcmeFooBundle/Resources/public/images/example.jpg') }}" alt="Example"/>
 
 下記の設定をすることでキャッシュの生成ディレクトリを指定することもできます。
 
@@ -251,5 +252,5 @@ Twig Functionのより短い書き方
 
 .. _`Jpegoptim`: http://www.kokkonen.net/tjko/projects.html
 
-.. 2011/07/31 chobie 9367dc0ae03119f8c1bba228d9f2682ffdea63a5
+.. 2012/10/14 ganchiku c0e8a9a1e77b78d30c4645e144661cc8fafe6ad1
 
