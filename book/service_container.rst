@@ -1,6 +1,7 @@
 .. index::
    single: Service Container
-   single: Dependency Injection Container
+   single: Dependency Injection; Container
+
 
 サービスコンテナ
 ================
@@ -13,6 +14,7 @@
 
 .. index::
    single: Service Container; What is a service?
+   single: Service Container; What is a service container?
 
 サービスとは何か？
 ------------------
@@ -21,7 +23,7 @@
 
 .. note::
 
-   ルールとして、アプリケーションでグローバルに使われるオブジェクトである場合に、PHP オブジェクトはサービスとなります。単独の ``Mailer`` サービスは E メールメッセージを送信するのにグローバルに使用されるのに対し、送信される複数の ``Message`` オブジェクトはサービスでは\ *ありません*\ 。同じように、\ ``Product`` オブジェクトもサービスでありません。しかし、\ ``Product`` オブジェクトをデータベースに永続化するオブジェクトは\ *サービス* です。
+   ルールとして、アプリケーションでグローバルに使われるオブジェクトである場合に、PHP オブジェクトはサービスとなります。グローバルに使用されるE メールメッセージを送信する為の単一の ``Mailer`` サービスに対し、送信される複数の ``Message`` オブジェクトはサービスでは\ *ありません*\ 。同じように、\ ``Product`` オブジェクトもサービスでありません。しかし、\ ``Product`` オブジェクトをデータベースに永続化するオブジェクトは\ *サービス* です。
 
 さて、何がそんなに良いことなのでしょうか？「サービス」を考えることの利点は、アプリケーション中のサービスの種類ごとに機能の断片に分けて考えれるようになります。各サービスは１つだけの役割を行うので、必要なときに簡単に書くサービスにアクセスし、機能を使うことができます。各サービスはアプリケーション中で他の機能と分かれているので、簡単にテストや、設定ができるようにもなります。この考えは\ `サービス指向アーキテクチャ`_ と呼ばれていて、Symfony2 や PHP 固有のものではありません。独立したサービスクラスの集合でアプリケーションを構成することは、有名で、信用のあるオブジェクト指向のベストプラクティスです。どんな言語でも、これらのスキルは良い開発者になるためのキーです。
 
@@ -39,9 +41,9 @@
     use Acme\HelloBundle\Mailer;
 
     $mailer = new Mailer('sendmail');
-    $mailer->send('ryan@foobar.net', ... );
+    $mailer->send('ryan@foobar.net', ...);
 
-とても簡単です。仮想の ``Mailer`` クラスは E メールメッセージを送信する (\ ``sendmail``, ``smtp`` のように) するためのメソッドの設定ができます。
+とても簡単です。この仮想の ``Mailer`` クラスは E メールメッセージを送信する (例えば\ ``sendmail``, ``smtp``, など) するためのメソッドの設定ができます。
 ただ、他のどこかでも mailer サービスを使いたい時はどうでしょうか？ ``Mailer`` オブジェクトを使う必要があるときに\ *毎回*\ mailerの設定を繰り返すのは当然やりたくありません。アプリケーション中で出てくるたびに ``transport`` を ``sendmail`` や ``smtp`` に変更しなければならないとしたらどうでしょうか？すべての箇所を追い詰めて、\ ``Mailer`` クラスを作成、変更していかなければならないでしょう。
 
 .. index::
@@ -99,7 +101,7 @@
         {
             // ...
             $mailer = $this->get('my_mailer');
-            $mailer->send('ryan@foobar.net', ... );
+            $mailer->send('ryan@foobar.net', ...);
         }
     }
 
@@ -134,7 +136,7 @@
 
         services:
             my_mailer:
-                class:        %my_mailer.class%
+                class:        "%my_mailer.class%"
                 arguments:    [%my_mailer.transport%]
 
     .. code-block:: xml
@@ -168,6 +170,15 @@
 ``my_mailer.class`` と ``my_mailer.transport`` をパーセント記号 (``%``) で囲むと、コンテナは、その名前のパラメータを探します。
 コンテナが構築される際、パラメータの値が取得され、その値がサービスの定義に適用されます。
 
+.. note::
+
+    The percent sign inside a parameter or argument, as part of the string, must 
+    be escaped with another percent sign:
+    
+    .. code-block:: xml
+
+        <argument type="string">http://symfony.com/?foo=%%s&bar=%%d</argument>
+
 パラメータを使うと、サービスに対して外から情報を与えることができます。
 もちろん、パラメータを使わずに定義したサービスと、動作自体に違いはありません。
 ですが、パラメータには次に挙げるようないくつかの利点があります。
@@ -176,12 +187,70 @@
 
 * 複数のサービス定義で同じ値を重複して使っている場合でも、パラメータであれば複数のサービス定義で共有できる。
 
-* すぐ後で解説するようにバンドル内でサービスを定義している場合、パラメータを使った定義にしておくことで、
-  アプリケーションごとにサービスをカスタマイズしやすくなります。
+* すぐ後で解説するようにバンドル内でサービスを定義する時、パラメータを使った定義にしておくと、
+  アプリケーション内でサービスをカスタマイズしやすくなります。
 
 パラメータを使うかどうかは、開発者次第です。
-クオリティの高いサードパーティのバンドルであれば、コンテナに保存されるサービスのコンフィギュレーションを容易にするために、パラメータを使うでしょう。
+クオリティの高いサードパーティのバンドルであれば、コンテナに登録されるサービスの設定変更を容易にするためにパラメータを使っていることでしょう。
 ですが、アプリケーション内でのみ使うサービスであれば、パラメータを使った柔軟性が不要な場合もあります。
+
+Array Parameters
+~~~~~~~~~~~~~~~~
+
+Parameters do not need to be flat strings, they can also be arrays. For the XML
+format, you need to use the type="collection" attribute for all parameters that are
+arrays.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        parameters:
+            my_mailer.gateways:
+                - mail1
+                - mail2
+                - mail3
+            my_multilang.language_fallback:
+                en:
+                    - en
+                    - fr
+                fr:
+                    - fr
+                    - en
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <parameters>
+            <parameter key="my_mailer.gateways" type="collection">
+                <parameter>mail1</parameter>
+                <parameter>mail2</parameter>
+                <parameter>mail3</parameter>
+            </parameter>
+            <parameter key="my_multilang.language_fallback" type="collection">
+                <parameter key="en" type="collection">
+                    <parameter>en</parameter>
+                    <parameter>fr</parameter>
+                </parameter>
+                <parameter key="fr" type="collection">
+                    <parameter>fr</parameter>
+                    <parameter>en</parameter>
+                </parameter>
+            </parameter>
+        </parameters>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        use Symfony\Component\DependencyInjection\Definition;
+
+        $container->setParameter('my_mailer.gateways', array('mail1', 'mail2', 'mail3'));
+        $container->setParameter('my_multilang.language_fallback',
+                                 array('en' => array('en', 'fr'),
+                                       'fr' => array('fr', 'en'),
+                                ));
+
 
 別のコンテナコンフィギュレーションリソースをインポートする
 ----------------------------------------------------------
@@ -205,7 +274,7 @@ second method, which is the flexible and preferred method for importing service
 configuration from third-party bundles.
 
 .. index::
-   single: Service Container; imports
+   single: Service Container; Imports
 
 .. _service-container-imports-directive:
 
@@ -233,7 +302,7 @@ directories don't exist, create them.
 
         services:
             my_mailer:
-                class:        %my_mailer.class%
+                class:        "%my_mailer.class%"
                 arguments:    [%my_mailer.transport%]
 
     .. code-block:: xml
@@ -274,8 +343,7 @@ configuration.
 
         # app/config/config.yml
         imports:
-            hello_bundle:
-                resource: @AcmeHelloBundle/Resources/config/services.yml
+            - { resource: @AcmeHelloBundle/Resources/config/services.yml }
 
     .. code-block:: xml
 
@@ -342,7 +410,6 @@ invokes the service container extension inside the ``FrameworkBundle``:
         # app/config/config.yml
         framework:
             secret:          xxxxxxxxxx
-            charset:         UTF-8
             form:            true
             csrf_protection: true
             router:        { resource: "%kernel.root_dir%/config/routing.yml" }
@@ -351,7 +418,7 @@ invokes the service container extension inside the ``FrameworkBundle``:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <framework:config charset="UTF-8" secret="xxxxxxxxxx">
+        <framework:config secret="xxxxxxxxxx">
             <framework:form />
             <framework:csrf-protection />
             <framework:router resource="%kernel.root_dir%/config/routing.xml" />
@@ -363,7 +430,6 @@ invokes the service container extension inside the ``FrameworkBundle``:
         // app/config/config.php
         $container->loadFromExtension('framework', array(
             'secret'          => 'xxxxxxxxxx',
-            'charset'         => 'UTF-8',
             'form'            => array(),
             'csrf-protection' => array(),
             'router'          => array('resource' => '%kernel.root_dir%/config/routing.php'),
@@ -384,7 +450,7 @@ extension of the ``FrameworkBundle``. Each extension allows you to easily
 customize the bundle, without worrying about how the internal services are
 defined.
 
-In this case, the extension allows you to customize the ``charset``, ``error_handler``,
+In this case, the extension allows you to customize the ``error_handler``,
 ``csrf_protection``, ``router`` configuration and much more. Internally,
 the ``FrameworkBundle`` uses the options specified here to define and configure
 the services specific to it. The bundle takes care of creating all the necessary
@@ -402,6 +468,9 @@ available for the core bundles can be found inside the :doc:`Reference Guide</re
    Natively, the service container only recognizes the ``parameters``,
    ``services``, and ``imports`` directives. Any other directives
    are handled by a service container extension.
+
+If you want to expose user friendly configuration in your own bundles, read the
+":doc:`/cookbook/bundles/extension`" cookbook recipe.
 
 .. index::
    single: Service Container; Referencing services
@@ -421,6 +490,7 @@ really good at delivering email messages, so we'll use it inside ``NewsletterMan
 to handle the actual delivery of the messages. This pretend class might look
 something like this::
 
+    // src/Acme/HelloBundle/Newsletter/NewsletterManager.php
     namespace Acme\HelloBundle\Newsletter;
 
     use Acme\HelloBundle\Mailer;
@@ -466,7 +536,7 @@ the service container gives us a much more appealing option:
             my_mailer:
                 # ...
             newsletter_manager:
-                class:     %newsletter_manager.class%
+                class:     "%newsletter_manager.class%"
                 arguments: [@my_mailer]
 
     .. code-block:: xml
@@ -478,7 +548,7 @@ the service container gives us a much more appealing option:
         </parameters>
 
         <services>
-            <service id="my_mailer" ... >
+            <service id="my_mailer" ...>
               <!-- ... -->
             </service>
             <service id="newsletter_manager" class="%newsletter_manager.class%">
@@ -495,7 +565,7 @@ the service container gives us a much more appealing option:
         // ...
         $container->setParameter('newsletter_manager.class', 'Acme\HelloBundle\Newsletter\NewsletterManager');
 
-        $container->setDefinition('my_mailer', ... );
+        $container->setDefinition('my_mailer', ...);
         $container->setDefinition('newsletter_manager', new Definition(
             '%newsletter_manager.class%',
             array(new Reference('my_mailer'))
@@ -553,7 +623,7 @@ Injecting the dependency by the setter method just needs a change of syntax:
             my_mailer:
                 # ...
             newsletter_manager:
-                class:     %newsletter_manager.class%
+                class:     "%newsletter_manager.class%"
                 calls:
                     - [ setMailer, [ @my_mailer ] ]
 
@@ -566,7 +636,7 @@ Injecting the dependency by the setter method just needs a change of syntax:
         </parameters>
 
         <services>
-            <service id="my_mailer" ... >
+            <service id="my_mailer" ...>
               <!-- ... -->
             </service>
             <service id="newsletter_manager" class="%newsletter_manager.class%">
@@ -585,7 +655,7 @@ Injecting the dependency by the setter method just needs a change of syntax:
         // ...
         $container->setParameter('newsletter_manager.class', 'Acme\HelloBundle\Newsletter\NewsletterManager');
 
-        $container->setDefinition('my_mailer', ... );
+        $container->setDefinition('my_mailer', ...);
         $container->setDefinition('newsletter_manager', new Definition(
             '%newsletter_manager.class%'
         ))->addMethodCall('setMailer', array(
@@ -618,7 +688,7 @@ it exists and do nothing if it doesn't:
 
         services:
             newsletter_manager:
-                class:     %newsletter_manager.class%
+                class:     "%newsletter_manager.class%"
                 arguments: [@?my_mailer]
 
     .. code-block:: xml
@@ -626,7 +696,7 @@ it exists and do nothing if it doesn't:
         <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
 
         <services>
-            <service id="my_mailer" ... >
+            <service id="my_mailer" ...>
               <!-- ... -->
             </service>
             <service id="newsletter_manager" class="%newsletter_manager.class%">
@@ -644,7 +714,7 @@ it exists and do nothing if it doesn't:
         // ...
         $container->setParameter('newsletter_manager.class', 'Acme\HelloBundle\Newsletter\NewsletterManager');
 
-        $container->setDefinition('my_mailer', ... );
+        $container->setDefinition('my_mailer', ...);
         $container->setDefinition('newsletter_manager', new Definition(
             '%newsletter_manager.class%',
             array(new Reference('my_mailer', ContainerInterface::IGNORE_ON_INVALID_REFERENCE))
@@ -666,7 +736,7 @@ Symfony コアバンドルとサードパーティバンドルのサービス
 
 Since Symfony2 and all third-party bundles configure and retrieve their services
 via the container, you can easily access them or even use them in your own
-services. To keep things simple, Symfony2 by defaults does not require that
+services. To keep things simple, Symfony2 by default does not require that
 controllers be defined as services. Furthermore Symfony2 injects the entire
 service container into your controller. For example, to handle the storage of
 information on a user's session, Symfony2 provides a ``session`` service,
@@ -717,7 +787,7 @@ Configuring the service container is easy:
 
         services:
             newsletter_manager:
-                class:     %newsletter_manager.class%
+                class:     "%newsletter_manager.class%"
                 arguments: [@mailer, @templating]
 
     .. code-block:: xml
@@ -748,138 +818,6 @@ the framework.
     configuration. As we mentioned in :ref:`service-container-extension-configuration`,
     the ``swiftmailer`` key invokes the service extension from the
     ``SwiftmailerBundle``, which registers the ``mailer`` service.
-
-.. index::
-   single: Service Container; Advanced configuration
-
-コンテナの高度なコンフィギュレーション
---------------------------------------
-
-As we've seen, defining services inside the container is easy, generally
-involving a ``service`` configuration key and a few parameters. However,
-the container has several other tools available that help to *tag* services
-for special functionality, create more complex services, and perform operations
-after the container is built.
-
-サービスを public / private にする
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-When defining services, you'll usually want to be able to access these definitions
-within your application code. These services are called ``public``. For example,
-the ``doctrine`` service registered with the container when using the DoctrineBundle
-is a public service as you can access it via::
-
-   $doctrine = $container->get('doctrine');
-
-However, there are use-cases when you don't want a service to be public. This
-is common when a service is only defined because it could be used as an
-argument for another service.
-
-.. note::
-
-    If you use a private service as an argument to more than one other service,
-    this will result in two different instances being used as the instantiation
-    of the private service is done inline (e.g. ``new PrivateFooBar()``).
-
-Simply said: A service will be private when you do not want to access it
-directly from your code.
-
-Here is an example:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        services:
-           foo:
-             class: Acme\HelloBundle\Foo
-             public: false
-
-    .. code-block:: xml
-
-        <service id="foo" class="Acme\HelloBundle\Foo" public="false" />
-
-    .. code-block:: php
-
-        $definition = new Definition('Acme\HelloBundle\Foo');
-        $definition->setPublic(false);
-        $container->setDefinition('foo', $definition);
-
-Now that the service is private, you *cannot* call::
-
-    $container->get('foo');
-
-However, if a service has been marked as private, you can still alias it (see
-below) to access this service (via the alias).
-
-.. note::
-
-   Services are by default public.
-
-エイリアス（別名）
-~~~~~~~~~~~~~~~~~~
-
-When using core or third party bundles within your application, you may want
-to use shortcuts to access some services. You can do so by aliasing them and,
-furthermore, you can even alias non-public services.
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        services:
-           foo:
-             class: Acme\HelloBundle\Foo
-           bar:
-             alias: foo
-
-    .. code-block:: xml
-
-        <service id="foo" class="Acme\HelloBundle\Foo"/>
-
-        <service id="bar" alias="foo" />
-
-    .. code-block:: php
-
-        $definition = new Definition('Acme\HelloBundle\Foo');
-        $container->setDefinition('foo', $definition);
-
-        $containerBuilder->setAlias('bar', 'foo');
-
-This means that when using the container directly, you can access the ``foo``
-service by asking for the ``bar`` service like this::
-
-    $container->get('bar'); // Would return the foo service
-
-ファイルの require
-~~~~~~~~~~~~~~~~~~
-
-There might be use cases when you need to include another file just before
-the service itself gets loaded. To do so, you can use the ``file`` directive.
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        services:
-           foo:
-             class: Acme\HelloBundle\Foo\Bar
-             file: %kernel.root_dir%/src/path/to/file/foo.php
-
-    .. code-block:: xml
-
-        <service id="foo" class="Acme\HelloBundle\Foo\Bar">
-            <file>%kernel.root_dir%/src/path/to/file/foo.php</file>
-        </service>
-
-    .. code-block:: php
-
-        $definition = new Definition('Acme\HelloBundle\Foo\Bar');
-        $definition->setFile('%kernel.root_dir%/src/path/to/file/foo.php');
-        $container->setDefinition('foo', $definition);
-
-Notice that symfony will internally call the PHP function require_once
-which means that your file will be included only once per request.
 
 .. _book-service-container-tags:
 
@@ -926,30 +864,48 @@ The following is a list of tags available with the core Symfony2 bundles.
 Each of these has a different effect on your service and many tags require
 additional arguments (beyond just the ``name`` parameter).
 
-* assetic.filter
-* assetic.templating.php
-* data_collector
-* form.field_factory.guesser
-* kernel.cache_warmer
-* kernel.event_listener
-* monolog.logger
-* routing.loader
-* security.listener.factory
-* security.voter
-* templating.helper
-* twig.extension
-* translation.loader
-* validator.constraint_validator
+For a list of all the tags available in the core Symfony Framework, check
+out :doc:`/reference/dic_tags`.
 
-Learn more from the Cookbook
-----------------------------
+Debugging Services
+------------------
 
-* :doc:`/cookbook/service_container/factories`
-* :doc:`/cookbook/service_container/parentservices`
+You can find out what services are registered with the container using the
+console. To show all services and the class for each service, run:
+
+.. code-block:: bash
+
+    $ php app/console container:debug
+
+By default only public services are shown, but you can also view private services:
+
+.. code-block:: bash
+
+    $ php app/console container:debug --show-private
+
+You can get more detailed information about a particular service by specifying
+its id:
+
+.. code-block:: bash
+
+    $ php app/console container:debug my_mailer
+
+Learn more
+----------
+
+* :doc:`/components/dependency_injection/compilation`
+* :doc:`/components/dependency_injection/definitions`
+* :doc:`/components/dependency_injection/factories`
+* :doc:`/components/dependency_injection/parentservices`
+* :doc:`/components/dependency_injection/tags`
 * :doc:`/cookbook/controller/service`
+* :doc:`/cookbook/service_container/scopes`
+* :doc:`/cookbook/service_container/compiler_passes`
+* :doc:`/components/dependency_injection/advanced`
 
 .. _`service-oriented architecture`: http://wikipedia.org/wiki/Service-oriented_architecture
 
 .. 2011/07/22 shishi 55da9acdca0c74ab1b80a152c48b3f3d3e5eb62b
 .. 2011/08/27 hidenorigoto 
+.. 2012/10/13 okada 3f8ca1701dd4723ee107688471edc2f1316f1bd1
 
