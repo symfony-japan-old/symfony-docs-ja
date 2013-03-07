@@ -25,9 +25,9 @@ git 上で、Symfony2 プロジェクトを作成し、管理する方法
         /app/cache/*
         /app/logs/*
         /vendor/  
-        /app/config/parameters.yml
+        /app/config/parameters.ini
 
-4. ``app/config/parameters.yml`` ファイルをコピーして ``app/config/parameters.yml.dist`` という新しい名前で保存してください。 上の ``.gitignore`` で指定した通り ``parameters.yml`` ファイルは、データベースのパスワードなどの環境に依存した設定のため、コミットされないように、 git は無視することになります。 ``parameters.yml.dist`` ファイルを作成しておくことによって、新しい開発者が、同プロジェクトをクローン(clone)し、\ ``parameters.yml`` にコピーし、カスタマイズし、開発をすぐに開発できるようになります:
+4. ``app/config/parameters.ini`` ファイルをコピーして ``app/config/parameters.ini.dist`` という新しい名前で保存してください。 上の ``.gitignore`` で指定した通り ``parameters.ini`` ファイルは、データベースのパスワードなどの環境に依存した設定のため、コミットされないように、 git は無視することになります。 ``parameters.ini.dist`` ファイルを作成しておくことによって、新しい開発者が、同プロジェクトをクローン(clone)し、\ ``parameters.ini`` にコピーし、カスタマイズし、開発をすぐに開発できるようになります:
 
 5. git リポジトリを初期化します:
 
