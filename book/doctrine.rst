@@ -40,11 +40,11 @@ Doctrine の動作を理解するのに一番簡単な方法は、実際に動�
 ~~~~~~~~~~~~~~~~~~
 
 本当のスタート前に、まずは、データベース接続の設定を行う必要があります。\
-慣例として、通常は ``app/config/parameters.yml`` で設定を行います。
+慣例として、通常は ``app/config/parameters.ini`` で設定を行います。
 
 .. code-block:: ini
 
-    # app/config/parameters.yml
+    # app/config/parameters.ini
     parameters
         database_driver   = pdo_mysql
         database_host     = localhost
@@ -54,7 +54,7 @@ Doctrine の動作を理解するのに一番簡単な方法は、実際に動�
 
 .. note::
 
-    ``parameters.yml`` を通して設定を行うのは、単なる慣習です。\
+    ``parameters.ini`` を通して設定を行うのは、単なる慣習です。\
     このファイルで定義したパラメータは、Doctrine の設定時に、メインの設定ファイルから参照されます。
     
     .. code-block:: yaml
