@@ -1,60 +1,72 @@
 .. index::
    single: Installation
 
+.. note::
+
+    * 対象バージョン：2.2
+    * 翻訳更新日：2013/3/16
+
 Symfony のインストールと設定
 ============================
 
-この章の目標は、Symfony ベースのアプリケーションを動作させる準備をすることです。
-幸運なことに、Symfony では「ディストリビューション」を提供しています。
-これは Symfony の実用的な「スターター」プロジェクトで、ダウンロードすればすぐに開発を始められます。
+この章では、Symfony をインストールする方法について解説します。
+Symfony では「ディストリビューション」が提供されています。
+ディストリビューションとは入門者向けの Symfony プロジェクトファイル一式で、これをダウンロードすればすぐに開発を始められます。
 
 .. tip::
 
-    ソースコード管理システムの元でプロジェクトを新規作成し、ソースコード管理システムに登録するベストプラクティスを知りたい方は、\ `ソースコード管理システムで管理するには`_\ の節を参照してください。
+    ソースコード管理システムの元でプロジェクトを新規作成し、ソースコード管理システムに登録するベストプラクティスを知りたい方は、この章の\ `ソースコード管理システムで管理するには`_\ の節を参照してください。
 
 Symfony2 ディストリビューションのダウンロード
-----------------------------------------------
+---------------------------------------------
 
 .. tip::
 
-    まずはじめに、PHP 5.3.2 以上が動作する Web サーバ(Apache など)がインストールされ、設定済みかどうか確認して下さい。
-    Symfony2 の必要条件について詳しくは、\ :doc:`Symfony2 の実行に必要な要件</reference/requirements>` を参照してください。
+    まずはじめに、PHP 5.3.8 以上が動作する Web サーバ(Apache など)がインストールされ、設定済みかどうか確認して下さい。
+    Symfony2 の動作要件について詳しくは、\ :doc:`Symfony2 の動作に必要な要件</reference/requirements>` を参照してください。
 
-Symfony2 は「ディストリビューション」をパッケージングしています。
-これは Symfony2 コアライブラリ、厳選された便利なバンドル、気の利いたディレクトリ構造、
-そしていくつかの初期設定を含んだ、完全に実用的なアプリケーションです。
+Symfony2 のディストリビューションは完全に動作するアプリケーションです。Symfony2 コアライブラリとコアバンドルが実用的なディレクトリ構造に格納され、いくつかの初期設定が含まれています。
 Symfony2 のディストリビューションをダウンロードすることは、
 アプリケーションをすぐに開発し始められる実用的なアプリケーションのスケルトンをダウンロードしている事にもなります。
 
 はじめに Symfony2 ダウンロードページ(\ `http://symfony.com/download`_\ )にアクセスしてください。
-ページ上に *Symfony Standard Edition* という文字が見えると思います。
-これは Symfony2 のメインのディストリビューションです。
-ここでは２つの項目について選ぶ必要があります。
+このページから Symfony2 のメインのディストリビューションである *Symfony Standard Edition* をダウンロードできます。このディストリビューションを使ってプロジェクトを開始する方法を説明します。
 
-* ``.tgz`` 形式、もしくは \ ``.zip`` 形式の選択 - どちらも中身は同じですので、
-  使いやすい方を選んでください。
+その1) Composer
+~~~~~~~~~~~~~~~
 
-* ディストリビューションにベンダーを含めるか含めないかの選択
-  `Git`_ がインストール済みであれば 「without vendors (ベンダーライブラリを含めない)」をダウンロードするべきです。
-  そうすることで、サードパーティーやベンダーのライブラリを含めるときに、多少柔軟に追加ができるでしょう。
+`Composer`_ は PHP の依存パッケージ管理ライブラリです。Composer を使って Symfony2 Standard Edition をダウンロードできます。
 
-アーカイブの中の１つをローカルウェブサーバーの root ディレクトリの何処かにダウンロードして解凍してください。
-UNIX のコマンドラインで、ダウンロードしたファイル形式に基づき、以下のコマンドのどちらかを実行すると解凍できます(\ ``###`` を実際のファイル名に置換してください\ )。
+ローカルコンピュータにまだ Composer を準備していない場合は、\ `Composer をダウンロード`_ してください。curl がインストールされていれば、次のコマンドだけでインストールできます。
 
 .. code-block:: bash
 
-    # .tgz ファイル用
-    tar zxvf Symfony_Standard_Vendors_2.0.###.tgz
+    $ curl -s https://getcomposer.org/installer | php
 
-    # .zip ファイル用
-    unzip Symfony_Standard_Vendors_2.0.###.zip
+.. note::
 
-解凍し終わったら、以下のような ``Symfony/`` ディレクトリがあるでしょう。
+    ローカルコンピュータで Composer を使う環境が整っていない場合は、上記コマンドの実行時にいくつかの指示が表示されます。Composer を適切に動作させるためには、表示された指示にしたがって環境を整えてください。
+
+Composer は実行可能な PHAR ファイルです。Composer を使って次のコマンドで Symfony Standard ディストリビューションをダウンロードします:
+
+.. code-block:: bash
+
+    $ php composer.phar create-project symfony/framework-standard-edition /path/to/webroot/Symfony dev-master
+
+.. tip::
+
+    ダウンロードするバージョンを明示的に指定するには、\ `dev-master` の部分を最新の Symfony のバージョン(2.1.1 など)に置き換えてください。詳細は\ `Symfony のダウンロードページ`_ 参照してください。
+
+.. tip::
+
+    Tests などの不要なディレクトリを除外してベンダーファイル群のダウンロード時間を短縮するには、Composer コマンドの末尾に ``--prefer-dist`` オプションを追加してください。
+
+このコマンドにより、Standard ディストリビューションと必要なすべてのベンダーライブラリが Composer によりダウンロードされるので、完了までしばらく時間がかかります。コマンドが完了すると、次のようなディレクトリ構造ができています:
 
 .. code-block:: text
 
-    www/ <- ウェブルートディレクトリ
-        Symfony/ <- 解凍したディレクトリ
+    path/to/webroot/ <- web ルートディレクトリ
+        Symfony/ <- 作成されたディレクトリ
             app/
                 cache/
                 config/
@@ -67,55 +79,139 @@ UNIX のコマンドラインで、ダウンロードしたファイル形式に
                 app.php
                 ...
 
-ベンダーの更新
-~~~~~~~~~~~~~~~~
+その2) アーカイブをダウンロード
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-最後に、もし「without vendors」のアーカイブをダウンロードしたならば、
-以下のコマンドをコマンドラインから実行してベンダーをインストールして下さい。
+Standard Edition のアーカイブをダウンロードすることもできます。次の 2 つの選択肢に対応したアーカイブがあります:
+
+* ``.tgz`` 形式、もしくは \ ``.zip`` 形式の選択 - どちらも中身は同じですので、使いやすい方を選んでください。
+
+* ディストリビューションにベンダーファイル群を含めるか含めないか。
+  サードパーティのライブラリやバンドルを追加し、それらを Composer で管理したい場合は、"without vendors(ベンダーライブラリなし)" を選択してください。
+
+いずれかのアーカイブをダウンロードし、ローカル Web サーバーの公開ディレクトリ配下などへ展開してください。
+UNIX のコマンドラインであれば、以下のコマンドのどちらかを実行するとアーカイブを展開できます(\ ``###`` 部分は実際のファイル名に置き換えて実行してください\ )。
 
 .. code-block:: bash
 
-    php bin/vendors install
+    # .tgz ファイル用
+    $ tar zxvf Symfony_Standard_Vendors_2.1.###.tgz
 
-このコマンドは Symfony自体を含む必要なベンダーライブラリすべてを ``vendor/`` ディレクトリにダウンロードします。
+    # .zip ファイル用
+    $ unzip Symfony_Standard_Vendors_2.1.###.zip
 
-設定とセットアップ
-~~~~~~~~~~~~~~~~~~~~~~~
+"without vendors" のアーカイブをダウンロードした場合は、次に説明するベンダーの更新も行なってください。
 
-この時点で、必要とされるサードパーティのライブラリすべてが、 ``vendor/`` ディレクトリに存在します。
-また標準のアプリケーションが ``app/`` ディレクトリにセットアップされ、
-いくつかのサンプルコードが ``src/`` ディレクトリの中にあります。
+.. note::
 
-Symfony2 には、ウェブサーバーと PHP が Symfony を使うことができる設定になっているかを、ウェブインタフェースで確認するための設定テスターが同梱されています。以下の URL を使って設定を確認してみてください。
+    デフォルトのディレクトリ構造を変更することもできます。
+    詳細は :doc:`/cookbook/configuration/override_dir_structure` を参照してください。
 
-.. code-block:: text
+.. _installation-updating-vendors:
 
-    http://localhost/Symfony/web/config.php
+ベンダーの更新
+~~~~~~~~~~~~~~
 
-何か問題がある場合は、先に進む前に今のうちに修正してください。
+ここまでの手順で、完全に機能する 1 つの Symfony プロジェクトのダウンロードが完了しました。
+このプロジェクトを起点としてアプリケーション開発を開始できます。Symfony プロジェクトは、多くの外部ライブラリを利用しています。
+外部ライブラリは `Composer`_ により `vendor/` ディレクトリへダウンロードされます。
 
-.. sidebar:: パーミッション設定
+Symfony プロジェクトのダウンロード方法に応じて、ここでベンダーライブラリの更新を行なってください。
+ベンダーライブラリの更新は安全で、必要なベンダーライブラリがすべて揃っていることが保証されます。
 
-    よくある問題としては、 ``app/cache`` と ``app/logs`` ディレクトリが、ウェブサーバーとコマンドラインの
-    どちらのユーザーでも書き込み可能でなければならないことです。
-    UNIX システム上でウェブサーバーのユーザーとコマンドラインユーザーが異なる場合は、
-    以下のコマンドをプロジェクト内で1度実行するだけで、パーミッションを適切にセットアップできます。
-    ``www-data`` はウェブサーバーのユーザーに、\ ``yourname`` はコマンドラインユーザーに置き換えてください。
+ステップ 1: PHP のパッケージングシステムである `Composer`_ を入手する
 
-    **1. chmod +a コマンドをサポートしているシステム上で ACL を使う**
+.. code-block:: bash
 
+    $ curl -s http://getcomposer.org/installer | php
 
-    多くのシステムでは ``chmod +a`` コマンドが使えます。
-    まず最初にこのコマンドを試してみてください。
-    もしエラーが起きた場合は、次の方法を試してみてください。
+``composer.phar`` をダウンロードしたディレクトリ ``composer.json`` ファイルが存在することを確認してください(デフォルトでは、ここが Symfony プロジェクトルートです)。
+
+ステップ 2: ベンダーのインストール
+
+.. code-block:: bash
+
+    $ php composer.phar install
+
+このコマンドを実行すると、Symfony 本体を含む必要なベンダーライブラリがすべてダウンロードされ、\ ``vendor/`` ディレクトリへ格納されます。
+
+.. note::
+
+    お使いの環境に ``curl`` がインストールされていない場合は、http://getcomposer.org/installer から ``installer`` ファイルを手動でダウンロードしてください。
+    このファイルをプロジェクトルートへ配置し、次のコマンドを実行してください:
 
     .. code-block:: bash
 
-        rm -rf app/cache/*
-        rm -rf app/logs/*
+        $ php installer
+        $ php composer.phar install
 
-        sudo chmod +a "www-data allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
-        sudo chmod +a "yourname allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
+.. tip::
+
+    ``php composer.phar install`` コマンド、または ``php composer.phar update`` コマンドを実行すると、Composer によりインストール後(post install)コマンド、または更新後(post update)コマンドが実行されます。これらのコマンドによりキャッシュのクリアやアセットのインストールが行われます。
+    デフォルトで、アセットは ``web`` ディレクトリへコピーされます。
+    アセットのコピーではなくシンボリックリンクを作成したい場合は、次のように composer.json ファイルの ``extra`` ノードにキーが ``symfony-asseets-install``\ 、値が ``symlink`` のノードを追加してください:
+
+    .. code-block:: text
+
+        "extra": {
+            "symfony-app-dir": "app",
+            "symfony-web-dir": "web",
+            "symfony-assets-install": "symlink"
+        }
+
+    symfony-assets-install に ``symlink`` の代わりに ``relative`` を指定すると、コマンドにより相対シンボリックリンクが作成されます。
+
+設定とセットアップ
+~~~~~~~~~~~~~~~~~~
+
+ここまでの手順で、必要なサードパーティライブラリのすべてが ``vendor/`` ディレクトリに存在します。
+また標準のアプリケーションが ``app/`` ディレクトリにセットアップされ、
+いくつかのサンプルコードが ``src/`` ディレクトリの中にあります。
+
+Symfony2 には、Web ブラウザからアクセスできる設定テスターが同梱されています。この設定テスターを使って、Web サーバーと PHP が Symfony を使えるよう設定されているかを確認できます。以下の URL で設定テスターにアクセスします。
+
+.. code-block:: text
+
+    http://localhost/config.php
+
+設定テスターで問題が表示された場合は、この段階で修正しておくことをおすすめします。
+
+.. sidebar:: パーミッションの設定
+
+    よくある問題としては、 ``app/cache`` と ``app/logs`` ディレクトリが、Web サーバーの実行ユーザーとコマンドラインの実行ユーザーのいずれからも書き込み可能でなければならないことです。
+    UNIX システム上で Web サーバーのユーザーとコマンドラインユーザーが異なる場合は、以下のコマンドをプロジェクト内で1度実行するだけで、パーミッションを適切にセットアップできます。
+
+    **Web サーバーの実行ユーザーを確認する**
+    
+    以降の例では Web サーバーの実行ユーザーが ``www-data`` として説明していますが、異なるユーザーを利用する Web サーバーもあります。
+    お使いの環境の Web サーバーの実行ユーザーを確認し、\ ``www-data`` の代わりに指定してください。
+
+    UNIX システムでは、次のようなコマンドで確認できます。
+
+    .. code-block:: bash
+
+        $ ps aux | grep httpd
+
+    または
+
+    .. code-block:: bash
+
+        $ ps aux | grep apache
+
+    **1. chmod +a コマンドをサポートしているシステム上で ACL を使う**
+
+    多くのシステムでは ``chmod +a`` コマンドが使えます。
+    パーミッションの設定には、最初にこのコマンドを試してください。
+    コマンドがエラーになった場合は、2 の方法を試してください。
+    1 つめの ``chmod`` コマンドで指定している ``www-data`` は、お使いの Web サーバーの実行ユーザーに置き換えてください。
+
+    .. code-block:: bash
+
+        $ rm -rf app/cache/*
+        $ rm -rf app/logs/*
+
+        $ sudo chmod +a "www-data allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
+        $ sudo chmod +a "`whoami` allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
 
     **2. chmod +a コマンドをサポートしていないシステム上で ACL を使う**
 
@@ -125,60 +221,65 @@ Symfony2 には、ウェブサーバーと PHP が Symfony を使うことがで
 
     .. code-block:: bash
 
-        sudo setfacl -R -m u:www-data:rwx -m u:yourname:rwx app/cache app/logs
-        sudo setfacl -dR -m u:www-data:rwx -m u:yourname:rwx app/cache app/logs
+        $ sudo setfacl -R -m u:www-data:rwX -m u:`whoami`:rwX app/cache app/logs
+        $ sudo setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx app/cache app/logs
 
     **3. ACL を使わない方法**
 
-    もしディレクトリの ACL を変更する方法がなければ、
-    cache と log ディレクトリにグループ書き込み権限か全てのユーザー書き込み権限
-    (ウェブサーバーのユーザーとコマンドラインユーザーが同じグループかどうかに依存する)を与えるために
-    umask を変更する必要があります。
+    もしディレクトリの ACL を変更するためのアクセス権がなければ、umask を変更して対応します。
+    この場合、cache ディレクトリと log ディレクトリには、グループ書き込み権限か全てのユーザー書き込み権限
+    (Web サーバーのユーザーとコマンドラインユーザーが同じグループかどうかに依存する)が必要になります。
 
-    権限を与えるために、以下の行を ``app/console``\ 、\ ``web/app.php``\ 、\ ``web/app_dev.php`` の
-    ファイルの先頭に記述します。
+    umask の変更を有効にするには、以下の行を ``app/console``\ 、\ ``web/app.php``\ 、\ ``web/app_dev.php`` ファイルの先頭に記述します。
 
     .. code-block:: php
 
-        umask(0002); // This will let the permissions be 0775
+        umask(0002); // パーミッションを 0775 に設定します
 
         // or
 
-        umask(0000); // This will let the permissions be 0777
+        umask(0000); // パーミッションを 0777 に設定します
 
-    umask の変更はスレッドセーフではないため、これらのファイルにアクセスする場合は
-    ACLを使うことをおすすめしています。
+    umask の変更はスレッドセーフではないため、ACL で設定可能な場合は ACL を使うことをおすすめします。
 
-すべて設定したら、「Go to the Welcome page(ウェルカムページに行く)」をクリックして、最初の「リアルな」\ Symfony2 のウェブページをリクエストしましょう。
-
+すべて設定したら、「Go to the Welcome page(ウェルカムページへ行く)」をクリックして、最初の「リアルな」\ Symfony2 の Web ページをリクエストしましょう。
 
 .. code-block:: text
 
-    http://localhost/Symfony/web/app_dev.php/
+    http://localhost/app_dev.php/
 
-Symfony2 今までの一苦労を労ってくれるでしょう。
+Symfony2 のウェルカム画面が表示されます。
 
 .. image:: /images/quick_tour/welcome.jpg
+
+.. tip::
+    
+    アプリケーションで短いきれいな URL を使うには、Web サーバーまたはバーチャルホストのドキュメントルートを ``Symfony/web/`` ディレクトリに設定してください。
+    この設定は開発段階では必須ではありませんが、運用環境ではシステムのソースコードや設定ファイルへ Web 経由でアクセスすることを防ぐ意味でも、この設定を行なっておくことをおすすめします。
+    Web サーバーのドキュメントルートを設定する方法については、各 Web サーバーのドキュメントを参照してください。 `Apache`_ | `Nginx`_
 
 開発を始める
 ------------
 
-これで完全に実用的な Symfony2 アプリケーションになりましたので
-開発を始められます！ディストリビューションの中にはいくつかのサンプルコードが含まれています。
-その中に含まれる ``README.rst`` ファイルを(テキストファイルとして開いて)確認し、
+これで完全に機能する Symfony2 アプリケーションのセットアップが完了しましたので、開発を始められます。ディストリビューションの中にはいくつかのサンプルコードが含まれています。
+``README.rst`` ファイルを(テキストファイルとして開いて)確認し、
 どんなサンプルコードが含まれていて、後でどうやってそのサンプルコードを削除するかを学んでください。
 
-もし Symfony が初めてでしたら、\ ":doc:`page_creation`" を御覧ください。
-ページの作り方、設定の変え方、など新しいアプリケーションに必要なすべきことが載っています。
+もし Symfony での開発が初めてであれば、\ ":doc:`page_creation`" へ進んでください。
+このページでは、新しくアプリケーションを開発するために最初に必要となるページの作り方や設定の変更方法について説明しています。
+
+.. note::
+
+    ディストリビューションからサンプルコードを削除したい場合は、クックブックの記事 ":doc:`/cookbook/bundles/remove`" を参照してください。
 
 ソースコード管理システムで管理するには
 --------------------------------------
 
-``Git`` や ``Subversion`` のようなバージョンコントロールシステムを使っている場合は
-バージョンコントロールシステムのセットアップやいつも通りにプロジェクトをコミットし始めることができます。
+``Git`` や ``Subversion`` のようなバージョン管理システムを使っている場合は
+バージョン管理システムをセットアップして、いつも通りにプロジェクトのコミットを始めることができます。
 Symfony Standard Edition は、新しいプロジェクトを開始する起点として使うことができます。
 
-Git を使ったプロジェクトのセットアップに関する詳細な手順については、\ :doc:`/cookbook/workflow/new_project_git` を参照してください。
+Git を使ったプロジェクトのセットアップ手順の詳細は、\ :doc:`/cookbook/workflow/new_project_git` を参照してください。
 
 
 ``vendor/`` ディレクトリを除外する
@@ -192,16 +293,19 @@ Git を使ったプロジェクトのセットアップに関する詳細な手�
     vendor/
 
 これで vendor ディレクトリはソースコード管理システムにコミットされなくなったでしょう。
-他の誰かがプロジェクトをクローンしたりチェックアウトする時に、
-その人は必要なベンダーライブラリ全てをダウンロードするために
-``php bin/vendors install`` というスクリプトを実行するだけで良いので、
-とても良いと思います(本当に素晴らしいと思います!)。
+他の誰かがプロジェクトをクローンしたりチェックアウトする時に、その人は必要なベンダーライブラリ全てをダウンロードするために ``php composer.phar install`` というスクリプトを実行するだけです。
 
 
 .. _`ACL サポートを有効にする`: https://help.ubuntu.com/community/FilePermissions#ACLs
 .. _`http://symfony.com/download`: http://symfony.com/download
 .. _`Git`: http://git-scm.com/
 .. _`GitHub Bootcamp`: http://help.github.com/set-up-git-redirect
+.. _`Composer`: http://getcomposer.org/
+.. _`Composer をダウンロード`: http://getcomposer.org/download/
+.. _`Apache`: http://httpd.apache.org/docs/current/mod/core.html#documentroot
+.. _`Nginx`: http://wiki.nginx.org/Symfony
+.. _`Symfony のダウンロードページ`:    http://symfony.com/download
 
 .. 2011/07/23 uechoco 9de84d1fcc3fb0f641efa5b36973ab95cddf5faa
 .. 2011/08/14 hidenorigoto b21a16f5196fae0d0f1f0a20d69777ea0e685911
+.. 2013/03/16 hidenorigoto 5246f51f550db504e76c98b641e3337570e84dd4
