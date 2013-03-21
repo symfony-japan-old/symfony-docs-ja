@@ -83,7 +83,7 @@ Copy
     // image-ICC.jpg が image.jpg より後に更新された場合のみコピーします
     $fs->copy('image-ICC.jpg', 'image.jpg');
 
-    // image.jpg は常に更新されます
+    // image.jpg は上書きされます
     $fs->copy('image-ICC.jpg', 'image.jpg', true);
 
 Touch
@@ -134,11 +134,11 @@ Chgrpはファイルのグループを変更するのに使います。第三引
 Chmod
 ~~~~~
 
-Chmodはファイルのモードを変更するのに使います。第三引数はbooleanで、再帰するかどうかを指定できます。::
+Chmodはファイルのモードを変更するのに使います。第四引数はbooleanで、再帰するかどうかを指定できます。::
 
     // video.oggのモードを0600に変更します
     $fs->chmod('video.ogg', 0600);
-    // srcディレクトリとその配下のディレクトリ・ファイルのモードを再帰的にnginxに変更します
+    // srcディレクトリとその配下のディレクトリ・ファイルのモードを0700再帰的にnginxに変更します
     $fs->chmod('src', 0700, 0000, true);
 
 .. note::
