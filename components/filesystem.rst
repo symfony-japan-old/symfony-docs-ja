@@ -23,7 +23,7 @@ Filesystemコンポーネント
 * Composer (`Packagist`_ の ``symfony/filesystem``)
 
 使い方
------
+------
 
 :class:`Symfony\\Component\\Filesystem\\Filesystem` クラスはファイル操作の唯一のエンドポイントです::
 
