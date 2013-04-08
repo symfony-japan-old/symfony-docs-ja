@@ -16,7 +16,7 @@ Symfony は、フォームのレンダリングをカスタマイズする方法
 
     .. code-block:: php
 
-        <?php echo $view['form']->row($form['age']) }} ?>
+        <?php echo $view['form']->row($form['age']) ?>
 
 また個々のフィールドを３つのパーツにしてそれぞれ表示することもできます。
 
@@ -33,9 +33,9 @@ Symfony は、フォームのレンダリングをカスタマイズする方法
     .. code-block:: php
 
         <div>
-            <?php echo $view['form']->label($form['age']) }} ?>
-            <?php echo $view['form']->errors($form['age']) }} ?>
-            <?php echo $view['form']->widget($form['age']) }} ?>
+            <?php echo $view['form']->label($form['age']) ?>
+            <?php echo $view['form']->errors($form['age']) ?>
+            <?php echo $view['form']->widget($form['age']) ?>
         </div>
 
 両方のケースで、 Symfony Standard Edition に付いてくるマークアップを使用して、フォームラベル、エラー、 HTML ウィジェットを表示します。例えば、上記の双方ともが以下のように表示されることになります。
@@ -60,7 +60,7 @@ Symfony は、フォームのレンダリングをカスタマイズする方法
 
     .. code-block:: php
 
-        <?php echo $view['form']->widget($form) }} ?>
+        <?php echo $view['form']->widget($form) ?>
 
 このレシピの残りでは、フォームのマークアップの全てのパーツを、いろんな異なるレベルでどうやって変更するかについて説明します。一般的なフォームレンダリングに関しての詳細は、 :ref:`form-rendering-templates` を参照してください。
 
