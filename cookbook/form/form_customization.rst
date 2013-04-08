@@ -1,7 +1,6 @@
 .. note::
 
-    * 対象バージョン：2.2
-    * 翻訳更新日：2013/04/09
+    * 翻訳更新日：2013/04/08
 
 フォームのレンダリングのカスタマイズ方法
 ========================================
@@ -803,7 +802,30 @@ Twig を使用した際に、別のテンプレート内でフォームのカス
     
     このカスタマイズの適用方法の詳細は、 :ref:`cookbook-form-theming-methods` を参照してください。
 
+フォーム変数を使う
+--------------------
+
+フォームの各部品(ウィジェット、ラベル)を表示するほとんどの関数では、直接カスタマイズができるようになっています。下記の例を見てください。
+
+.. configuration-block::
+
+    .. code-block:: jinja
+
+        {# ウィジェットを表示する際にfooクラスを追加する #}
+        {{ form_widget(form.name, { 'attr': {'class': 'foo'} }) }}
+
+    .. code-block:: php
+
+        <!-- ウィジェットを表示する際にfooクラスを追加する -->
+        <?php echo $view['form']->widget($form['name'], array(
+            'attr' => array(
+                'class' => 'foo',
+            ),
+        )) ?>
+
+第二引数として渡す配列はフォームの「変数」を含んでいます。Twigにおけるこの機能についてもっと詳しく知りたい場合は :ref:`twig-reference-form-variables` を参照してください。
+
 .. _`form_div_layout.html.twig`: https://github.com/symfony/symfony/blob/master/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig
 
 .. 2012/01/10 ganchiku 78fbe0505f42b091eca4dd42b780291e3eed950d
-
+.. 2013/04/08 77web ac9fbcd13fb1939c727613f342f8e015cc73802b
