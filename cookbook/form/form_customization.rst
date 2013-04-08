@@ -1,3 +1,8 @@
+.. note::
+
+    * 対象バージョン：2.2
+    * 翻訳更新日：2013/04/09
+
 フォームのレンダリングのカスタマイズ方法
 ========================================
 
@@ -111,34 +116,34 @@ PHP では、 ``FrameworkBundle/Resources/views/Form`` フォルダの ``integer
 
         {% block integer_widget %}
             {% set type = type|default('number') %}
-            {{ block('field_widget') }}
+            {{ block('form_widget_simple') }}
         {% endblock integer_widget %}
 
     .. code-block:: html+php
 
         <!-- integer_widget.html.php -->
 
-        <?php echo $view['form']->renderBlock('field_widget', array('type' => isset($type) ? $type : "number")) ?>
+        <?php echo $view['form']->block($form, 'form_widget_simple', array('type' => isset($type) ? $type : "number")) ?>
 
-上記を見ればわかるように、このフラグメント自体は、他のフラグメント ``field_widget`` を表示しています。
+上記を見ればわかるように、このフラグメント自体は、他のフラグメント ``form_widget_simple`` を表示しています。
 
 .. configuration-block::
 
     .. code-block:: html+jinja
 
-        {% block field_widget %}
+        {# form_div_layout.html.twig #}
+        {% block form_widget_simple %}
             {% set type = type|default('text') %}
-            <input type="{{ type }}" {{ block('widget_attributes') }} value="{{ value }}" />
-        {% endblock field_widget %}
+            <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+        {% endblock form_widget_simple %}
 
     .. code-block:: html+php
 
-        <!-- FrameworkBundle/Resources/views/Form/field_widget.html.php -->
-
+        <!-- FrameworkBundle/Resources/views/Form/form_widget_simple.html.php -->
         <input
-            type="<?php echo isset($type) ? $view->escape($type) : "text" ?>"
-            value="<?php echo $view->escape($value) ?>"
-            <?php echo $view['form']->renderBlock('attributes') ?>
+            type="<?php echo isset($type) ? $view->escape($type) : 'text' ?>"
+            <?php if (!empty($value)): ?>value="<?php echo $view->escape($value) ?>"<?php endif ?>
+            <?php echo $view['form']->block($form, 'widget_attributes') ?>
         />
 
 ポイントは、フラグメントがフォームのそれぞれの部分の HTML 出力を担っていることです。フォームの出力をカスタマイズするには、正しいフラグメントを確認して、オーバーライドするだけです。フォームフラグメントのセットのカスタマイズは、フォーム "theme" となります。フォームを表示する際に、適用したいテーマを選択することができます。
@@ -155,7 +160,7 @@ PHP では、テーマは、１つのフォルダになり、フラグメント�
 
     このようにフラグメントの名前は、フィールドタイプと ``widget``, ``label``, ``errors``, ``rows`` のように表示するフィールドのパーツを結合したものです。そのため、入力 ``text`` フィールドのエラーの表示をカスタマイズするには、 ``text_errors`` フラグメントをカスタマイズする必要があります。
 
-    しかし、より一般的には、 *全て* のフィールドに渡ったエラーの表示方法をカスタマイズするときもあります。その際には、 ``field_errors`` フラグメントをカスタマイズしてください。これでフィールドタイプの継承ができます。 ``text`` タイプは ``field`` タイプから継承していますので、フォームコンポーネントは、 ``field_errors`` のような親フラグメントの名前を探す前に、 ``text_errors`` のような特定のタイプのフラグメントを探します。
+    しかし、より一般的には、 *全て* のフィールドに渡ったエラーの表示方法をカスタマイズするときもあります。その際には、 ``form_errors`` フラグメントをカスタマイズしてください。これでフィールドタイプの継承ができます。 ``text`` タイプは ``field`` タイプから継承していますので、フォームコンポーネントは、 ``form_errors`` のような親フラグメントの名前を探す前に、 ``text_errors`` のような特定のタイプのフラグメントを探します。
 
     このトピックに関する詳細は、 :ref:`form-template-blocks` を参照してください。
 
@@ -197,7 +202,7 @@ Twig でフォームフィールドのブロックをカスタマイズする際
     {% block integer_widget %}
         <div class="integer_widget">
             {% set type = type|default('number') %}
-            {{ block('field_widget') }}
+            {{ block('form_widget_simple') }}
         </div>
     {% endblock %}
 
@@ -225,7 +230,7 @@ Twig でフォームフィールドのブロックをカスタマイズする際
     {% block integer_widget %}
         <div class="integer_widget">
             {% set type = type|default('number') %}
-            {{ block('field_widget') }}
+            {{ block('form_widget_simple') }}
         </div>
     {% endblock %}
 
@@ -255,7 +260,7 @@ PHP でフォームをテーマ化する
     <!-- src/Acme/DemoBundle/Resources/views/Form/integer_widget.html.php -->
 
     <div class="integer_widget">
-        <?php echo $view['form']->renderBlock('field_widget', array('type' => isset($type) ? $type : "number")) ?>
+        <?php echo $view['form']->block('field_widget', array('type' => isset($type) ? $type : "number")) ?>
     </div>
 
 これでカスタマイズされたフォームテンプレートを作成できましたので、 Symfony から使ってみましょう。実際にフォームを表示するテンプレートの中で、 ``setTheme`` ヘルパーメソッドを通してテーマを使用するようにします。
@@ -514,7 +519,7 @@ PHP
 
         {% block _product_name_widget %}
             <div class="text_widget">
-                {{ block('field_widget') }}
+                {{ block('form_widget_simple') }}
             </div>
         {% endblock %}
 
@@ -531,7 +536,7 @@ PHP
         <!-- src/Acme/DemoBundle/Resources/views/Form/_product_name_widget.html.php -->
 
         <div class="text_widget">
-              echo $view['form']->renderBlock('field_widget') ?>
+              echo $view['form']->renderBlock('form_widget_simple') ?>
         </div>
 
 ここで、 ``_product_name_widget`` フラグメントが *id* が ``product_name`` であるテンプレートを定義します(そして、 name 属性は ``product[name]`` になります)。
@@ -597,39 +602,35 @@ PHP
 .. code-block:: html
 
     <ul>
-        <li>This field is required</li>
+        <li>必須項目です。</li>
     </ul>
 
-*全て* のフィールドでエラーの表示をオーバーライドするには、単に ``field_errors`` フラグメントをコピーアンドペーストして、カスタマイズします。
+*全て* のフィールドでエラーの表示をオーバーライドするには、単に ``form_errors`` フラグメントをコピーアンドペーストして、カスタマイズします。
 
 .. configuration-block::
 
     .. code-block:: html+jinja
 
-        {% block field_errors %}
-        {% spaceless %}
-            {% if errors|length > 0 %}
-            <ul class="error_list">
-                {% for error in errors %}
-                    <li>{{ error.messageTemplate|trans(error.messageParameters, 'validators') }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-        {% endspaceless %}
-        {% endblock field_errors %}
+        {# form_errors.html.twig #}
+        {% block form_errors %}
+            {% spaceless %}
+                {% if errors|length > 0 %}
+                <ul>
+                    {% for error in errors %}
+                        <li>{{ error.message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            {% endspaceless %}
+        {% endblock form_errors %}
 
     .. code-block:: html+php
 
-        <!-- fields_errors.html.php -->
-
+        <!-- form_errors.html.php -->
         <?php if ($errors): ?>
-            <ul class="error_list">
+            <ul>
                 <?php foreach ($errors as $error): ?>
-                    <li><?php echo $view['translator']->trans(
-                        $error->getMessageTemplate(),
-                        $error->getMessageParameters(),
-                        'validators'
-                    ) ?></li>
+                    <li><?php echo $error->getMessage() ?></li>
                 <?php endforeach; ?>
             </ul>
         <?php endif ?>
@@ -649,28 +650,29 @@ PHP
 
         <?php echo $view['form']->render($form); ?>
 
-これらのエラーのマークアップ *のみ* をカスタマイズするには、上記のように同じ方法に従ってください。しかし、 Twig の際は ``form_errors`` ブロックを呼んで、 PHP の際は ``form_errors.html.php`` ファイルを呼ぶことになります。これで、 ``form`` タイプのエラーが表示されれば、カスタマイズされたフラグメントがデフォルトの ``field_errors`` の代わりに使用されます。
+これらのエラーのマークアップ *のみ* をカスタマイズするには、上記のように同じ方法に従ってください。しかし、 Twig の際は ``form_errors`` ブロックを呼んで、 PHP の際は ``form_errors.html.php`` ファイルを呼ぶことになります。これで、 ``form`` タイプのエラーが表示されれば、カスタマイズされたフラグメントがデフォルトの ``form_errors`` の代わりに使用されます。
 
 "Form Row" をカスタマイズする
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-可能であれば、フォームフィールドの表示の最も簡単な方法は、 ``form_row`` 関数を使用することです。 ``form_row`` 関数は、フィールドのラベル、エラー、 HTML ウィジェットを表示します。 *全て* のフォームフィールドの並びの表示のマークアップをカスタマイズするために、 ``field_row`` フラグメントをオーバーライドします。例えばそれぞれの並びを ``div`` 要素で囲みたいとします。
+可能であれば、フォームフィールドの表示の最も簡単な方法は、 ``form_row`` 関数を使用することです。 ``form_row`` 関数は、フィールドのラベル、エラー、 HTML ウィジェットを表示します。 *全て* のフォームフィールドの並びの表示のマークアップをカスタマイズするために、 ``form_row`` フラグメントをオーバーライドします。例えばそれぞれの並びを ``div`` 要素で囲みたいとします。
 
 .. configuration-block::
 
     .. code-block:: html+jinja
 
-        {% block field_row %}
+        {# form_row.html.twig #}
+        {% block form_row %}
             <div class="form_row">
                 {{ form_label(form) }}
                 {{ form_errors(form) }}
                 {{ form_widget(form) }}
             </div>
-        {% endblock field_row %}
+        {% endblock form_row %}
 
     .. code-block:: html+php
 
-        <!-- field_row.html.php -->
+        <!-- form_row.html.php -->
 
         <div class="form_row">
             <?php echo $view['form']->label($form) ?>
@@ -684,19 +686,19 @@ PHP
 "Required" のアスタリスクをフィールドラベルに追加する
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-全ての入力必須なフィールドにアスタリスク(``*``)の印を付けるには、 ``field_label`` フラグメントをカスタマイズします。
+全ての入力必須なフィールドにアスタリスク(``*``)の印を付けるには、 ``form_label`` フラグメントをカスタマイズします。
 
 Twig を使用した際に、フォームと同じテンプレート内でフォームのカスタマイズをするには、 ``use`` タグを変更して、次のように加えてください。
 
 .. code-block:: html+jinja
 
-    {% use 'form_div_layout.html.twig' with field_label as base_field_label %}
+    {% use 'form_div_layout.html.twig' with form_label as base_form_label %}
 
     {% block field_label %}
-        {{ block('base_field_label') }}
+        {{ block('base_form_label') }}
 
         {% if required %}
-            <span class="required" title="This field is required">*</span>
+            <span class="required" title="必須項目です">*</span>
         {% endif %}
     {% endblock %}
 
@@ -706,11 +708,11 @@ Twig を使用した際に、別のテンプレート内でフォームのカス
 
     {% extends 'form_div_layout.html.twig' %}
 
-    {% block field_label %}
+    {% block form_label %}
         {{ parent() }}
 
         {% if required %}
-            <span class="required" title="This field is required">*</span>
+            <span class="required" title="必須項目です">*</span>
         {% endif %}
     {% endblock %}
 
@@ -718,14 +720,17 @@ Twig を使用した際に、別のテンプレート内でフォームのカス
 
 .. code-block:: html+php
 
-    <!-- field_label.html.php -->
+    <!-- form_label.html.php -->
 
     <!-- original content -->
-    <label for="<?php echo $view->escape($id) ?>" <?php foreach($attr as $k => $v) { printf('%s="%s" ', $view->escape($k), $view->escape($v)); } ?>><?php echo $view->escape($view['translator']->trans($label)) ?></label>
+    <?php if ($required) { $label_attr['class'] = trim((isset($label_attr['class']) ? $label_attr['class'] : '').' required'); } ?>
+    <?php if (!$compound) { $label_attr['for'] = $id; } ?>
+    <?php if (!$label) { $label = $view['form']->humanize($name); } ?>
+    <label <?php foreach ($label_attr as $k => $v) { printf('%s="%s" ', $view->escape($k), $view->escape($v)); } ?>><?php echo $view->escape($view['translator']->trans($label, array(), $translation_domain)) ?></label>
 
     <!-- customization -->
     <?php if ($required) : ?>
-        <span class="required" title="This field is required">*</span>
+        <span class="required" title="必須項目です">*</span>
     <?php endif ?>
 
 .. tip::
@@ -740,10 +745,10 @@ Twig を使用した際に、フォームと同じテンプレート内でフォ
 
 .. code-block:: html+jinja
 
-    {% use 'form_div_layout.html.twig' with field_widget as base_field_widget %}
+    {% use 'form_div_layout.html.twig' with form_widget_simple as base_form_widget_simple %}
 
-    {% block field_widget %}
-        {{ block('base_field_widget') }}
+    {% block form_widget_simple %}
+        {{ block('base_form_widget_simple') }}
 
         {% if help is defined %}
             <span class="help">{{ help }}</span>
@@ -756,7 +761,7 @@ Twig を使用した際に、別のテンプレート内でフォームのカス
 
     {% extends 'form_div_layout.html.twig' %}
 
-    {% block field_widget %}
+    {% block form_widget_simple %}
         {{ parent() }}
 
         {% if help is defined %}
@@ -768,13 +773,13 @@ Twig を使用した際に、別のテンプレート内でフォームのカス
 
 .. code-block:: html+php
 
-    <!-- field_widget.html.php -->
+    <!-- form_widget_simple.html.php -->
 
     <!-- Original content -->
     <input
-        type="<?php echo isset($type) ? $view->escape($type) : "text" ?>"
-        value="<?php echo $view->escape($value) ?>"
-        <?php echo $view['form']->renderBlock('attributes') ?>
+        type="<?php echo isset($type) ? $view->escape($type) : 'text' ?>"
+        <?php if (!empty($value)): ?>value="<?php echo $view->escape($value) ?>"<?php endif ?>
+        <?php echo $view['form']->block($form, 'widget_attributes') ?>
     />
 
     <!-- Customization -->
