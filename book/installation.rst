@@ -4,7 +4,7 @@
 .. note::
 
     * 対象バージョン：2.2 (2.1以降)
-    * 翻訳更新日：2013/3/16
+    * 翻訳更新日：2013/4/9
 
 Symfony のインストールと設定
 ============================
@@ -51,15 +51,16 @@ Composer は実行可能な PHAR ファイルです。Composer を使って次�
 
 .. code-block:: bash
 
-    $ php composer.phar create-project symfony/framework-standard-edition /path/to/webroot/Symfony dev-master
+    $ php composer.phar create-project symfony/framework-standard-edition /path/to/webroot/Symfony 2.2.0
+    # ★最後のバージョンの部分を最新安定版の数字に置き換えてください
 
 .. tip::
 
-    ダウンロードするバージョンを明示的に指定するには、\ `dev-master` の部分を最新の Symfony のバージョン(2.1.1 など)に置き換えてください。詳細は\ `Symfony のダウンロードページ`_ 参照してください。
+    ダウンロードするバージョンを明示的に指定するには、\ `2.2.0` の部分を最新の Symfony のバージョン(2.2.1 など)に置き換えてください。詳細は\ `Symfony のダウンロードページ`_ 参照してください。
 
 .. tip::
 
-    Tests などの不要なディレクトリを除外してベンダーファイル群のダウンロード時間を短縮するには、Composer コマンドの末尾に ``--prefer-dist`` オプションを追加してください。
+    ベンダーファイル群のダウンロード時間を短縮するには、Composer コマンドの末尾に ``--prefer-dist`` オプションを追加してください。
 
 このコマンドにより、Standard ディストリビューションと必要なすべてのベンダーライブラリが Composer によりダウンロードされるので、完了までしばらく時間がかかります。コマンドが完了すると、次のようなディレクトリ構造ができています:
 
@@ -95,10 +96,10 @@ UNIX のコマンドラインであれば、以下のコマンドのどちらか
 .. code-block:: bash
 
     # .tgz ファイル用
-    $ tar zxvf Symfony_Standard_Vendors_2.1.###.tgz
+    $ tar zxvf Symfony_Standard_Vendors_2.2.###.tgz
 
     # .zip ファイル用
-    $ unzip Symfony_Standard_Vendors_2.1.###.zip
+    $ unzip Symfony_Standard_Vendors_2.2.###.zip
 
 "without vendors" のアーカイブをダウンロードした場合は、次に説明するベンダーの更新も行なってください。
 
@@ -149,7 +150,7 @@ Symfony プロジェクトのダウンロード方法に応じて、ここでベ
 
     ``php composer.phar install`` コマンド、または ``php composer.phar update`` コマンドを実行すると、Composer によりインストール後(post install)コマンド、または更新後(post update)コマンドが実行されます。これらのコマンドによりキャッシュのクリアやアセットのインストールが行われます。
     デフォルトで、アセットは ``web`` ディレクトリへコピーされます。
-    アセットのコピーではなくシンボリックリンクを作成したい場合は、次のように composer.json ファイルの ``extra`` ノードにキーが ``symfony-asseets-install``\ 、値が ``symlink`` のノードを追加してください:
+    お使いのOSがシンボリックリンクをサポートしている場合、アセットのコピーではなくシンボリックリンクを作成するようにできます。次のように composer.json ファイルの ``extra`` ノードにキーが ``symfony-asseets-install``\ 、値が ``symlink`` のノードを追加してください:
 
     .. code-block:: text
 
@@ -309,3 +310,4 @@ Git を使ったプロジェクトのセットアップ手順の詳細は、\ :d
 .. 2011/07/23 uechoco 9de84d1fcc3fb0f641efa5b36973ab95cddf5faa
 .. 2011/08/14 hidenorigoto b21a16f5196fae0d0f1f0a20d69777ea0e685911
 .. 2013/03/16 hidenorigoto 5246f51f550db504e76c98b641e3337570e84dd4
+.. 2013/04/09 hidenorigoto f2b48c770ee270c9bc4caed86345cefd7eb4f004
