@@ -3,8 +3,8 @@
 
 .. note::
 
-    * 対象バージョン：2.2 (2.1以降)
-    * 翻訳更新日：2013/4/9
+    * 対象バージョン：2.3 (2.1以降)
+    * 翻訳更新日：2013/6/4
 
 Symfony のインストールと設定
 ============================
@@ -51,12 +51,12 @@ Composer は実行可能な PHAR ファイルです。Composer を使って次�
 
 .. code-block:: bash
 
-    $ php composer.phar create-project symfony/framework-standard-edition /path/to/webroot/Symfony 2.2.0
+    $ php composer.phar create-project symfony/framework-standard-edition /path/to/webroot/Symfony 2.3.0
     # ★最後のバージョンの部分を最新安定版の数字に置き換えてください
 
 .. tip::
 
-    ダウンロードするバージョンを明示的に指定するには、\ `2.2.0` の部分を最新の Symfony のバージョン(2.2.1 など)に置き換えてください。詳細は\ `Symfony のダウンロードページ`_ 参照してください。
+    ダウンロードするバージョンを明示的に指定するには、\ `2.3.0` の部分を最新の Symfony のバージョンに置き換えてください。詳細は\ `Symfony のダウンロードページ`_ 参照してください。
 
 .. tip::
 
@@ -66,7 +66,7 @@ Composer は実行可能な PHAR ファイルです。Composer を使って次�
 
 .. code-block:: text
 
-    path/to/webroot/ <- web ルートディレクトリ
+    path/to/webroot/ <- Web サーバーディレクトリ（htdocs や public といったディレクトリ名）
         Symfony/ <- 作成されたディレクトリ
             app/
                 cache/
@@ -96,10 +96,10 @@ UNIX のコマンドラインであれば、以下のコマンドのどちらか
 .. code-block:: bash
 
     # .tgz ファイル用
-    $ tar zxvf Symfony_Standard_Vendors_2.2.###.tgz
+    $ tar zxvf Symfony_Standard_Vendors_2.3.###.tgz
 
     # .zip ファイル用
-    $ unzip Symfony_Standard_Vendors_2.2.###.zip
+    $ unzip Symfony_Standard_Vendors_2.3.###.zip
 
 "without vendors" のアーカイブをダウンロードした場合は、次に説明するベンダーの更新も行なってください。
 
@@ -107,6 +107,16 @@ UNIX のコマンドラインであれば、以下のコマンドのどちらか
 
     デフォルトのディレクトリ構造を変更することもできます。
     詳細は :doc:`/cookbook/configuration/override_dir_structure` を参照してください。
+
+すべての公開ファイル、および Symfony2 アプリケーションですべてのリクエストを受け取るフロントコントローラーは、\ ``Symfony/web/`` ディレクトリにあります。
+Web サーバー自身のドキュメントルート、もしくはバーチャルホストのドキュメントルートに Symfony のファイル群を展開した場合、アプリケーションの URL は ``http://localhost/Symfony/web/`` から始まります。
+``Symfony/web`` の部分を URL に現れないようにするには、Web サーバーまたはバーチャルホストのドキュメントルートを ``Symfony/web/`` ディレクトリに設定してください。
+この設定は開発時には必須ではありませんが、運用環境では必ず設定してください。この設定は、システムファイルやコンフィギュレーションファイルが閲覧されることを防ぐ意味もあります。
+Web サーバーごとのドキュメントルートの設定方法については、\ `Apache`_ 、\ `Nginx`_ それぞれのドキュメントを参照してください。
+
+.. note::
+
+    以降の例では、ドキュメントルートの設定を変更しておらず、アプリケーションの URL が ``http://localhost/Symfony/web/`` から始まることを前提としています。設定を変更している場合は適宜読み替えてください。
 
 .. _installation-updating-vendors:
 
@@ -173,7 +183,7 @@ Symfony2 には、Web ブラウザからアクセスできる設定テスター�
 
 .. code-block:: text
 
-    http://localhost/config.php
+    http://localhost/Symfony/web/config.php
 
 設定テスターで問題が表示された場合は、この段階で修正しておくことをおすすめします。
 
@@ -247,7 +257,7 @@ Symfony2 には、Web ブラウザからアクセスできる設定テスター�
 
 .. code-block:: text
 
-    http://localhost/app_dev.php/
+    http://localhost/Symfony/web/app_dev.php/
 
 Symfony2 のウェルカム画面が表示されます。
 
@@ -257,7 +267,7 @@ Symfony2 のウェルカム画面が表示されます。
     
     アプリケーションで短いきれいな URL を使うには、Web サーバーまたはバーチャルホストのドキュメントルートを ``Symfony/web/`` ディレクトリに設定してください。
     この設定は開発段階では必須ではありませんが、運用環境ではシステムのソースコードや設定ファイルへ Web 経由でアクセスすることを防ぐ意味でも、この設定を行なっておくことをおすすめします。
-    Web サーバーのドキュメントルートを設定する方法については、各 Web サーバーのドキュメントを参照してください。 `Apache`_ | `Nginx`_
+    Web サーバーのドキュメントルートを設定する方法については、\ :doc:`/cookbook/configuration/web_server_configuration` または各 Web サーバーのドキュメントを参照してください。 `Apache`_ | `Nginx`_
 
 開発を始める
 ------------
@@ -311,3 +321,4 @@ Git を使ったプロジェクトのセットアップ手順の詳細は、\ :d
 .. 2011/08/14 hidenorigoto b21a16f5196fae0d0f1f0a20d69777ea0e685911
 .. 2013/03/16 hidenorigoto 5246f51f550db504e76c98b641e3337570e84dd4
 .. 2013/04/09 hidenorigoto f2b48c770ee270c9bc4caed86345cefd7eb4f004
+.. 2013/06/04 hidenorigoto 2d7b3db645e7c997a3842cfc3db24d0c937a7100
