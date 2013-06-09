@@ -1,6 +1,11 @@
 バリデータリファレンス
 ======================
 
+.. note::
+
+    * 対象バージョン：2.3
+    * 翻訳更新日：2013/6/7
+
 .. toctree::
    :maxdepth: 1
    :hidden:
@@ -14,14 +19,21 @@
    constraints/Type
 
    constraints/Email
-   constraints/MinLength
-   constraints/MaxLength
+   constraints/Length
    constraints/Url
    constraints/Regex
    constraints/Ip
 
-   constraints/Max
-   constraints/Min
+   constraints/Range
+
+   constraints/EqualTo
+   constraints/NotEqualTo
+   constraints/IdenticalTo
+   constraints/NotIdenticalTo
+   constraints/LessThan
+   constraints/LessThanOrEqual
+   constraints/GreaterThan
+   constraints/GreaterThanOrEqual
 
    constraints/Date
    constraints/DateTime
@@ -29,6 +41,7 @@
 
    constraints/Choice
    constraints/Collection
+   constraints/Count
    constraints/UniqueEntity
    constraints/Language
    constraints/Locale
@@ -36,6 +49,12 @@
 
    constraints/File
    constraints/Image
+
+   constraints/CardScheme
+   constraints/Luhn
+   constraints/Iban
+   constraints/Isbn
+   constraints/Issn
 
    constraints/Callback
    constraints/All
@@ -55,4 +74,4 @@ Symfony2 では、次の制約が組み込みで利用できます。
 .. include:: /reference/constraints/map.rst.inc
 
 .. 2012/01/27 hidenorigoto f0b25f76d6e4637c1de5e5abdbab3d3bd0ee3c15
-
+.. 2013/06/07 hidenorigoto 8a026ead1cf356ce9ac057962ddbbd798891f319

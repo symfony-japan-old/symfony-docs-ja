@@ -1,12 +1,15 @@
-.. 2011/12/03 yanchi dfe0182eac4f39cea0fcacfe20ba5f26a8bd5fc7
-
 DateTime
 ========
 
-値が有効な"datetime"であることを検証します、``DateTime`` オブジェクトまたは文字列（または文字列にキャストできるオブジェクト）それは有効なYYYY-MM-DD HH:MM:SSフォーマットに続くいずれかであることを意味します。
+.. note::
+
+    * 対象バージョン：2.3
+    * 翻訳更新日：2013/6/7
+
+値が有効な日時であることを検証します。つまり、\ ``DateTime`` オブジェクトであるか、有効なYYYY-MM-DD HH:MM:SSフォーマットに従う文字列または文字列にキャスト可能なオブジェクトであることを検証します。
 
 +----------------+------------------------------------------------------------------------+
-| 適用先         | :ref:`property or method<validation-property-target>`                  |
+| 適用先         | :ref:`プロパティまたはメソッド<validation-property-target>`            |
 +----------------+------------------------------------------------------------------------+
 | オプション     | - `message`_                                                           |
 +----------------+------------------------------------------------------------------------+
@@ -22,8 +25,8 @@ DateTime
 
     .. code-block:: yaml
 
-        # src/Acme/EventBundle/Resources/config/validation.yml
-        Acme\BlobBundle\Entity\Author:
+        # src/Acme/BlogBundle/Resources/config/validation.yml
+        Acme\BlogBundle\Entity\Author:
             properties:
                 createdAt:
                     - DateTime: ~
@@ -32,7 +35,7 @@ DateTime
 
         // src/Acme/BlogBundle/Entity/Author.php
         namespace Acme\BlogBundle\Entity;
-        
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -43,12 +46,40 @@ DateTime
              protected $createdAt;
         }
 
+    .. code-block:: xml
+
+        <!-- src/Acme/UserBundle/Resources/config/validation.xml -->
+        <class name="Acme\BlogBundle\Entity\Author">
+            <property name="createdAt">
+                <constraint name="DateTime" />
+            </property>
+        </class>
+
+    .. code-block:: php
+
+        // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Author
+        {
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('createdAt', new Assert\DateTime());
+            }
+        }
+
 オプション
 ----------
 
-メッセージ
-~~~~~~~~~~
+message
+~~~~~~~
 
-**タイプ**: ``string`` **デフォルト**: ``This value is not a valid datetime``
+**型**: ``string`` **デフォルト**: ``This value is not a valid datetime``
 
-基になるデータが有効なdatetimeでない場合、このメッセージが表示されます。
+基になるデータが有効な日時でない場合、このメッセージが表示されます。
+
+.. 2011/12/03 yanchi dfe0182eac4f39cea0fcacfe20ba5f26a8bd5fc7
+.. 2013/06/07 hidenorigoto 7d7696ec3bb76cebdd1fc4605f974636633477a9

@@ -1,49 +1,50 @@
-NotNull
-=======
+Null
+====
 
 .. note::
 
     * 対象バージョン：2.3
     * 翻訳更新日：2013/6/9
 
-検証対象の値が厳密に ``null`` ではないことを検証します。単純に空 (空文字列または ``null``) ではないことを検証するには :doc:`/reference/constraints/NotBlank` 制約を使います。
+検証対象の値が厳密に ``null`` であることを検証します。単純に空 (空文字列または ``null``) であることを検証するには :doc:`/reference/constraints/Blank`
+制約を使います。プロパティが null ではないことを検証するには :doc:`/reference/constraints/NotNull` 制約を使います。
 
 +----------------+-----------------------------------------------------------------------+
 | 適用先         | :ref:`プロパティまたはメソッド<validation-property-target>`           |
 +----------------+-----------------------------------------------------------------------+
 | オプション     | - `message`_                                                          |
 +----------------+-----------------------------------------------------------------------+
-| クラス         | :class:`Symfony\\Component\\Validator\\Constraints\\NotNull`          |
+| クラス         | :class:`Symfony\\Component\\Validator\\Constraints\\Null`             |
 +----------------+-----------------------------------------------------------------------+
-| バリデーター   | :class:`Symfony\\Component\\Validator\\Constraints\\NotNullValidator` |
+| バリデーター   | :class:`Symfony\\Component\\Validator\\Constraints\\NullValidator`    |
 +----------------+-----------------------------------------------------------------------+
 
 基本的な使い方
 --------------
 
-``Author`` クラスの ``firstName`` プロパティの値が厳密に ``null`` ではないことを保証するには、次のようにします。
+``Author`` クラスの ``firstName`` プロパティが厳密に ``null`` であることを保証するには、次のようにします。
 
 .. configuration-block::
 
     .. code-block:: yaml
 
-        # src/BlogBundle/Resources/config/validation.yml
+        # src/Acme/BlogBundle/Resources/config/validation.yml
         Acme\BlogBundle\Entity\Author:
             properties:
                 firstName:
-                    - NotNull: ~
+                    - 'Null': ~
 
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
         namespace Acme\BlogBundle\Entity;
-
+        
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
         {
             /**
-             * @Assert\NotNull()
+             * @Assert\Null()
              */
             protected $firstName;
         }
@@ -53,7 +54,7 @@ NotNull
         <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
         <class name="Acme\BlogBundle\Entity\Author">
             <property name="firstName">
-                <constraint name="NotNull" />
+                <constraint name="Null" />
             </property>
         </class>
 
@@ -61,7 +62,7 @@ NotNull
 
         // src/Acme/BlogBundle/Entity/Author.php
         namespace Acme\BlogBundle\Entity;
-
+        
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints as Assert;
 
@@ -69,7 +70,7 @@ NotNull
         {
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
-                $metadata->addPropertyConstraint('firstName', new Assert\NotNull());
+                $metadata->addPropertyConstraint('firstName', Assert\Null());
             }
         }
 
@@ -79,8 +80,9 @@ NotNull
 message
 ~~~~~~~
 
-**型**: ``string`` **デフォルト**: ``This value should not be null``
+**型**: ``string`` **デフォルト**: ``This value should be null``
 
-検証対象の値が ``null`` だった場合に、このメッセージが表示されます。
+検証対象の値が ``null`` ではなかった場合に、このメッセージが表示されます。
 
-.. 2013/06/09 hidenorigoto 9cabf0df7098a47e28515000b90f9c7446c17d6e
+.. 2013/06/09 hidenorigoto 72a6d59266859764764ef148d4acd44087b86dfa
+

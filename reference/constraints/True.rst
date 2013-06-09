@@ -1,6 +1,11 @@
 True
 ====
 
+.. note::
+
+    * 対象バージョン：2.3
+    * 翻訳更新日：2013/6/7
+
 値が ``true`` であることを検証します。
 つまり、値が厳密に ``true``\ 、または整数値の ``1``\ 、または文字列の "``1``" であるかどうかをチェックします。
 
@@ -38,7 +43,7 @@ True
         }
     }
 
-isTokenValid() メソッドの戻り値が ``True`` であることを強制するには、次のように設定します。
+isTokenValid() メソッドの戻り値が ``True`` であることを保証するには、次のように設定します。
 
 .. configuration-block::
 
@@ -48,11 +53,13 @@ isTokenValid() メソッドの戻り値が ``True`` であることを強制す�
         Acme\BlogBundle\Entity\Author:
             getters:
                 tokenValid:
-                    - "True": { message: "The token is invalid" }
+                    - "True": { message: "The token is invalid." }
 
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -70,25 +77,20 @@ isTokenValid() メソッドの戻り値が ``True`` であることを強制す�
 
     .. code-block:: xml
 
-        <?xml version="1.0" encoding="UTF-8" ?>
         <!-- src/Acme/Blogbundle/Resources/config/validation.xml -->
-
-        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
-
-            <class name="Acme\BlogBundle\Entity\Author">
-                <getter property="tokenValid">
-                    <constraint name="True">
-                        <option name="message">The token is invalid...</option>
-                    </constraint>
-                </getter>
-            </class>
-        </constraint-mapping>
+        <class name="Acme\BlogBundle\Entity\Author">
+            <getter property="tokenValid">
+                <constraint name="True">
+                    <option name="message">The token is invalid.</option>
+                </constraint>
+            </getter>
+        </class>
 
     .. code-block:: php
 
         // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\True;
         
@@ -99,7 +101,7 @@ isTokenValid() メソッドの戻り値が ``True`` であることを強制す�
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
                 $metadata->addGetterConstraint('tokenValid', new True(array(
-                    'message' => 'The token is invalid',
+                    'message' => 'The token is invalid.',
                 )));
             }
 
@@ -122,4 +124,4 @@ message
 検証するデータが true ではなかった場合にこのメッセージが表示されます。
 
 .. 2012/01/31 hidenorigoto 3097cd214cf6a4a8090004e946dcc85202821710
-
+.. 2013/06/09 hidenorigoto b7b28c17c446ab8808eaaf48b3c14e4db97fad65
