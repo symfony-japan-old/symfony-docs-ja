@@ -15,14 +15,14 @@ Twig拡張には、タグ、フィルタ、テスト、演算子、グローバ�
 
 .. tip::
 
-    自作のTwig拡張を書く前に、 `Twigの公式拡張レポジトリ`_ も見てみてください。
+    自作のTwig拡張を書く前に、\ `Twigの公式拡張レポジトリ`_\ も見てみてください。
 
 Twig拡張クラスの作成
 --------------------------
 
 .. note::
 
-    このクックブックでは、Twig1.12以降を対象としてカスタムTwig拡張の書き方を説明しています。もっと古いバージョンのTwigを使用している場合は `Twig extensions documentation legacy`_ を参照してください。
+    このクックブックでは、Twig 1.12以降を対象としてカスタムTwig拡張の書き方を説明しています。もっと古いバージョンのTwigを使用している場合は `Twig extensions documentation legacy`_ を参照してください。
 
 カスタムの機能を使うためには、まずTwig拡張のクラスを作成する必要があります。
 一例として、数値を価格としてフォーマットするための価格フィルタを作るとします。
@@ -56,7 +56,7 @@ Twig拡張クラスの作成
 
 .. tip::
 
-    フィルタだけでなく、カスタムの `関数`_ を作ったり、`グローバル変数`_ を登録したりすることもできます。
+    フィルタだけでなく、カスタムの\ `関数`_\ を作ったり、\ `グローバル変数`_\ を登録したりすることもできます。
 
 Twig拡張をサービスとして登録
 ----------------------------------
@@ -95,11 +95,11 @@ Twig拡張をサービスとして登録
 .. note::
 
    Twig拡張は遅延ロードされないので、注意してください。
-   これは、もしrequestサービスに依存していた場合に、**CircularReferenceException** や **ScopeWideningInjectionException** がかなりの確率で発生するということを意味します。
+   これは、もしrequestサービスに依存していた場合に、\ **CircularReferenceException** や **ScopeWideningInjectionException** がかなりの確率で発生するということを意味します。
    より詳細に知りたければ :doc:`/cookbook/service_container/scopes` を読んでください。
 
 カスタムTwig拡張を使う
---------------------------
+----------------------
 
 新しく作成したカスタムTwig拡張の機能は、通常の機能とまったく変わりなく使用できます。
 
@@ -118,7 +118,7 @@ Twig拡張をサービスとして登録
 もっと詳しく学ぶ
 ----------------
 
-Twig拡張についてもっと詳しく知りたい場合は、 `Twig extensions documentation`_ を読んでください。
+Twig拡張についてもっと詳しく知りたい場合は、\ `Twig extensions documentation`_ を読んでください。
 
 .. _`Twigの公式拡張レポジトリ`: https://github.com/fabpot/Twig-extensions
 .. _`Twig extensions documentation`: http://twig.sensiolabs.org/doc/advanced.html#creating-an-extension
