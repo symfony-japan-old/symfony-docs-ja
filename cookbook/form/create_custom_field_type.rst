@@ -9,25 +9,25 @@ Symfony には、フォーム作成に関するたくさんのコアフィール
 フィールドタイプの定義
 -----------------------
 
-カスタムフィールドタイプを作成するには、まずそのフィールドを表すクラスを作成する必要があります。今回は、そのフィールドタイプを保持するクラスを ``GenderType`` とします。そして、そのファイルはフォームフィールドのデフォルトの位置である ``<BundleName>\Form\Type`` に格納されるとします。フィールドが ``AbstractType`` を拡張するのを忘れないでください。
+カスタムフィールドタイプを作成するには、まずそのフィールドを表すクラスを作成する必要があります。今回は、そのフィールドタイプを保持するクラスを ``GenderType`` とします。そして、そのファイルはフォームフィールドのデフォルトの位置である ``<BundleName>\Form\Type`` に格納されるとします。フィールドに :class:`Symfony\\Component\\Form\\AbstractType` を拡張させるのを忘れないでください。
 ::
 
     # src/Acme/DemoBundle/Form/Type/GenderType.php
     namespace Acme\DemoBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType;
-    use Symfony\Component\Form\FormBuilder;
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
     class GenderType extends AbstractType
     {
-        public function getDefaultOptions(array $options)
+        public function setDefaultOptions(OptionsResolverInterface $resolver)
         {
-            return array(
+            $resolver->setDefaults(array(
                 'choices' => array(
                     'm' => 'Male',
                     'f' => 'Female',
                 )
-            );
+            ));
         }
 
         public function getParent(array $options)
@@ -45,115 +45,134 @@ Symfony には、フォーム作成に関するたくさんのコアフィール
 
     このファイルの配置場所は、重要ではありません。 ``Form\Type`` ディレクトリは習慣です。
 
-Here, the return value of the ``getParent`` function indicates that we're
-extending the ``choice`` field type. This means that, by default, we inherit
-all of the logic and rendering of that field type. To see some of the logic,
-check out the `ChoiceType`_ class. There are three methods that are particularly
-important:
+``getParent`` メソッドの返す値は ``choice`` を拡張していることを示しています。
+つまり、デフォルトではchoiceフィールドタイプのロジックとレンダリングを継承するという意味です。ロジックを見るには `ChoiceType`_ クラスを見てみてください。特に重要なのは次の3つのメソッドです。
 
-* ``buildForm()`` - Each field type has a ``buildForm`` method, which is where
-  you configure and build any field(s). Notice that this is the same method
-  you use to setup *your* forms, and it works the same here.
+* ``buildForm()`` - 全てのフィールドタイプに ``buildForm`` メソッドがありますが、ここでフィールドを設定したり構築したりすることができます。自作のフォームを作るときと同じメソッドで、同じように動作します。
 
-* ``buildView()`` - This method is used to set any extra variables you'll
-  need when rendering your field in a template. For example, in ``ChoiceType``,
-  a ``multiple`` variable is set and used in the template to set (or not
-  set) the ``multiple`` attribute on the ``select`` field. See `Creating a Template for the Field`_
-  for more details.
+* ``buildView()`` - このメソッドはフィールドをテンプレートにレンダリングする際に、追加の変数をセットするのに使います。例えば、 `ChoiceType`_ では ``multiple`` という変数がテンプレートで ``select`` 要素に ``multiple`` 属性を追加するかどうかを判断するのに使います。詳しくは `Creating a Template for the Field`_ を見てください。
 
-* ``getDefaultOptions()`` - This defines options for your form type that
-  can be used in ``buildForm()`` and ``buildView()``. There are a lot of
-  options common to all fields (see `FieldType`_), but you can create any
-  others that you need here.
+* ``getDefaultOptions()`` - このメソッドは、フィールドタイプの ``buildForm()`` や ``buildView()`` で使うことができるオプションを定義します。全てのフィールドタイプに共通のオプションもたくさんありますが( `FieldType`_ を見てください)、必要なら新しいオプションをここで追加することができます。
 
 .. tip::
 
-    If you're creating a field that consists of many fields, then be sure
-    to set your "parent" type as ``form`` or something that extends ``form``.
-    Also, if you need to modify the "view" of any of your child types from
-    your parent type, use the ``buildViewBottomUp()`` method.
+    たくさんのフィールドを使ったフィールドを作ろうとしている場合は、"親"のタイプを ``form`` 又は ``form`` を拡張した何かにしてください。
+    また、親のフィールドタイプから子のフィールドタイプのビューを制御したい場合は、 ``finishView()`` メソッドを使ってください。
 
-The ``getName()`` method returns an identifier which is used to prevent conflicts
-with other types. Other than needing to be unique, this method isn't very
-important.
+``getName()`` メソッドは、アプリケーションの中で一意な識別子を返します。この識別子はフィールドタイプのレンダリングをカスタマイズする場合など、多くの場所で使います。
 
-The goal of our field was to extend the choice type to enable selection of
-a gender. This is achieved by fixing the ``choices`` to a list of possible
-genders.
+いま作っているフィールドのゴールは、性別の選択ができるようにchoiceフィールドタイプを拡張することです。
+``choices`` を選択可能な性別のリストに固定することで実現できます。
 
 フィールドのテンプレートの作成
 ---------------------------------
 
-Each field type is rendered by a template fragment, which is determined in
-part by the value of your ``getName()`` method. For more information, see
-:ref:`cookbook-form-customization-form-themes`.
+全てのフィールドタイプは、テンプレートフラグメントを使ってレンダリングされ、 ``getName()`` を使って識別されます。
+詳しくは :ref:`cookbook-form-customization-form-themes` を読んでください。
 
-In this case, since our parent field is ``choice``, we don't *need* to do
-any work as our custom field type will automatically be rendered like a ``choice``
-type. But for the sake of this example, let's suppose that when our field
-is "expanded" (i.e. radio buttons or checkboxes, instead of a select field),
-we want to always render it in a ``ul`` element. In your form theme template
-(see above link for details), create a ``gender_widget`` block to handle this:
+今回は、親フィールドが ``choice`` なので、カスタムフィールドタイプは自動的に ``choice`` と同じようにレンダリングされ、カスタマイズする必要はありません。
+しかし、例として使うために、フィールドが"expanded"の場合(selectでなくradioやcheckboxを使う場合)に、 ``ul` 要素を使ってレンダリングしたいと考えてみましょう。
+フォームテーマのテンプレート(詳細は上のリンクを見てください)に、 ``gender_widget`` ブロックを作ってください。
 
-.. code-block:: html+jinja
+.. configuration-block::
 
-    {# src/Acme/DemoBundle/Resources/Form/fields.html.twig #}
-    {% use 'form_div_layout.html.twig' with choice_widget %}
+    .. code-block:: html+jinja
 
-    {% block gender_widget %}
-    {% spaceless %}
-        {% if expanded %}
-            <ul {{ block('widget_container_attributes') }}>
-            {% for child in form %}
+        {# src/Acme/DemoBundle/Resources/views/Form/fields.html.twig #}
+        {% block gender_widget %}
+            {% spaceless %}
+                {% if expanded %}
+                    <ul {{ block('widget_container_attributes') }}>
+                    {% for child in form %}
+                        <li>
+                            {{ form_widget(child) }}
+                            {{ form_label(child) }}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                {% else %}
+                    {# choice widgetにそのままselectタグを出力させる #}
+                    {{ block('choice_widget') }}
+                {% endif %}
+            {% endspaceless %}
+        {% endblock %}
+
+    .. code-block:: html+php
+
+        <!-- src/Acme/DemoBundle/Resources/views/Form/gender_widget.html.twig -->
+        <?php if ($expanded) : ?>
+            <ul <?php $view['form']->block($form, 'widget_container_attributes') ?>>
+            <?php foreach ($form as $child) : ?>
                 <li>
-                    {{ form_widget(child) }}
-                    {{ form_label(child) }}
+                    <?php echo $view['form']->widget($child) ?>
+                    <?php echo $view['form']->label($child) ?>
                 </li>
-            {% endfor %}
+            <?php endforeach ?>
             </ul>
-        {% else %}
-            {# just let the choice widget render the select tag #}
-            {{ block('choice_widget') }}
-        {% endif %}
-    {% endspaceless %}
-    {% endblock %}
+        <?php else : ?>
+            <!-- choice widgetにそのままselectタグを出力させる -->
+            <?php echo $view['form']->renderBlock('choice_widget') ?>
+        <?php endif ?>
 
 .. note::
 
-    正しいウィジェット接頭辞が使われていることを確認してください。今回の例では、名前は、 ``getName`` によって返される値の ``gender_widget`` であるべきです。さらに、メインのコンフィギュレーションファイルは、カスタムフォームタイプを指定して、全てのフォームえ表示できるようにするべきです。
+    正しいウィジェット接頭辞が使われていることを確認してください。今回の例では、名前は、 ``getName`` が返す値によれば、 ``gender_widget`` であるべきです。さらに、メインのコンフィギュレーションファイルにおいてカスタムフォームテンプレートを設定して、全てのフォームで使用できるようにしておかなければなりません。
 
-    .. code-block:: yaml
+    .. configuration-block::
 
-        # app/config/config.yml
+        .. code-block:: yaml
 
-        twig:
-            form:
-                resources:
-                    - 'AcmeDemoBundle:Form:fields.html.twig'
+            # app/config/config.yml
+            twig:
+                form:
+                    resources:
+                        - 'AcmeDemoBundle:Form:fields.html.twig'
+
+        .. code-block:: xml
+
+            <!-- app/config/config.xml -->
+            <twig:config>
+                <twig:form>
+                    <twig:resource>AcmeDemoBundle:Form:fields.html.twig</twig:resource>
+                </twig:form>
+            </twig:config>
+
+        .. code-block:: php
+
+            // app/config/config.php
+            $container->loadFromExtension('twig', array(
+                'form' => array(
+                    'resources' => array(
+                        'AcmeDemoBundle:Form:fields.html.twig',
+                    ),
+                ),
+            ));
 
 フィールドタイプの使用
 ----------------------
 
-これでフォームでカスタムフィールドタイプのインスタンスを作成すれば、すぐに使用できるようになりました。
+ここまでで、フォーム内でカスタムフィールドタイプのインスタンスを作成すれば、すぐにカスタムフィールドタイプを使用できるようになりました。
 ::
 
     // src/Acme/DemoBundle/Form/Type/AuthorType.php
     namespace Acme\DemoBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType;
-    use Symfony\Component\Form\FormBuilder;
-    
+    use Symfony\Component\Form\FormBuilderInterface;
+
     class AuthorType extends AbstractType
     {
-        public function buildForm(FormBuilder $builder, array $options)
+        public function buildForm(FormBuilderInterface $builder, array $options)
         {
             $builder->add('gender_code', new GenderType(), array(
-                'empty_value' => 'Choose a gender',
+                'empty_value' => '性別を選んでください',
             ));
         }
     }
 
-``GenderType()`` がとてもシンプルなのでこれで動作します。しかし、 gender コードがコンフィギュレーションやデータベースに格納されていたらどうでしょうか？次のセクションでは、複雑なフィールドタイプでどうやってこの問題を解決するのか説明します。
+``GenderType()`` はとてもシンプルなのでこれで動作します。しかし、 gender コードが設定ファイルやデータベースに格納されていたらどうでしょうか？次のセクションでは、複雑なフィールドタイプでどうやってこの問題を解決するのか説明します。
+
+.. _form-cookbook-form-field-service:
 
 フィールドタイプをサービスとして作成
 -------------------------------------
@@ -164,32 +183,10 @@ we want to always render it in a ``ul`` element. In your form theme template
 .. configuration-block::
 
     .. code-block:: yaml
-    
-        # app/config/config.yml
-        parameters:
-            genders:
-                m: Male
-                f: Female
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <parameters>
-            <parameter key="genders" type="collection">
-                <parameter key="m">Male</parameter>
-                <parameter key="f">Female</parameter>
-            </parameter>
-        </parameters>
-
-パラメータとして使用するに、カスタムフィールドタイプをサービスとして定義しましょう。 ``genders`` パラメータ値を ``__construct`` コンストラクタの第一引数として注入します。
-
-.. configuration-block::
-
-    .. code-block:: yaml
 
         # src/Acme/DemoBundle/Resources/config/services.yml
         services:
-            form.type.gender:
+            acme_demo.form.type.gender:
                 class: Acme\DemoBundle\Form\Type\GenderType
                 arguments:
                     - "%genders%"
@@ -199,51 +196,73 @@ we want to always render it in a ``ul`` element. In your form theme template
     .. code-block:: xml
 
         <!-- src/Acme/DemoBundle/Resources/config/services.xml -->
-        <service id="form.type.gender" class="Acme\DemoBundle\Form\Type\GenderType">
+        <service id="acme_demo.form.type.gender" class="Acme\DemoBundle\Form\Type\GenderType">
             <argument>%genders%</argument>
             <tag name="form.type" alias="gender" />
         </service>
 
+    .. code-block:: php
+
+        // src/Acme/DemoBundle/Resources/config/services.php
+        use Symfony\Component\DependencyInjection\Definition;
+
+        $container
+            ->setDefinition('acme_demo.form.type.gender', new Definition(
+                'Acme\DemoBundle\Form\Type\GenderType',
+                array('%genders%')
+            ))
+            ->addTag('form.type', array(
+                'alias' => 'gender',
+            ))
+        ;
+
 .. tip::
 
-    サービスファイルがインポートされるのを確認してください。詳細は、 :ref:`service-container-imports-directive` を参照してください。
+    サービス設定ファイルがインポートされるのを確認してください。詳細は、 :ref:`service-container-imports-directive` を参照してください。
 
-``alias`` タグが、以前定義した ``getName`` メソッドの返り値と一致しているのを確認してください。カスタムフィールドタイプを使用する際に、このことが重要であるということがわかります。まず、 ``__construct`` の引数に、gender のコンフィギュレーションを受け取ることになる ``GenderType`` を追加してください。
+``alias`` タグが、以前定義した ``getName`` メソッドの返り値と一致しているのを確認してください。カスタムフィールドタイプを使用する際に、このことが重要であるということがわかります。まず最初に、gender の設定を引数として受け取ることになる ``__construct`` を``GenderType`` に追加してください。
 ::
 
-    # src/Acme/DemoBundle/Form/Type/GenderType.php
+    // src/Acme/DemoBundle/Form/Type/GenderType.php
     namespace Acme\DemoBundle\Form\Type;
+
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
     // ...
 
+    // ...
     class GenderType extends AbstractType
     {
         private $genderChoices;
-        
+
         public function __construct(array $genderChoices)
         {
             $this->genderChoices = $genderChoices;
         }
-    
-        public function getDefaultOptions(array $options)
+
+        public function setDefaultOptions(OptionsResolverInterface $resolver)
         {
-            return array(
-                'choices' => $this->genderChoices;
-            );
+            $resolver->setDefaults(array(
+                'choices' => $this->genderChoices,
+            ));
         }
-        
+
         // ...
     }
 
-できました！これで ``GenderType`` はコンフィギュレーションパラメータによって動くようになり、サービスとして登録されます。コンフィギュレーションで ``form.type`` エイリアスを使用したのでフィールドの使用がとても簡単になりました。
+できました！これで ``GenderType`` はコンフィギュレーションパラメータによって動くようになり、サービスとして登録されました。更に、コンフィギュレーションで ``form.type`` エイリアスを使用したのでフィールドを使うのがより簡単になりました。
 ::
 
     // src/Acme/DemoBundle/Form/Type/AuthorType.php
     namespace Acme\DemoBundle\Form\Type;
+
+    use Symfony\Component\Form\FormBuilderInterface;
+
     // ...
 
     class AuthorType extends AbstractType
     {
-        public function buildForm(FormBuilder $builder, array $options)
+        public function buildForm(FormBuilderInterface $builder, array $options)
         {
             $builder->add('gender_code', 'gender', array(
                 'empty_value' => 'Choose a gender',
@@ -251,10 +270,10 @@ we want to always render it in a ``ul`` element. In your form theme template
         }
     }
 
-このように、新しいインスタンスを初期化するのではなく、サービスコンフィギュレーションの ``gender`` 内で使われているエイリアスで参照できます。
+このように、新しいインスタンスを初期化するのではなく、サービスコンフィギュレーションの ``gender`` 内で使われているエイリアスで参照できるようになりました。
 
 .. _`ChoiceType`: https://github.com/symfony/symfony/blob/master/src/Symfony/Component/Form/Extension/Core/Type/ChoiceType.php
 .. _`FieldType`: https://github.com/symfony/symfony/blob/master/src/Symfony/Component/Form/Extension/Core/Type/FieldType.php
 
 .. 2012/01/11 ganchiku 91c6267021ec47d8baed3eaf76ffca7826221e35
-
+.. 2013/06/12 77web 0826e3389949dd97c7cd813725a94819f572d5d7
