@@ -54,7 +54,7 @@
 
 .. note::
 
-    この ``ArrayCollection`` は Doctrine 特化しており、基本的には ``array`` の使用と同じになります。しかし、ここでは ``ArrayCollection`` を使わなければいけません。
+    この ``ArrayCollection`` は Doctrine に特化しており、基本的には ``array`` の使用と同じになります。しかし、ここでは ``ArrayCollection`` を使わなければいけません。
 
 そして、 ``Tag`` クラスを作成します。上記にあるように ``Task`` はたくさんの ``Tag`` オブジェクトを持つことになります。
 ::
