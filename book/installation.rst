@@ -4,7 +4,7 @@
 .. note::
 
     * 対象バージョン：2.3 (2.1以降)
-    * 翻訳更新日：2013/6/4
+    * 翻訳更新日：2013/9/27
 
 Symfony のインストールと設定
 ============================
@@ -56,7 +56,7 @@ Composer は実行可能な PHAR ファイルです。Composer を使って次�
 
 .. tip::
 
-    ダウンロードするバージョンを明示的に指定するには、\ `2.3.0` の部分を最新の Symfony のバージョンに置き換えてください。詳細は\ `Symfony のダウンロードページ`_ 参照してください。
+    ダウンロードするバージョンを明示的に指定するには、\ `2.3.0` の部分を最新の Symfony のバージョンに置き換えてください。詳細は\ `Symfony のダウンロードページ`_ を参照してください。
 
 .. tip::
 
@@ -110,9 +110,6 @@ UNIX のコマンドラインであれば、以下のコマンドのどちらか
 
 すべての公開ファイル、および Symfony2 アプリケーションですべてのリクエストを受け取るフロントコントローラーは、\ ``Symfony/web/`` ディレクトリにあります。
 Web サーバー自身のドキュメントルート、もしくはバーチャルホストのドキュメントルートに Symfony のファイル群を展開した場合、アプリケーションの URL は ``http://localhost/Symfony/web/`` から始まります。
-``Symfony/web`` の部分を URL に現れないようにするには、Web サーバーまたはバーチャルホストのドキュメントルートを ``Symfony/web/`` ディレクトリに設定してください。
-この設定は開発時には必須ではありませんが、運用環境では必ず設定してください。この設定は、システムファイルやコンフィギュレーションファイルが閲覧されることを防ぐ意味もあります。
-Web サーバーごとのドキュメントルートの設定方法については、\ `Apache`_ 、\ `Nginx`_ それぞれのドキュメントを参照してください。
 
 .. note::
 
@@ -192,36 +189,20 @@ Symfony2 には、Web ブラウザからアクセスできる設定テスター�
     よくある問題としては、 ``app/cache`` と ``app/logs`` ディレクトリが、Web サーバーの実行ユーザーとコマンドラインの実行ユーザーのいずれからも書き込み可能でなければならないことです。
     UNIX システム上で Web サーバーのユーザーとコマンドラインユーザーが異なる場合は、以下のコマンドをプロジェクト内で1度実行するだけで、パーミッションを適切にセットアップできます。
 
-    **Web サーバーの実行ユーザーを確認する**
-    
-    以降の例では Web サーバーの実行ユーザーが ``www-data`` として説明していますが、異なるユーザーを利用する Web サーバーもあります。
-    お使いの環境の Web サーバーの実行ユーザーを確認し、\ ``www-data`` の代わりに指定してください。
-
-    UNIX システムでは、次のようなコマンドで確認できます。
-
-    .. code-block:: bash
-
-        $ ps aux | grep httpd
-
-    または
-
-    .. code-block:: bash
-
-        $ ps aux | grep apache
-
     **1. chmod +a コマンドをサポートしているシステム上で ACL を使う**
 
     多くのシステムでは ``chmod +a`` コマンドが使えます。
     パーミッションの設定には、最初にこのコマンドを試してください。
+    このコマンドでは、お使いの環境の Web サーバーユーザーを検出し、\ ``APACHEUSER`` にセットしています。
     コマンドがエラーになった場合は、2 の方法を試してください。
-    1 つめの ``chmod`` コマンドで指定している ``www-data`` は、お使いの Web サーバーの実行ユーザーに置き換えてください。
 
     .. code-block:: bash
 
         $ rm -rf app/cache/*
         $ rm -rf app/logs/*
 
-        $ sudo chmod +a "www-data allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
+        $ APACHEUSER=`ps aux | grep -E '[a]pache|[h]ttpd' | grep -v root | head -1 | cut -d\  -f1`
+        $ sudo chmod +a "$APACHEUSER allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
         $ sudo chmod +a "`whoami` allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
 
     **2. chmod +a コマンドをサポートしていないシステム上で ACL を使う**
@@ -229,11 +210,13 @@ Symfony2 には、Web ブラウザからアクセスできる設定テスター�
     ``chmod +a`` コマンドがサポートされていないシステムもあります。
     このようなシステムでも ``setfacl`` ユーティリティがサポートされているかもしれません。
     たとえば Ubuntu であれば、まず setfacl ユーティリティをインストールし、使用しているパーティションに対して `ACL サポートを有効にする`_ 設定を行ってください。
+    このコマンドでは、お使いの環境の Web サーバーユーザーを検出し、\ ``APACHEUSER`` にセットしています。
 
     .. code-block:: bash
 
-        $ sudo setfacl -R -m u:www-data:rwX -m u:`whoami`:rwX app/cache app/logs
-        $ sudo setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx app/cache app/logs
+         $ APACHEUSER=`ps aux | grep -E '[a]pache|[h]ttpd' | grep -v root | head -1 | cut -d\  -f1`
+         $ sudo setfacl -R -m u:$APACHEUSER:rwX -m u:`whoami`:rwX app/cache app/logs
+         $ sudo setfacl -dR -m u:$APACHEUSER:rwX -m u:`whoami`:rwX app/cache app/logs
 
     **3. ACL を使わない方法**
 
@@ -322,3 +305,5 @@ Git を使ったプロジェクトのセットアップ手順の詳細は、\ :d
 .. 2013/03/16 hidenorigoto 5246f51f550db504e76c98b641e3337570e84dd4
 .. 2013/04/09 hidenorigoto f2b48c770ee270c9bc4caed86345cefd7eb4f004
 .. 2013/06/04 hidenorigoto 2d7b3db645e7c997a3842cfc3db24d0c937a7100
+.. 2013/09/27 hidenorigoto a52abf233b5ef4deaae668aad0d4fdbbbf218a71
+
