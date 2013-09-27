@@ -18,7 +18,7 @@ Debugコンポーネント
 Debugコンポーネントは以下の2つの方法でインストールができます。
 
 * 公式Gitリポジトリ (https://github.com/symfony/Debug);
-* Composerを使ってインストール (`Packagist`の ``symfony/debug``).
+* Composerを使ってインストール (\ `Packagist` の ``symfony/debug``\ ).
 
 使い方
 ------
