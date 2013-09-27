@@ -2,6 +2,12 @@
    single: Debug
    single: Components; Debug
 
+
+.. note::
+
+    * 対象バージョン：2.3
+    * 翻訳更新日：2013/9/27
+
 Debugコンポーネント
 ===================
 
