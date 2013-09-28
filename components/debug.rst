@@ -23,15 +23,17 @@ Debugコンポーネントは以下の2つの方法でインストールがで�
 使い方
 ------
 
-| DebugコンポーネントはいくつかのPHPのデバッグに役立つのツールで構成されています。
-| 以下のコードを実行するとすべての機能が有効になります。
+DebugコンポーネントはいくつかのPHPのデバッグに役立つのツールで構成されています。
+以下のコードを実行するとすべての機能が有効になります。
+
+.. code-block:: php
 
     use Symfony\Component\Debug\Debug;
 
     Debug::enable();
 
-| :method:`Symfony\\Component\\Debug\\Debug::enable` メソッドはPHPのエラーおよび例外を処理します。
-| プロジェクトで :doc:`ClassLoaderコンポーネント</components/class_loader>` を使用している場合、これらもデバッグモードとして動作するようになります。
+:method:`Symfony\\Component\\Debug\\Debug::enable` メソッドはPHPのエラーおよび例外を処理します。
+プロジェクトで :doc:`ClassLoaderコンポーネント</components/class_loader>` を使用している場合、これらもデバッグモードとして動作するようになります。
 
 各ツールの詳細については次のセクションをご覧ください。
 
@@ -42,8 +44,10 @@ Debugコンポーネントは以下の2つの方法でインストールがで�
 エラーハンドラを有効にする
 --------------------------
 
-| :class:`Symfony\\Component\\Debug\\ErrorHandler` クラスは、PHPのエラーを検出し、例外に変換してスローします。(:class:`ContextErrorException` 、Fatalエラーの場合は:class:`Symfony\\Component\\Debug\\Exception\\FatalErrorException`)
-| 有効にするには次のコードを実行します。
+:class:`Symfony\\Component\\Debug\\ErrorHandler` クラスは、PHPのエラーを検出し、例外に変換してスローします。(:class:`ContextErrorException`\ 、Fatalエラーの場合は :class:`Symfony\\Component\\Debug\\Exception\\FatalErrorException`)
+有効にするには次のコードを実行します。
+
+.. code-block:: php
 
     use Symfony\Component\Debug\ErrorHandler;
 
@@ -52,8 +56,10 @@ Debugコンポーネントは以下の2つの方法でインストールがで�
 例外ハンドラを有効にする
 ------------------------
 
-| :class:`Symfony\\Component\\Debug\\ExceptionHandler` クラスは、捕捉されなかった例外を検出し、デフォルトやXDebugよりも見やすく、役立つデバッグの情報を画面に表示します。
-| 有効にするには次のコードを実行します。
+:class:`Symfony\\Component\\Debug\\ExceptionHandler` クラスは、捕捉されなかった例外を検出し、デフォルトやXDebugよりも見やすく、役立つデバッグの情報を画面に表示します。
+有効にするには次のコードを実行します。
+
+.. code-block:: php
 
     use Symfony\Component\Debug\ExceptionHandler;
 
@@ -61,7 +67,7 @@ Debugコンポーネントは以下の2つの方法でインストールがで�
 
 .. note::
 
-| プロジェクトで :doc:`HttpFoundation component </components/http_foundation/introduction>` を使用している場合、例外ハンドラはResponseオブジェクトを使用します。使用していない場合はPHP標準の処理で出力を行います。
+プロジェクトで :doc:`HttpFoundation component </components/http_foundation/introduction>` を使用している場合、例外ハンドラはResponseオブジェクトを使用します。使用していない場合はPHP標準の処理で出力を行います。
 
 .. _Packagist: https://packagist.org/packages/symfony/debug
 
