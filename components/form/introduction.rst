@@ -311,7 +311,7 @@ Validatorコンポーネントとの連携は次のようにして行います::
 
 .. configuration-block::
 
-    .. code-block:: php-standalone
+    .. code-block:: php
 
         $form = $formFactory->createBuilder()
             ->add('task', 'text')
@@ -322,7 +322,7 @@ Validatorコンポーネントとの連携は次のようにして行います::
             'form' => $form->createView(),
         ));
 
-    .. code-block:: php-symfony
+    .. code-block:: php
 
         // src/Acme/TaskBundle/Controller/DefaultController.php
         namespace Acme¥TaskBundle¥Controller;
@@ -361,7 +361,7 @@ Validatorコンポーネントとの連携は次のようにして行います::
 
 .. configuration-block::
 
-    .. code-block:: php-standalone
+    .. code-block:: php
 
         $defaults = array(
             'dueDate' => new ¥DateTime('tomorrow'),
@@ -372,7 +372,7 @@ Validatorコンポーネントとの連携は次のようにして行います::
             ->add('dueDate', 'date')
             ->getForm();
 
-    .. code-block:: php-symfony
+    .. code-block:: php
 
         $defaults = array(
             'dueDate' => new ¥DateTime('tomorrow'),
@@ -420,7 +420,7 @@ Validatorコンポーネントとの連携は次のようにして行います::
 
 .. configuration-block::
 
-    .. code-block:: php-standalone
+    .. code-block:: php
 
         use Symfony¥HttpFoundation¥Request;
         use Symfony¥Component¥HttpFoundation¥RedirectResponse;
@@ -449,7 +449,7 @@ Validatorコンポーネントとの連携は次のようにして行います::
 
         // ...
 
-    .. code-block:: php-symfony
+    .. code-block:: php
 
         // ...
 
@@ -506,7 +506,7 @@ Validatorコンポーネントとの連携は次のようにして行います::
 
 .. configuration-block::
 
-    .. code-block:: php-standalone
+    .. code-block:: php
 
         use Symfony¥Component¥Validator¥Constraints¥NotBlank;
         use Symfony¥Component¥Validator¥Constraints¥Type;
@@ -523,7 +523,7 @@ Validatorコンポーネントとの連携は次のようにして行います::
             ))
             ->getForm();
 
-    .. code-block:: php-symfony
+    .. code-block:: php
 
         use Symfony¥Component¥Validator¥Constraints¥NotBlank;
         use Symfony¥Component¥Validator¥Constraints¥Type;
