@@ -11,6 +11,7 @@
    debug
    filesystem
    finder
+   form/index
    process
    templating
    yaml
