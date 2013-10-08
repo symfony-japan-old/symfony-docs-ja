@@ -17,7 +17,7 @@ Symfony Standard Edition のロギングはいくつかのチャネルからな�
 チャネルは、異なるタイプのログメッセージを管理するために用意されたものです。
 これらのチャネルは、コンテナから取得する logger サービス (``monolog.logger.XXX``) に関連付けたり、特定のサービスに関連付けたりすることが出来ます。
 
-デフォルトで、Symfony2 は全てのログメッセージを（チャネルに関係なく）１つのファイルに書き込んでしまいます。
+デフォルトで、Symfony2 は全てのログメッセージを（チャネルに関係なく）１つのファイルに書き込みます。
 
 
 チャネルを別のハンドラへ切り替える
@@ -25,7 +25,7 @@ Symfony Standard Edition のロギングはいくつかのチャネルからな�
 
 では仮に、``doctrine`` チャネルのログを別ファイルに書き込みたいとします。
 
-それには、設定ファイルに以下の用に新しい doctrine ハンドラを追加します。
+コンフィギュレーションファイルに以下のように新しい doctrine ハンドラを追加します。
 main ハンドラは ``doctrine`` チャネル以外を、doctrine ハンドラは ``doctrine`` チャネルのみを出力するように設定します。
 
 .. configuration-block::
@@ -63,10 +63,10 @@ main ハンドラは ``doctrine`` チャネル以外を、doctrine ハンドラ�
             </monolog:handlers>
         </monolog:config>
 
-Yaml による設定の書き方
+YAML による設定の書き方
 -----------------------
 
-Yaml による設定の書き方の例です。様々な方法で書くことが出来ます。
+YAML による設定の書き方の例です。様々な方法で書くことが出来ます。
 
 .. code-block:: yaml
 
@@ -121,7 +121,7 @@ Yaml による設定の書き方の例です。様々な方法で書くことが
         $container->register('my_service', $definition);
 
 
-Learn more from the Cookbook
-----------------------------
+クックブックでより深く
+----------------------
 
 * :doc:`/cookbook/logging/monolog`
