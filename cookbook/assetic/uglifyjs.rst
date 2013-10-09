@@ -14,7 +14,7 @@ UglifyJs と UglifyCss を使って Javascript や Stylesheet のサイズを圧
 
 `UglifyJs`_ は JavaScript の構文解析、圧縮、整形などを行うツールです。
 JavaScript ファイルを結合、圧縮し、HTTP リクエスト数を減らしてロード時間を抑えることが出来ます。
-`UglifyCss`_ は CSS の圧縮、整形などを行うツールで、``UglifyJs`` によく似ています。
+`UglifyCss`_ は CSS の圧縮、整形などを行うツールで、\ ``UglifyJs`` によく似ています。
 
 このクックブックでは ``UglifyJs`` のインストール、設定、使い方について詳細に記述します。
 ``UglifyCss`` は ``UglifyJs`` と同様に利用できるため、ごく簡単に説明します。
@@ -43,7 +43,7 @@ npm コマンドで UglifyJs を次のようにインストール出来ます。
         $ mkdir app/Resources/node_modules
         $ npm install uglify-js --prefix app/Resources
 
-    バージョン管理のため、 ``app/Resources`` の下に ``node_modules`` ディレクトリを作って、そこに UglifyJs をインストールすることが推奨されます。
+    バージョン管理のため、\ ``app/Resources`` の下に ``node_modules`` ディレクトリを作って、そこに UglifyJs をインストールすることが推奨されます。
     もしくは npm の `package.json`_ ファイルを作って、ここにモジュール間の依存関係を記述することも出来ます。
 
 グローバルにインストールするかローカルにインストールするかによって ``uglifyjs`` 実行ファイルのパスは異なります。
@@ -99,7 +99,7 @@ uglifyjs2 フィルタの設定
 
         $ npm bin -g
 
-    UglifyJs をローカルにインストールした場合、``bin`` ディレクトリは ``app/Resources/node_modules/.bin`` です。
+    UglifyJs をローカルにインストールした場合、\ ``bin`` ディレクトリは ``app/Resources/node_modules/.bin`` です。
 
 これで ``uglifyjs2`` フィルタを利用出来るようになりました。
 
@@ -130,14 +130,14 @@ uglifyjs2 フィルタの設定
     上記の例では ``AcmeFooBundle`` バンドルの下の ``Resources/public/js`` ディレクトリに JavaScript ファイルがあることを前提としていますが、
     JavaScript ファイルはどこにあっても構いません。
 
-これで、``uglifyjs2`` フィルタにより圧縮された JavaScript がダウンロードされるようになることが確認出来ると思います。
+これで、\ ``uglifyjs2`` フィルタにより圧縮された JavaScript がダウンロードされるようになることが確認出来ると思います。
 
 デバッグモードで圧縮を無効化
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 圧縮された JavaScript は非常に読みづらく、デバッグも困難です。
-これを回避するため、Assetic ではデバッグモード (例：``app_dev.php``) の時に特定のフィルタを無効に出来ます。
-テンプレート中に記述したフィルタ名の頭に ``?`` を付けることで、デバッグモードでない場合 (例：``app.php``) のみこのフィルタが有効になります。
+これを回避するため、Assetic ではデバッグモード (例: ``app_dev.php``) の時に特定のフィルタを無効に出来ます。
+テンプレート中に記述したフィルタ名の頭に ``?`` を付けることで、デバッグモードでない場合 (例: ``app.php``) のみこのフィルタが有効になります。
 
 .. configuration-block::
 
@@ -156,7 +156,7 @@ uglifyjs2 フィルタの設定
             <script src="<?php echo $view->escape($url) ?>"></script>
         <?php endforeach; ?>
 
-確認するには、``prod`` 環境 (``app.php``) に切り替えてみて下さい。
+確認するには、\ ``prod`` 環境 (``app.php``) に切り替えてみて下さい。
 :ref:`キャッシュをクリアする <book-page-creation-prod-cache-clear>` のと :ref:`Asset ファイルをダンプする <cookbook-asetic-dump-prod>` のを忘れないようにして下さい。
 
 .. tip::
@@ -164,7 +164,7 @@ uglifyjs2 フィルタの設定
     Asset タグ（ここでは ``javascripts`` タグ）にフィルタ設定を書く代わりに、
     コンフィギュレーションファイルのフィルタの設定に apply_to 属性を追加することでフィルタをまとめて適用することも出来ます。
     例えば ``uglifyjs2`` なら ``apply_to: "\.js$"`` のように書きます。
-    prod 環境でのみこれを適用するのであれば、``config_prod`` コンフィギュレーションファイルに書きます。
+    prod 環境でのみこれを適用するのであれば、\ ``config_prod`` コンフィギュレーションファイルに書きます。
     ファイル拡張子によるフィルタの適用について、詳細は :ref:`cookbook-assetic-apply-to` を参照して下さい。
 
 UglifyCss のインストール、設定、利用方法
