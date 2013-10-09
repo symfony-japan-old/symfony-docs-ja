@@ -16,7 +16,7 @@
     form/twig_form_customization
     form/create_custom_field_type
     form/file_uploads
-    logging/monolog
+    logging/channels_handlers
     logging/monolog_email
     tools/autoloader
     tools/finder

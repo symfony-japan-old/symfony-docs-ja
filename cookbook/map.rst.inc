@@ -96,6 +96,7 @@
 
 * **ロギング**
 
+  * :doc:`/cookbook/logging/channels_handlers`
   * :doc:`/cookbook/logging/monolog`
   * :doc:`/cookbook/logging/monolog_email`
 
