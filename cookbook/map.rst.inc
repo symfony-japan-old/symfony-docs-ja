@@ -70,6 +70,7 @@
   * :doc:`/cookbook/testing/http_authentication`
   * :doc:`/cookbook/testing/insulating_clients`
   * :doc:`/cookbook/testing/profiling`
+  * :doc:`/cookbook/testing/database`
   * :doc:`/cookbook/testing/doctrine`
 
 * **セキュリティ**
