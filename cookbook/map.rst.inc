@@ -19,6 +19,7 @@
   * :doc:`/cookbook/assetic/yuicompressor`
   * :doc:`/cookbook/assetic/jpeg_optimize`
   * :doc:`/cookbook/assetic/apply_to_option`
+  * :doc:`/cookbook/assetic/uglifyjs`
 
 * **データベース (Doctrine)**
 

@@ -21,9 +21,7 @@
     tools/autoloader
     tools/finder
     cache/varnish
-    testing/http_authentication
-    testing/insulating_clients
-    testing/profiling
+    testing/index
     event_dispatcher/class_extension
     event_dispatcher/method_behavior
     profiler/data_collector
@@ -36,7 +34,7 @@
     doctrine/migrations
     routing/scheme
     debugging
-    assetic/yuicompressor
+    assetic/index
     console
     symfony1
 
