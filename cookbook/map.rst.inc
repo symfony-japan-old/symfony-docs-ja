@@ -2,6 +2,10 @@
 
   * :doc:`/cookbook/workflow/new_project_git`
 
+* :doc:`/cookbook/console/index`
+
+  * :doc:`/cookbook/console/console_command`
+
 * **コントローラ**
 
   * :doc:`/cookbook/controller/error_pages`
