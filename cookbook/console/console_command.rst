@@ -107,7 +107,7 @@ Console コンポーネントの解説 (:doc:`/components/console/introduction`)
             $commandTester = new CommandTester($command);
             $commandTester->execute(
                array(
-                  'command' => 'demo:greet', // Symfony 2.3までは必要
+                  'command' => $command->getName(), // Symfony 2.3までは必要
                   'name'    => 'Fabien',
                   '--yell'  => true,
                )
@@ -153,7 +153,7 @@ Console コンポーネントの解説 (:doc:`/components/console/introduction`)
             $commandTester = new CommandTester($command);
             $commandTester->execute(
                array(
-                  'command' => 'demo:greet', // Symfony 2.3までは必要
+                  'command' => $command->getName(), // Symfony 2.3までは必要
                   'name'    => 'Fabien',
                   '--yell'  => true,
                )
