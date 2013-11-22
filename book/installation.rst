@@ -23,7 +23,7 @@ Symfony2 ディストリビューションのダウンロード
 .. tip::
 
     まずはじめに、PHP 5.3.8 以上が動作する Web サーバ(Apache など)がインストールされ、設定済みかどうか確認して下さい。
-    Symfony2 の動作要件について詳しくは、\ :doc:`Symfony2 の動作に必要な要件</reference/requirements>` を参照してください。
+    Symfony2 の動作要件について詳しくは、\ :doc:`Symfony2 の動作に必要な要件 </reference/requirements>` を参照してください。
 
 Symfony2 のディストリビューションは完全に動作するアプリケーションです。Symfony2 コアライブラリとコアバンドルが実用的なディレクトリ構造に格納され、いくつかの初期設定が含まれています。
 Symfony2 のディストリビューションをダウンロードすることは、
@@ -262,6 +262,8 @@ Symfony2 のウェルカム画面が表示されます。
 もし Symfony での開発が初めてであれば、\ ":doc:`page_creation`" へ進んでください。
 このページでは、新しくアプリケーションを開発するために最初に必要となるページの作り方や設定の変更方法について説明しています。
 
+さまざまな問題についてのHow-Toを知りたい方は :doc:`クックブック </cookbook/index>` を参照してください。
+
 .. note::
 
     ディストリビューションからサンプルコードを削除したい場合は、クックブックの記事 ":doc:`/cookbook/bundles/remove`" を参照してください。
@@ -300,10 +302,5 @@ Git を使ったプロジェクトのセットアップ手順の詳細は、\ :d
 .. _`Nginx`: http://wiki.nginx.org/Symfony
 .. _`Symfony のダウンロードページ`:    http://symfony.com/download
 
-.. 2011/07/23 uechoco 9de84d1fcc3fb0f641efa5b36973ab95cddf5faa
-.. 2011/08/14 hidenorigoto b21a16f5196fae0d0f1f0a20d69777ea0e685911
-.. 2013/03/16 hidenorigoto 5246f51f550db504e76c98b641e3337570e84dd4
-.. 2013/04/09 hidenorigoto f2b48c770ee270c9bc4caed86345cefd7eb4f004
-.. 2013/06/04 hidenorigoto 2d7b3db645e7c997a3842cfc3db24d0c937a7100
 .. 2013/09/27 hidenorigoto a52abf233b5ef4deaae668aad0d4fdbbbf218a71
-
+.. 2013/11/22 hidenorigoto eb6d21d376056d3eb8b7681333f763f482bfe9e1
