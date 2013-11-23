@@ -10,25 +10,25 @@ submit Field Type
 =================
 
 .. versionadded:: 2.3
-    The ``submit`` type was added in Symfony 2.3
+    ``submit`` タイプはSymfony 2.3で追加されました
 
-A submit button.
+submitボタン
 
 +----------------------+----------------------------------------------------------------------+
-| Rendered as          | ``input`` ``submit`` tag                                             |
+| 対応するタグ           | ``input`` ``submit`` tag                                             |
 +----------------------+----------------------------------------------------------------------+
-| Inherited            | - `attr`_                                                            |
-| options              | - `disabled`_                                                        |
+| 継承されたオプション    | - `attr`_                                                            |
+|                      | - `disabled`_                                                        |
 |                      | - `label`_                                                           |
 |                      | - `translation_domain`_                                              |
 +----------------------+----------------------------------------------------------------------+
-| Parent type          | :doc:`button</reference/forms/types/button>`                         |
+| 親タイプ              | :doc:`button</reference/forms/types/button>`                         |
 +----------------------+----------------------------------------------------------------------+
-| Class                | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\SubmitType` |
+| クラス                | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\SubmitType` |
 +----------------------+----------------------------------------------------------------------+
 
-Submit buttonには
-:method:`Symfony\\Component\\Form\\ClickableInterface::isClicked`という付加的なメソッドがあります。
+Submitボタンには
+:method:`Symfony\\Component\\Form\\ClickableInterface::isClicked` という付加的なメソッドがあります。
 このメソッドでこのボタンがフォームのサブミットに利用されたかどうかをチェックできます。
 特に :ref:`複数のサブミットボタンを持つフォームの場合 <book-form-submitting-multiple-buttons>` に便利です。
 
