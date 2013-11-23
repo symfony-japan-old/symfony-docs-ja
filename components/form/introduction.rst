@@ -33,7 +33,7 @@ Formコンポーネントは以下の方法でインストールができます�
 
 Symfony2ではフォームは\ *フォームファクトリ*\ によって構築されるオブジェクトでできています。フォームファクトリの生成はとてもシンプルです::
 
-    use Symfony¥Component¥Form¥Forms;
+    use Symfony\Component\Form\Forms;
 
     $formFactory = Forms::createFormFactory();
 
@@ -59,20 +59,20 @@ Requestハンドリング
 ~~~~~~~~~~~~~~~~~~~
 
 フォームのデータを処理するには、リクエストされた情報（通常は ``$_POST``\ ）を補足し、
-:method:`Symfony¥¥Component¥¥Form¥¥Form::bind` メソッドに送信された配列データを渡す必要があります。
+:method:`Symfony\\Component\\Form\\Form::bind` メソッドに送信された配列データを渡す必要があります。
 Formコンポーネントはこれをより簡単にするためにSymfonyの :doc:`HttpFoundation</components/http_foundation/introduction>` コンポーネントとの連携が可能です。
 
-HttpFoundationコンポーネントと連携するにはフォームファクトリに :class:`Symfony¥¥Component¥¥Form¥¥Extension¥¥HttpFoundation¥¥HttpFoundationExtension` を追加する必要があります::
+HttpFoundationコンポーネントと連携するにはフォームファクトリに :class:`Symfony\\Component\\Form\\Extension\\HttpFoundation\\HttpFoundationExtension` を追加する必要があります::
 
-    use Symfony¥Component¥Form¥Forms;
-    use Symfony¥Component¥Form¥Extension¥HttpFoundation¥HttpFoundationExtension;
+    use Symfony\Component\Form\Forms;
+    use Symfony\Component\Form\Extension\HttpFoundation\HttpFoundationExtension;
 
     $formFactory = Forms::createFormFactoryBuilder()
         ->addExtension(new HttpFoundationExtension())
         ->getFormFactory();
 
-これでデータを処理する際、配列の代わりに :class:`Symfony¥¥Component¥¥HttpFoundation¥¥Request` オブジェクトを
-:method:`Symfony¥¥Component¥¥Form¥¥Form::bind` に渡すことができるようになります。
+これでデータを処理する際、配列の代わりに :class:`Symfony\\Component\\HttpFoundation\\Request` オブジェクトを
+:method:`Symfony\\Component\\Form\\Form::bind` に渡すことができるようになります。
 
 .. note::
 
@@ -84,10 +84,10 @@ CSRFプロテクション
 CSRF攻撃への対策はFormコンポーネントに組み込まれていますが、明示的に有効にするか、
 独自の方法に置き換える必要があります。以下のスニペットではCSRFエクステンションをフォームファクトリに追加しています::
 
-    use Symfony¥Component¥Form¥Forms;
-    use Symfony¥Component¥Form¥Extension¥Csrf¥CsrfExtension;
-    use Symfony¥Component¥Form¥Extension¥Csrf¥CsrfProvider¥SessionCsrfProvider;
-    use Symfony¥Component¥HttpFoundation¥Session¥Session;
+    use Symfony\Component\Form\Forms;
+    use Symfony\Component\Form\Extension\Csrf\CsrfExtension;
+    use Symfony\Component\Form\Extension\Csrf\CsrfProvider\SessionCsrfProvider;
+    use Symfony\Component\HttpFoundation\Session\Session;
 
     // generate a CSRF secret from somewhere
     $csrfSecret = '<generated token>';
@@ -109,10 +109,10 @@ CSRF攻撃からアプリケーションを保護するには、CSRFシークレ
 
 .. tip::
 
-    HttpFoundationコンポーネントを使用していない場合は、:class:`Symfony¥¥Component¥¥Form¥¥Extension¥¥Csrf¥¥CsrfProvider¥¥DefaultCsrfProvider` を代わりに使用して下さい。
+    HttpFoundationコンポーネントを使用していない場合は、:class:`Symfony\\Component\\Form\\Extension\\Csrf\\CsrfProvider\\DefaultCsrfProvider` を代わりに使用して下さい。
     これはPHPのネイティブのセッションを使います::
 
-        use Symfony¥Component¥Form¥Extension¥Csrf¥CsrfProvider¥DefaultCsrfProvider;
+        use Symfony\Component\Form\Extension\Csrf\CsrfProvider\DefaultCsrfProvider;
 
         $csrfProvider = new DefaultCsrfProvider($csrfSecret);
 
@@ -135,12 +135,12 @@ Composerを使用している場合、``composer.json`` の ``require`` に次�
 
 TwigBridgeを使うと、各フィールド（およびそれに付随する物）のためのHTMLウィジェット、ラベル、フィールドのエラーのレンダリングに役立つ様々な
 :doc:`Twig Functions</reference/forms/twig_reference>` が有効になります。連携にはTwigのインスタンスを初期化または取得し、
-:class:`Symfony¥¥Bridge¥¥Twig¥¥Extension¥¥FormExtension` を追加する必要があります::
+:class:`Symfony\\Bridge\\Twig\\Extension\\FormExtension` を追加する必要があります::
 
-    use Symfony¥Component¥Form¥Forms;
-    use Symfony¥Bridge¥Twig¥Extension¥FormExtension;
-    use Symfony¥Bridge¥Twig¥Form¥TwigRenderer;
-    use Symfony¥Bridge¥Twig¥Form¥TwigRendererEngine;
+    use Symfony\Component\Form\Forms;
+    use Symfony\Bridge\Twig\Extension\FormExtension;
+    use Symfony\Bridge\Twig\Form\TwigRenderer;
+    use Symfony\Bridge\Twig\Form\TwigRendererEngine;
 
     // the Twig file that holds all the default markup for rendering forms
     // this file comes with TwigBridge
@@ -166,9 +166,9 @@ TwigBridgeを使うと、各フィールド（およびそれに付随する物�
         // ...
         ->getFormFactory();
 
-厳密には `Twig Configuration`_ の詳細は異なるでしょうが、\ :class:`Symfony¥¥Bridge¥¥Twig¥¥Extension¥¥FormExtension`
+厳密には `Twig Configuration`_ の詳細は異なるでしょうが、\ :class:`Symfony\\Bridge\\Twig\\Extension\\FormExtension`
 をTwigに追加するという点は共通です。そのためにはまず、あなたの :ref:`form themes<cookbook-form-customization-form-themes>`
-（つまり、フォームのHTMLマークアップを定義する resources/files）を定義する :class:`Symfony¥¥Bridge¥¥Twig¥¥Form¥¥TwigRendererEngine` を作る必要があります。
+（つまり、フォームのHTMLマークアップを定義する resources/files）を定義する :class:`Symfony\\Bridge\\Twig\\Form\\TwigRendererEngine` を作る必要があります。
 
 一般的なフォームのレンダリングについては :doc:`/cookbook/form/form_customization` を参照のこと。
 
@@ -184,7 +184,7 @@ TwigBridgeを使うと、各フィールド（およびそれに付随する物�
 Twigのデフォルトのフォームテーマのいずれかを (例えば\ ``form_div_layout.html.twig``\ ) 使用していれば、
 フォームラベルやエラーメッセージ、オプションテキストなどの翻訳に2つのTwigフィルタが利用できます。（\ ``trans``\ 、\ ``transChoice``\ ）
 
-これらのTwigフィルタを使うには、Symfonyの ``Translation`` コンポーネントとの連携を実現した :class:`Symfony¥¥Bridge¥¥Twig¥¥Extension¥¥TranslationExtension`
+これらのTwigフィルタを使うには、Symfonyの ``Translation`` コンポーネントとの連携を実現した :class:`Symfony\\Bridge\\Twig\\Extension\\TranslationExtension`
 を使用するか、自作のTwigエクステンションから2つのTwigフィルタを自分で追加することです。
 
 ``TranslationExtension`` を使用するには、プロジェクトにSymfonyの ``Translation`` コンポーネントと :doc:`Config</components/config/introduction>`
@@ -199,12 +199,12 @@ Twigのデフォルトのフォームテーマのいずれかを (例えば\ ``f
         }
     }
 
-次に、\ :class:`Symfony¥¥Bridge¥¥Twig¥¥Extension¥¥TranslationExtension` を ``Twig_Environment`` インスタンスに追加します::
+次に、\ :class:`Symfony\\Bridge\\Twig\\Extension\\TranslationExtension` を ``Twig_Environment`` インスタンスに追加します::
 
-    use Symfony¥Component¥Form¥Forms;
-    use Symfony¥Component¥Translation¥Translator;
-    use Symfony¥Component¥Translation¥Loader¥XliffFileLoader;
-    use Symfony¥Bridge¥Twig¥Extension¥TranslationExtension;
+    use Symfony\Component\Form\Forms;
+    use Symfony\Component\Translation\Translator;
+    use Symfony\Component\Translation\Loader\XliffFileLoader;
+    use Symfony\Bridge\Twig\Extension\TranslationExtension;
 
     // create the Translator
     $translator = new Translator('en');
@@ -245,13 +245,13 @@ Composerを使用していれば、\ ``composer.json`` の ``require`` に次の
     }
 
 Validatorコンポーネントに慣れていなければ :doc:`/book/validation` を参照して下さい。Formコンポーネントは
-:class:`Symfony¥¥Component¥¥Form¥¥Extension¥¥Validator¥¥ValidatorExtension` を使用して自動的にバインドされたデータを検証し、エラーがあれば正しいフィールドにマップされた上でレンダリングします。
+:class:`Symfony\\Component\\Form\\Extension\\Validator\\ValidatorExtension` を使用して自動的にバインドされたデータを検証し、エラーがあれば正しいフィールドにマップされた上でレンダリングします。
 
 Validatorコンポーネントとの連携は次のようにして行います::
 
-    use Symfony¥Component¥Form¥Forms;
-    use Symfony¥Component¥Form¥Extension¥Validator¥ValidatorExtension;
-    use Symfony¥Component¥Validator¥Validation;
+    use Symfony\Component\Form\Forms;
+    use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
+    use Symfony\Component\Validator\Validation;
 
     $vendorDir = realpath(__DIR__ . '/../vendor');
     $vendorFormDir = $vendorDir . '/symfony/form/Symfony/Component/Form';
@@ -304,10 +304,10 @@ Validatorコンポーネントとの連携は次のようにして行います::
 .. tip::
 
     Symfony2フレームワークを使用していれば、フォームファクトリはサービス名 ``form.factory`` として登録されています。
-    また、デフォルトのコントローラクラスは :method:`Symfony¥¥Bundle¥¥FrameworkBundle¥¥Controller::createFormBuilder` メソッドを持っています。
+    また、デフォルトのコントローラクラスは :method:`Symfony\\Bundle\\FrameworkBundle\\Controller::createFormBuilder` メソッドを持っています。
     これはフォームファクトリを取得し、``createBuilder``を実行するショートカットです。
 
-フォームの作成は :class:`Symfony¥¥Component¥¥Form¥¥FormBuilder` を介して行われ、そこで各種フィールドの構築や設定を行います。フォームビルダは、フォームファクトリによって作られます。
+フォームの作成は :class:`Symfony\\Component\\Form\\FormBuilder` を介して行われ、そこで各種フィールドの構築や設定を行います。フォームビルダは、フォームファクトリによって作られます。
 
 .. configuration-block::
 
@@ -325,10 +325,10 @@ Validatorコンポーネントとの連携は次のようにして行います::
     .. code-block:: php
 
         // src/Acme/TaskBundle/Controller/DefaultController.php
-        namespace Acme¥TaskBundle¥Controller;
+        namespace Acme\TaskBundle\Controller;
 
-        use Symfony¥Bundle¥FrameworkBundle¥Controller¥Controller;
-        use Symfony¥Component¥HttpFoundation¥Request;
+        use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+        use Symfony\Component\HttpFoundation\Request;
 
         class DefaultController extends Controller
         {
@@ -364,7 +364,7 @@ Validatorコンポーネントとの連携は次のようにして行います::
     .. code-block:: php
 
         $defaults = array(
-            'dueDate' => new ¥DateTime('tomorrow'),
+            'dueDate' => new \DateTime('tomorrow'),
         );
 
         $form = $formFactory->createBuilder('form', $defaults)
@@ -375,7 +375,7 @@ Validatorコンポーネントとの連携は次のようにして行います::
     .. code-block:: php
 
         $defaults = array(
-            'dueDate' => new ¥DateTime('tomorrow'),
+            'dueDate' => new \DateTime('tomorrow'),
         );
 
         $form = $this->createFormBuilder($defaults)
@@ -416,14 +416,14 @@ Validatorコンポーネントとの連携は次のようにして行います::
 送信データの取り扱い
 ~~~~~~~~~~~~~~~~~~~~
 
-送信データを取り扱うには :method:`Symfony¥¥Component¥¥Form¥¥Form::bind` を使用します。
+送信データを取り扱うには :method:`Symfony\\Component\\Form\\Form::bind` を使用します。
 
 .. configuration-block::
 
     .. code-block:: php
 
-        use Symfony¥HttpFoundation¥Request;
-        use Symfony¥Component¥HttpFoundation¥RedirectResponse;
+        use Symfony\HttpFoundation\Request;
+        use Symfony\Component\HttpFoundation\RedirectResponse;
 
         $form = $formFactory->createBuilder()
             ->add('task', 'text')
@@ -508,8 +508,8 @@ Validatorコンポーネントとの連携は次のようにして行います::
 
     .. code-block:: php
 
-        use Symfony¥Component¥Validator¥Constraints¥NotBlank;
-        use Symfony¥Component¥Validator¥Constraints¥Type;
+        use Symfony\Component\Validator\Constraints\NotBlank;
+        use Symfony\Component\Validator\Constraints\Type;
 
         $form = $formFactory->createBuilder()
             ->add('task', 'text', array(
@@ -518,15 +518,15 @@ Validatorコンポーネントとの連携は次のようにして行います::
             ->add('dueDate', 'date', array(
                 'constraints' => array(
                     new NotBlank(),
-                    new Type('¥DateTime'),
+                    new Type('\DateTime'),
                 )
             ))
             ->getForm();
 
     .. code-block:: php
 
-        use Symfony¥Component¥Validator¥Constraints¥NotBlank;
-        use Symfony¥Component¥Validator¥Constraints¥Type;
+        use Symfony\Component\Validator\Constraints\NotBlank;
+        use Symfony\Component\Validator\Constraints\Type;
 
         $form = $this->createFormBuilder()
             ->add('task', 'text', array(
@@ -535,7 +535,7 @@ Validatorコンポーネントとの連携は次のようにして行います::
             ->add('dueDate', 'date', array(
                 'constraints' => array(
                     new NotBlank(),
-                    new Type('¥DateTime'),
+                    new Type('\DateTime'),
                 )
             ))
             ->getForm();
