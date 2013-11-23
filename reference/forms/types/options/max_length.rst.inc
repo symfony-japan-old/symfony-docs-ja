@@ -1,7 +1,14 @@
+.. note::
+
+    * 対象バージョン：2.3
+    * 翻訳更新日：2013/11/23
+
 max_length
 ~~~~~~~~~~
 
 **type**: ``integer``
 
-This option is used to add a ``max_length`` attribute, which is used by
-some browsers to limit the amount of text in a field.
+このオプションは ``maxlength`` 属性を追加する際に使用します。
+いくつかのブラウザでは、フィールド内のテキストの長さを制限するために使用されています。
+
+.. 2013/11/23 nntsugu 3b1750049970b780d37d76606967b432992a96a7
