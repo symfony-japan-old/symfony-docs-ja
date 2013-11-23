@@ -2,38 +2,38 @@
     single: Console; CLI
     single: Components; Console
 
-The Console Component
+Console コンポーネント
 =====================
 
-    The Console component eases the creation of beautiful and testable command
-    line interfaces.
+    Consoleコンポーネントを使うと、美しくてテスト可能なコマンドラインインターフェイスを簡単に作ることができます。
 
-The Console component allows you to create command-line commands. Your console
-commands can be used for any recurring task, such as cronjobs, imports, or
-other batch jobs.
+Console コンポーネントを使って、コマンドライン用コマンドを作成することが出来ます。
+コンソールコマンドは、cronジョブやインポートなどのバッチジョブなどの自動更新タスクに使用されます。
 
-Installation
+インストール
 ------------
 
-You can install the component in 2 different ways:
+Consoleコンポーネントのインストール方法は二通りあります。
 
-* :doc:`Install it via Composer </components/using_components>` (``symfony/console`` on `Packagist`_);
-* Use the official Git repository (https://github.com/symfony/Console).
+* :doc:`Composer を利用する </components/using_components>` (``symfony/console`` on `Packagist`_);
+* 公式 Git リポジトリを利用する (https://github.com/symfony/Console).
 
 .. note::
 
-    Windows does not support ANSI colors by default so the Console component detects and
-    disables colors where Windows does not have support. However, if Windows is not
-    configured with an ANSI driver and your console commands invoke other scripts which
-    emit ANSI color sequences, they will be shown as raw escape characters.
+     Windows は、標準では ANSI カラーをサポートしていません。
+     そのため、Windows環境上では、 Console コンポーネントがそれを検知し、ANSI カラーでの出力を無効にします。
+     ただし、ANSI ドライバーが設定されていない Windows 環境上において、
+     作成したコマンドが ANSI カラーシーケンスを吐くスクリプトを呼び出した場合は、
+     エスケープ文字としてそのまま表示されます。
 
-    To enable ANSI colour support for Windows, please install `ANSICON`_.
+     Windows で ANSI カラーをサポートするためには、 `ANSICON`_ をインストールして下さい。
 
-Creating a basic Command
-------------------------
 
-To make a console command that greets you from the command line, create ``GreetCommand.php``
-and add the following to it::
+ベーシックなコマンドの作成
+--------------------------
+
+コマンドラインから挨拶してくれる、コンソールコマンドを作成してみましょう。
+``GreetCommand.php`` ファイルを作成し、以下のコードを追加します。::
 
     namespace Acme\DemoBundle\Command;
 
@@ -81,8 +81,7 @@ and add the following to it::
         }
     }
 
-You also need to create the file to run at the command line which creates
-an ``Application`` and adds commands to it::
+コマンドラインで実行するには、 ``Application`` を作成し、そこにコマンドを追加する必要があります。::
 
     #!/usr/bin/env php
     <?php
@@ -95,35 +94,34 @@ an ``Application`` and adds commands to it::
     $application->add(new GreetCommand);
     $application->run();
 
-Test the new console command by running the following
+次のように新しく作成したコンソールコマンドを実行してみましょう。
 
 .. code-block:: bash
 
     $ app/console demo:greet Fabien
 
-This will print the following to the command line:
+結果として次の様にコマンドライン上に表示されます。
 
 .. code-block:: text
 
     Hello Fabien
 
-You can also use the ``--yell`` option to make everything uppercase:
+また ``--yell`` オプションを使用し、大文字で表示することができます。
 
 .. code-block:: bash
 
     $ app/console demo:greet Fabien --yell
 
-This prints::
+結果は以下の通りです。::
 
     HELLO FABIEN
 
 .. _components-console-coloring:
 
-Coloring the Output
+出力に色を付ける
 ~~~~~~~~~~~~~~~~~~~
 
-Whenever you output text, you can surround the text with tags to color its
-output. For example::
+テキストを出力する際に、タグの付いたテキストに色を付けることができます。例えば ::
 
     // green text
     $output->writeln('<info>foo</info>');
@@ -137,19 +135,18 @@ output. For example::
     // white text on a red background
     $output->writeln('<error>foo</error>');
 
-It is possible to define your own styles using the class
-:class:`Symfony\\Component\\Console\\Formatter\\OutputFormatterStyle`::
+:class:`Symfony\\Component\\Console\\Formatter\\OutputFormatterStyle` を使用して、独自のスタイル定義をすることも可能です。::
 
     $style = new OutputFormatterStyle('red', 'yellow', array('bold', 'blink'));
     $output->getFormatter()->setStyle('fire', $style);
     $output->writeln('<fire>foo</fire>');
 
-Available foreground and background colors are: ``black``, ``red``, ``green``,
-``yellow``, ``blue``, ``magenta``, ``cyan`` and ``white``.
+文字色及び背景色には次の色が指定できます。: ``black``, ``red``, ``green``,
+``yellow``, ``blue``, ``magenta``, ``cyan``, ``white``.
 
-And available options are: ``bold``, ``underscore``, ``blink``, ``reverse`` and ``conceal``.
+オプションとしては次のものが指定できます。: ``bold``, ``underscore``, ``blink``, ``reverse``, ``conceal``.
 
-You can also set these colors and options inside the tagname::
+色とオプションはタグの中でも設定できます。::
 
     // green text
     $output->writeln('<fg=green>foo</fg=green>');
@@ -160,51 +157,47 @@ You can also set these colors and options inside the tagname::
     // bold text on a yellow background
     $output->writeln('<bg=yellow;options=bold>foo</bg=yellow;options=bold>');
 
-Verbosity Levels
-~~~~~~~~~~~~~~~~
+詳細表示レベル
+~~~~~~~~~~~~~~
 
 .. versionadded:: 2.3
-   The ``VERBOSITY_VERY_VERBOSE`` and ``VERBOSITY_DEBUG`` constants were introduced
-   in version 2.3
+   ``VERBOSITY_VERY_VERBOSE`` 及び ``VERBOSITY_DEBUG`` 定数は v2.3 で導入されました。
 
-The console has 5 levels of verbosity. These are defined in the
-:class:`Symfony\\Component\\Console\\Output\\OutputInterface`:
+5つの詳細レベルがあります。これらは、 :class:`Symfony\\Component\\Console\\Output\\OutputInterface` で定義されています。
 
 =======================================  ==================================
-Mode                                     Value
+モード                                   値
 =======================================  ==================================
-OutputInterface::VERBOSITY_QUIET         Do not output any messages
-OutputInterface::VERBOSITY_NORMAL        The default verbosity level
-OutputInterface::VERBOSITY_VERBOSE       Increased verbosity of messages
-OutputInterface::VERBOSITY_VERY_VERBOSE  Informative non essential messages
-OutputInterface::VERBOSITY_DEBUG         Debug messages
+OutputInterface::VERBOSITY_QUIET         何も出力させない
+OutputInterface::VERBOSITY_NORMAL        デフォル
+OutputInterface::VERBOSITY_VERBOSE       詳細情報を表示
+OutputInterface::VERBOSITY_VERY_VERBOSE  必須ではない詳細情報も表示
+OutputInterface::VERBOSITY_DEBUG         デバッグ情報を表示
 =======================================  ==================================
 
-You can specify the quiet verbosity level with the ``--quiet`` or ``-q``
-option. The ``--verbose`` or ``-v`` option is used when you want an increased
-level of verbosity.
+出力無しにさせたいときは、 ``--quiet`` もしくは ``-q`` を指定します。
+詳細度を増やしたいときは、 ``--verbose`` を ``-v`` を指定します。
 
 .. tip::
 
-    The full exception stacktrace is printed if the ``VERBOSITY_VERBOSE``
-    level or above is used.
+    例外のスタックトレースを全て表示するには、 ``VERBOSITY_VERBOSE`` 以上を指定します。
 
-It is possible to print a message in a command for only a specific verbosity
-level. For example::
+特定の詳細レベルでのみの出力をするには、次のようにします。::
 
     if (OutputInterface::VERBOSITY_VERBOSE <= $output->getVerbosity()) {
         $output->writeln(...);
     }
 
 .. versionadded:: 2.4
-   The :method:`Symfony\\Component\Console\\Output\\Output::isQuiet`,
+   :method:`Symfony\\Component\Console\\Output\\Output::isQuiet`,
    :method:`Symfony\\Component\Console\\Output\\Output::isVerbose`,
-   :method:`Symfony\\Component\Console\\Output\\Output::isVeryVerbose` and
+   :method:`Symfony\\Component\Console\\Output\\Output::isVeryVerbose`, 
    :method:`Symfony\\Component\Console\\Output\\Output::isDebug`
-   methods were introduced in version 2.4
+   は v2.4 で導入されました。
 
-There are also more semantic methods you can use to test for each of the
-verbosity levels::
+より表意的なメソッドを使用して、各詳細レベルで調べることができます。
+
+詳細レベル::
 
     if ($output->isQuiet()) {
         // ...
@@ -222,18 +215,17 @@ verbosity levels::
         // ...
     }
 
-When the quiet level is used, all output is suppressed as the default
+quiet レベルの場合は、デフォルトの
 :method:`Symfony\Component\Console\Output::write <Symfony\\Component\\Console\\Output::write>`
-method returns without actually printing.
+メソッドが、何も出力されること無く返ります。
 
-Using Command Arguments
------------------------
+コマンド引数を使う
+------------------
 
-The most interesting part of the commands are the arguments and options that
-you can make available. Arguments are the strings - separated by spaces - that
-come after the command name itself. They are ordered, and can be optional
-or required. For example, add an optional ``last_name`` argument to the command
-and make the ``name`` argument required::
+コマンドの最も興味深い部分は、指定可能な引数とオプションです。
+引数はスペースで区切られた文字列で、コマンドラインに続いて指定します。
+これは順序があり、オプションや必須項目であるという指定ができます。
+例えば、コマンドにオプションの ``last_name`` 引数、、必須項目の ``name`` 引数を追加してみます。 ::
 
     $this
         // ...
@@ -248,22 +240,21 @@ and make the ``name`` argument required::
             'Your last name?'
         );
 
-You now have access to a ``last_name`` argument in your command::
+これで、次のようにコマンドの ``last_name`` 引数を受け取ることができるようになりました。 ::
 
     if ($lastName = $input->getArgument('last_name')) {
         $text .= ' '.$lastName;
     }
 
-The command can now be used in either of the following ways:
+結果、コマンドは、次のように使用できるようになりました。
 
 .. code-block:: bash
 
     $ app/console demo:greet Fabien
     $ app/console demo:greet Fabien Potencier
 
-It is also possible to let an argument take a list of values (imagine you want
-to greet all your friends). For this it must be specified at the end of the
-argument list::
+引数としてリストを受けることも出来ます(友達全員に挨拶したいこともあるでしょう)。
+最後の引数に、指定することでこれを実現できます。::
 
     $this
         // ...
@@ -273,29 +264,29 @@ argument list::
             'Who do you want to greet (separate multiple names with a space)?'
         );
 
-To use this, just specify as many names as you want:
+好きなだけ名前を指定すればいよいです。
 
 .. code-block:: bash
 
     $ app/console demo:greet Fabien Ryan Bernhard
 
-You can access the ``names`` argument as an array::
+引数 ``names`` へは、配列としてアクセス出来ます::
 
     if ($names = $input->getArgument('names')) {
         $text .= ' '.implode(', ', $names);
     }
 
-There are 3 argument variants you can use:
+3種類の引数があります。
 
-===========================  ===============================================================================================================
-Mode                         Value
-===========================  ===============================================================================================================
-InputArgument::REQUIRED      The argument is required
-InputArgument::OPTIONAL      The argument is optional and therefore can be omitted
-InputArgument::IS_ARRAY      The argument can contain an indefinite number of arguments and must be used at the end of the argument list
-===========================  ===============================================================================================================
+===========================  ========================================================
+モード                       値
+===========================  ========================================================
+InputArgument::REQUIRED      必須。
+InputArgument::OPTIONAL      任意。省略可。
+InputArgument::IS_ARRAY      可変長の引数。最後の引数として使用されなければならない。
+===========================  ========================================================
 
-You can combine ``IS_ARRAY`` with ``REQUIRED`` and ``OPTIONAL`` like this::
+``IS_ARRAY`` は ``REQUIRED`` や ``OPTIONAL`` と同時に指定できます。::
 
     $this
         // ...
@@ -305,24 +296,24 @@ You can combine ``IS_ARRAY`` with ``REQUIRED`` and ``OPTIONAL`` like this::
             'Who do you want to greet (separate multiple names with a space)?'
         );
 
-Using Command Options
----------------------
+コマンドのオプションの使用方法
+------------------------------
 
-Unlike arguments, options are not ordered (meaning you can specify them in any
-order) and are specified with two dashes (e.g. ``--yell`` - you can also
-declare a one-letter shortcut that you can call with a single dash like
-``-y``). Options are *always* optional, and can be setup to accept a value
-(e.g. ``dir=src``) or simply as a boolean flag without a value (e.g.
-``yell``).
+引数とは違い、オプションは指定する順番は関係がありません。
+そして、 ``--yell`` のようにハイフンを２つ使用し、指定します。
+実際は、ショートカットとして ``-y`` のようにハイフン1つ使用し、
+1文字で指定することもできます。
+オプションは *必ず* 指定しなくても問題ありません。
+また、 ``dir=src`` のような値も有効ですし、 ``yell`` のように単純に値無しの真偽値としても有効です。
 
 .. tip::
 
-    It is also possible to make an option *optionally* accept a value (so that
-    ``--yell`` or ``yell=loud`` work). Options can also be configured to
-    accept an array of values.
+    オプションが、値を受けるかどうかを *オプションに* することもできます。
+    (つまり、``--yell`` や ``yell=loud`` が動くように。)
+    また、配列して値を受け取るオプションも設定できます。
 
-For example, add a new option to the command that can be used to specify
-how many times in a row the message should be printed::
+例として、コマンドに新しいオプションを追加してみましょう。
+このオプションは、表示するメッセージの回数を指定することにします。 ::
 
     $this
         // ...
@@ -334,7 +325,9 @@ how many times in a row the message should be printed::
             1
         );
 
-Next, use this in the command to print the message multiple times:
+次に、複数回このメッセージを表示するように、
+このコマンド内でオプションである ``iterations`` を使用します。
+
 
 .. code-block:: php
 
@@ -342,38 +335,36 @@ Next, use this in the command to print the message multiple times:
         $output->writeln($text);
     }
 
-Now, when you run the task, you can optionally specify a ``--iterations``
-flag:
+これでタスクを実行すれば、 ``--iterations`` のフラグをオプションとして指定できるようになりました。
 
 .. code-block:: bash
 
     $ app/console demo:greet Fabien
     $ app/console demo:greet Fabien --iterations=5
 
-The first example will only print once, since ``iterations`` is empty and
-defaults to ``1`` (the last argument of ``addOption``). The second example
-will print five times.
+最初の例では、 ``iterations`` を渡していないので、一度だけ表示します。
+これは、 ``addOption`` メソッドの最後の引数でデフォルト値に 1 を指定しているからです。
+そして2つ目の例では、5回表示します。
 
-Recall that options don't care about their order. So, either of the following
-will work:
+オプションには、順番は関係ないので、次の例のどちらも同じように動作します。
 
 .. code-block:: bash
 
     $ app/console demo:greet Fabien --iterations=5 --yell
     $ app/console demo:greet Fabien --yell --iterations=5
 
-There are 4 option variants you can use:
+オプションには4種類あります。
 
 ===========================  =====================================================================================
 Option                       Value
 ===========================  =====================================================================================
-InputOption::VALUE_IS_ARRAY  This option accepts multiple values (e.g. ``--dir=/foo --dir=/bar``)
-InputOption::VALUE_NONE      Do not accept input for this option (e.g. ``--yell``)
-InputOption::VALUE_REQUIRED  This value is required (e.g. ``--iterations=5``), the option itself is still optional
-InputOption::VALUE_OPTIONAL  This option may or may not have a value (e.g. ``yell`` or ``yell=loud``)
+InputOption::VALUE_IS_ARRAY  複数の値の指定可 (例 ``--dir=/foo --dir=/bar``)
+InputOption::VALUE_NONE      値を受け付けない (例 ``--yell``)
+InputOption::VALUE_REQUIRED  値が必須 (例 ``--iterations=5``) オプション自体は任意
+InputOption::VALUE_OPTIONAL  値は任意 (例 ``yell`` or ``yell=loud``)
 ===========================  =====================================================================================
 
-You can combine ``VALUE_IS_ARRAY`` with ``VALUE_REQUIRED`` or ``VALUE_OPTIONAL`` like this:
+``VALUE_IS_ARRAY`` は ``VALUE_REQUIRED`` や ``VALUE_OPTIONAL`` と同時に指定することが出来ます。
 
 .. code-block:: php
 
@@ -387,24 +378,23 @@ You can combine ``VALUE_IS_ARRAY`` with ``VALUE_REQUIRED`` or ``VALUE_OPTIONAL``
             1
         );
 
-Console Helpers
----------------
+コンソールヘルパー
+------------------
 
-The console component also contains a set of "helpers" - different small
-tools capable of helping you with different tasks:
+Console コンポーネントは、「ヘルパー」セットが入っています。
+色々な作業の時に便利な小さめのツール群です。
 
-* :doc:`/components/console/helpers/dialoghelper`: interactively ask the user for information
-* :doc:`/components/console/helpers/formatterhelper`: customize the output colorization
-* :doc:`/components/console/helpers/progresshelper`: shows a progress bar
-* :doc:`/components/console/helpers/tablehelper`: displays tabular data as a table
+* :doc:`/components/console/helpers/dialoghelper`: ユーザにインタラクティブに入力を求める
+* :doc:`/components/console/helpers/formatterhelper`: 出力の色付けを変更する
+* :doc:`/components/console/helpers/progresshelper`: プログレスバー
+* :doc:`/components/console/helpers/tablehelper`: 表形式のデータをテーブルで表示
 
-Testing Commands
+コマンドのテスト
 ----------------
 
-Symfony2 provides several tools to help you test your commands. The most
-useful one is the :class:`Symfony\\Component\\Console\\Tester\\CommandTester`
-class. It uses special input and output classes to ease testing without a real
-console::
+Symfony2 はコマンドを容易にテストできるようになるツールをいくつか用意しています。
+最も便利なものは、 :class:`Symfony\\Component\\Console\\Tester\\CommandTester` クラスです。
+このクラスは、実際のコンソールが無くてもテストするために、特別な入力と出力のクラスを使用します。 ::
 
     use Symfony\Component\Console\Application;
     use Symfony\Component\Console\Tester\CommandTester;
@@ -427,13 +417,12 @@ console::
         }
     }
 
-The :method:`Symfony\\Component\\Console\\Tester\\CommandTester::getDisplay`
-method returns what would have been displayed during a normal call from the
-console.
+:method:`Symfony\\Component\\Console\\Tester\\CommandTester::getDisplay` メソッドは、
+コンソールからのコマンド実行で、表示されるはずの結果を返します。
 
-You can test sending arguments and options to the command by passing them
-as an array to the :method:`Symfony\\Component\\Console\\Tester\\CommandTester::execute`
-method::
+コマンドに対する引数やオプションの指定は、
+:method:`Symfony\\Component\\Console\\Tester\\CommandTester::execute` メソッドに対して、
+配列を送ることで行います。::
 
     use Symfony\Component\Console\Application;
     use Symfony\Component\Console\Tester\CommandTester;
@@ -460,20 +449,20 @@ method::
 
 .. tip::
 
-    You can also test a whole console application by using
-    :class:`Symfony\\Component\\Console\\Tester\\ApplicationTester`.
+    :class:`Symfony\\Component\\Console\\Tester\\ApplicationTester` クラスを使用すれば、
+    全てのコンソールアプリケーションのテストもできます。
 
-Calling an existing Command
----------------------------
+すでにあるコマンドの呼び出し
+----------------------------
 
-If a command depends on another one being run before it, instead of asking the
-user to remember the order of execution, you can call it directly yourself.
-This is also useful if you want to create a "meta" command that just runs a
-bunch of other commands (for instance, all commands that need to be run when
-the project's code has changed on the production servers: clearing the cache,
-generating Doctrine2 proxies, dumping Assetic assets, ...).
+あるコマンドを実行する前に、他のコマンドを既に実行し終わっているべきだ、という順番の管理が必要なときもあるでしょう。
+実行の順番をユーザに覚えてもらうのではなく、自分身で直接管理することができます。
+たくさんのコマンドをまとめて実行する "meta" コマンドを作成する際に便利です。 
+"meta" コマンドとは、例えば本番サーバのプロジェクトのコードを変更した際に
+、実行すべき全てのコードをまとめたものです。
+キャッシュのクリア、 Doctrine2 のプロクシの生成、 Assetic アセットのダンプなどなど。
 
-Calling a command from another one is straightforward::
+コマンドから他のコマンドを呼ぶのは簡単で、次のようできます。 ::
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -491,32 +480,31 @@ Calling a command from another one is straightforward::
         // ...
     }
 
-First, you :method:`Symfony\\Component\\Console\\Application::find` the
-command you want to execute by passing the command name.
+まず、 :method:`Symfony\\Component\\Console\\Application::find` メソッドにコマンド名を渡し、実行したいコマンドを探します。
 
-Then, you need to create a new
-:class:`Symfony\\Component\\Console\\Input\\ArrayInput` with the arguments and
-options you want to pass to the command.
+そして、指定したい引数とオプションを渡し
+:class:`Symfony\\Component\\Console\\Input\\ArrayInput` クラスを新しく作成します。
 
-Eventually, calling the ``run()`` method actually executes the command and
-returns the returned code from the command (return value from command's
-``execute()`` method).
+最後に、 ``run()`` メソッドを呼んで、実際にコマンドを実行し、そのコマンドの戻り値を戻します。
+コマンドの ``execute()`` メソッドが返す値です。
 
 .. note::
 
-    Most of the time, calling a command from code that is not executed on the
-    command line is not a good idea for several reasons. First, the command's
-    output is optimized for the console. But more important, you can think of
-    a command as being like a controller; it should use the model to do
-    something and display feedback to the user. So, instead of calling a
-    command from the Web, refactor your code and move the logic to a new
-    class.
+    ほとんどの場合、コマンドライン上で実行されないコードからコマンドを呼び出すのは、
+    次の理由から良いアイデアではありません。
+    まず、コマンドの出力は、コンソールのために最適化されています。
+    しかし、より大事なこととして、コマンドをコントローラのように考えることができます。
+    コントローラは、モデルを使用し処理を行い、ユーザにフィードバックを表示します。
+    ウェブからコマンドを呼ぶのではなく、コードをリファクタリングして、ロジックを新しいクラスに移すべきです。
 
-Learn More!
------------
+さらに!
+-------
 
 * :doc:`/components/console/usage`
 * :doc:`/components/console/single_command_tool`
 
 .. _Packagist: https://packagist.org/packages/symfony/console
 .. _ANSICON: https://github.com/adoxa/ansicon/downloads
+
+.. 2012/01/21 77web 068bfa62d50062ec15db1942328d34f6c10a65b5
+.. 2013/11/23 gilbite 55a2de49dce07919f5e79f0d1aaded50e37fe934  components/console.rst => components/console/introduction.rst and update
