@@ -1,28 +1,33 @@
 .. index::
    single: Forms; Fields; text
 
-text Field Type
+.. note::
+
+   * 対象バージョン：2.3
+   * 翻訳更新日：2013/11/23
+
+textフィールドタイプ
 ===============
 
-The text field represents the most basic input text field.
+textフィールドは最もベーシックなインプットテキストフィールドを表示します。
 
 +-------------+--------------------------------------------------------------------+
-| Rendered as | ``input`` ``text`` field                                           |
+| 対応するタグ  | ``input`` ``text`` field                                           |
 +-------------+--------------------------------------------------------------------+
-| Inherited   | - `max_length`_                                                    |
-| options     | - `required`_                                                      |
+| 継承された   | - `max_length`_                                                    |
+| オプション   | - `required`_                                                      |
 |             | - `label`_                                                         |
 |             | - `trim`_                                                          |
 |             | - `read_only`_                                                     |
 |             | - `error_bubbling`_                                                |
 +-------------+--------------------------------------------------------------------+
-| Parent type | :doc:`field</reference/forms/types/field>`                         |
+| 親タイプ     | :doc:`field</reference/forms/types/field>`                         |
 +-------------+--------------------------------------------------------------------+
-| Class       | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\TextType` |
+| クラス       | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\TextType` |
 +-------------+--------------------------------------------------------------------+
 
 
-Inherited Options
+継承されたオプション
 -----------------
 
 These options inherit from the :doc:`field</reference/forms/types/field>` type:
@@ -38,3 +43,5 @@ These options inherit from the :doc:`field</reference/forms/types/field>` type:
 .. include:: /reference/forms/types/options/read_only.rst.inc
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
+
+.. 2013/11/23 kseta 4848f40b7de1463e40911bc2871d8990757d0097
