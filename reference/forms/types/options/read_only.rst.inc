@@ -1,7 +1,13 @@
+.. note::
+
+    * 対象バージョン：2.3 (2.1以降)
+    * 翻訳更新日：2013/11/23
+
 read_only
 ~~~~~~~~~
 
-**type**: ``Boolean`` **default**: ``false``
+**データ型**: ``Boolean`` **デフォルト**: ``false``
 
-If this option is true, the field will be rendered with the ``disabled``
-attribute so that the field is not editable.
+このオプションがtrueの場合、そのフィールドは``readonly``属性付きでレンダリングされるため、編集する事が出来ません。
+
+.. 2013/11/23 nntsugu 4346f75f05a5ee010d0148ea251e99c7f6a02c38
