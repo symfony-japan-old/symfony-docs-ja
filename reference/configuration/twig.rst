@@ -1,21 +1,25 @@
-.. 2011/07/04 jptomo 0bc45c95fbe796736cf441028fad9088f27ece00
+.. note::
+
+    * 対象バージョン：2.3 (2.1以降)
+    * 翻訳更新日：2013/11/23
 
 .. index::
-   pair: Twig; Configuration Reference
+   pair: Twig; Configuration reference
 
-TwigBundle 設定
-===============
+TwigBundle 設定 ("twig")
+=================================
 
 .. configuration-block::
 
     .. code-block:: yaml
 
         twig:
+            exception_controller:  twig.controller.exception:showAction
             form:
                 resources:
 
-                    # 初期値
-                    - div_layout.html.twig
+                    # 初期値:
+                    - form_div_layout.html.twig
 
                     # 設定例:
                     - MyBundle::form.html.twig
@@ -25,18 +29,27 @@ TwigBundle 設定
                 foo:                 "@bar"
                 pi:                  3.14
 
-                # プロトタイプ
-                key:
+                # オプション設定例 簡単な方法は下記です
+                some_variable_name:
+                    # サービスのidは値である必要があります
                     id:                   ~
+                    # サービスを設定するか空欄にします
+                    # set to service or leave blank
                     type:                 ~
                     value:                ~
-            autoescape:           ~
-            base_template_class:  ~ # 設定例: Twig_Template
-            cache:                %kernel.cache_dir%/twig
-            charset:              %kernel.charset%
-            debug:                %kernel.debug%
-            strict_variables:     ~
-            auto_reload:          ~
+            autoescape:                ~
+
+            # Symfony 2.3. で追加されました。
+            # 詳細 http://twig.sensiolabs.org/doc/recipes.html#using-the-template-name-to-set-the-default-escaping-strategy
+            autoescape_service:        ~ # 設定例: @my_service
+            autoescape_service_method: ~ #  autoescape_service オプションとの併用例 
+            base_template_class:       ~ # 設定例: Twig_Template
+            cache:                     "%kernel.cache_dir%/twig"
+            charset:                   "%kernel.charset%"
+            debug:                     "%kernel.debug%"
+            strict_variables:          ~
+            auto_reload:               ~
+            optimizations:             ~
 
     .. code-block:: xml
 
@@ -75,3 +88,21 @@ TwigBundle 設定
              'debug'               => '%kernel.debug%',
              'strict_variables'    => false,
         ));
+
+Configuration
+-------------
+
+.. _config-twig-exception-controller:
+
+exception_controller
+....................
+
+**type**: ``string`` **default**: ``twig.controller.exception:showAction``
+
+このコントローラー(exception_controller)はアプリケーション内で発生した例外を処理します。
+初期設定の例外コントローラー(:class:`Symfony\\Bundle\\TwigBundle\\Controller\\ExceptionController`)は
+受け取ったエラーによって、適用するテンプレートを選択します。
+このオプションは上級者向けの設定です。(エラーページのカスタマイズ方法 :doc:`/cookbook/controller/error_pages`)を参照してください。
+例外時の挙動の処理を行う際には、 ``kernel.exception`` イベントをキャッチする必要があります。(kernel-event-listner :ref:`dic-tags-kernel-event-listener`)を参照してください。
+
+.. 2013/11/23 ytone d11327b2c28ebb71b9cdc1b5cf5879183905b3ad
