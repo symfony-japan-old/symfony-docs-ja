@@ -6,7 +6,7 @@
 translation_domain
 ~~~~~~~~~~~~~~~~~~
 
-**type**: ``string`` **default**: ``messages``
+**データ型**: ``string`` **デフォルト**: ``messages``
 
 これはボタンのためにレンダリングされたラーベルまたはオプションに使用される翻訳ドメインです。
 

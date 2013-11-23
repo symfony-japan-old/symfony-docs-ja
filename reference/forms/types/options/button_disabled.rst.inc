@@ -6,7 +6,7 @@
 disabled
 ~~~~~~~~
 
-**type**: ``boolean``  **default**: ``false``
+**データ型**: ``boolean``  **デフォルト**: ``false``
 
 ユーザがボタンを押してほしくない場合disabledオプションをtrueにしてください。
 cURLのようにブラウザを迂回して受動でリクエストを送信しない場合でも、
