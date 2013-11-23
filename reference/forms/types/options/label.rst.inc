@@ -1,11 +1,18 @@
+.. note::
+
+    * 対象バージョン：2.3 (2.1以降)
+    * 翻訳更新日：2013/11/23
+
 label
 ~~~~~
 
-**type**: ``string`` **default**: The label is "guessed" from the field name
+**データ型**: ``string`` **デフォルト**: ラベルはフィールド名から推測されたものです。
 
-Sets the label that will be used when rendering the field. The label can
-also be directly set inside the template:
-    
+フィールドがレンダリングされる際にラベルが設定されます。falseが設定されるとラベルは表示されません。
+ラベルはテンプレート内部で設定されていることもありえます。
+
 .. code-block:: jinja
 
     {{ render_label(form.name, 'Your name') }}
+
+.. 2013/11/23 nntsugu 3dd42a4809ecf3b34beb219acafcd4c62907c785
