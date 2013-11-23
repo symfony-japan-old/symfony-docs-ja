@@ -1,41 +1,43 @@
 .. index::
    single: Forms; Fields; file
 
-file Field Type
+.. note::
+
+    * 対象バージョン：2.3 (2.1以降)
+    * 翻訳更新日：2013/11/23
+
+file フィールドタイプ
 ===============
 
-The ``file`` type represents a file input in your form.
+``file`` タイプはフォームにファイルを挿入する機能を果たします.
 
 +-------------+---------------------------------------------------------------------+
-| Rendered as | ``input`` ``file`` field                                            |
+| 対応するタグ| ``input`` ``file`` フィールド                                       |
 +-------------+---------------------------------------------------------------------+
-| Inherited   | - `required`_                                                       |
-| options     | - `label`_                                                          |
+| 継承された  | - `required`_                                                       |
+| オプション  | - `label`_                                                          |
 |             | - `read_only`_                                                      |
+|             | - `disabled`_                                                       |
 |             | - `error_bubbling`_                                                 |
+|             | - `error_mapping`_                                                  |
+|             | - `mapped`_                                                         |
 +-------------+---------------------------------------------------------------------+
-| Parent type | :doc:`form</reference/forms/types/field>`                           |
+| 親タイプ    | :doc:`form </reference/forms/types/form>`                           |
 +-------------+---------------------------------------------------------------------+
-| Class       | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType`  |
+| クラス      | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType`  |
 +-------------+---------------------------------------------------------------------+
 
-Basic Usage
+基本的な使い方
 -----------
 
-Let's say you have this form definition:
+このような定義のフォームがあったとして、:
 
 .. code-block:: php
 
     $builder->add('attachment', 'file');
 
-.. caution::
-
-    Don't forget to add the ``enctype`` attribute in the form tag: ``<form
-    action="#" method="post" {{ form_enctype(form) }}>``.
-
-When the form is submitted, the ``attachment`` field will be an instance of
-:class:`Symfony\\Component\\HttpFoundation\\File\\UploadedFile`. It can be
-used to move the ``attachment`` file to a permanent location:
+フォームが送信されると, ``attachment`` フィールドが
+:class:`Symfony\\Component\\HttpFoundation\\File\\UploadedFile` のインスタンスになります. これは 添付ファイルを一時的な場所から保存先に移動させるために使用することができます。:
 
 .. code-block:: php
 
@@ -47,7 +49,7 @@ used to move the ``attachment`` file to a permanent location:
 
         if ($form->isValid()) {
             $someNewFilename = ...
-        
+
             $form['attachment']->getData()->move($dir, $someNewFilename);
 
             // ...
@@ -56,32 +58,29 @@ used to move the ``attachment`` file to a permanent location:
         // ...
     }
 
-The ``move()`` method takes a directory and a file name as its arguments.
-You might calculate the filename in one of the following ways::
+``move()`` メソッドは引数としてディレクトリ名とファイル名を受け取ります。
+以下のいずれかの方法でファイル名を計算します::
 
-    // use the original file name
+    // 元のままのファイル名を使う
     $file->move($dir, $file->getClientOriginalName());
 
-    // compute a random name and try to guess the extension (more secure)
+    // ランダムなファイル名にし、拡張子を推測する (より安全な方法)
     $extension = $file->guessExtension();
     if (!$extension) {
-        // extension cannot be guessed
+        // 拡張子が推測できなかった場合
         $extension = 'bin';
     }
     $file->move($dir, rand(1, 99999).'.'.$extension);
 
-Using the original name via ``getClientOriginalName()`` is not safe as it
-could have been manipulated by the end-user. Moreover, it can contain
-characters that are not allowed in file names. You should sanitize the name
-before using it directly.
+元のままのファイル名と ``getClientOriginalName()`` を使う方法はエンドユーザーから操作されてしまう可能性があるため安全ではありません。
+さらに、 許可されない文字列がファイル名に含まれてしまう可能性もあるので、事前に名前をサニタイズすることを推奨します。
 
-Read the :doc:`cookbook </cookbook/doctrine/file_uploads>` for an example of
-how to manage a file upload associated with a Doctrine entity.
+:doc:`cookbook </cookbook/doctrine/file_uploads>` にファイルアップロードとDoctrineのentityとの紐付けを管理する方法の例が掲載されています。
 
-Inherited options
+継承されたオプション
 -----------------
 
-These options inherit from the :doc:`field</reference/forms/types/field>` type:
+これらのオプションは :doc:`form </reference/forms/types/form>` タイプを継承しています。:
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
@@ -89,4 +88,12 @@ These options inherit from the :doc:`field</reference/forms/types/field>` type:
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
 
+.. include:: /reference/forms/types/options/disabled.rst.inc
+
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc
+
+.. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. 2013/11/23 sotarof b675661199d466be4b6cb6f70d16aa1e3574c789
