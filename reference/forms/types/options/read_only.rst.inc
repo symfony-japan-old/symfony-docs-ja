@@ -6,7 +6,7 @@
 read_only
 ~~~~~~~~~
 
-**type**: ``Boolean`` **default**: ``false``
+**データ型**: ``Boolean`` **デフォルト**: ``false``
 
 このオプションがtrueの場合、そのフィールドは``readonly``属性付きでレンダリングされるため、編集する事が出来ません。
 
