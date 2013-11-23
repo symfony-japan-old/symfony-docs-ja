@@ -3,8 +3,8 @@
 
 .. note::
 
-    * 対象バージョン：2.3
-    * 翻訳更新日：2013/10/12
+    * 対象バージョン：2.3,2.4
+    * 翻訳更新日：2013/11/23
 
 コンソールコマンドの作り方
 ==========================
@@ -64,6 +64,55 @@ Console コンポーネントの解説 (:doc:`/components/console/introduction`)
 .. code-block:: bash
 
     $ app/console demo:greet Fabien
+
+.. _cookbook-console-dic:
+
+サービスコンテナにコマンドを登録する
+------------------------------------------
+
+.. versionadded:: 2.4
+   バージョン2.4からコマンドをサービスコンテナに登録できるようになりました。
+
+コマンドを ``Command`` ディレクトリに配置して Symfony に自動的に認識させるのではなく、 ``console.command`` タグを使ってコマンドをサービスコンテナに登録することもできます。
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        services:
+            acme_hello.command.my_command:
+                class: Acme\HelloBundle\Command\MyCommand
+                tags:
+                    -  { name: console.command }
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <service id="acme_hello.command.my_command"
+                class="Acme\HelloBundle\Command\MyCommand">
+                <tag name="console.command" />
+            </service>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+
+        $container
+            ->register('acme_hello.command.my_command', 'Acme\HelloBundle\Command\MyCommand')
+            ->addTag('console.command')
+        ;
+
+.. tip::
+
+    コマンドをサービスとして登録することにより、ファイルの配置先パスと注入するサービスをより自由に決められるようになりました。
+    しかし、従来の方法に比べて機能面で優れているわけではないので、コマンドを必ずしもサービスとして登録する必要はありません。
 
 サービスコンテナからサービスを取得する
 --------------------------------------
@@ -168,4 +217,4 @@ Console コンポーネントの解説 (:doc:`/components/console/introduction`)
 .. _`[Console] pass command name automatically if required by the application`: https://github.com/symfony/symfony/pull/8626
 
 .. 2013/10/12 hidenorigoto 16e557750186fe690a8af61a1cb47742d8da2d05
-
+.. 2013/11/23 77web fda51eee9a34107eba3eee45d4a922803e0df5b8
