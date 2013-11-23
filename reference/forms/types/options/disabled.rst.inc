@@ -1,8 +1,14 @@
+.. note::
+
+   * 対象バージョン：2.3
+   * 翻訳更新日：2013/11/23
+
 disabled
 ~~~~~~~~
 
-**type**: ``boolean``  **default**: ``false``
+**データ型**: ``boolean``  **デフォルト**: ``false``
 
-If you don't want a user to modify the value of a field, you can set 
-the disabled option to true. Any submitted value will be ignored.
+ユーザにフィールドの値を変更させたくない場合は、
+このdisabledオプションをtrueにします。どんなサブミットされた値も無視されます。
 
+.. 2013/11/23 kseta 4346f75f05a5ee010d0148ea251e99c7f6a02c38
