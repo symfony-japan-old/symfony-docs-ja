@@ -1,18 +1,14 @@
-*   ``disabled`` [type: Boolean, default: false]
-    If you don't want a user to modify the value of a field, you can set 
-    the disabled option to true. Any submitted value will be ignored.
+.. note::
 
-    .. code-block:: php
+   * 対象バージョン：2.3
+   * 翻訳更新日：2013/11/23
 
-        use Symfony\Component\Form\TextField
-      
-        $field = new TextField('status', array(
-            'data' => 'Old data',
-            'disabled' => true,
-        ));
-        $field->submit('New data');
+disabled
+~~~~~~~~
 
-        // prints "Old data"
-        echo $field->getData();
+**データ型**: ``boolean``  **デフォルト**: ``false``
 
+ユーザにフィールドの値を変更させたくない場合は、
+このdisabledオプションをtrueにします。どんなサブミットされた値も無視されます。
 
+.. 2013/11/23 kseta 4346f75f05a5ee010d0148ea251e99c7f6a02c38
