@@ -1,10 +1,7 @@
-.. 2011/05/29 hidenorigoto 06f3bcba3d245cdaf7fc8bc21eb83b03e7258be7
-.. 2011/05/02 hidenorigoto 310854fe
+コントローラー
+==============
 
-コントローラ
-============
-
-チュートリアルの 3 つめのステップとして、この章ではコントローラの機能をさらに見ていきます。
+チュートリアルの 3 つめのステップとして、この章ではコントローラーの機能をさらに見ていきます。
 
 フォーマットを使う
 ------------------
@@ -19,6 +16,8 @@ Symfony2 におけるフォーマットのサポートは、とても単純で�
     // src/Acme/DemoBundle/Controller/DemoController.php
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
+    // ...
 
     /**
      * @Route("/hello/{name}", defaults={"_format"="xml"}, name="_demo_hello")
@@ -39,8 +38,7 @@ Symfony2 におけるフォーマットのサポートは、とても単純で�
         <name>{{ name }}</name>
     </hello>
 
-これだけです。
-標準的フォーマットについては、レスポンスに対してもっとも適切な ``Content-Type`` ヘッダーが Symfony2 によって自動的に選択されます。
+これだけです。レスポンスに対して適切な ``Content-Type`` ヘッダーが Symfony2 によって自動的に選択されます。
 単一のアクションで複数の異なるフォーマットをサポートしたい場合は、ルートパターンに ``{_format}`` プレースホルダを使います。
 
 ::
@@ -48,6 +46,8 @@ Symfony2 におけるフォーマットのサポートは、とても単純で�
     // src/Acme/DemoBundle/Controller/DemoController.php
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
+    // ...
 
     /**
      * @Route("/hello/{name}.{_format}", defaults={"_format"="html"}, requirements={"_format"="html|xml|json"}, name="_demo_hello")
@@ -58,7 +58,7 @@ Symfony2 におけるフォーマットのサポートは、とても単純で�
         return array('name' => $name);
     }
 
-このコントローラは、\ ``/demo/hello/Fabien.xml`` や ``/demo/hello/Fabien.json`` といった URL で呼び出されるようになります。
+このコントローラーは、\ ``/demo/hello/Fabien.xml`` や ``/demo/hello/Fabien.json`` といった URL で呼び出されるようになります。
 
 ``requirements`` エントリには、プレースホルダの値をチェックするための正規表現を定義します。
 この例では、もし ``/demo/hello/Fabien.js`` というリソースへのリクエストがあった場合、\ ``_format`` の正規表現にマッチしないため、HTTP の 404 エラーが返されます。
@@ -73,7 +73,7 @@ Symfony2 におけるフォーマットのサポートは、とても単純で�
     return $this->redirect($this->generateUrl('_demo_hello', array('name' => 'Lucas')));
 
 ``generateUrl()`` メソッドの機能は、テンプレートで使った ``path()`` 関数と同じです。
-ルート名とパラメータの配列を引数にとり、ルート名に関連付けられた使いやすい URL を生成して返します。
+ルート名とパラメータの配列を引数にとり、ルート名に関連付けられたパターンから URL を生成して返します。
 
 アクションから別のアクションへフォワードするのも同じように簡単で、\ ``forward()`` メソッドを使います。
 内部的には、フォワード先のアクションへの "サブリクエスト" が作られ、そのサブリクエストを実行した結果の ``Response`` オブエジェクトが返されます。
@@ -82,16 +82,16 @@ Symfony2 におけるフォーマットのサポートは、とても単純で�
 
     $response = $this->forward('AcmeDemoBundle:Hello:fancy', array('name' => $name, 'color' => 'green'));
 
-    // $response に対して何らかの処理を行うか、そのまま return する
+    // ... $response に対して何らかの処理を行うか、そのまま return する
 
 リクエストから情報を取得する
 ----------------------------
 
-コントローラからアクセスできる値は、ルーティングのプレースホルダで設定した値以外に、\ ``Request`` オブジェクトがあります。
+ルーティングのプレースホルダーで設定した値のほかに、コントローラーから ``Request`` オブジェクトに直接アクセスすることもできます。
 
 ::
 
-    $request = $this->get('request');
+    $request = $this->getRequest();
 
     $request->isXmlHttpRequest(); // Ajax のリクエストかどうか？
 
@@ -112,35 +112,39 @@ Symfony2 におけるフォーマットのサポートは、とても単純で�
 セッションにデータを格納する
 ----------------------------
 
-HTTP プロトコルはステートレスですが、Symfony2 にはクライアント(それはブラウザを使っている実際の人かもしれませんし、或いはボットやWeb サービスかもしれません)を表現した、使いやすいセッションオブジェクトが Symfony2 には組み込まれています。
-PHP ネイティブのセッション機能を使って実装されており、2 つのリクエストに渡って属性を保存できます。
+HTTP プロトコルはステートレスですが、Symfony2 にはクライアント(ブラウザを使っている実際の人かもしれませんし、あるいはボットや Web サービスかもしれません)を表現した、使いやすいセッションオブジェクトが Symfony2 には組み込まれています。
+PHP ネイティブのセッション機能を使って実装されており、複数のリクエストに渡って属性を保存できます。
 
-セッションへの情報の保存とセッションからの情報の取得は、任意のコントローラから簡単に行なえます。
+セッションへの情報の保存とセッションからの情報の取得は、任意のコントローラーから簡単に行えます。
 
 ::
 
-    $session = $this->get('request')->getSession();
+    $session = $this->getRequest()->getSession();
 
     // 後続のユーザーからのリクエストで再利用するために属性を保存
     $session->set('foo', 'bar');
 
-    // 別のコントローラにおける別のリクエストにて
+    // 別のコントローラーにおける別のリクエストにて
     $foo = $session->get('foo');
 
-    // ユーザーのロケールを設定
-    $session->setLocale('fr');
+    // キーが存在しない場合のデフォルト値を指定
+    $filters = $session->get('filters', array());
 
-直後のリクエストでのみ有効な小さなメッセージをセッションに保存することもできます。
+直後のリクエストでのみ有効な小さなメッセージ（flash メッセージと呼ぶ）をセッションに保存することもできます。
 
 ::
 
-    // 直後のリクエストでのみ利用可能なメッセージを保存（コントローラにて）
-    $session->setFlash('notice', 'Congratulations, your action succeeded!');
+    // （コントローラー内）直後のリクエスト向けにメッセージを保存する
+    $session->getFlashBag()->add('notice', 'アクションの処理が完了しました。');
 
-    // 次のリクエストでメッセージを表示（テンプレートにて）
-    {{ app.session.flash('notice') }}
+    // （テンプレート内）直後のリクエストでメッセージを表示する
+
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div>{{ flashMessage }}</div>
+    {% endfor %}
 
 この機能は、ユーザーを別のページへリダイレクトさせる前に処理の完了メッセージを設定し、リダイレクト先のページでメッセージを表示する必要がある場合に便利です。
+get() の代わりに has() を使った場合、対応する flash メッセージはクリアされないので、さらに次のリクエストでも参照可能です。
 
 リソースのセキュリティーを設定する
 ----------------------------------
@@ -160,17 +164,22 @@ Symfony Standard Edition には、よく使われる要件にあう単純なセ�
 
         providers:
             in_memory:
-                users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+                memory:
+                    users:
+                        user:  { password: userpass, roles: [ 'ROLE_USER' ] }
+                        admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
 
         firewalls:
+            dev:
+                pattern:  ^/(_(profiler|wdt)|css|images|js)/
+                security: false
+
             login:
-                pattern:  /demo/secured/login
+                pattern:  ^/demo/secured/login$
                 security: false
 
             secured_area:
-                pattern:    /demo/secured/.*
+                pattern:    ^/demo/secured/
                 form_login:
                     check_path: /demo/secured/login_check
                     login_path: /demo/secured/login
@@ -178,47 +187,25 @@ Symfony Standard Edition には、よく使われる要件にあう単純なセ�
                     path:   /demo/secured/logout
                     target: /demo/
 
-このコンフィギュレーションでは、\ ``/demo/secured/`` で始まる任意の URL にアクセスしたユーザーにログインを要求するよう設定し、\ ``user`` と ``admin`` という 2 種類のユーザーを定義しています。
+このコンフィギュレーションでは、\ ``/demo/secured/`` で始まる任意の URL にアクセスしたユーザーにログインを要求するよう設定しています。また、\ ``user`` と ``admin`` という 2 種類のユーザーを定義しています。
 さらに、\ ``admin`` ユーザーには ``ROLE_USER`` ロールを含む ``ROLE_ADMIN`` ロールが付与されています（\ ``role_hierarchy`` 設定を参照してください）。
 
 .. tip::
 
     可読性のために、この単純なコンフィギュレーションではパスワードが平文で記述されていますが、\ ``encoders`` セクションのコンフィギュレーションにより任意のハッシュアルゴリズムを設定できます。
 
-``http://localhost/Symfony/web/app_dev.php/demo/secured/hello`` という URL へアクセスした場合、このリソースは\ ``ファイアウォール``\ で保護されているため、ユーザーは自動的にログインフォームへリダイレクトされます。
-
-コントローラで ``@Secure`` アノテーションを使って、アクションで任意のロールを要求するように設定することもできます。
-
-::
-
-    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-    use JMS\SecurityExtraBundle\Annotation\Secure;
-
-    /**
-     * @Route("/hello/admin/{name}", name="_demo_secured_hello_admin")
-     * @Secure(roles="ROLE_ADMIN")
-     * @Template()
-     */
-    public function helloAdminAction($name)
-    {
-        return array('name' => $name);
-    }
-
-``user`` （このユーザーには ``ROLE_ADMIN`` ロールが付与されていない）でログインし、セキュリティーで保護された Hello ページから "Hello resource secured" リンクをクリックしてみてください。
-Symfony2 により HTTP 403 ステータスコードが返されます。
-これは、ユーザーが該当リソースへのアクセスを\ "拒否"\ されたことを示します。
+``http://localhost/app_dev.php/demo/secured/hello`` という URL へアクセスした場合、このリソースは\ ``ファイアウォール``\ で保護されているため、ユーザーは自動的にログインフォームへリダイレクトされます。
 
 .. note::
 
-    Symfony2 セキュリティーレイヤーはとても柔軟で、たとえば Doctrine ORM 向けなどのさまざまなユーザープロバイダや、HTTP 基本認証、HTTP ダイジェスト認証、X509 証明書での認証といった認証プロバイダなどが組み込まれています。
+    Symfony2 セキュリティーレイヤーはとても柔軟で、たとえば Doctrine ORM 向けのユーザープロバイダーや、HTTP 基本認証、HTTP ダイジェスト認証、X509 証明書での認証といった認証プロバイダーなどが組み込まれています。
     セキュリティーレイヤーの使い方と設定方法の詳細については、ガイドブックの ":doc:`/book/security`" の章を参照してください。
 
 リソースをキャッシュする
 ------------------------
 
 構築したサイトのトラフィックが日に日に増えてくると、同一のリソースを何度も生成することを避けたいと考えるでしょう。
-Symfony2 では HTTP キャッシュヘッダーを使ってリソースのキャッシュを管理できます。単純なキャッシュ戦略では、便利な ``@Cache()`` アノテーションを使います。
+Symfony2 では HTTP キャッシュヘッダーを使ってリソースのキャッシュを管理できます。単純なキャッシュ戦略では、\ ``@Cache()`` アノテーションを使うと便利です。
 
 ::
 
@@ -256,4 +243,6 @@ Symfony2 では HTTP キャッシュヘッダーを使ってリソースのキ�
 最初の章でバンドルという概念を簡単に解説したのを覚えていますか？
 私たちが今学んでいる機能は、コアのフレームワークバンドルの機能の一部なのです。
 バンドルの仕組みがあるおかげで、Symfony2 のすべての機能は拡張可能かつ置き換え可能です。
-これが、このチュートリアルの次の章のトピックです。
+これが、:doc:`次の章のトピック<the_architecture>`\ です。
+
+.. 2013/11/23 hidenorigoto 3cda0929690008e9ef65f62444d17a263ad01fc2
