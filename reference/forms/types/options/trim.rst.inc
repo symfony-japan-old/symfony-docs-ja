@@ -1,9 +1,14 @@
+.. note::
+
+   * 対象バージョン：2.3
+   * 翻訳更新日：2013/11/23
+
 trim
 ~~~~
 
-**type**: ``Boolean`` **default**: ``true``
+**データ型**: ``Boolean`` **デフォルト**: ``true``
 
-If true, the whitespace of the submitted string value will be stripped
-via the ``trim()`` function when the data is bound. This guarantees that
-if a value is submitted with extra whitespace, it will be removed before
-the value is merged back onto the underlying object.
+trueの場合、サブミットされた文字列の値に含まれる空白は ``trim()`` で取り去られます。
+余分な空白とともにサブミットされた値の場合、その値が下位のオブジェクトに取り込まれる前に取り除かれます。
+
+.. 2013/11/23 kseta 906e345d04b170d3367cfc8e523239137867db0d
