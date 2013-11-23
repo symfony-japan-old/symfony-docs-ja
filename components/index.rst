@@ -6,7 +6,7 @@
 
    using_components
    class_loader
-   console
+   console/index
    css_selector
    debug
    filesystem
