@@ -1,5 +1,7 @@
-.. 2011/05/29 hidenorigoto 79a9f5847d260c2a6ed63917029f67bd213879fc
-.. 2011/05/01 hidenorigoto 7d4e2238
+.. note::
+
+    * 対象バージョン：2.3以降
+    * 翻訳更新日：2013/11/23
 
 アーキテクチャ
 ==============
@@ -7,13 +9,13 @@
 最初の 3 つの章を読み終えてこの章へたどり着いたみなさん、お疲れ様でした。
 ここまでで学んだ内容は、すぐにあなたの役に立ちます。
 ただし、この 3 つの章では、フレームワークのアーキテクチャーについて深くは学びませんでした。
-Symfony2 のアーキテクチャは、さまざまなフレームワークの中でも際立っています。
-この章では Symfony2 のアーキテクチャについて学びます。
+Symfony2 のアーキテクチャーは、さまざまなフレームワークの中でも際立っています。
+この章では Symfony2 のアーキテクチャーについて学びます。
 
 ディレクトリ構造について
 ------------------------
 
-Symfony2 :term:`アプリケーション` のディレクトリ構造の制限は緩く柔軟ですが、\ *Standard Edition* ディストリビューションでは、Symfony2 アプリケーションで典型的に使用するディレクトリの推奨構成が採用されています。
+Symfony2 :term:`アプリケーション`\ のディレクトリ構造に制限はほとんどなく柔軟ですが、\ *Standard Edition* ディストリビューションでは、アプリケーションで典型的に使用するディレクトリの推奨構成が採用されています。
 
 * ``app/``:    アプリケーションのコンフィギュレーション
 * ``src/``:    プロジェクトの PHP コード
@@ -23,7 +25,7 @@ Symfony2 :term:`アプリケーション` のディレクトリ構造の制限�
 ``web/`` ディレクトリ
 ~~~~~~~~~~~~~~~~~~~~~
 
-web ディレクトリは、画像やJavaScript、スタイルシートなどの Web に公開する静的ファイルの基点となるディレクトリです。
+web ディレクトリは、画像や JavaScript、スタイルシートなどの Web に公開する静的ファイルの基点となるディレクトリです。
 また、各\ :term:`フロントコントローラ`\ ファイルもこのディレクトリに配置されます。
 
 ::
@@ -54,44 +56,12 @@ web ディレクトリは、画像やJavaScript、スタイルシートなどの
 
 * ``registerContainerConfiguration()`` メソッドは、アプリケーションコンフィギュレーションを読み込むようにします。
 
-PHP のオートロードは、\ ``app/autoload.php`` ファイルで設定します。
-
-::
-
-    // app/autoload.php
-    use Symfony\Component\ClassLoader\UniversalClassLoader;
-
-    $loader = new UniversalClassLoader();
-    $loader->registerNamespaces(array(
-        'Symfony'          => array(__DIR__.'/../vendor/symfony/src', __DIR__.'/../vendor/bundles'),
-        'Sensio'           => __DIR__.'/../vendor/bundles',
-        'JMS'              => __DIR__.'/../vendor/bundles',
-        'Doctrine\\Common' => __DIR__.'/../vendor/doctrine-common/lib',
-        'Doctrine\\DBAL'   => __DIR__.'/../vendor/doctrine-dbal/lib',
-        'Doctrine'         => __DIR__.'/../vendor/doctrine/lib',
-        'Monolog'          => __DIR__.'/../vendor/monolog/src',
-        'Assetic'          => __DIR__.'/../vendor/assetic/src',
-        'Metadata'         => __DIR__.'/../vendor/metadata/src',
-    ));
-    $loader->registerPrefixes(array(
-        'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',
-        'Twig_'            => __DIR__.'/../vendor/twig/lib',
-    ));
-
-    // ...
-
-    $loader->registerNamespaceFallbacks(array(
-        __DIR__.'/../src',
-    ));
-    $loader->register();
-
-PHP 5.3 の名前空間に関する\ `技術的な互換性の標準`_\ や PEAR の命名\ `規約`_\ に従うクラスファイルをオートロードするために、\ :class:`Symfony\\Component\\ClassLoader\\UniversalClassLoader` が使われます。
-このファイルを見て分かるように、依存ライブラリはすべて ``vendor/`` ディレクトリに配置されていますが、これは単なる慣習です。
-サーバー上でグローバルな共有場所や、プロジェクトごとのローカルの場所など、好きな場所に配置することもできます。
+オートロードは `Composer`_ により処理されるので、特に何もしなくても任意の PHP クラスをアプリケーションのコードから利用できます。拡張が必要な場合は ``app/autoload.php`` スクリプトを修正します。すべての依存パッケージは ``vendor/`` ディレクトリ配下に格納されますが、ディレクトリは単なる規約です。サーバーのグローバルなディレクトリや、プロジェクトローカルのディレクトリ等に変更できます。
 
 .. note::
 
-    Symfony2 のオートローダの柔軟性についてさらに学びたい場合は、クックブックの ":doc:`/cookbook/tools/autoloader`" レシピを参照してください。
+    Composer のオートローダーについての詳細は、\ `Composer のオートローダーについて`_ のページを参照してください。
+    Symfony にもオートロード用のコンポーネントがあります: ":doc:`/components/class_loader/class_loader`"
 
 バンドルシステムについて
 ------------------------
@@ -126,7 +96,6 @@ Symfony2 では、バンドルは第一級オブジェクトです。
             new Symfony\Bundle\DoctrineBundle\DoctrineBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -152,61 +121,64 @@ Symfony2 では、バンドルは第一級オブジェクトです。
 
     # app/config/config.yml
     imports:
-        - { resource: parameters.ini }
+        - { resource: parameters.yml }
         - { resource: security.yml }
 
     framework:
-        secret:          %secret%
-        charset:         UTF-8
-        router:          { resource: "%kernel.root_dir%/config/routing.yml" }
+        #esi:             ~
+        #translator:      { fallback: "%locale%" }
+        secret:          "%secret%"
+        router:
+            resource: "%kernel.root_dir%/config/routing.yml"
+            strict_requirements: "%kernel.debug%"
         form:            true
         csrf_protection: true
         validation:      { enable_annotations: true }
         templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
-        session:
-            default_locale: %locale%
-            auto_start:     true
+        default_locale:  "%locale%"
+        trusted_proxies: ~
+        session:         ~
 
     # Twig Configuration
     twig:
-        debug:            %kernel.debug%
-        strict_variables: %kernel.debug%
+        debug:            "%kernel.debug%"
+        strict_variables: "%kernel.debug%"
 
     # Assetic Configuration
     assetic:
-        debug:          %kernel.debug%
+        debug:          "%kernel.debug%"
         use_controller: false
+        bundles:        [ ]
+        #java: /usr/bin/java
         filters:
             cssrewrite: ~
-            # closure:
-            #     jar: %kernel.root_dir%/java/compiler.jar
-            # yui_css:
-            #     jar: %kernel.root_dir%/java/yuicompressor-2.4.2.jar
+            #closure:
+            #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
+            #yui_css:
+            #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
 
     # Doctrine Configuration
     doctrine:
         dbal:
-            driver:   %database_driver%
-            host:     %database_host%
-            dbname:   %database_name%
-            user:     %database_user%
-            password: %database_password%
+            driver:   "%database_driver%"
+            host:     "%database_host%"
+            port:     "%database_port%"
+            dbname:   "%database_name%"
+            user:     "%database_user%"
+            password: "%database_password%"
             charset:  UTF8
 
         orm:
-            auto_generate_proxy_classes: %kernel.debug%
+            auto_generate_proxy_classes: "%kernel.debug%"
             auto_mapping: true
 
-    # Swiftmailer Configuration
+    # Swift Mailer Configuration
     swiftmailer:
-        transport: %mailer_transport%
-        host:      %mailer_host%
-        username:  %mailer_user%
-        password:  %mailer_password%
-
-    jms_security_extra:
-        secure_controllers:  true
-        secure_all_services: false
+        transport: "%mailer_transport%"
+        host:      "%mailer_host%"
+        username:  "%mailer_user%"
+        password:  "%mailer_password%"
+        spool:     { type: memory }
 
 ``framework`` などの各エントリは、特定のバンドルのコンフィギュレーションを定義しています。
 たとえば、\ ``framework`` エントリは ``FrameworkBundle`` のコンフィギュレーション、\ ``swiftmailer`` エントリは ``SwiftmailerBundle`` のコンフィギュレーションとなっています。
@@ -229,10 +201,15 @@ Symfony2 では、バンドルは第一級オブジェクトです。
         toolbar: true
         intercept_redirects: false
 
-    zend:
-        logger:
-            priority: debug
-            path:     %kernel.logs_dir%/%kernel.environment%.log
+    monolog:
+        handlers:
+            main:
+                type:  stream
+                path:  "%kernel.logs_dir%/%kernel.environment%.log"
+                level: debug
+            firephp:
+                type:  firephp
+                level: info
 
     assetic:
         use_controller: true
@@ -249,7 +226,7 @@ Symfony2 では、バンドルは第一級オブジェクトです。
 
 バンドルにあるファイルを参照したい場合、\ ``@BUNDLE_NAME/path/to/file`` という記法を使います。
 Symfony2 により、\ ``@BUNDLE_NAME`` はバンドルの実際のパスに置き換えられます。
-たとえば、\ ``@AcmeDemoBundle/Controller/DemoController.php`` という論理パスの場合、``AcmeDemoBundle`` バンドルのパスは Symfony で管理されているため、\ ``src/Acme/DemoBundle/Controller/DemoController.php`` というパスに変換されます。
+たとえば、\ ``@AcmeDemoBundle/Controller/DemoController.php`` という論理パスの場合、\ ``AcmeDemoBundle`` バンドルのパスは Symfony で管理されているため、\ ``src/Acme/DemoBundle/Controller/DemoController.php`` というパスに変換されます。
 
 論理コントローラ名
 ..................
@@ -266,7 +243,7 @@ Symfony2 により、\ ``@BUNDLE_NAME`` はバンドルの実際のパスに置�
 バンドルを拡張する
 ..................
 
-これらの規約に従うことで、\ :doc:`バンドルの継承</cookbook/bundles/inheritance>` の機能を使ってファイル、コントローラ、テンプレートを "上書き" できるようになります。
+これらの規約に従うことで、\ :doc:`バンドルの継承 </cookbook/bundles/inheritance>`\ の機能を使ってファイル、コントローラー、テンプレートを "上書き" できるようになります。
 たとえば、新しい ``AcmeNewBundle`` という名前のバンドルが ``AcmeDemoBundle`` を継承している場合、Symfony により、まず最初に ``AcmeNewBundle`` の中にある ``AcmeDemoBundle:Welcome:index`` コントローラが検索され、次に ``AcmeDemoBundle`` のコントローラが検索されます。
 
 Symfony2 の柔軟性が少しずつ分かってきたでしょうか。
@@ -279,7 +256,7 @@ vendor ディレクトリの使い方
 
 構築するアプリケーションがサードパーティのライブラリに依存している場合もあるでしょう。
 このようなライブラリは、\ ``vendor/`` ディレクトリへ配置することをおすすめします。
-このディレクトリには、SwiftMailer ライブラリ、Doctrine ORM、Twig テンプレートシステム、および他のサードパーティライブラリやバンドルといった Symfony2 のライブラリがすでに配置されています。
+このディレクトリには、SwiftMailer ライブラリ、Doctrine ORM、Twig テンプレートエンジン、および他のサードパーティライブラリやバンドルといった Symfony2 のライブラリがすでに配置されています。
 
 キャッシュとログについて
 ------------------------
@@ -294,8 +271,8 @@ Symfony2 はフルスタックのフレームワークの中で最も高速な�
 Web アプリケーションを構築していると、何かがおかしくなってしまう場合があります。
 ``app/logs/`` ディレクトリにあるログファイルを見ると、リクエストに関するすべての情報を確認でき、問題の原因を素早く見つけるのに役立ちます。
 
-コマンドラインインタフェース
-----------------------------
+コマンドラインインターフェイス
+------------------------------
 
 Symfony2 アプリケーションにはコマンドラインインターフェイス用のツール（\ ``app/console``\ ）が組み込まれており、アプリケーションのメンテナンスに役立ちます。
 また、何度も実行するようなタスクを自動化するコマンドを使うと、生産性が大きく向上します。
@@ -304,13 +281,13 @@ Symfony2 アプリケーションにはコマンドラインインターフェ�
 
 .. code-block:: bash
 
-    php app/console
+    $ php app/console
 
 ``--help`` オプションを指定して実行すると、コマンドの使用方法が表示されます。
 
 .. code-block:: bash
 
-    php app/console router:debug --help
+    $ php app/console router:debug --help
 
 まとめ
 ------
@@ -323,5 +300,9 @@ Symfony2 は、自分のやり方に合わせられるように設計されて�
 Symfony2 マスターになるためには、テストの方法やメールの送信方法など、まだ多くのことを学ぶ必要があります。
 さらに学習したい方は、\ :doc:`/book/index` から気になるトピックへ進んでください。
 
-.. _技術的な互換性の標準:               http://groups.google.com/group/php-standards/web/psr-0-final-proposal
-.. _規約:              http://pear.php.net/
+.. _standards:  http://symfony.com/PSR0
+.. _convention: http://pear.php.net/
+.. _Composer:   http://getcomposer.org
+.. _`Composer のオートローダーについて`: http://getcomposer.org/doc/01-basic-usage.md#autoloading
+
+.. 2013/11/23 hidenorigoto d11327b2c28ebb71b9cdc1b5cf5879183905b3ad
