@@ -3,28 +3,28 @@
 
 .. note::
 
-   * �Ώۃo�[�W�����F2.3
-   * �|��X�V���F2013/11/24
+   * 対象バージョン：2.3
+   * 翻訳更新日：2013/11/24
 
 
-currency �t�B�[���h�^�C�v
+currency フィールドタイプ
 ===================
 
-``currency`` �^�C�v��:doc:`choice �^�C�v </reference/forms/types/choice>`�̃T�u�Z�b�g�ŁA
-���[�U�[��`3-letter ISO 4217`_ �̑�ʂ̒ʉ݃��X�g����I�����邱�Ƃ��ł��܂��B
+``currency`` タイプは:doc:`choice タイプ </reference/forms/types/choice>`のサブセットで、
+ユーザーは`3-letter ISO 4217`_ の大量の通貨リストから選択することができます。
 
-``choice``�^�C�v�Ƃ͈قȂ�A``choices``�܂���``choice_list``�I�v�V��������肷��K�v�͂Ȃ��A
-�t�B�[���h�^�C�v�Ƃ��Ď����I�ɑ�ʂ̒ʉ݃��X�g���g���܂��B�����̃I�v�V�����̂ǂ��炩���蓮�Őݒ肷��
-���Ƃ�*�o���܂�*���A���̏ꍇ��``choice``�^�C�v�𒼐ڎg���ׂ��ł��B
+``choice``タイプとは異なり、``choices``または``choice_list``オプションを特定する必要はなく、
+フィールドタイプとして自動的に大量の通貨リストを使います。それらのオプションのどちらかを手動で設定する
+ことは*出来ます*が、その場合は``choice``タイプを直接使うべきです。
 
 +-------------+------------------------------------------------------------------------+
-| �Ή�����^�O| �����̃^�O�ŗ��p�ł��܂� (see :ref:`forms-reference-choice-tags`)      |
+| 対応するタグ| 多数のタグで利用できます (see :ref:`forms-reference-choice-tags`)      |
 +-------------+------------------------------------------------------------------------+
-| �㏑�����ꂽ| - `choices`_                                                           |
-| �I�v�V����  |                                                                        |
+| 上書きされた| - `choices`_                                                           |
+| オプション  |                                                                        |
 +-------------+------------------------------------------------------------------------+
-| �p�����ꂽ  | - `multiple`_                                                          |
-| �I�v�V����  | - `expanded`_                                                          |
+| 継承された  | - `multiple`_                                                          |
+| オプション  | - `expanded`_                                                          |
 |             | - `preferred_choices`_                                                 |
 |             | - `empty_value`_                                                       |
 |             | - `error_bubbling`_                                                    |
@@ -34,25 +34,25 @@ currency �t�B�[���h�^�C�v
 |             | - `disabled`_                                                          |
 |             | - `mapped`_                                                            |
 +-------------+------------------------------------------------------------------------+
-| �e�@�^�C�v  | :doc:`choice </reference/forms/types/choice>`                          |
+| 親　タイプ  | :doc:`choice </reference/forms/types/choice>`                          |
 +-------------+------------------------------------------------------------------------+
-| �N���X      | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\CurrencyType` |
+| クラス      | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\CurrencyType` |
 +-------------+------------------------------------------------------------------------+
 
-�㏑�����ꂽ�I�v�V����
+上書きされたオプション
 ------------------
 
 choices
 ~~~~~~~
 
-**�f�t�H���g**: ``Symfony\Component\Intl\Intl::getCurrencyBundle()->getCurrencyNames()``
+**デフォルト**: ``Symfony\Component\Intl\Intl::getCurrencyBundle()->getCurrencyNames()``
 
-choisces�I�v�V�����̓f�t�H���g�ł��ׂĂ̒ʉ݂ɂȂ�܂��B
+choiscesオプションはデフォルトですべての通貨になります。
 
-�p�����ꂽ�I�v�V����
+継承されたオプション
 -----------------
 
-�ȉ��̃I�v�V������ :doc:`choice</reference/forms/types/choice>` �^�C�v���p�����Ă��܂�:
+以下のオプションは :doc:`choice</reference/forms/types/choice>` タイプを継承しています:
 
 .. include:: /reference/forms/types/options/multiple.rst.inc
 
@@ -64,7 +64,7 @@ choisces�I�v�V�����̓f�t�H���g�ł��ׂĂ̒ʉ݂ɂȂ�܂��B
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
 
-�ȉ��̃I�v�V������ :doc:`date</reference/forms/types/form>` �^�C�v���p�����Ă��܂�:
+以下のオプションは :doc:`date</reference/forms/types/form>` タイプを継承しています:
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
