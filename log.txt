@@ -1,0 +1,71 @@
+34f3279 - hidenorigoto@gmail.com : Merge pull request #233 from sotarof/reference/forms/types/file
+e212f81 - hidenorigoto@gmail.com : Merge pull request #234 from gilbite/components/console/introduction
+294788f - sotaro.fujimaki@gmail.com : [reference/forms/types/file]翻訳を作成
+07b16d2 - gilbite@gmail.com : removed original file and modified index
+823c438 - hidenorigoto@gmail.com : Merge pull request #231 from nntsugu/reference/forms/types/options/label
+701e4bf - harutsugu.shimoji@mail.rakuten.com : [reference][forms][types][options] label
+bae814d - hidenorigoto@gmail.com : Merge pull request #232 from yositani2002/229
+b3f192f - yositani2002@gmail.com : resolves #229
+af501ff - harutsugu.shimoji@mail.rakuten.com : [reference][forms][types][options] label
+a06d0ff - hidenorigoto@gmail.com : Merge pull request #230 from hidenorigoto/quick_tour_update
+d7ce665 - hidenorigoto@gmail.com : [quick_tour/the_controller] ヘッダを追加
+d4a51d8 - hidenorigoto@gmail.com : [quick_tour/the_architecture] アーキテクチャの翻訳を更新した
+369a083 - gilbite@gmail.com : copied console.rst to console/introduction.rst and updated
+4fb5b08 - gilbite@gmail.com : added components/console directory
+9610950 - hidenorigoto@gmail.com : Merge pull request #228 from kseta/reference/forms/types/options/mapped
+5cc7efc - hidenorigoto@gmail.com : Merge pull request #227 from nntsugu/reference/forms/types/options/max_length
+d069b8d - hidenorigoto@gmail.com : Merge pull request #224 from yositani2002/master
+31396b2 - hidenorigoto@gmail.com : Merge pull request #223 from kseta/reference/forms/types/options/trim
+cee0f8f - hidenorigoto@gmail.com : Merge pull request #217 from nntsugu/reference/forms/types/options/read_only
+811165e - keigo.seta@gmail.com : [reference/forms/types/options/mapped.rst.inc]翻訳を新規作成
+1193e5c - yositani2002@gmail.com : resolves #225
+132529e - keigo.seta@gmail.com : [reference/forms/types/options/trim]翻訳を新規作成
+8fc7b01 - harutsugu.shimoji@mail.rakuten.com : [reference][forms][types][options] max_length
+f89c5ba - yositani2002@gmail.com : Merge branch 'master' of https://github.com/symfony-japan/symfony-docs-ja
+db183b2 - harutsugu.shimoji@mail.rakuten.com : [reference][forms][types[options] read_only
+04032a6 - hidenorigoto@gmail.com : Merge pull request #219 from sotarof/reference/forms/types/textarea
+08ba9af - yositani2002@gmail.com : resolves #208
+68badf8 - hidenorigoto@gmail.com : Merge pull request #218 from kseta/reference/forms/types/options/disabled
+702208d - hidenorigoto@gmail.com : Merge pull request #215 from kseta/reference/forms/types/options/required
+d75a04b - hidenorigoto@gmail.com : Merge pull request #214 from sotarof/reference/forms/types/email
+f332f38 - hidenorigoto@gmail.com : Merge pull request #209 from kseta/reference/forms/types/text
+18d6116 - hidenorigoto@gmail.com : [quick_tour/the_controller] コントローラーの翻訳を更新した
+aa2af4a - keigo.seta@gmail.com : [reference/forms/types/options/disabled]翻訳を新規作成
+1bb211c - sotaro.fujimaki@gmail.com : [reference/forms/types/textarea]翻訳を作成
+f93595b - keigo.seta@gmail.com : [reference/forms/types/options/disabled]英語の最新版に更新
+5d08e05 - keigo.seta@gmail.com : [reference/forms/types/options/required]翻訳を新規作成
+d021453 - harutsugu.shimoji@mail.rakuten.com : [reference][forms][types][options] read_only
+64d3a67 - sotaro.fujimaki@gmail.com : [reference/forms/types/email]翻訳を作成
+6b53f70 - hidenorigoto@gmail.com : [quick_tour/the_view] ビューの章を更新
+f419a3c - keigo.seta@gmail.com : [reference/forms/types/text]レビュー箇所を修正
+cb99031 - hidenorigoto@gmail.com : Merge pull request #212 from nntsugu/reference/forms/types/options/max_length
+cd4de5d - harutsugu.shimoji@mail.rakuten.com : [reference][forms][types][options] max_length
+fd9f000 - hidenorigoto@gmail.com : Merge pull request #207 from ytone/reference/configuration/twig
+15f45fa - hidenorigoto@gmail.com : Merge pull request #211 from kang1123/reference/forms/types/button
+c8d8339 - y.kang@raksul.com : Modify Reference/forms/types/button
+e632bff - harutsugu.shimoji@mail.rakuten.com : [reference][forms][types][options] max_length
+2571ef1 - y.kang@raksul.com : Modify refernce/forms/types/button
+36181ea - y.kang@raksul.com : Modify reference/forms/types/button indent
+124a931 - keigo.seta@gmail.com : [reference/forms/types/text]翻訳を新規作成
+bb90e80 - y.kang@raksul.com : Modify reference/forms/types/button.rst indent
+6421340 - y.kang@raksul.com : Modify reference/forms/types/button indent
+09901dd - y.kang@raksul.com : Modify reference/forms/types/button
+416cfef - hidenorigoto@gmail.com : Merge pull request #205 from sotarof/reference/configuration/assetic
+94c0347 - yuta.tone@gmail.com : Modify reference/configuration/twig
+36cca13 - sotaro.fujimaki@gmail.com : [reference/configuration/assetic] 翻訳を更新
+bb2cd99 - hidenorigoto@gmail.com : Merge pull request #200 from yositani2002/master
+547d714 - hidenorigoto@gmail.com : Merge pull request #187 from kseta/reference/forms/types/submit.rst
+3a79d21 - hidenorigoto@gmail.com : Merge pull request #198 from nntsugu/reference/forms/types/reset
+28d76c8 - harutsugu.shimoji@mail.rakuten.com : translate A button that resets all fields to theiri original values. to 全てのフィールドをデフォルトの値にリセットするボタンです。
+6d77db7 - yositani2002@gmail.com : Merge branch 'master' of https://github.com/symfony-japan/symfony-docs-ja
+0eb3ed2 - harutsugu.shimoji@mail.rakuten.com : fix "Rendered as" , "Parent type"
+1f6e949 - keigo.seta@gmail.com : [reference/forms/types/submit.rst]レビューから修正
+521173e - hidenorigoto@gmail.com : Merge pull request #186 from okapon/master
+d5d35d9 - yositani2002@gmail.com : resolves #188
+c0b6aed - hidenorigoto@gmail.com : Merge pull request #195 from ytone/reference/configuration/web_profiler
+6957dd1 - keigo.seta@gmail.com : [reference/forms/types/submit.rst]翻訳を新規作成
+3cf52d9 - harutsugu.shimoji@mail.rakuten.com : start translation
+f72ffb0 - yuta.tone@gmail.com : Modify reference/configuration/web_profiler.rst
+c0d5139 - yuuichi177@gmail.com : namespaceで¥が使われていた箇所を\に修正
+8947c09 - hidenorigoto@gmail.com : [quick_tour/the_big_picture] 翻訳を更新
+b7c9529 - hidenorigoto@gmail.com : [book/installation] 翻訳を更新

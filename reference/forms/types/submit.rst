@@ -6,8 +6,8 @@
     * 対象バージョン：2.3
     * 翻訳更新日：2013/11/23
 
-submit Field Type
-=================
+submit フィールドタイプ
+=======================
 
 .. versionadded:: 2.3
     ``submit`` タイプはSymfony 2.3で追加されました
@@ -15,16 +15,16 @@ submit Field Type
 submitボタン
 
 +----------------------+----------------------------------------------------------------------+
-| 対応するタグ           | ``input`` ``submit`` tag                                             |
+| 対応するタグ         | ``input`` ``submit`` タグ                                            |
 +----------------------+----------------------------------------------------------------------+
-| 継承されたオプション    | - `attr`_                                                            |
+| 継承されたオプション | - `attr`_                                                            |
 |                      | - `disabled`_                                                        |
 |                      | - `label`_                                                           |
 |                      | - `translation_domain`_                                              |
 +----------------------+----------------------------------------------------------------------+
-| 親タイプ              | :doc:`button</reference/forms/types/button>`                         |
+| 親タイプ             | :doc:`button</reference/forms/types/button>`                         |
 +----------------------+----------------------------------------------------------------------+
-| クラス                | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\SubmitType` |
+| クラス               | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\SubmitType` |
 +----------------------+----------------------------------------------------------------------+
 
 Submitボタンには
@@ -32,12 +32,14 @@ Submitボタンには
 このメソッドでこのボタンがフォームのサブミットに利用されたかどうかをチェックできます。
 特に :ref:`複数のサブミットボタンを持つフォームの場合 <book-form-submitting-multiple-buttons>` に便利です。
 
+.. code-block:: php
+
     if ($form->get('save')->isClicked()) {
         // ...
     }
 
 継承されたオプション
------------------
+--------------------
 
 .. include:: /reference/forms/types/options/button_attr.rst.inc
 
