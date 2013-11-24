@@ -843,6 +843,6 @@ Cookbookの参考記事
 .. _`$_SERVER`: http://php.net/manual/ja/reserved.variables.server.php
 .. _PHPUnitのドキュメント: http://www.phpunit.de/manual/3.8/ja/
 
-.. 2013/11/24 monmonmon 9df6556e294c2fa9548f93083529e7a9ad9d6ea7
+.. 2013/11/24 monmonmon ba413f4f38b31ecc3db12ed9fcba8f62b3ae7f1f
 .. 2011/07/23 gilbite 9df6556e294c2fa9548f93083529e7a9ad9d6ea7
 .. 2011/03/01 hidenorigoto unknown
