@@ -1,7 +1,13 @@
+.. note::
+
+    * 対象バージョン：2.3 (2.1以降)
+    * 翻訳更新日：2013/11/24
+
 minutes
 ~~~~~~~
 
-**type**: ``integer`` **default**: 1 to 59
+**データ型**: ``integer`` **デフォルト**: 1 to 59
 
-List of minutes available to the minutes field type.  This option is only
-relevant when the ``widget`` option is set to ``choice``.
+分のフィールドタイプで使用可能な分のリストです。このオプションは ``widget`` オプションに ``choice`` が設定されている場合にのみ意味を持ちます。
+
+.. 2013/11/24 nntsugu 66e2243527b4f4924ed3d65b4e180e89060b3bfb
