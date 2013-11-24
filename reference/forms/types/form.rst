@@ -42,4 +42,4 @@ inherit_data
 
 :doc:`/cookbook/form/inherit_data_option`を参照してください。
 
-.. 2013/11/23 yositani2002 b675661199d466be4b6cb6f70d16aa1e3574c789
+.. 2013/11/24 yositani2002 b675661199d466be4b6cb6f70d16aa1e3574c789
