@@ -9,9 +9,9 @@
 form フィールドタイプ
 ===============
 
-:class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\FormType`を参照してください。
+:class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\FormType` を参照してください。
 
-``form``タイプはすべてのフィールドで利用可能となるいくつかのオプションをあらかじめ定義します。
+``form`` タイプはすべてのフィールドで利用可能となるいくつかのオプションをあらかじめ定義します。
 
 .. include:: /reference/forms/types/options/data.rst.inc
 
@@ -40,6 +40,6 @@ form フィールドタイプ
 inherit_data
 ------------
 
-:doc:`/cookbook/form/inherit_data_option`を参照してください。
+:doc:`/cookbook/form/inherit_data_option` を参照してください。
 
 .. 2013/11/24 yositani2002 b675661199d466be4b6cb6f70d16aa1e3574c789
