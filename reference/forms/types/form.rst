@@ -7,7 +7,7 @@
     * 翻訳更新日：2013/11/24
 
 form フィールドタイプ
-===============
+=====================
 
 :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\FormType` を参照してください。
 

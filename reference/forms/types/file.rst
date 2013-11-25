@@ -75,10 +75,10 @@ file フィールドタイプ
 元のままのファイル名と ``getClientOriginalName()`` を使う方法はエンドユーザーから操作されてしまう可能性があるため安全ではありません。
 さらに、 許可されない文字列がファイル名に含まれてしまう可能性もあるので、事前に名前をサニタイズすることを推奨します。
 
-:doc:`cookbook </cookbook/doctrine/file_uploads>` にファイルアップロードとDoctrineのentityとの紐付けを管理する方法の例が掲載されています。
+:doc:`cookbook </cookbook/doctrine/file_uploads>` にファイルアップロードと Doctrine の entity との紐付けを管理する方法の例が掲載されています。
 
 継承されたオプション
------------------
+--------------------
 
 これらのオプションは :doc:`form </reference/forms/types/form>` タイプを継承しています。:
 

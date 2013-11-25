@@ -49,8 +49,8 @@ Hidden フィールド
 
 * :doc:`hidden </reference/forms/types/hidden>`
 
-Buttons フィールド
-~~~~~~~
+ボタンフィールド
+~~~~~~~~~~~~~~~~
 
 * :doc:`button</reference/forms/types/button>`
 * :doc:`reset</reference/forms/types/reset>`

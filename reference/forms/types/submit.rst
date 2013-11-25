@@ -10,7 +10,7 @@ submit フィールドタイプ
 =======================
 
 .. versionadded:: 2.3
-    ``submit`` タイプはSymfony 2.3で追加されました
+    ``submit`` タイプは Symfony 2.3 で追加されました
 
 submitボタン
 
@@ -27,7 +27,7 @@ submitボタン
 | クラス               | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\SubmitType` |
 +----------------------+----------------------------------------------------------------------+
 
-Submitボタンには
+Submit ボタンには
 :method:`Symfony\\Component\\Form\\ClickableInterface::isClicked` という付加的なメソッドがあります。
 このメソッドでこのボタンがフォームのサブミットに利用されたかどうかをチェックできます。
 特に :ref:`複数のサブミットボタンを持つフォームの場合 <book-form-submitting-multiple-buttons>` に便利です。
