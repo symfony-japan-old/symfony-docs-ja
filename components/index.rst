@@ -9,6 +9,7 @@
    console/index
    css_selector
    debug
+   dom_crawler
    filesystem
    finder
    form/index
