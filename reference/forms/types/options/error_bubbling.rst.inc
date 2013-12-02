@@ -1,8 +1,8 @@
 error_bubbling
 ~~~~~~~~~~~~~~
 
-**type**: ``Boolean`` **default**: ``false``
+**データ型**: ``Boolean`` **デフォルト**: ``false`` フォームに限り  ``compound``
 
-If true, any errors for this field will be passed to the parent field
-or form. For example, if set to true on a normal field, any errors for
-that field will be attached to the main form, not to the specific field.
+.. include:: /reference/forms/types/options/_error_bubbling_body.rst.inc
+
+.. 2013/12/02 yositani2002 d7e8a079febfb48257f8e6b8668c4909bf16a077
