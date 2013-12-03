@@ -39,7 +39,7 @@ collection フィールドタイプ
 .. note::
 
     もしDoctrineのエンティティとあわせて使っている場合、 `allow_add`_ 、 `allow_delete`_ 、 `by_reference`_ オプションには特に注意を払ってください。
-    クックブックの記事「:doc:`/cookbook/form/form_collections`」に完全な例があります。
+    クックブックの記事「 :doc:`/cookbook/form/form_collections` 」に完全な例があります。
 
 基本的な使い方
 --------------
@@ -127,7 +127,7 @@ collection フィールドタイプ
 
 これを容易にするため、 `prototype`_ オプションを ``true`` にすることで"テンプレート" フィールドの表示を許可します。
 それは JavaScript を利用して動的に新しいフィールドを作成するために利用できます。
-表示されたプロトタイプフィールドは次のようになります::
+表示されたプロトタイプフィールドは次のようになります:
 
 .. code-block:: html
 
@@ -288,8 +288,8 @@ prototype
 
 .. tip::
 
-    コレクションフィールド全体を一度で表示する場合、プロトタイプの form row はコレクションを囲む（ ``div`` または ``table`` ）要素の中の
-     ``data-prototype`` 属性で自動的に利用可能です。 
+    コレクションフィールド全体を一度で表示する場合、プロトタイプの form row はコレクションを囲む（ ``div`` または ``table`` ）要素の中の 
+    ``data-prototype`` 属性で自動的に利用可能です。
 
 このオプションを実際にどのように利用するかより詳しくは上述の例だけではなく「 :ref:`cookbook-form-collections-new-prototype` 」をご覧ください。
 
