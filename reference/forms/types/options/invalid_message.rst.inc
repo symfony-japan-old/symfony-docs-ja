@@ -1,12 +1,12 @@
 invalid_message
 ~~~~~~~~~~~~~~~
 
-**type**: ``string`` **default**: ``This value is not valid``
+**データ型**: ``string`` **デフォルト**: ``This value is not valid``
 
-This is the validation error message that's used when the data entered
-is determined by internal validation of a field type. This might happen,
-for example, if the user enters a string into a :doc:`time</reference/forms/types/time>`
-field that cannot be converted into a real time. For normal validation
-messages (such as when setting a minimum length for a field), set the
-validation messages with your validation rules
-(:ref:`reference<book-validation-constraint-configuration>`).
+フィールドに入力されたデータが意味を成さない（すなわち、バリデーション失敗の）場合に使われるバリデーションエラーのメッセージです。
+
+たとえば、時間に変換される :doc:`time</reference/forms/types/time>` フィールドに無意味な文字を入れたときに、または、 ``number`` フィールドに文字列（例、 ``apple`` ）を入れたときにおきます。
+
+通常の（最小の文字数をセットするような）(ビジネスロジック)バリデーションはバリデーションメッセージをバリデーションルール( :ref:`reference<book-validation-constraint-configuration>` )とあわせて設定すべきです。
+
+.. 2013/12/07 yositani200 06095b654359a1c68524083cc6feb410ce33dcaf

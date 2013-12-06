@@ -1,63 +1,73 @@
 .. index::
    single: Forms; Fields; integer
 
-integer Field Type
-==================
+.. note::
 
-Renders an input "number" field. Basically, this is a text field that's good
-at handling data that's in an integer form. The input ``number`` field looks
-like a text box, except that - if the user's browser supports HTML5 - it will
-have some extra frontend functionality.
+    * 対象バージョン：2.4 (2.2以降)
+    * 翻訳更新日：2013/12/07
 
-This field has different options on how to handle input values that aren't
-integers. By default, all non-integer values (e.g. 6.78) will round down (e.g. 6).
+integer フィールドタイプ
+========================
+
+「数値」入力フィールドを表示します。基本的に、これは整数形式でのデータを扱うのが得意なテキストフィールドです。
+``number`` 入力フィールドは、多くの特別なフロントエンド機能を有もつ HTML5 をサポートしているブラウザ場合以外はテキストボックスに見えます。
+
+このフィールドは整数ではない入力値を処理する方法でさまざまなオプションを持っています。デフォルトでは、すべての非整数（例 6.78 )は( 6 のように)切り捨てします。
 
 +-------------+-----------------------------------------------------------------------+
-| Rendered as | ``input`` ``text`` field                                              |
+| 対応するタグ| ``input`` ``number`` field                                            |
 +-------------+-----------------------------------------------------------------------+
-| Options     | - `rounding_mode`_                                                    |
+| オプション  | - `rounding_mode`_                                                    |
+|             | - `precision`_                                                        |
 |             | - `grouping`_                                                         |
 +-------------+-----------------------------------------------------------------------+
-| Inherited   | - `required`_                                                         |
-| options     | - `label`_                                                            |
+| 継承された  | - `required`_                                                         |
+| オプション  | - `label`_                                                            |
 |             | - `read_only`_                                                        |
+|             | - `disabled`_                                                         |
 |             | - `error_bubbling`_                                                   |
+|             | - `error_mapping`_                                                    |
+|             | - `invalid_message`_                                                  |
+|             | - `invalid_message_parameters`_                                       |
+|             | - `mapped`_                                                           |
 +-------------+-----------------------------------------------------------------------+
-| Parent type | :doc:`field</reference/forms/types/field>`                            |
+| 親タイプ    | :doc:`form </reference/forms/types/form>`                             |
 +-------------+-----------------------------------------------------------------------+
-| Class       | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\IntegerType` |
+| クラス      | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\IntegerType` |
 +-------------+-----------------------------------------------------------------------+
 
-Field Options
--------------
+フィールドオプション
+--------------------
+
+.. include:: /reference/forms/types/options/precision.rst.inc
 
 rounding_mode
 ~~~~~~~~~~~~~
 
-**type**: ``integer`` **default**: ``IntegerToLocalizedStringTransformer::ROUND_DOWN``
+**データ型**: ``integer`` **デフォルト**: ``IntegerToLocalizedStringTransformer::ROUND_DOWN``
 
-By default, if the user enters a non-integer number, it will be rounded
-down. There are several other rounding methods, and each is a constant
-on the :class:`Symfony\\Component\\Form\\Extension\\Core\\DataTransformer\\IntegerToLocalizedStringTransformer`:
+デフォルトでは非整数が入力された場合は切り捨てられます。端数処理の方法は多数あり、それらは :class:`Symfony\\Component\\Form\\Extension\\Core\\DataTransformer\\IntegerToLocalizedStringTransformer` の定数です:
 
-*   ``IntegerToLocalizedStringTransformer::ROUND_DOWN`` Rounding mode to
-    round towards zero.
+* ``IntegerToLocalizedStringTransformer::ROUND_DOWN`` 0 に向けて丸めます。
 
-*   ``IntegerToLocalizedStringTransformer::ROUND_FLOOR`` Rounding mode to
-    round towards negative infinity.
+* ``IntegerToLocalizedStringTransformer::ROUND_FLOOR`` 負の無限大に向かって丸めます。
 
-*   ``IntegerToLocalizedStringTransformer::ROUND_UP`` Rounding mode to round 
-    away from zero.
+* ``IntegerToLocalizedStringTransformer::ROUND_UP`` 小数点以下切り上げます。
 
-*   ``IntegerToLocalizedStringTransformer::ROUND_CEILING`` Rounding mode
-    to round towards positive infinity.
+* ``IntegerToLocalizedStringTransformer::ROUND_CEILING`` 正の無限大方向に丸めます。
+
+* ``IntegerToLocalizedStringTransformer::ROUND_HALF_DOWN`` 「もっとも近い数字」 に丸めます。両方から等距離にある場合、切捨てします。
+
+* ``IntegerToLocalizedStringTransformer::ROUND_HALF_EVEN`` 「もっとも近い数字」 に丸めます。両方から等距離にある場合、末尾が偶数のほうに丸めます。
+
+* ``IntegerToLocalizedStringTransformer::ROUND_HALF_UP`` 「もっとも近い数字」 に丸めます。両方から等距離にある場合、切り上げます。
 
 .. include:: /reference/forms/types/options/grouping.rst.inc
 
-Inherited options
------------------
+継承されたオプション
+--------------------
 
-These options inherit from the :doc:`field</reference/forms/types/field>` type:
+以下のオプションは :doc:`form </reference/forms/types/form>` タイプを継承しています:
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
@@ -65,4 +75,16 @@ These options inherit from the :doc:`field</reference/forms/types/field>` type:
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
 
+.. include:: /reference/forms/types/options/disabled.rst.inc
+
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc
+
+.. include:: /reference/forms/types/options/invalid_message.rst.inc
+
+.. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
+
+.. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. 2013/12/07 yositani2002 ba413f4f38b31ecc3db12ed9fcba8f62b3ae7f1f
