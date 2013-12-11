@@ -1,7 +1,8 @@
 grouping
 ~~~~~~~~
 
-**type**: ``integer`` **default**: ``false``
+**データ型**: ``integer`` **デフォルト**: ``false``
 
-The value set as the ``NumberFormatter::GROUPING_USED`` attribute when using
-the PHP ``NumberFormatter`` class.
+PHP の ``NumberFormatter`` クラスを利用している場合、この値は ``NumberFormatter::GROUPING_USED`` として内部的に使われています。この文書は存在しませんが、これを ``true`` にセットした場合、数値は（ロケールによって）カンマまたはピリオドと合わせてまとめられます: ``12345.123`` は ``12,345.123`` と表示されます。
+
+.. 2013/12/11 yositani2002 7d6d22811242341989bae7bea84ecf20cd065a4d
