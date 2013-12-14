@@ -1,82 +1,70 @@
 .. index::
    single: Forms; Fields; number
 
-number Field Type
-=================
+.. note::
 
-Renders an input text field and specializes in handling number input. This
-type offers different options for the precision, rounding, and grouping that
-you want to use for your number.
+    * 対象バージョン：2.4 (2.0以降)
+    * 翻訳更新日：2013/12/14
+
+number フィールドタイプ
+=======================
+
+テキストフィールドを表示し、数値入力の処理に特化しています。このタイプは精度、端数処理、グループ化についていくつかのオプションを提供しています。
 
 +-------------+----------------------------------------------------------------------+
-| Rendered as | ``input`` ``text`` field                                             |
+| 対応するタグ| ``input`` ``text`` フィールド                                        |
 +-------------+----------------------------------------------------------------------+
-| Options     | - `rounding_mode`_                                                   |
+| オプション  | - `rounding_mode`_                                                   |
 |             | - `precision`_                                                       |
 |             | - `grouping`_                                                        |
 +-------------+----------------------------------------------------------------------+
-| Inherited   | - `required`_                                                        |
-| options     | - `label`_                                                           |
+| 継承された  | - `required`_                                                        |
+| オプション  | - `label`_                                                           |
 |             | - `read_only`_                                                       |
+|             | - `disabled`_                                                        |
 |             | - `error_bubbling`_                                                  |
+|             | - `error_mapping`_                                                   |
+|             | - `invalid_message`_                                                 |
+|             | - `invalid_message_parameters`_                                      |
+|             | - `mapped`_                                                          |
 +-------------+----------------------------------------------------------------------+
-| Parent type | :doc:`field</reference/forms/types/field>`                           |
+| 親タイプ    | :doc:`form </reference/forms/types/form>`                            |
 +-------------+----------------------------------------------------------------------+
-| Class       | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\NumberType` |
+| クラス      | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\NumberType` |
 +-------------+----------------------------------------------------------------------+
 
-Field Options
--------------
+フィールドオプション
+--------------------
 
-precision
-~~~~~~~~~
-
-**type**: ``integer`` **default**: Locale-specific (usually around ``3``)
-
-This specifies how many decimals will be allowed until the field rounds
-the submitted value (via ``rounding_mode``). For example, if ``precision``
-is set to ``2``, a submitted value of ``20.123`` will be rounded to,
-for example, ``20.12`` (depending on your ``rounding_mode``).
+.. include:: /reference/forms/types/options/precision.rst.inc
 
 rounding_mode
 ~~~~~~~~~~~~~
 
-**type**: ``integer`` **default**: ``IntegerToLocalizedStringTransformer::ROUND_DOWN``
+**データ型**: ``integer`` **デフォルト**: ``NumberToLocalizedStringTransformer::ROUND_HALFUP``
 
-If a submitted number needs to be rounded (based on the ``precision``
-option), you have several configurable options for that rounding. Each
-option is a constant on the :class:`Symfony\\Component\\Form\\Extension\\Core\\DataTransformer\\IntegerToLocalizedStringTransformer`:
+( ``precision`` オプションに基づいて）送信された数字の端数処理をする必要がある場合、さまざまな端数処理の設定オプションを持ちます。それらは  :class:`Symfony\\Component\\Form\\Extension\\Core\\DataTransformer\\NumberToLocalizedStringTransformer` クラスの定数です。:
     
-*   ``IntegerToLocalizedStringTransformer::ROUND_DOWN`` Rounding mode to
-    round towards zero.
+* ``NumberToLocalizedStringTransformer::ROUND_DOWN`` 0 に向けて丸めます。
 
-*   ``IntegerToLocalizedStringTransformer::ROUND_FLOOR`` Rounding mode to
-    round towards negative infinity.
+* ``NumberToLocalizedStringTransformer::ROUND_FLOOR`` 負の無限大に向かって丸めます。
 
-*   ``IntegerToLocalizedStringTransformer::ROUND_UP`` Rounding mode to round 
-    away from zero.
+* ``NumberToLocalizedStringTransformer::ROUND_UP`` 小数点以下切り上げます。
 
-*   ``IntegerToLocalizedStringTransformer::ROUND_CEILING`` Rounding mode
-    to round towards positive infinity.
+* ``NumberToLocalizedStringTransformer::ROUND_CEILING`` 正の無限大方向に丸めます。
 
-*   ``IntegerToLocalizedStringTransformer::ROUND_HALFDOWN`` Rounding mode
-    to round towards "nearest neighbor" unless both neighbors are equidistant,
-    in which case round down.
+* ``NumberToLocalizedStringTransformer::ROUND_HALF_DOWN`` 「もっとも近い数字」 に丸めます。両方から等距離にある場合、切捨てします。
 
-*   ``IntegerToLocalizedStringTransformer::ROUND_HALFEVEN`` Rounding mode
-    to round towards the "nearest neighbor" unless both neighbors are equidistant,
-    in which case, round towards the even neighbor.
+* ``NumberToLocalizedStringTransformer::ROUND_HALF_EVEN`` 「もっとも近い数字」 に丸めます。両方から等距離にある場合、末尾が偶数のほうに丸めます。
 
-*   ``IntegerToLocalizedStringTransformer::ROUND_HALFUP`` Rounding mode to
-    round towards "nearest neighbor" unless both neighbors are equidistant,
-    in which case round up.
+* ``NumberToLocalizedStringTransformer::ROUND_HALF_UP`` 「もっとも近い数字」 に丸めます。両方から等距離にある場合、切り上げます。
 
 .. include:: /reference/forms/types/options/grouping.rst.inc
 
-Inherited Options
------------------
+継承されたオプション
+--------------------
 
-These options inherit from the :doc:`field</reference/forms/types/field>` type:
+以下のオプションは :doc:`form </reference/forms/types/form>` タイプを継承しています:
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
@@ -84,4 +72,16 @@ These options inherit from the :doc:`field</reference/forms/types/field>` type:
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
 
+.. include:: /reference/forms/types/options/disabled.rst.inc
+
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc
+
+.. include:: /reference/forms/types/options/invalid_message.rst.inc
+
+.. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
+
+.. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. 2013/12/14 yositani2002 b1478f3c6a4e4d8bca7a8d1f6c56a9eec95a266f
