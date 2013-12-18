@@ -1,47 +1,52 @@
 .. index::
    single: Forms; Fields; password
 
-password Field Type
-===================
+.. note::
 
-The ``password`` field renders an input password text box.
+    * 対象バージョン：2.4 (2.0以降)
+    * 翻訳更新日：2013/12/18
+
+password フィールドタイプ
+=========================
+
+``password`` フィールドはパスワードを入力するテキストボックスを表示します。
 
 +-------------+------------------------------------------------------------------------+
-| Rendered as | ``input`` ``password`` field                                           |
+| 対応するタグ| ``input`` ``password`` フィールド                                      |
 +-------------+------------------------------------------------------------------------+
-| Options     | - `always_empty`_                                                      |
+| オプション  | - `always_empty`_                                                      |
 +-------------+------------------------------------------------------------------------+
-| Inherited   | - `max_length`_                                                        |
-| options     | - `required`_                                                          |
+| 継承された  | - `max_length`_                                                        |
+| オプション  | - `required`_                                                          |
 |             | - `label`_                                                             |
 |             | - `trim`_                                                              |
 |             | - `read_only`_                                                         |
+|             | - `disabled`_                                                          |
 |             | - `error_bubbling`_                                                    |
+|             | - `error_mapping`_                                                     |
+|             | - `mapped`_                                                            |
 +-------------+------------------------------------------------------------------------+
-| Parent type | :doc:`text</reference/forms/types/text>`                               |
+| 親タイプ    | :doc:`text </reference/forms/types/text>`                              |
 +-------------+------------------------------------------------------------------------+
-| Class       | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\PasswordType` |
+| クラス      | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\PasswordType` |
 +-------------+------------------------------------------------------------------------+
 
-Field Options
--------------
+フィールドオプション
+--------------------
 
 always_empty
 ~~~~~~~~~~~~
 
-**type**: ``Boolean`` **default**: ``true``
+**データ型**: ``Boolean`` **デフォルト**: ``true``
 
-If set to true, the field will *always* render blank, even if the corresponding
-field has a value. When set to false, the password field will be rendered
-with the ``value`` attribute set to its true value.
+``true`` にセットした場合、対応するフィールドが値を持つ場合でも *常に* 空白となります。 ``false`` にセットした場合、パスワードフィールドの ``value`` 属性に真の値が設定され表示されます。
 
-Put simply, if for some reason you want to render your password field
-*with* the password value already entered into the box, set this to false.
+平たく言えば、何らかの理由で既に入力されたパスワードと *あわせて* フィールドを表示したい場合は ``false`` をセットしてください。
 
-Inherited Options
------------------
+継承されたオプション
+--------------------
 
-These options inherit from the :doc:`field</reference/forms/types/field>` type:
+以下のオプションは :doc:`form </reference/forms/types/form>` タイプを継承しています:
 
 .. include:: /reference/forms/types/options/max_length.rst.inc
 
@@ -53,4 +58,12 @@ These options inherit from the :doc:`field</reference/forms/types/field>` type:
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
 
+.. include:: /reference/forms/types/options/disabled.rst.inc
+
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc
+
+.. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. 2013/12/18 yositani2002 4848f40b7de1463e40911bc2871d8990757d0097
