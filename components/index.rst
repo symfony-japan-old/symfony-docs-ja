@@ -10,6 +10,7 @@
    css_selector
    debug
    dom_crawler
+   expression_language/index
    filesystem
    finder
    form/index
