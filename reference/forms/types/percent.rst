@@ -1,68 +1,66 @@
 .. index::
    single: Forms; Fields; percent
 
-percent Field Type
-==================
+.. note::
 
+    * 対象バージョン：2.4 (2.0以降)
+    * 翻訳更新日：2013/12/22
 
-The ``percent`` type renders an input text field and specializes in handling
-percentage data. If your percentage data is stored as a decimal (e.g. ``.95``),
-you can use this field out-of-the-box. If you store your data as a number
-(e.g. ``95``), you should set the ``type`` option to ``integer``.
+percent フィールドタイプ
+========================
 
-This field adds a percentage sign "``%``" after the input box.
+"パーセント"タイプはテキストフィールドを表示し、パーセンテージのデータを取り扱うことに特化しています。パーセンテージのデータが少数として保存される場合(例 ``0.95`` )、このフィールドをすぐに使うことが出来ます。データを数値(例 ``95`` )として保持する場合、 ``type`` オプションに ``integer`` を指定すべきです。
+
+このフィールドはパーセンテージ記号 "``%``" をインプットボックスの後に追加します。
 
 +-------------+-----------------------------------------------------------------------+
-| Rendered as | ``input`` ``text`` field                                              |
+| 対応するタグ| ``input`` ``text`` フィールド                                         |
 +-------------+-----------------------------------------------------------------------+
-| Options     | - `type`_                                                             |
+| オプション  | - `type`_                                                             |
 |             | - `precision`_                                                        |
 +-------------+-----------------------------------------------------------------------+
-| Inherited   | - `required`_                                                         |
-| options     | - `label`_                                                            |
+| 継承された  | - `required`_                                                         |
+| オプション  | - `label`_                                                            |
 |             | - `read_only`_                                                        |
+|             | - `disabled`_                                                         |
 |             | - `error_bubbling`_                                                   |
+|             | - `error_mapping`_                                                    |
+|             | - `invalid_message`_                                                  |
+|             | - `invalid_message_parameters`_                                       |
+|             | - `mapped`_                                                           |
 +-------------+-----------------------------------------------------------------------+
-| Parent type | :doc:`field</reference/forms/types/field>`                            |
+| 親タイプ    | :doc:`form </reference/forms/types/form>`                             |
 +-------------+-----------------------------------------------------------------------+
-| Class       | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\PercentType` |
+| クラス      | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\PercentType` |
 +-------------+-----------------------------------------------------------------------+
 
-Options
--------
+オプション
+----------
 
 type
 ~~~~
 
-**type**: ``string`` **default**: ``fractional``
+**データ型**: ``string`` **デフォルト**: ``fractional``
 
-This controls how your data is stored on your object. For example, a percentage
-corresponding to "55%", might be stored as ``.55`` or ``55`` on your
-object. The two "types" handle these two cases:
+このオプションはデータがオブジェクトにどのように保存されているかを指定します。たとえば、パーセンテージが "55%" に対してデータは ``0.55`` または ``55`` のようにオブジェクトに保存されているでしょう。2種類の "type" でそれらの2つのケースを取り扱います。:
     
 *   ``fractional``
-    If your data is stored as a decimal (e.g. ``.55``), use this type.
-    The data will be multiplied by ``100`` before being shown to the
-    user (e.g. ``55``). The submitted data will be divided by ``100``
-    on form submit so that the decimal value is stored (``.55``);
+    ( ``0.55`` のような)少数としてデータが保存されている場合、このタイプを利用します。データがユーザーに( ``55`` のように)表示される前に ``100`` を掛けられます。フォームから送信されたデータは ``100`` で割られ少数( ``0.55`` )として保存されます。
 
 *   ``integer``
-    If your data is stored as an integer (e.g. 55), then use this option.
-    The raw value (``55``) is shown to the user and stored on your object.
-    Note that this only works for integer values.
+    データが整数(例 ``55`` )として保存される場合、このオプションを使用してください。そのままの値 ( ``55`` )が表示され、オブジェクトに保存されます。整数でのみ機能しますので注意してください。
 
 precision
 ~~~~~~~~~
 
-**type**: ``integer`` **default**: ``0``
+**データ型**: ``integer`` **デフォルト**: ``0``
 
-By default, the input numbers are are rounded. To allow for more decimal
-places, use this option.
+デフォルトでは、入力された数値は端数処理されます。少数点以下の桁数を増やす場合このオプションを使用します。
 
-Inherited Options
------------------
+継承されたオプション
+--------------------
 
-These options inherit from the :doc:`field</reference/forms/types/field>` type:
+以下のオプションは :doc:`form </reference/forms/types/form>` タイプを継承しています:
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
@@ -70,5 +68,16 @@ These options inherit from the :doc:`field</reference/forms/types/field>` type:
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
 
+.. include:: /reference/forms/types/options/disabled.rst.inc
+
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
 
+.. include:: /reference/forms/types/options/error_mapping.rst.inc
+
+.. include:: /reference/forms/types/options/invalid_message.rst.inc
+
+.. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
+
+.. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. 2013/12/22 yositani2002 4848f40b7de1463e40911bc2871d8990757d0097

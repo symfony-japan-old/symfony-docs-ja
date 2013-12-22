@@ -1,33 +1,40 @@
 .. index::
    single: Forms; Fields; search
 
-search Field Type
-=================
+.. note::
 
-This renders an ``<input type="search" />`` field, which is a text box with
-special functionality supported by some browsers.
+    * 対象バージョン：2.4 (2.0以降)
+    * 翻訳更新日：2013/12/22
 
-Read about the input search field at `DiveIntoHTML5.org`_
+search フィールドタイプ
+=======================
+
+このタイプは ``<input type="search" />`` フィールドを表示します。それはいくつかのブラウザでサポートされている特別な機能を持ったテキストボックスです。
+
+`DiveIntoHTML5.info`_ の ``search`` フィールドを参照してください。
 
 +-------------+----------------------------------------------------------------------+
-| Rendered as | ``input search`` field                                               |
+| 対応するタグ| ``input search`` フィールド                                          |
 +-------------+----------------------------------------------------------------------+
-| Inherited   | - `max_length`_                                                      |
-| options     | - `required`_                                                        |
+| 継承された  | - `max_length`_                                                      |
+| オプション  | - `required`_                                                        |
 |             | - `label`_                                                           |
 |             | - `trim`_                                                            |
 |             | - `read_only`_                                                       |
+|             | - `disabled`_                                                        |
 |             | - `error_bubbling`_                                                  |
+|             | - `error_mapping`_                                                   |
+|             | - `mapped`_                                                          |
 +-------------+----------------------------------------------------------------------+
-| Parent type | :doc:`text</reference/forms/types/text>`                             |
+| 親タイプ    | :doc:`text </reference/forms/types/text>`                            |
 +-------------+----------------------------------------------------------------------+
-| Class       | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\SearchType` |
+| クラス      | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\SearchType` |
 +-------------+----------------------------------------------------------------------+
 
-Inherited Options
------------------
+継承されたオプション
+--------------------
 
-These options inherit from the :doc:`field</reference/forms/types/field>` type:
+以下のオプションは :doc:`form </reference/forms/types/form>` タイプを継承しています:
 
 .. include:: /reference/forms/types/options/max_length.rst.inc
 
@@ -39,6 +46,14 @@ These options inherit from the :doc:`field</reference/forms/types/field>` type:
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
 
+.. include:: /reference/forms/types/options/disabled.rst.inc
+
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
 
-.. _`DiveIntoHTML5.org`: http://diveintohtml5.org/forms.html#type-search
+.. include:: /reference/forms/types/options/error_mapping.rst.inc
+
+.. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. _`DiveIntoHTML5.info`: http://diveintohtml5.info/forms.html#type-search
+
+.. 2013/12/22 yositani2002 4848f40b7de1463e40911bc2871d8990757d0097
