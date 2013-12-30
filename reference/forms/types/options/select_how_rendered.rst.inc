@@ -1,17 +1,21 @@
-Select tag, Checkboxes or Radio Buttons
----------------------------------------
+セレクトタグ、チェックボックス、ラジオボタン
+--------------------------------------------
 
+このフィールドは ``expanded`` と ``multiple`` オプションに応じて、いくつかの異なった ``HTML`` フィールドの一つとして表示されます。:
 This field may be rendered as one of several different HTML fields, depending
 on the ``expanded`` and ``multiple`` options:
 
 +------------------------------------------+----------+----------+
-| element type                             | expanded | multiple |
+| 要素タイプ                               | expanded | multiple |
 +==========================================+==========+==========+
-| select tag                               | false    | false    |
+| セレクトタグ                             | false    | false    |
 +------------------------------------------+----------+----------+
-| select tag (with ``multiple`` attribute) | false    | true     |
+| セレクトタグ ( ``multiple`` 属性有)      | false    | true     |
 +------------------------------------------+----------+----------+
-| radio buttons                            | true     | false    |
+| ラジオボタン                             | true     | false    |
 +------------------------------------------+----------+----------+
-| checkboxes                               | true     | true     |
+| チェックボックス                         | true     | true     |
 +------------------------------------------+----------+----------+
+
+
+.. 2013/12/28 yositani2002 3923c412ef6f0ab206b06b7b7cbe73ee989db126

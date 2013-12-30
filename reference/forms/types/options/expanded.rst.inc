@@ -1,7 +1,8 @@
 expanded
 ~~~~~~~~
 
-**type**: ``Boolean`` **default**: ``false``
+**データ型**: ``Boolean`` **デフォルト**: ``false``
 
-If set to true, radio buttons or checkboxes will be rendered (depending
-on the ``multiple`` value). If false, a select element will be rendered.
+もし ``true`` の場合、（ ``multiple`` の値により）ラジオボタンかチェックボックスが表示されます。 ``false`` の場合、 ``select`` 要素が表示されます。
+
+.. 2013/12/28 yositani2002 906e345d04b170d3367cfc8e523239137867db0d

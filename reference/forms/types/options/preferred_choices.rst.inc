@@ -1,21 +1,16 @@
 preferred_choices
 ~~~~~~~~~~~~~~~~~
 
-**type**: ``array`` **default**: ``array()``
+**データ型**: ``array`` **デフォルト**: ``array()``
 
-If this option is specified, then a sub-set of all of the options will be
-moved to the top of the select menu. The following would move the "Baz" option
-to the top, with a visual separator between it and the rest of the options::
+このオプションが指定されていた場合、すべての選択肢の一部がセレクトメニューの最上部に移動します。以下は "Baz" オプションが最上部に移動し、それと残りの選択肢の間にセパレーターがつきます。::
 
     $builder->add('foo_choices', 'choice', array(
         'choices' => array('foo' => 'Foo', 'bar' => 'Bar', 'baz' => 'Baz'),
         'preferred_choices' => array('baz'),
     ));
 
-Note that preferred choices are only meaningful when rendering as a ``select``
-element (i.e. ``expanded`` is false). The preferred choices and normal choices
-are separated visually by a set of dotted lines (i.e. ``-------------------``).
-This can be customized when rendering the field:
+ここで注意すべきは好みの選択肢は ``select`` 要素で表示されたときにのみ意味を持つことです（すなわち ``expanded`` は ``false`` ）。この好みの選択肢と通常の選択肢は点線（すなわち ``-------------------`` ）によって明示的に分離されます。これは表示する際に編集することが出来ます。:
 
 .. configuration-block::
 
@@ -26,3 +21,5 @@ This can be customized when rendering the field:
     .. code-block:: php
     
         <?php echo $view['form']->widget($form['foo_choices'], array('separator' => '=====')) ?>
+
+.. 2013/12/28 yositani2002 906e345d04b170d3367cfc8e523239137867db0d
