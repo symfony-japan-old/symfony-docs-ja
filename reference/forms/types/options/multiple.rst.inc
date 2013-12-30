@@ -1,9 +1,8 @@
 multiple
 ~~~~~~~~
 
-**type**: ``Boolean`` **default**: ``false``
+**データ型**: ``Boolean`` **デフォルト**: ``false``
 
-If true, the user will be able to select multiple options (as opposed
-to choosing just one option). Depending on the value of the ``expanded``
-option, this will render either a select tag or checkboxes if true and
-a select tag or radio buttons if false. The returned value will be an array.
+``true`` の場合、(一つの選択肢だけを選ぶのと対照的に)複数の選択肢が選択可能になります。 ``expanded`` オプションの値によって、 ``true`` の場合はセレクトタグかチェックボックスで表示されます。 ``false`` の場合はセレクトタグかラジオボタンとなります。戻り値は配列となります。
+
+.. 2013/12/28 yositani2002 906e345d04b170d3367cfc8e523239137867db0d

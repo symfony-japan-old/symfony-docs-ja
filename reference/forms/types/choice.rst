@@ -1,42 +1,50 @@
 .. index::
    single: Forms; Fields; choice
 
-choice Field Type
-=================
+.. note::
 
-A multi-purpose field used to allow the user to "choose" one or more options.
-It can be rendered as a ``select`` tag, radio buttons, or checkboxes.
+   * 対象バージョン：2.4 (2.0以降)
+   * 翻訳更新日：2013/12/30
 
-To use this field, you must specify *either* the ``choice_list`` or ``choices``
-option.
+choice フィールドタイプ
+=======================
 
-+-------------+-----------------------------------------------------------------------------+
-| Rendered as | can be various tags (see below)                                             |
-+-------------+-----------------------------------------------------------------------------+
-| Options     | - `choices`_                                                                |
-|             | - `choice_list`_                                                            |
-|             | - `multiple`_                                                               |
-|             | - `expanded`_                                                               |
-|             | - `preferred_choices`_                                                      |
-|             | - `empty_value`_                                                            |
-+-------------+-----------------------------------------------------------------------------+
-| Inherited   | - `required`_                                                               |
-| options     | - `label`_                                                                  |
-|             | - `read_only`_                                                              |
-|             | - `error_bubbling`_                                                         |
-+-------------+-----------------------------------------------------------------------------+
-| Parent type | :doc:`form</reference/forms/types/form>` (if expanded), ``field`` otherwise |
-+-------------+-----------------------------------------------------------------------------+
-| Class       | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType`        |
-+-------------+-----------------------------------------------------------------------------+
+多目的フィールドはユーザーが一つ以上の選択肢を"選択"することができるようにするために使用します。
+``select`` タグ、 ``radio`` ボタン、または ``checkbox`` として表示されます。
 
-Example Usage
--------------
+このフィールドを使用するには、``choice_list`` または ``choices`` オプションの *どちらか* を指定する必要があります。
 
-The easiest way to use this field is to specify the choices directly via the
-``choices`` option. The key of the array becomes the value that's actually
-set on your underlying object (e.g. ``m``), while the value is what the
-user sees on the form (e.g. ``Male``).
++-------------+------------------------------------------------------------------------------+
+| 対応するタグ| さまざまなタグに対応 (下記参照)                                              |
++-------------+------------------------------------------------------------------------------+
+| オプション  | - `choices`_                                                                 |
+|             | - `choice_list`_                                                             |
+|             | - `multiple`_                                                                |
+|             | - `expanded`_                                                                |
+|             | - `preferred_choices`_                                                       |
+|             | - `empty_value`_                                                             |
++-------------+------------------------------------------------------------------------------+
+| 継承された  | - `required`_                                                                |
+| オプション  | - `label`_                                                                   |
+|             | - `read_only`_                                                               |
+|             | - `disabled`_                                                                |
+|             | - `error_bubbling`_                                                          |
+|             | - `error_mapping`_                                                           |
+|             | - `mapped`_                                                                  |
+|             | - `inherit_data`_                                                            |
+|             | - `by_reference`_                                                            |
+|             | - `empty_data`_                                                              |
++-------------+------------------------------------------------------------------------------+
+| 親タイプ    | :doc:`form </reference/forms/types/form>`                                    |
++-------------+------------------------------------------------------------------------------+
+| クラス      | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType`         |
++-------------+------------------------------------------------------------------------------+
+
+利用例
+------
+
+このフィールドを使用する最も簡単な方法は、 ``choices`` オプションで選択肢を直接指定することです。
+配列のキーは実際にセットされる基礎となるオブジェクトの値（例えば ``m`` ）となり、一方、配列の値（例えば ``Male`` ）はフォーム上で表示されます。
 
 .. code-block:: php
 
@@ -45,9 +53,7 @@ user sees on the form (e.g. ``Male``).
         'required'  => false,
     ));
 
-By setting ``multiple`` to true, you can allow the user to choose multiple
-values. The widget will be rendered as a multiple ``select`` tag or a series
-of checkboxes depending on the ``expanded`` option:
+``multiple`` を ``true`` に設定することで、複数の値を選択することが出来ます。ウィジェットが複数選択の ``select`` タグとして表示されるか、一連の ``checkbox`` として表示するかは ``expanded`` オプションによります。:
 
 .. code-block:: php
 
@@ -60,24 +66,21 @@ of checkboxes depending on the ``expanded`` option:
         'multiple'  => true,
     ));
 
-You can also use the ``choice_list`` option, which takes an object that can
-specify the choices for your widget.
+``choice_list`` オプションを使うことで、一つのオブジェクトでウィジェットの選択肢を指定できます。
 
 .. _forms-reference-choice-tags:
 
 .. include:: /reference/forms/types/options/select_how_rendered.rst.inc
 
-Field Options
--------------
+フィールドオプション
+--------------------
 
 choices
 ~~~~~~~
 
-**type**: ``array`` **default**: ``array()``
+**データ型**: ``array`` **デフォルト**: ``array()``
 
-This is the most basic way to specify the choices that should be used
-by this field. The ``choices`` option is an array, where the array key
-is the item value and the array value is the item's label::
+このオプションはこのフィールドで使用されるべき選択肢を特定する最も基本的な方法です。 ``choices`` オプションは一つの配列で、配列のキーはアイテムの値であり、配列の値はアイテムのラベルです。::
 
     $builder->add('gender', 'choice', array(
         'choices' => array('m' => 'Male', 'f' => 'Female')
@@ -86,12 +89,11 @@ is the item value and the array value is the item's label::
 choice_list
 ~~~~~~~~~~~
 
-**type**: ``Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceListInterface``
+**データ型**: ``Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceListInterface``
 
-This is one way of specifying the options to be used for this field.
-The ``choice_list`` option must be an instance of the ``ChoiceListInterface``.
-For more advanced cases, a custom class that implements the interface
-can be created to supply the choices.
+これはこのフィールドで使われるオプションを特定する一つの方法です。
+``choice_list`` オプションは ``ChoiceListInterface`` のインスタンスでなければなりません。
+より高度な例として、選択肢を供給するためそのインターフェイスを実装したカスタムクラスを作成することができます。
 
 .. include:: /reference/forms/types/options/multiple.rst.inc
 
@@ -101,10 +103,10 @@ can be created to supply the choices.
 
 .. include:: /reference/forms/types/options/empty_value.rst.inc
 
-Inherited options
------------------
+継承されたオプション
+--------------------
 
-These options inherit from the :doc:`field</reference/forms/types/field>` type:
+以下のオプションは :doc:`form </reference/forms/types/form>` タイプを継承しています:
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
@@ -112,4 +114,18 @@ These options inherit from the :doc:`field</reference/forms/types/field>` type:
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
 
+.. include:: /reference/forms/types/options/disabled.rst.inc
+
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc
+
+.. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. include:: /reference/forms/types/options/inherit_data.rst.inc
+
+.. include:: /reference/forms/types/options/by_reference.rst.inc
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
+
+.. 2013/12/30 yositani2002 b675661199d466be4b6cb6f70d16aa1e3574c789
