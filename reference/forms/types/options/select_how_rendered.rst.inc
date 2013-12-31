@@ -1,9 +1,7 @@
 セレクトタグ、チェックボックス、ラジオボタン
 --------------------------------------------
 
-このフィールドは ``expanded`` と ``multiple`` オプションに応じて、いくつかの異なった ``HTML`` フィールドの一つとして表示されます。:
-This field may be rendered as one of several different HTML fields, depending
-on the ``expanded`` and ``multiple`` options:
+このフィールドは ``expanded`` と ``multiple`` オプションに応じて、いくつかの異なった ``HTML`` フィールドのうちの一つが表示されます。:
 
 +------------------------------------------+----------+----------+
 | 要素タイプ                               | expanded | multiple |
