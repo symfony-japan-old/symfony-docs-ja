@@ -42,6 +42,7 @@
   * :doc:`/cookbook/form/dynamic_form_generation`
   * :doc:`/cookbook/form/form_collections`
   * :doc:`/cookbook/form/create_custom_field_type`
+  * :doc:`/cookbook/form/inherit_data_option`
   * :doc:`/cookbook/validation/custom_constraint`
   * (doctrine) :doc:`/cookbook/doctrine/file_uploads`
 
