@@ -1,41 +1,60 @@
 .. index::
    single: Forms; Fields; timezone
 
-timezone Field Type
-===================
+.. note::
 
-The ``timezone`` type is a subset of the ``ChoiceType`` that allows the user
-to select from all possible timezones.
+    * 対象バージョン：2.4 (2.0以降)
+    * 翻訳更新日：2014/02/16
 
-The "value" for each timezone is the full timezone name, such as ``America/Chicago``
-or ``Europe/Istanbul``.
+timezone フィールドタイプ
+=========================
 
-Unlike the ``choice`` type, you don't need to specify a ``choices`` or
-``choice_list`` option as the field type automatically uses a large list
-of locales. You *can* specify either of these options manually, but then
-you should just use the ``choice`` type directly.
+``timezone`` タイプはすべてのタイムゾーンが選択可能な ``ChoiceType`` のサブセットです。
+
+各タイムゾーンの "値" は、\ ``America/Chicago`` または ``Europe/Istanbul`` のような、タイムゾーン名です。
+
+``choice`` タイプとは異なり、\ ``choices`` または ``choice_list`` オプションを特定する必要はなく、フィールドタイプとして自動的に大きなタイムゾーンのリストを使います。それらのオプションのどちらかを手動で設定することは *出来ます* が、その場合は ``choice`` タイプを直接使うべきです。
 
 +-------------+------------------------------------------------------------------------+
-| Rendered as | can be various tags (see :ref:`forms-reference-choice-tags`)           |
+| 対応するタグ| 様々なタグとして利用可能 (see :ref:`forms-reference-choice-tags`)      |
 +-------------+------------------------------------------------------------------------+
-| Inherited   | - `multiple`_                                                          |
-| options     | - `expanded`_                                                          |
+| 上書きされた| - `choice_list`_                                                       |
+| オプション  |                                                                        |
++-------------+------------------------------------------------------------------------+
+| 継承された  | - `multiple`_                                                          |
+| オプション  | - `expanded`_                                                          |
 |             | - `preferred_choices`_                                                 |
 |             | - `empty_value`_                                                       |
-|             | - `error_bubbling`_                                                    |
+|             | - `empty_data`_                                                        |
 |             | - `required`_                                                          |
 |             | - `label`_                                                             |
+|             | - `label_attr`_                                                        |
+|             | - `data`_                                                              |
 |             | - `read_only`_                                                         |
+|             | - `disabled`_                                                          |
+|             | - `error_bubbling`_                                                    |
+|             | - `error_mapping`_                                                     |
+|             | - `mapped`_                                                            |
 +-------------+------------------------------------------------------------------------+
-| Parent type | :doc:`choice</reference/forms/types/choice>`                           |
+| 親タイプ    | :doc:`choice </reference/forms/types/choice>`                          |
 +-------------+------------------------------------------------------------------------+
-| Class       | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\TimezoneType` |
+| クラス      | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\TimezoneType` |
 +-------------+------------------------------------------------------------------------+
 
-Inherited options
------------------
+上書きされたオプション
+----------------------
 
-These options inherit from the :doc:`choice</reference/forms/types/choice>` type:
+choice_list
+~~~~~~~~~~~
+
+**デフォルト**: :class:`Symfony\\Component\\Form\\Extension\\Core\\ChoiceList\\TimezoneChoiceList`
+
+``Timezone`` タイプのデフォルトの ``choice_list `` は :phpmethod:`DateTimeZone::listIdentifiers` で返されるすべてのタイムゾーンとなり、大陸別に分類します。
+
+継承されたオプション
+--------------------
+
+以下のオプションは :doc:`choice </reference/forms/types/choice>` タイプを継承しています:
 
 .. include:: /reference/forms/types/options/multiple.rst.inc
 
@@ -45,12 +64,26 @@ These options inherit from the :doc:`choice</reference/forms/types/choice>` type
 
 .. include:: /reference/forms/types/options/empty_value.rst.inc
 
-These options inherit from the :doc:`field</reference/forms/types/field>` type:
+以下のオプションは :doc:`form </reference/forms/types/form>` タイプを継承しています:
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
 .. include:: /reference/forms/types/options/label.rst.inc
 
+.. include:: /reference/forms/types/options/label_attr.rst.inc
+
+.. include:: /reference/forms/types/options/data.rst.inc
+
 .. include:: /reference/forms/types/options/read_only.rst.inc
 
+.. include:: /reference/forms/types/options/disabled.rst.inc
+
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc
+
+.. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. 2014/02/16 yositani2002 d9c6a853a84754e8fc8379bf61b70c02493e305f
