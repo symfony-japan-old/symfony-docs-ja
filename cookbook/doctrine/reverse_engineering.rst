@@ -19,7 +19,7 @@
       `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
       `content` longtext COLLATE utf8_unicode_ci NOT NULL,
       `created_at` datetime NOT NULL,
-      PRIMARY KEY (`id`),
+      PRIMARY KEY (`id`)
     ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
     CREATE TABLE `blog_comment` (
@@ -39,32 +39,30 @@
 
 .. code-block:: bash
 
-    php app/console doctrine:mapping:convert xml ./src/Acme/BlogBundle/Resources/config/doctrine/metadata/orm --from-database --force
+    $ php app/console doctrine:mapping:import --force AcmeBlogBundle xml
 
-このコマンドラインツールは、 Doctrine にデータベースの内部を調べさせて、 あなたのバンドルのフォルダである ``src/Acme/BlogBundle/Resources/config/doctrine/metadata/orm`` 以下に XML のメタデータファイルを生成します。
+このコマンドラインツールは、 Doctrine にデータベースの内部を調べさせて、 あなたのバンドルのフォルダである ``src/Acme/BlogBundle/Resources/config/doctrine`` 以下に XML のメタデータファイルを生成します。
+実行すると2つのファイルが生成されます。 ``BlogPost.orm.xml`` と ``BlogComment.orm.xml`` です。
 
 .. tip::
 
-    上記のコマンドで、最初の引数を `yml` に変更すれば、メタデータのクラスを YAML フォーマットで生成することもできます。
+    上記のコマンドで、最後の引数を `yml` に変更すれば、メタデータのクラスを YAML フォーマットで生成することもできます。
 
-生成された ``BlogPost.dcm.xml`` メタデータファイルは以下のようになります。
+生成された ``BlogPost.orm.xml`` メタデータファイルは以下のようになります。
 :
 
 .. code-block:: xml
 
     <?xml version="1.0" encoding="utf-8"?>
     <doctrine-mapping>
-      <entity name="BlogPost" table="blog_post">
+      <entity name="Acme\BlogBundle\Entity\BlogPost" table="blog_post">
         <change-tracking-policy>DEFERRED_IMPLICIT</change-tracking-policy>
         <id name="id" type="bigint" column="id">
           <generator strategy="IDENTITY"/>
         </id>
-        <field name="title" type="string" column="title" length="100"/>
-        <field name="content" type="text" column="content"/>
-        <field name="isPublished" type="boolean" column="is_published"/>
-        <field name="createdAt" type="datetime" column="created_at"/>
-        <field name="updatedAt" type="datetime" column="updated_at"/>
-        <field name="slug" type="string" column="slug" length="255"/>
+        <field name="title" type="string" column="title" length="100" nullable="false"/>
+        <field name="content" type="text" column="content" nullable="false"/>
+        <field name="createdAt" type="datetime" column="created_at" nullable="false"/>
         <lifecycle-callbacks/>
       </entity>
     </doctrine-mapping>
@@ -73,11 +71,16 @@
 
 .. code-block:: bash
 
-    php app/console doctrine:mapping:import AcmeBlogBundle annotation
-    php app/console doctrine:generate:entities AcmeBlogBundle
+    $ php app/console doctrine:mapping:convert annotation ./src
+    $ php app/console doctrine:generate:entities AcmeBlogBundle
 
-最初のコマンドは、アノテーションマッピングをしたエンティティクラスを生成します。もちろん ``anotation`` 引数ではなく、 ``xml`` や ``yml`` に変更することができます。新しく作成された ``BlogComment`` エンティティクラスは以下のようになります。
-:
+最初のコマンドは、アノテーションマッピングをしたエンティティクラスを生成します。マッピングとしてアノテーションではなく YAML や XML を使いたい場合は二つ目のコマンドだけを実行してください。
+
+.. tip::
+
+   アノテーションマッピングを使用する場合、上の二つのコマンドの実行後に XML (または YAML)のマッピングファイルは削除して構いません。
+
+新しく作成された ``BlogComment`` エンティティクラスは以下のようになります。
 
 .. code-block:: php
 
@@ -97,9 +100,9 @@
     class BlogComment
     {
         /**
-         * @var bigint $id
+         * @var int $id
          *
-         * @ORM\Column(name="id", type="bigint", nullable=false)
+         * @ORM\Column(name="id", type="int")
          * @ORM\Id
          * @ORM\GeneratedValue(strategy="IDENTITY")
          */
@@ -137,9 +140,12 @@
 
 このように、 Doctrine は全てのテーブルのフィールドをプライベートでアノテーションされたクラスのプロパティに変換します。最も注目すべきことは、外部キー制約に基づいた ``BlogPost`` エンティティクラスとのリレーションも検知することです。そして、 ``BlogComment`` エンティティクラスにプライベートな ``$post`` プロパティが ``BlogPost`` エンティティをマップされます。
 
-最後のコマンドは、 ``BlogPost`` と ``BlogComment`` エンティティクラスのプロパティの全てのゲッターとセッターを生成します。生成されたエンティティは、これで使用することができました。
+.. note::
 
-.. _`Doctrine tools documentation`: http://www.doctrine-project.org/docs/orm/2.0/en/reference/tools.html#reverse-engineering
+   エンティティクラスに一対多のリレーションを追加したい場合は、エンティティ、 XML 又は YAML ファイルに手動で追加する必要があります。
+   必要なエンティティに ``inversedBy`` と ``mappedBy`` を含む一対多のセクションを追加してください。
+
+.. _`Doctrine tools documentation`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/tools.html#reverse-engineering
 
 .. 2011/11/01 ganchiku d739c578e765de86a8ad54d6ce9cd32b8a098a1f
-
+.. 2014/02/19 77web 4299eb11ac3cbd0dbf52e337fdb5b375ca08e843
