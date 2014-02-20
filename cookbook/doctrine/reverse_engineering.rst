@@ -1,6 +1,12 @@
 .. index::
    single: Doctrine; Generating entities from existing database
 
+.. note::
+
+    * 対象バージョン：2.3+
+    * 翻訳更新日：2014/02/19
+
+
 既にあるデータベースからエンティティを生成する方法
 ==================================================
 
