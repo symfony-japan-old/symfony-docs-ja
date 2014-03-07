@@ -1,15 +1,16 @@
 data
 ~~~~
 
-**type**: mixed **default**: Defaults to field of the underlying object (if there is one)
+**データ型**: mixed **デフォルト**: 対応するオブジェクトのフィールド(一つであれば）
 
-When you create a form, each field initially displays the value of the 
-corresponding property of the form's domain object (if an object is bound
-to the form). If you want to override the initial value for the form or just
-and individual field, you can set it in the data option::
+フォームを作成したとき、各フィールドに表示する初期値は、フォームのドメインオブジェクトの対応するプロパティの値です（オブジェクトがフォームにバインドされている場合）。もしフォーム、または、単に個々のフィールドの初期値を上書きしたい場合は、\ ``data`` オプションで設定することが出来ます。::
 
     $builder->add('token', 'hidden', array(
         'data' => 'abcdef',
     ));
 
+.. note::
+    フォームのフィールドのデフォルト値は、直接データ構造（例えば、エンティティまたは配列）から取得されます。
+    ``data`` オプションはこのデフォルト値を上書きします。
 
+.. 2014/03/07 yositani2002 08d95b27e7d210b16889a22b2d6d8ba11820ae4a

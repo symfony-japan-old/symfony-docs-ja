@@ -49,7 +49,7 @@ choice_list
 
 **デフォルト**: :class:`Symfony\\Component\\Form\\Extension\\Core\\ChoiceList\\TimezoneChoiceList`
 
-``Timezone`` タイプのデフォルトの ``choice_list `` は :phpmethod:`DateTimeZone::listIdentifiers` で返されるすべてのタイムゾーンとなり、大陸別に分類します。
+``Timezone`` タイプのデフォルトの ``choice_list`` は :phpmethod:`DateTimeZone::listIdentifiers` で返されるすべてのタイムゾーンとなり、大陸別に分類します。
 
 継承されたオプション
 --------------------
