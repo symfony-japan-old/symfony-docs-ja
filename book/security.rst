@@ -1298,6 +1298,8 @@ HTTP 認証やフォームログインなどの全ての認証メカニズムは
 
 ユーザが一旦ログアウトすると、そのユーザは、上記の ``target`` の値によって定義されたパス(``homepage`` など)にリダイレクトされます。ログアウトの設定に関する詳細は :doc:`Security Configuration Reference</reference/configuration/security>` を参照してください。
 
+.. _book-security-template:
+
 テンプレートにおけるアクセス制御
 --------------------------------
 

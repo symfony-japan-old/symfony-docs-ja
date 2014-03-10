@@ -692,9 +692,10 @@ apples`` が使われます。
 多くの場合、翻訳はテンプレート内で発生します。 Symfony2 は Twig と PHP テンプレートの
 両方をネイティブでサポートします。
 
+.. _book-translation-tags:
+
 Twig テンプレート
 ~~~~~~~~~~~~~~~~~
-
 Symfony2 はメッセージの翻訳に役立つよう特別な Twig タグ (``trans`` と ``transChoice``)
 を提供します。
 
@@ -723,6 +724,8 @@ Symfony2 はメッセージの翻訳に役立つよう特別な Twig タグ (``t
     {% transchoice count with {'%name%': 'Fabien'} from "app" %}
         {0} There is no apples|{1} There is one apple|]1,Inf] There are %count% apples
     {% endtranschoice %}
+
+.. _book-translation-filters:
 
 ``trans``、``transchoice``フィルターは、*variable texts*や複雑な式を変換するために使用できます。
 
