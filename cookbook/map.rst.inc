@@ -46,15 +46,19 @@
   * :doc:`/cookbook/validation/custom_constraint`
   * (doctrine) :doc:`/cookbook/doctrine/file_uploads`
 
-* **コンフィギュレーションとサービスコンテナ**
+* **コンフィギュレーション**
 
   * :doc:`/cookbook/configuration/environments`
+  * :doc:`/cookbook/configuration/override_dir_structure`
   * :doc:`/cookbook/configuration/external_parameters`
+  * :doc:`/cookbook/configuration/pdo_session_storage`
+
+* **サービスコンテナ**
+
   * :doc:`/cookbook/service_container/factories`
   * :doc:`/cookbook/service_container/parentservices`
   * :doc:`/cookbook/service_container/scopes`
   * :doc:`/cookbook/service_container/tags`
-  * :doc:`/cookbook/configuration/pdo_session_storage`
 
 * **バンドル**
 

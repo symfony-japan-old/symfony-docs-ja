@@ -6,9 +6,7 @@
 
     email
     gmail
-    configuration/environments
-    configuration/pdo_session_storage
-    configuration/external_parameters
+    configuration/index
     templating/PHP
     controller/error_pages
     controller/service
