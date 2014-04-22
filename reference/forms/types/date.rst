@@ -1,49 +1,62 @@
 .. index::
    single: Forms; Fields; date
 
-date Field Type
-===============
+.. note::
 
-A field that allows the user to modify date information via a variety of
-different HTML elements.
+   * 対象バージョン：2.3+
+   * 翻訳更新日：2014/04/23
 
-The underlying data used for this field type can be a ``DateTime`` object,
-a string, a timestamp or an array. As long as the `input`_ option is set
-correctly, the field will take care of all of the details.
+date フィールドタイプ
+=====================
 
-The field can be rendered as a single text box, three text boxes (month,
-day, and year) or three select boxes (see the `widget_` option).
+異なった様々な HTML 要素で日付情報を変更することができるフィールドです。
 
-+----------------------+-----------------------------------------------------------------------------+
-| Underlying Data Type | can be ``DateTime``, string, timestamp, or array (see the ``input`` option) |
-+----------------------+-----------------------------------------------------------------------------+
-| Rendered as          | single text box or three select fields                                      |
-+----------------------+-----------------------------------------------------------------------------+
-| Options              | - `widget`_                                                                 |
-|                      | - `input`_                                                                  |
-|                      | - `empty_value`_                                                            |
-|                      | - `years`_                                                                  |
-|                      | - `months`_                                                                 |
-|                      | - `days`_                                                                   |
-|                      | - `format`_                                                                 |
-|                      | - `pattern`_                                                                |
-|                      | - `data_timezone`_                                                          |
-|                      | - `user_timezone`_                                                          |
-+----------------------+-----------------------------------------------------------------------------+
-| Parent type          | ``field`` (if text), ``form`` otherwise                                     |
-+----------------------+-----------------------------------------------------------------------------+
-| Class                | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\DateType`          |
-+----------------------+-----------------------------------------------------------------------------+
+このフィールドタイプに使用される元となるデータは ``DateTime`` オブジェクト、 ``string`` 、 ``timestamp`` または ``array`` です。
+`input`_ オプションが正しく設定されている限り、フィールドはすべての詳細を引き受けます。
 
-Basic Usage
------------
+このフィールドは1つのテキストボックス、または、3つのテキストボックス（月、日、年）、または、3つのセレクトボックス（参照 `widget`_ オプション)として表示することができます。
 
++----------------------+-----------------------------------------------------------------------------------------+
+| 対応するデータ型     | ``DateTime``,``string``, ``timestamp``, ``array``  (参照 ``input`` オプション)          |
++----------------------+-----------------------------------------------------------------------------------------+
+| 対応するタグ         | 単一のテキストボックス または、 3つのセレクトフィールド                                 |
++----------------------+-----------------------------------------------------------------------------------------+
+| オプション           | - `widget`_                                                                             |
+|                      | - `input`_                                                                              |
+|                      | - `empty_value`_                                                                        |
+|                      | - `years`_                                                                              |
+|                      | - `months`_                                                                             |
+|                      | - `days`_                                                                               |
+|                      | - `format`_                                                                             |
+|                      | - `model_timezone`_                                                                     |
+|                      | - `view_timezone`_                                                                      |
++----------------------+-----------------------------------------------------------------------------------------+
+| 上書きされた         | - `by_reference`_                                                                       |
+| オプション           | - `error_bubbling`_                                                                     |
++----------------------+-----------------------------------------------------------------------------------------+
+| 継承された           | - `data`_                                                                               |
+| オプション           | - `invalid_message`_                                                                    |
+|                      | - `invalid_message_parameters`_                                                         |
+|                      | - `read_only`_                                                                          |
+|                      | - `disabled`_                                                                           |
+|                      | - `mapped`_                                                                             |
+|                      | - `inherit_data`_                                                                       |
+|                      | - `error_mapping`_                                                                      |
++----------------------+-----------------------------------------------------------------------------------------+
+| 親タイプ             | :doc:`form </reference/forms/types/form>`                                               |
++----------------------+-----------------------------------------------------------------------------------------+
+| クラス               | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\DateType`                      |
++----------------------+-----------------------------------------------------------------------------------------+
+
+基本的な使い方
+--------------
+
+このフィールドタイプは高度に設定が可能でありながら、簡単に使えます。最も重要なオプションは ``input`` と ``widget`` です。
 This field type is highly configurable, but easy to use. The most important
 options are ``input`` and ``widget``.
 
-Suppose that you have a ``publishedAt`` field whose underlying date is a
-``DateTime`` object. The following configures the ``date`` type for that
-field as three different choice fields:
+``publishedAt`` フィールドに``DateTime`` オブジェクトの日付データを持つとします。
+以下は、``date`` タイプを3つの選択フィールドとして設定します。:
 
 .. code-block:: php
 
@@ -52,9 +65,8 @@ field as three different choice fields:
         'widget' => 'choice',
     ));
 
-The ``input`` option *must* be changed to match the type of the underlying
-date data. For example, if the ``publishedAt`` field's data were a unix timestamp,
-you'd need to set ``input`` to ``timestamp``:
+この ``input`` オプションは元となる日付データと同じタイプに変換され *なくてはいけません* 。
+例えば、 ``publishedAt`` フィールドデータが Unix タイムスタンプの場合、``input`` に ``timestamp`` を設定しないといけません。:
 
 .. code-block:: php
 
@@ -63,11 +75,12 @@ you'd need to set ``input`` to ``timestamp``:
         'widget' => 'choice',
     ));
 
+フィールドは ``array`` と ``string`` を正しい ``input`` オプションの値としてサポートします。
 The field also supports an ``array`` and ``string`` as valid ``input`` option
 values.
 
-Field Options
--------------
+フィールドオプション
+--------------------
 
 .. include:: /reference/forms/types/options/date_widget.rst.inc
 
@@ -78,17 +91,16 @@ Field Options
 empty_value
 ~~~~~~~~~~~
 
-**type**: ``string``|``array``
+**データ型**: ``string`` または ``array``
 
-If your widget option is set to ``choice``, then this field will be represented
-as a series of ``select`` boxes. The ``empty_value`` option can be used to
-add a "blank" entry to the top of each select box::
+もし、ウィジェットのオプションが ``choice`` がセットされていた場合、一連のセレクトボックスとして表現されます。
+``empty_value`` オプションは"空"エントリーを各セレクトボックスの一番上に追加できます。::
 
     $builder->add('dueDate', 'date', array(
         'empty_value' => '',
     ));
 
-Alternatively, you can specify a string to be displayed for the "blank" value::
+別の方法として、"空"の値として特定の文字を指定することが出来ます。::
 
     $builder->add('dueDate', 'date', array(
         'empty_value' => array('year' => 'Year', 'month' => 'Month', 'day' => 'Day')
@@ -100,10 +112,62 @@ Alternatively, you can specify a string to be displayed for the "blank" value::
 
 .. include:: /reference/forms/types/options/days.rst.inc
 
+.. _reference-forms-type-date-format:
+
 .. include:: /reference/forms/types/options/date_format.rst.inc
 
-.. include:: /reference/forms/types/options/date_pattern.rst.inc
+.. include:: /reference/forms/types/options/model_timezone.rst.inc
 
-.. include:: /reference/forms/types/options/data_timezone.rst.inc
+.. include:: /reference/forms/types/options/view_timezone.rst.inc
 
-.. include:: /reference/forms/types/options/user_timezone.rst.inc
+上書きされたオプション
+----------------------
+
+by_reference
+~~~~~~~~~~~~
+
+**デフォルト**: ``false``
+
+``DateTime`` クラスは不変のオブジェクトとして扱われます。
+
+error_bubbling
+~~~~~~~~~~~~~~
+
+**デフォルト**: ``false``
+
+継承されたオプション
+--------------------
+
+以下のオプションは :doc:`form </reference/forms/types/form>` タイプを継承しています:
+
+.. include:: /reference/forms/types/options/data.rst.inc
+
+.. include:: /reference/forms/types/options/invalid_message.rst.inc
+
+.. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
+
+.. include:: /reference/forms/types/options/read_only.rst.inc
+
+.. include:: /reference/forms/types/options/disabled.rst.inc
+
+.. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. include:: /reference/forms/types/options/inherit_data.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc
+
+フィールド変数
+--------------
+
++--------------+------------+---------------------------------------------------------------------------------+
+| 変数         | データ型   | 使用法                                                                          |
++==============+============+=================================================================================+
+| widget       | ``mixed``  | `widget`_ オプションの値。                                                      |
++--------------+------------+---------------------------------------------------------------------------------+
+| type         | ``string`` | ``widget`` が ``single_text`` で、且つ、 HTML5 が有効な場合のみ、               |
+|              |            |  インプットタイプ(``datetime``, ``date``  または ``time`` )を使用できます。     |
++--------------+------------+---------------------------------------------------------------------------------+
+| date_pattern | ``string`` | 日付フォーマットの文字列                                                        |
++--------------+------------+---------------------------------------------------------------------------------+
+
+.. 2014/04/23 yositani200 d49d12eaf265a5d6d32ac660c62f385d57261475
