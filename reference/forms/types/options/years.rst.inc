@@ -1,7 +1,8 @@
 years
 ~~~~~
 
-**type**: ``array`` **default**: five years before to five years after the current year
+**データ型**: ``array`` **デフォルト**: 今年より５年前から５年後
 
-List of years available to the year field type.  This option is only relevant
-when the ``widget`` option is set to ``choice``.
+``year`` フィールドタイプに設定可能な年のリストです。このオプションは ``widget`` オプションに ``choice`` が設定されている場合のみ意味を持ちます。
+
+.. 2014/04/26 yositani2002 84d43ac157a8860f667bc6b40278197203b4c333
