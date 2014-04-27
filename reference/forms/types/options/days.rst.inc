@@ -1,9 +1,10 @@
 days
 ~~~~
 
-**type**: ``array`` **default**: 1 to 31
+**データ型**: ``array`` **デフォルト**: 1 to 31
 
-List of days available to the day field type.  This option is only relevant
-when the ``widget`` option is set to ``choice``::
+``day`` フィールドタイプに設定可能な日のリストです。このオプションは ``widget`` オプションに ``choice`` が設定されている場合のみ意味を持ちます。::
 
     'days' => range(1,31)
+
+.. 2014/04/26 yositani2002 84d43ac157a8860f667bc6b40278197203b4c333

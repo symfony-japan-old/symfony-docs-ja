@@ -1,7 +1,8 @@
 with_seconds
 ~~~~~~~~~~~~
 
-**type**: ``Boolean`` **default**: ``false``
+**データ型**: ``Boolean`` **デフォルト**: ``false``
 
-Whether or not to include seconds in the input. This will result in an additional
-input to capture seconds.
+秒を入力に含めるかどうか。これは秒を取得する追加の入力フォームを出力します。
+
+.. 2014/04/26 yositani2002 c3ed1d89896cdd33d1d50a42e44759772acd6426

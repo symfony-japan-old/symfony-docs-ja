@@ -1,7 +1,8 @@
 months
 ~~~~~~
 
-**type**: ``array`` **default**: 1 to 12
+**データ型**: ``array`` **デフォルト**: 1 to 12
 
-List of months available to the month field type. This option is only relevant
-when the ``widget`` option is set to ``choice``.
+``month`` フィールドタイプに設定可能な月のリストです。このオプションは ``widget`` オプションに ``choice`` が設定されている場合のみ意味を持ちます。
+
+.. 2014/4/26 yositani2002 906e345d04b170d3367cfc8e523239137867db0d

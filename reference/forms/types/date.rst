@@ -52,8 +52,6 @@ date フィールドタイプ
 --------------
 
 このフィールドタイプは高度に設定が可能でありながら、簡単に使えます。最も重要なオプションは ``input`` と ``widget`` です。
-This field type is highly configurable, but easy to use. The most important
-options are ``input`` and ``widget``.
 
 ``publishedAt`` フィールドに``DateTime`` オブジェクトの日付データを持つとします。
 以下は、``date`` タイプを3つの選択フィールドとして設定します。:
@@ -170,4 +168,4 @@ error_bubbling
 | date_pattern | ``string`` | 日付フォーマットの文字列                                                        |
 +--------------+------------+---------------------------------------------------------------------------------+
 
-.. 2014/04/23 yositani200 d49d12eaf265a5d6d32ac660c62f385d57261475
+.. 2014/04/23 yositani2002 d49d12eaf265a5d6d32ac660c62f385d57261475
