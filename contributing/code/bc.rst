@@ -1,7 +1,7 @@
 .. note::
 
     * 対象バージョン：2.3以降
-    * 翻訳更新日：2014/04/25
+    * 翻訳更新日：2014/04/30
 
 後方互換性の保証について
 ========================
@@ -93,7 +93,7 @@ Symfonyによって提供されるすべてのクラスはインスタンス化�
     ``@internal``\ タグの付いたクラス、プロパティやメソッド、並びに名前空間に\ ``**Tests**``\ を含むクラスはこの規約の対象外となります。
     これらは内部利用を目的としているので、アプリケーションのコードからアクセスすべきではありません。
 
-インターフェースと同様、クラスもAPIクラス、通常クラスと区分されています。
+インターフェースと同様、クラスもAPIクラス、レギュラークラスと区分されています。
 APIクラスもインターフェースと同様に\ ``@api``\ タグが付けられています::
 
     /**
@@ -308,7 +308,7 @@ protectedメソッドの削除                   Yes             Yes
        string               `string値`_\ と等価に評価可能な\ `スカラー型`_\ またはオブジェクト
        integer              `integer値`_\ と等価に評価可能な\ `スカラー型`_
        float                `float値`_\ と等価に評価可能な\ `スカラー型`_
-       array                ``ArrayAccess``\ 、\ ``Traversable``\ そして\ ``Countable``\ を実装しているインスタンス
+       array                ``ArrayAccess``\ 、\ ``Traversable``\ および\ ``Countable``\ を実装しているインスタンス
        ``ArrayAccess``      array
        ``Traversable``      array
        ``Countable``        array
@@ -327,4 +327,4 @@ protectedメソッドの削除                   Yes             Yes
 .. _integer値: http://www.php.net/manual/ja/function.intval.php
 .. _float値: http://www.php.net/manual/ja/function.floatval.php
 
-.. 2014/04/25 issei-m 6c1ded9af043f1711d6349db91711b2e5fc33bb4
+.. 2014/04/30 issei-m 6c1ded9af043f1711d6349db91711b2e5fc33bb4
