@@ -4,6 +4,7 @@
   * :doc:`パッチの投稿 </contributing/code/patches>` |
   * :doc:`セキュリティ問題の報告 </contributing/code/security>` |
   * :doc:`テスト </contributing/code/tests>` |
+  * :doc:`後方互換性 </contributing/code/bc>`
   * :doc:`コーディング規約 </contributing/code/standards>` |
   * :doc:`ソースコードの慣習 </contributing/code/conventions>` |
   * :doc:`ソースコードのライセンス </contributing/code/license>`
