@@ -1,52 +1,73 @@
 .. index::
    single: Forms; Fields; radio
 
-radio Field Type
-================
+.. note::
 
-Creates a single radio button. This should always be used for a field that
-has a Boolean value: if the radio button is selected, the field will be set
-to true, if the button is not selected, the value will be set to false.
+   * 対象バージョン：2.3+
+   * 翻訳更新日：2014/05/18
 
-The ``radio`` type isn't usually used directly. More commonly it's used
-internally by other types such as :doc:`choice</reference/forms/types/choice>`.
-If you want to have a Boolean field, use :doc:`checkbox</reference/forms/types/checkbox>`.
+radio フィールドタイプ
+======================
 
-+-------------+---------------------------------------------------------------------+
-| Rendered as | ``input`` ``text`` field                                            |
-+-------------+---------------------------------------------------------------------+
-| Options     | - `value`_                                                          |
-+-------------+---------------------------------------------------------------------+
-| Inherited   | - `required`_                                                       |
-| options     | - `label`_                                                          |
-|             | - `read_only`_                                                      |
-|             | - `error_bubbling`_                                                 |
-+-------------+---------------------------------------------------------------------+
-| Parent type | :doc:`field</reference/forms/types/field>`                          |
-+-------------+---------------------------------------------------------------------+
-| Class       | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\RadioType` |
-+-------------+---------------------------------------------------------------------+
+シングルラジオボタンを作成します。ラジオボタンを選択した場合は、フィールドは指定された値に設定されます。
+ラジオボタンはチェックをはずすことはできません - 値は、同じ名前で別のラジオボタンがチェックされるときに変更されます。
 
-Field Options
--------------
+``radio`` 型は、通常は直接使用することはありません。
+一般的に、 :doc:`choice </reference/forms/types/choice>` のようなほかのタイプの内部で使われます。
+``Boolean`` フィールドを使用したい場合は :doc:`checkbox </reference/forms/types/checkbox>` を使用してください。
 
-value
-~~~~~
++------------------+---------------------------------------------------------------------+
+| 対応するデータ型 | ``input`` ``radio`` フィールド                                      |
++------------------+---------------------------------------------------------------------+
+| 継承された       | - `value`_                                                          |
+| オプション       | - `data`_                                                           |
+|                  | - `empty_data`_                                                     |
+|                  | - `required`_                                                       |
+|                  | - `label`_                                                          |
+|                  | - `label_attr`_                                                     |
+|                  | - `read_only`_                                                      |
+|                  | - `disabled`_                                                       |
+|                  | - `error_bubbling`_                                                 |
+|                  | - `error_mapping`_                                                  |
+|                  | - `mapped`_                                                         |
++------------------+---------------------------------------------------------------------+
+| 親タイプ         | :doc:`checkbox </reference/forms/types/checkbox>`                   |
++------------------+---------------------------------------------------------------------+
+| クラス           | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\RadioType` |
++------------------+---------------------------------------------------------------------+
 
-**type**: ``mixed`` **default**: ``1``
+継承されたオプション
+--------------------
 
-The value that's actually used as the value for the radio button. This does
-not affect the value that's set on your object.
+以下のオプションは :doc:`checkbox </reference/forms/types/checkbox>` タイプを継承しています:
 
-Inherited Options
------------------
+.. include:: /reference/forms/types/options/value.rst.inc
 
-These options inherit from the :doc:`field</reference/forms/types/field>` type:
+以下のオプションは :doc:`form </reference/forms/types/form>` タイプを継承しています:
+
+.. include:: /reference/forms/types/options/data.rst.inc
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
 .. include:: /reference/forms/types/options/label.rst.inc
 
+.. include:: /reference/forms/types/options/label_attr.rst.inc
+
 .. include:: /reference/forms/types/options/read_only.rst.inc
 
+.. include:: /reference/forms/types/options/disabled.rst.inc
+
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc
+
+.. include:: /reference/forms/types/options/mapped.rst.inc
+
+フォーム変数
+------------
+
+.. include:: /reference/forms/types/variables/check_or_radio_table.rst.inc
+
+.. 2014/05/18 yositani2002 490633b97f8c2931bc43a76dd060cfcc50da432d
