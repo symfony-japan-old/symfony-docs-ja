@@ -5,5 +5,4 @@ Contributing Code
     :maxdepth: 2
 
     releases
-    irc
     other
