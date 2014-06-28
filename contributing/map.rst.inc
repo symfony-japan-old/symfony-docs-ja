@@ -18,5 +18,6 @@
 
 * **コミュニティ**:
 
+  * :doc: `リリースプロセス </contributing/community/releases>`
   * :doc:`IRCミーティング </contributing/community/irc>` |
   * :doc:`その他のリソース </contributing/community/other>`
