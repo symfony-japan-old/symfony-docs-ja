@@ -15,6 +15,8 @@
    finder
    form/index
    process
+   serializer
+   stopwatch
    templating
    yaml
 
@@ -22,3 +24,4 @@
 .. 2013/03/22 hidenorigoto
 .. 2013/04/10 hidenorigoto
 .. 2013/09/28 hidenorigoto
+.. 2014/07/02 yositani2002
