@@ -17,17 +17,18 @@ method
 * DELETE
 * PATCH
 
-.. note:
+.. note::
 
     メソッドが PUT 、PATCH 、または DELETE の時、 Symfony は自動的にフォームに hidden フィールド ``_method`` をレンダリングします。
     これらは、"偽" のHTTPメソッドとして使用され、標準的なブラウザではサポートされていません。
     詳細については、以下を参照してください。
     :doc:`/cookbook/routing/method_parameters`
 
-.. note:
+.. note::
 
     PATCH メソッドは部分データを送信することができます。
     言い換えれば、送信されたフォームデータの特定フィールドが欠落している場合、それらは無視され、デフォルト値が（もしあれば）使用されます。
     他のすべてのHTTPメソッドは、いくつかのフィールドが欠落している場合、それらのフィールドには ``null`` が設定されます。
 
 .. 2014/06/20 yositani2002 72c30c2fa1af40af7a1f3e672005d360a898ca07
+.. 2014/07/02 yositani2002 02aeade9a01155ca5e203f065008fd2ec2044cb4
