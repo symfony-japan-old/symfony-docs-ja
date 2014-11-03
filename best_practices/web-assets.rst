@@ -2,7 +2,7 @@ Webアセット
 ==========
 
 Webアセットとは、CSSやJavaScript、画像といった、Webサイトのフロントエンドの
-見た目や操作をよくするファイルのことを指します。Symfony開発者は慣習的に、それぞれの
+見た目や操作のためのファイルのことを指します。Symfony開発者は慣習的に、それぞれの
 バンドルの ``Resources/public/`` ディレクトリにアセットを配置してきました。
 
 .. best-practice::
@@ -81,18 +81,18 @@ Asseticで全てのアセットを結合するには、１つのTwigタグで全
 もしこのようなアプリケーションを開発する場合には、BowerやGruntJSのような、
 その技術で推奨されているツールを使うとよいでしょう。
 Symfonyバックエンドとは切り離してフロントエンドアプリケーションを開発するべきです。
-リポジトリを分離したい場合にはなおさらです。
+バージョン管理システムのリポジトリを分離したい場合にはなおさらです。
 
 
 Asseticをもっと知るために
 ------------------------
 
 Assetic は `UglifyCSS/UglifyJSを使う`_ ことでCSSやJavaScriptのサイズを小さくして
-ウェブサイトの高速化を図ることができます。ユーザーが受け取る前に、画像サイズを
-減らすためAsseticを利用して `画像を圧縮する`_ こともできます。全ての利用可能な
-機能を知りたければ `official Assetic documentation`_ を参照してください。
+ウェブサイトの高速化を図ることができます。Asseticの `画像の圧縮`_ 機能を使うことで、
+ユーザーからリクエストされた画像をその場で圧縮してから返すようにもできます。
+利用可能な機能を知りたければ `公式のAsseticドキュメント`_ を参照してください。
 
 .. _`Assetic`: http://symfony.com/doc/current/cookbook/assetic/asset_management.html
 .. _`UglifyCSS/UglifyJSを使う`: http://symfony.com/doc/current/cookbook/assetic/uglifyjs.html
-.. _`画像を圧縮する`: http://symfony.com/doc/current/cookbook/assetic/jpeg_optimize.html
-.. _`official Assetic documentation`: https://github.com/kriswallsmith/assetic
+.. _`画像の圧縮`: http://symfony.com/doc/current/cookbook/assetic/jpeg_optimize.html
+.. _`公式のAsseticドキュメント`: https://github.com/kriswallsmith/assetic
