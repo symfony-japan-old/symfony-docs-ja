@@ -317,9 +317,6 @@ Symfonh のソースコードは、 PHP コミュニティで定められた `PS
 ほんのの数秒で修正することができるコマンドラインツールです。
 
 .. _`完全な定義`: http://en.wikipedia.org/wiki/Business_logic
-.. _`Toran Proxy`: https://toranproxy.com/
-.. _`Composer`: https://getcomposer.org/
-.. _`MVCアーキテクチャ`: http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller
 .. _`Doctrine`: http://www.doctrine-project.org/
 .. _`フィクスチャークラス`: http://symfony.com/doc/master/bundles/DoctrineFixturesBundle/index.html#writing-simple-fixtures
 .. _`PSR-1`: http://www.php-fig.org/psr/psr-1/
