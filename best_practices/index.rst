@@ -2,16 +2,16 @@ Symfony 公式ベストプラクティス
 ===============================
 
 .. toctree::
-    :hidden:
+   :maxdepth: 1
 
-    introduction
-    creating-the-project
-    configuration
-    business-logic
-    controllers
-    templates
-    forms
-    i18n
-    security
-    web-assets
-    tests
+   introduction
+   creating-the-project
+   configuration
+   business-logic
+   controllers
+   templates
+   forms
+   i18n
+   security
+   web-assets
+   tests
