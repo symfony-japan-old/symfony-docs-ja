@@ -1,3 +1,8 @@
+.. note::
+
+    * 対象バージョン：2.3以降
+    * 翻訳更新日：2014/11/06
+
 テスト
 =====
 
@@ -89,3 +94,5 @@ JavaScriptの機能テスト
 .. _`PhpSpec`: http://www.phpspec.net/
 .. _`Mink`: http://mink.behat.org
 .. _`smoke testing`: http://en.wikipedia.org/wiki/Smoke_testing_(software)
+
+.. 2014/11/06 gyoh_k 2c2000a0274b182cbf1a429badb567ee65432c54

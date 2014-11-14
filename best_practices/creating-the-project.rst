@@ -1,3 +1,8 @@
+.. note::
+
+    * 対象バージョン：2.3以降
+    * 翻訳更新日：2014/11/03
+
 プロジェクトの作成
 ====================
 
@@ -244,3 +249,4 @@ Symfony 2.6 からは、Symfony の公式ドキュメントでも ``AppBundle`` 
 .. _`public checksums repository`: https://github.com/sensiolabs/checksums
 .. _`these steps`: http://fabien.potencier.org/article/73/signing-project-releases
 
+.. 2014/11/03 kseta 2c2000a0274b182cbf1a429badb567ee65432c54

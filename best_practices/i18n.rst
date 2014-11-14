@@ -1,3 +1,8 @@
+.. note::
+
+    * 対象バージョン：2.3以降
+    * 翻訳更新日：2014/11/09
+
 国際化
 ====================
 
@@ -92,3 +97,5 @@ Symfony 2.6 で XLIFF ファイルの<note>タグのサポートが追加され�
     </xliff>
 
 .. _`JMSTranslationBundle`: https://github.com/schmittjoh/JMSTranslationBundle
+
+.. 2014/11/09 okapon 2c2000a0274b182cbf1a429badb567ee65432c54

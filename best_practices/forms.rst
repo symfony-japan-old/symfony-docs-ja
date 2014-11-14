@@ -1,3 +1,8 @@
+.. note::
+
+    * 対象バージョン：2.3以降
+    * 翻訳更新日：2014/10/23
+
 フォーム
 ==========
 
@@ -204,3 +209,5 @@ Symfony に慣れた開発者なら、 ``<form>`` タグを ``form_start()`` や
 .. _`collection`: http://symfony.com/doc/current/reference/forms/types/collection.html
 .. _`How to Customize Form Rendering`: http://symfony.com/doc/current/cookbook/form/form_customization.html
 .. _`form event system`: http://symfony.com/doc/current/cookbook/form/dynamic_form_modification.html
+
+.. 2014/10/23 77web 2c2000a0274b182cbf1a429badb567ee65432c54

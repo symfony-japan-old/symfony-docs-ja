@@ -1,3 +1,8 @@
+.. note::
+
+    * 対象バージョン：2.3以降
+    * 翻訳更新日：2014/11/05
+
 アプリケーションのビジネスロジックを整理する
 ==============================================
 
@@ -323,3 +328,5 @@ Symfonh のソースコードは、 PHP コミュニティで定められた `PS
 .. _`PSR-2`: http://www.php-fig.org/psr/psr-2/
 .. _`Symfonyのコーディング規約`: http://symfony.com/doc/current/contributing/code/standards.html
 .. _`PHP-CS-Fixer`: https://github.com/fabpot/PHP-CS-Fixer
+
+.. 2014/11/05 77web 0f1cf411a0bb630205ce4ac2c5e75d237384f8dc

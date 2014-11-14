@@ -1,3 +1,8 @@
+.. note::
+
+    * 対象バージョン：2.3以降
+    * 翻訳更新日：2014/11/04
+
 テンプレート
 ==============
 
@@ -146,3 +151,5 @@ Twigエクステンションには、新しく定義したばかりの ``markdow
 .. _`Twig global variables`: http://symfony.com/doc/master/cookbook/templating/global_variables.html
 .. _`override error pages`: http://symfony.com/doc/current/cookbook/controller/error_pages.html
 .. _`render a template without using a controller`: http://symfony.com/doc/current/cookbook/templating/render_without_controller.html
+
+.. 2014/11/04 77web 178a2d6dccb79573a2f1721552f2ac2c5086eded

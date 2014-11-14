@@ -1,3 +1,8 @@
+.. note::
+
+    * 対象バージョン：2.3以降
+    * 翻訳更新日：2014/11/05
+
 セキュリティ
 ========
 
@@ -355,3 +360,5 @@ Symfony でサポートしていないユーザのログインメソッドを利
 .. _`impersonate users`: http://symfony.com/doc/current/cookbook/security/impersonating_user.html
 .. _`your own user provider`: http://symfony.com/doc/current/cookbook/security/custom_provider.html
 .. _`your own authentication provider`: http://symfony.com/doc/current/cookbook/security/custom_authentication_provider.html
+
+.. 2014/11/05 kseta 2c2000a0274b182cbf1a429badb567ee65432c54

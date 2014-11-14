@@ -1,3 +1,8 @@
+.. note::
+
+    * 対象バージョン：2.3以降
+    * 翻訳更新日：2014/10/24
+
 設定
 =============
 
@@ -162,3 +167,5 @@
 .. _`constant() function`: http://twig.sensiolabs.org/doc/functions/constant.html
 .. _`How to Expose a semantic Configuration for a Bundle`: http://symfony.com/doc/current/cookbook/bundles/extension.html
 .. _`How to Set external Parameters in the Service Container`: http://symfony.com/doc/current/cookbook/configuration/external_parameters.html
+
+.. 2014/10/24 77web 641dbc04e7e810836e5b39a707f4966fedcdaee6

@@ -1,3 +1,8 @@
+.. note::
+
+    * 対象バージョン：2.3以降
+    * 翻訳更新日：2014/11/03
+
 Webアセット
 ==========
 
@@ -96,3 +101,5 @@ Assetic は `UglifyCSS/UglifyJSを使う`_ ことでCSSやJavaScriptのサイズ
 .. _`UglifyCSS/UglifyJSを使う`: http://symfony.com/doc/current/cookbook/assetic/uglifyjs.html
 .. _`画像の圧縮`: http://symfony.com/doc/current/cookbook/assetic/jpeg_optimize.html
 .. _`公式のAsseticドキュメント`: https://github.com/kriswallsmith/assetic
+
+.. 2014/11/03 okapon 2c2000a0274b182cbf1a429badb567ee65432c54

@@ -1,3 +1,8 @@
+.. note::
+
+    * 対象バージョン：2.3以降
+    * 翻訳更新日：2014/11/03
+
 .. index::
    single: Symfony Framework Best Practices
 
@@ -62,3 +67,5 @@ Symfony は *すごく* 柔軟なフレームワークとして知られてお�
 .. _`The Official Symfony Book`: http://symfony.com/doc/current/book/index.html
 .. _`The Symfony Cookbook`: http://symfony.com/doc/current/cookbook/index.html
 .. _`github.com/.../...`: http://github.com/.../...
+
+.. 2014/11/03 brtriver d12cfe535a39244553654a4d91f16c6a313cc337
