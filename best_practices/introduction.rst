@@ -42,7 +42,7 @@ Symfony は *すごく* 柔軟なフレームワークとして知られてお�
 誰のための本か (ヒント: チュートリアルではありません)
 -----------------------------------------------------
 
-上級者であれ初級者であれ、すべての Symfony 開発者がこのガイドを読むことができます。しかし、このガイドはチュートリアルではありません。そのため Symfony の基礎知識が必要になるでしょう。全くの初心者であれば、`The Quick Tour`_ チュートリアルから始めてみてください。
+上級者であれ初級者であれ、すべての Symfony 開発者がこのガイドを読むことができます。しかし、このガイドはチュートリアルではありません。そのため Symfony の基礎知識が必要になるでしょう。全くの初心者であれば、`クイックツアー`_ チュートリアルから始めてみてください。
 
 故意にこのガイドは短くしています。あなたが莫大な Symfony のドキュメントで見つけることができるようなこと、たとえば dependency injection や フロントコントローラーなどのようなことにつて繰り返し説明したくないからです。あなたが知っていることについてどうすべきかということにだけもっぱら説明していきます。
 
@@ -63,9 +63,9 @@ Symfony は *すごく* 柔軟なフレームワークとして知られてお�
 * エンドユーザーに本当に価値のある昨日追加やテストの改善に専念し時間を費やすほうが良い;
 
 .. _`Fabien Potencier`: https://connect.sensiolabs.com/profile/fabpot
-.. _`The Quick Tour`: http://symfony.com/doc/current/quick_tour/the_big_picture.html
-.. _`The Official Symfony Book`: http://symfony.com/doc/current/book/index.html
-.. _`The Symfony Cookbook`: http://symfony.com/doc/current/cookbook/index.html
+.. _`クイックツアー`: http://docs.symfony.gr.jp/symfony2/quick_tour/index.html
+.. _`ガイドブック`: http://docs.symfony.gr.jp/symfony2/book/index.html
+.. _`クックブック`: http://docs.symfony.gr.jp/symfony2/cookbook/index.html
 .. _`github.com/.../...`: http://github.com/.../...
 
 .. 2014/11/03 brtriver d12cfe535a39244553654a4d91f16c6a313cc337
