@@ -38,4 +38,32 @@ Symfonyは薄いコントローラとファットなモデルという哲学に�
         resource: "@AppBundle/Controller/"
         type:     annotation
 
-        
+``src/AppBundle/Controller/`` ディレクトリとそのサブディレクトリからコントローラの
+アノテーションをロードします。
+もしアプリケーションに多くのコントローラがある場合、それらをサブディレクトリへ移動する事が可能です。
+
+.. code-block:: text
+
+    <your-project>/
+    ├─ ...
+    └─ src/
+       └─ AppBundle/
+          ├─ ...
+          └─ Controller/
+             ├─ DefaultController.php
+             ├─ ...
+             ├─ Api/
+             │  ├─ ...
+             │  └─ ...
+             └─ Backend/
+                ├─ ...
+                └─ ...
+
+テンプレート設定
+----------------------
+
+.. best-practice::
+
+    テンプレートの設定は ``@Template()`` アノテーションを使用しないでください。
+
+``@Template``は便利ですがいくつかの魔法を伴うので、お勧めする事はできません。
