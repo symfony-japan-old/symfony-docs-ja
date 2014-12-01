@@ -1,13 +1,17 @@
+.. note::
+
+ * 対象バージョン：2.6
+ * 翻訳更新日：2014/12/01
+
 .. index::
     single: Profiling; Storage Configuration
 
-Switching the Profiler Storage
+Profiler のストレージを変更する
 ==============================
 
-By default the profile stores the collected data in files in the cache directory.
-You can control the storage being used through the ``dsn``, ``username``,
-``password`` and ``lifetime`` options. For example, the following configuration
-uses MySQL as the storage for the profiler with a lifetime of one hour:
+デフォルトでは Profiler はキャッシュディレクトリ内のファイルに集積されたデータ蓄積します。
+このストレージは ``dsn``, ``username``, ``password``, ``lifetime`` を介して調整が可能です。
+例えば、lifetime が１時間として MySQL を Profiler のストレージとして仕様する設定は以下の通りです:
 
 .. configuration-block::
 
@@ -57,8 +61,8 @@ uses MySQL as the storage for the profiler with a lifetime of one hour:
             ),
         ));
 
-The :doc:`HttpKernel component </components/http_kernel/introduction>` currently
-supports the following profiler storage implementations:
+:doc:`HttpKernel component </components/http_kernel/introduction>`
+は現在、以下の Profiler 用のストレージをサポートしています。
 
 * :class:`Symfony\\Component\\HttpKernel\\Profiler\\FileProfilerStorage`
 * :class:`Symfony\\Component\\HttpKernel\\Profiler\\MemcachedProfilerStorage`
