@@ -9,10 +9,10 @@
 プロファイラーを条件に応じて有効化する Matchers の使い方
 ========================================================
 
-デフォルトでは Profiler は開発環境でしか有効になっていません。
-しかし、開発者が本番環境でも Profiler を見たいということは想像できます。
-管理者としてログインした場合のみ Profiler を表示させたいという状況もあるでしょう。
-Matchers を使うことで状況に応じて Profiler を有効にすることが可能です。
+デフォルトではプロファイラーは開発環境でしか有効になっていません。
+しかし、開発者が本番環境でもプロファイラーを見たいということは想像できます。
+管理者としてログインした場合のみプロファイラーを表示させたいという状況もあるでしょう。
+Matchers を使うことで状況に応じてプロファイラーを有効にすることが可能です。
 
 built-in Matcher を使う
 --------------------------
@@ -20,7 +20,7 @@ built-in Matcher を使う
 Symfony は Path と IPアドレスにマッチすることができる
 :class:`built-in matcher <Symfony\\Component\\HttpFoundation\\RequestMatcher>`
 を提供しています。
-例えば、もし ``168.0.0.1`` という IP アドレスでアクセスした場合のみ Profiler を表示させたい場合には
+例えば、もし ``168.0.0.1`` という IP アドレスでアクセスした場合のみプロファイラーを表示させたい場合には
 このような設定を使います。
 
 .. configuration-block::
@@ -52,22 +52,22 @@ Symfony は Path と IPアドレスにマッチすることができる
             ),
         ));
 
-Profiler が有効であるべきパスを ``path`` オプションに定義することも可能です。
-例えば、 ``^/admin/`` に設定することで ``/admin/`` という URL のみ Profiler を有効にできます。
+プロファイラーが有効であるべきパスを ``path`` オプションに定義することも可能です。
+例えば、 ``^/admin/`` に設定することで ``/admin/`` という URL のみプロファイラーを有効にできます。
 
 カスタマイズした Matcher を使う
 -------------------------
 
 カスタマイズした Matcher を作ることも可能です。
-これは Profiler を有効にするべきか否かをチェックするサービスです。
+これはプロファイラーを有効にするべきか否かをチェックするサービスです。
 :class:`Symfony\\Component\\HttpFoundation\\RequestMatcherInterface`
 を実装したクラスでサービスを作ります。
 このインターフェースには
 :method:`Symfony\\Component\\HttpFoundation\\RequestMatcherInterface::matches`.
 というメソッドの実装が必要です。
-このメソッドは、 Profiler が無効の場合は False を、有効な場合は True を返します。
+このメソッドは、プロファイラーが無効の場合は False を、有効な場合は True を返します。
 
-``ROLE_SUPER_ADMIN`` がログインした場合に Profiler を有効にするときはこのように実装します::
+``ROLE_SUPER_ADMIN`` がログインした場合にプロファイラーを有効にするときはこのように実装します::
 
     // src/Acme/DemoBundle/Profiler/SuperAdminMatcher.php
     namespace Acme\DemoBundle\Profiler;
@@ -135,7 +135,7 @@ Profiler が有効であるべきパスを ``path`` オプションに定義す�
         );
 
 これでサービスが登録されました。最後の仕上げにこのサービスを Matcher として利用し
-Profiler を設定しましょう:
+プロファイラーを設定しましょう:
 
 .. configuration-block::
 
