@@ -111,6 +111,12 @@
   * :doc:`/cookbook/logging/monolog`
   * :doc:`/cookbook/logging/monolog_email`
 
+* **プロファイラー**
+
+  * :doc:`/cookbook/profiler/data_collector`
+  * :doc:`/cookbook/profiler/matchers`
+  * :doc:`/cookbook/profiler/storage`
+
 * **ツール、内部構造**
 
   * :doc:`/cookbook/tools/autoloader`

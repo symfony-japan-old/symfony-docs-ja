@@ -16,13 +16,13 @@
     form/file_uploads
     logging/channels_handlers
     logging/monolog_email
+    profiler/index
     tools/autoloader
     tools/finder
     cache/varnish
     testing/index
     event_dispatcher/class_extension
     event_dispatcher/method_behavior
-    profiler/data_collector
     bundles/extension
     request/mime_type
     security/voters
