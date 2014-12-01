@@ -167,3 +167,5 @@ Symfony は Path と IPアドレスにマッチすることができる
                 'service' => 'acme_demo.profiler.matcher.super_admin',
             ),
         ));
+
+.. 2014/12/01 kseta 3ba3d278129b9a1a87fa546328888b2be2ff0290

@@ -71,3 +71,5 @@
 * :class:`Symfony\\Component\\HttpKernel\\Profiler\\MysqlProfilerStorage`
 * :class:`Symfony\\Component\\HttpKernel\\Profiler\\RedisProfilerStorage`
 * :class:`Symfony\\Component\\HttpKernel\\Profiler\\SqliteProfilerStorage`
+
+.. 2014/12/01 kseta 05791bb0cb0a75bb7e36e98a8a0eec79426e02de
