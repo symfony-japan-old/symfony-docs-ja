@@ -1,23 +1,27 @@
+.. note::
+
+ * 対象バージョン：2.6
+ * 翻訳更新日：2014/12/01
+
 .. index::
     single: Profiling; Matchers
 
-How to Use Matchers to Enable the Profiler Conditionally
+プロファイラーを条件に応じて有効化する Matchers の使い方
 ========================================================
 
-By default, the profiler is only activated in the development environment. But
-it's imaginable that a developer may want to see the profiler even in
-production. Another situation may be that you want to show the profiler only
-when an admin has logged in. You can enable the profiler in these situations
-by using matchers.
+デフォルトでは Profiler は開発環境でしか有効になっていません。
+しかし、開発者が本番環境でも Profiler を見たいということは想像できます。
+管理者としてログインした場合のみ Profiler を表示させたいという状況もあるでしょう。
+Matchers を使うことで状況に応じて Profiler を有効にすることが可能です。
 
-Using the built-in Matcher
+built-in Matcher を使う
 --------------------------
 
-Symfony provides a
+Symfony は Path と IPアドレスにマッチすることができる
 :class:`built-in matcher <Symfony\\Component\\HttpFoundation\\RequestMatcher>`
-which can match paths and IPs. For example, if you want to only show the
-profiler when accessing the page with the ``168.0.0.1`` IP, then you can
-use this configuration:
+を提供しています。
+例えば、もし ``168.0.0.1`` という IP アドレスでアクセスした場合のみ Profiler を表示させたい場合には
+このような設定を使います。
 
 .. configuration-block::
 
@@ -48,24 +52,22 @@ use this configuration:
             ),
         ));
 
-You can also set a ``path`` option to define the path on which the profiler
-should be enabled. For instance, setting it to ``^/admin/`` will enable the
-profiler only for the ``/admin/`` URLs.
+Profiler が有効であるべきパスを ``path`` オプションに定義することも可能です。
+例えば、 ``^/admin/`` に設定することで ``/admin/`` という URL のみ Profiler を有効にできます。
 
-Creating a custom Matcher
+カスタマイズした Matcher を使う
 -------------------------
 
-You can also create a custom matcher. This is a service that checks whether
-the profiler should be enabled or not. To create that service, create a class
-which implements
-:class:`Symfony\\Component\\HttpFoundation\\RequestMatcherInterface`. This
-interface requires one method:
+カスタマイズした Matcher を作ることも可能です。
+これは Profiler を有効にするべきか否かをチェックするサービスです。
+:class:`Symfony\\Component\\HttpFoundation\\RequestMatcherInterface`
+を実装したクラスでサービスを作ります。
+このインターフェースには
 :method:`Symfony\\Component\\HttpFoundation\\RequestMatcherInterface::matches`.
-This method returns false to disable the profiler and true to enable the
-profiler.
+というメソッドの実装が必要です。
+このメソッドは、 Profiler が無効の場合は False を、有効な場合は True を返します。
 
-To enable the profiler when a ``ROLE_SUPER_ADMIN`` is logged in, you can use
-something like::
+``ROLE_SUPER_ADMIN`` がログインした場合に Profiler を有効にするときはこのように実装します::
 
     // src/Acme/DemoBundle/Profiler/SuperAdminMatcher.php
     namespace Acme\DemoBundle\Profiler;
@@ -89,7 +91,7 @@ something like::
         }
     }
 
-Then, you need to configure the service:
+そしてサービスを設定します:
 
 .. configuration-block::
 
@@ -132,8 +134,8 @@ Then, you need to configure the service:
             array(new Reference('security.context'))
         );
 
-Now the service is registered, the only thing left to do is configure the
-profiler to use this service as the matcher:
+これでサービスが登録されました。最後の仕上げにこのサービスを Matcher として利用し
+Profiler を設定しましょう:
 
 .. configuration-block::
 
