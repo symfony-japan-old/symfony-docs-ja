@@ -1,3 +1,8 @@
+.. note::
+
+ * 対象バージョン：2.7
+ * 翻訳更新日：2015/03/22
+
 .. index::
    single: Bundle; Installation
 
@@ -116,3 +121,5 @@ what to do next. Have fun!
 .. _FOSUserBundle:       https://github.com/FriendsOfSymfony/FOSUserBundle
 .. _KnpBundles.com:      http://knpbundles.com/
 .. _`composer require`:  https://getcomposer.org/doc/03-cli.md#require
+
+.. 2015/03/22 hanahiroAze 9ab1c56caddbbf7c7de3493937671cfdddac6d4e
