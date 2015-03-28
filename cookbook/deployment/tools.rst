@@ -1,130 +1,128 @@
+.. note::
+
+ * 対象バージョン：2.7以降
+ * 翻訳更新日：2015/03/28
+
 .. index::
    single: Deployment; Deployment tools
 
 .. _how-to-deploy-a-symfony2-application:
 
-How to Deploy a Symfony Application
+Symfony アプリケーションをデプロイする方法
 ===================================
 
 .. note::
 
-    Deploying can be a complex and varied task depending on the setup and the
-    requirements of your application. This article is not a step-by-step guide,
-    but is a general list of the most common requirements and ideas for deployment.
+
+    デプロイは体制やアプリケーションの要件に応じて複雑になったり多種多様な作業になります。
+    この記事はそれぞれの段階をひとつひとつガイドするものではなく、
+    デプロイに共通する多くの必須項目や考え方の一般的なリストについての記載しています。
 
 .. _symfony2-deployment-basics:
 
-Symfony Deployment Basics
+Symfony のデプロイの基本原則
 -------------------------
 
-The typical steps taken while deploying a Symfony application include:
+Symfony アプリケーションをデプロイするときの典型的なステップは以下です。
 
-#. Upload your code to the production server;
-#. Install your vendor dependencies (typically done via Composer and may be done
-   before uploading);
-#. Running database migrations or similar tasks to update any changed data structures;
-#. Clearing (and optionally, warming up) your cache.
+#. 本番サーバーにコードをアップロードする
+#. Vendor に依存関係するライブラリをインストールする（典型的にはアップロードする前に Composer で完了させる）
+#. データベースのマイグレーション、あるいはそれに似たような変更されたデータ構成を更新するなタスクを実行する
+#. キャッシュを削除する（そして、オプションで warming up する）
 
-A deployment may also include other tasks, such as:
+デプロイにはそれ以外の次のような作業も含まれます。
 
-* Tagging a particular version of your code as a release in your source control
-  repository;
-* Creating a temporary staging area to build your updated setup "offline";
-* Running any tests available to ensure code and/or server stability;
-* Removal of any unnecessary files from the ``web/`` directory to keep your
-  production environment clean;
-* Clearing of external cache systems (like `Memcached`_ or `Redis`_).
+* ソースコード管理レポジトリにリリースのバージョンをタグする。
+* 一時的なステージング領域を作る
+* コードとサーバの安定性を確実にするためのテストの実行
+* 本番環境をクリーンに保つために ``web/`` ディレクトリから不要なファイルを削除する
+* 外部のキャッシュシステムの削除（ `Memcached`_ や `Redis`_ のようなもの ）
 
-How to Deploy a Symfony Application
+Symfony アプリケーションをデプロイする方法
 -----------------------------------
 
-There are several ways you can deploy a Symfony application. Start with a few
-basic deployment strategies and build up from there.
+Symfony アプリケーションをデプロイにはさまざまな方法があります。
+まずは、基本的なデプロイからはじめて、そこから作り上げていきましょう。
 
-Basic File Transfer
+基本的なファイル転送
 ~~~~~~~~~~~~~~~~~~~
 
-The most basic way of deploying an application is copying the files manually
-via ftp/scp (or similar method). This has its disadvantages as you lack control
-over the system as the upgrade progresses. This method also requires you
-to take some manual steps after transferring the files (see `Common Post-Deployment Tasks`_)
+アプリケーションをデプロイする最も基本的な方法は FTP や SCP （またはそれに似た方法）
+によってファイルを手動でコピーする方法です。
+このやり方はアップグレードの経過のようなシステムの管理を欠くというデメリットがあります。
+さらにこの方法はファイルを転送した後にいくつかの手動作業が必要です。(参考 `共通のデプロイ後の作業`_ ）
 
-Using Source Control
+ソース管理ツールを利用する
 ~~~~~~~~~~~~~~~~~~~~
 
-If you're using source control (e.g. Git or SVN), you can simplify by having
-your live installation also be a copy of your repository. When you're ready
-to upgrade it is as simple as fetching the latest updates from your source
-control system.
+もしソース管理ツール（例えば Git や SVN）を利用しているのであれば、
+レポジトリのコピーを作成するのと同じようにインストールすることで簡単にできます。
+アップグレードする準備ができたらソース管理システムから最新の更新を取得するように簡単です。
 
-This makes updating your files *easier*, but you still need to worry about
-manually taking other steps (see `Common Post-Deployment Tasks`_).
+この方法はファイルの更新を簡単にしますが、
+これ以外の作業を手動で対応することを心配する必要があります。(参考 `共通のデプロイ後の作業`_ )
 
-Using Build Scripts and other Tools
+ビルドスクリプトやその他のツールを利用する
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-There are also tools to help ease the pain of deployment. Some of them have been
-specifically tailored to the requirements of Symfony.
+デプロイの苦痛を楽にするツールがあり
+いくつかのツールは Symfony の必要要件のために特別に作られています。
 
 `Capifony`_
-    This Ruby-based tool provides a specialized set of tools on top of
-    `Capistrano`_, tailored specifically to Symfony projects.
+    Ruby 製の `Capistrano`_ の一部を使って提供されたツールで
+    Symfony プロジェクト専用に作られたツールです。
 
 `sf2debpkg`_
-    Helps you build a native Debian package for your Symfony project.
+    Symfony プロジェクトのための Debian パッケージ のビルドを補助するツールです。
 
 `Magallanes`_
-    This Capistrano-like deployment tool is built in PHP, and may be easier
-    for PHP developers to extend for their needs.
+    Capistrano のようなデプロイツールが PHP にビルドインしています。
+    PHP を利用する開発者にとっては必要に応じて簡単に拡張できます。
 
 `Fabric`_
-    This Python-based library provides a basic suite of operations for executing
-    local or remote shell commands and uploading/downloading files.
+    Python 製のローカルやリモートでシェルコマンドやファイルの
+    アップロード・ダウンロードを実行するための操作の基本セットを提供するライブラリです。
 
-Bundles
-    There are some `bundles that add deployment features`_ directly into your
-    Symfony console.
+バンドル
+    デプロイメント機能を含むバンドルが Symfony console にあります。（参考 `bundles that add deplyment features`_ ）
 
-Basic scripting
-    You can of course use shell, `Ant`_ or any other build tool to script
-    the deploying of your project.
+基本的なスクリプト
+    もちろん、 シェルや `Ant`_ やその他のビルドツールのプロジェクトのデプロイスクリプトでも可能です。
 
 Platform as a Service Providers
-    The Symfony Cookbook includes detailed articles for some of the most well-known
-    Platform as a Service (PaaS) providers:
+    Symfony クックブックにはいくつかのよく知られた PaaS の詳細な記事があります。
 
     * :doc:`Microsoft Azure </cookbook/deployment/azure-website>`
     * :doc:`Heroku </cookbook/deployment/heroku>`
     * :doc:`Platform.sh </cookbook/deployment/platformsh>`
 
-Common Post-Deployment Tasks
+共通のデプロイ後の作業
 ----------------------------
 
-After deploying your actual source code, there are a number of common things
-you'll need to do:
+実際のソースコートをデプロイした後に、いくつかの共通の作業を実行する必要があります。
 
-A) Check Requirements
+A) 必要要件の確認
 ~~~~~~~~~~~~~~~~~~~~~
 
-Check if your server meets the requirements by running:
+
+サーバが必要要件を満たして稼働しているか確認します。
 
 .. code-block:: bash
 
     $ php app/check.php
 
-B) Configure your ``app/config/parameters.yml`` File
+B) ``app/config/parameters.yml`` ファイルの設定
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This file should *not* be deployed, but managed through the automatic utilities
-provided by Symfony.
+このファイルはデプロイ *するべきではない*  ですが、Syfmony によって提供されている
+ユーティリティによって自動的に管理されます。
 
-C) Install/Update your Vendors
+C) Vendors のインストール / 更新
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Your vendors can be updated before transferring your source code (i.e.
-update the ``vendor/`` directory, then transfer that with your source
-code) or afterwards on the server. Either way, just update your vendors
-as you normally do:
+Vendor ディレクトリはソースコードを転送する前にアップデートすることができます
+(例. ``vendor/`` ディレクトリを更新し、その後ソースコードを転送する）し、転送した後でもできます。
+どちらにしても、vendors を更新するだけのときは通常こうします。
 
 .. code-block:: bash
 
@@ -132,62 +130,59 @@ as you normally do:
 
 .. tip::
 
-    The ``--optimize-autoloader`` flag improves Composer's autoloader performance
-    significantly by building a "class map". The ``--no-dev`` flag ensures that
-    development packages are not installed in the production environment.
+    ``--optimize-autoloader`` フラグは "class map" をビルドすることで
+    Composer のオートローダーのパフォーマンスをかなり向上させます。
+    ``--no-dev`` フラグは開発用パッケージを本番環境でインストールしないようにします。
 
 .. caution::
 
-    If you get a "class not found" error during this step, you may need to
-    run ``export SYMFONY_ENV=prod`` before running this command so that
-    the ``post-install-cmd`` scripts run in the ``prod`` environment.
+    もし "class not found" というエラーをこのステップで発生したら、
+    本番環境で ``post-install-cmd`` スクリプトが実行される前に
+    ``export SYMFONY_ENV=prod`` を実行する必要があります。
 
-D) Clear your Symfony Cache
+D) Symfony のキャッシュ削除
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Make sure you clear (and warm-up) your Symfony cache:
+Symfony キャッシュを削除（と warm-up）を実行します。
 
 .. code-block:: bash
 
     $ php app/console cache:clear --env=prod --no-debug
 
-E) Dump your Assetic Assets
+E) Assetic Assets のダンプ
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you're using Assetic, you'll also want to dump your assets:
+Assetic を利用している場合は、assets をダンプします。
 
 .. code-block:: bash
 
     $ php app/console assetic:dump --env=prod --no-debug
 
-F) Other Things!
+F) その他
 ~~~~~~~~~~~~~~~~
 
-There may be lots of other things that you need to do, depending on your
-setup:
+やるべきことは他にもたくさんあります。これはそれぞれのアプリケーションの体制・環境に依存しています。
 
-* Running any database migrations
-* Clearing your APC cache
-* Running ``assets:install`` (already taken care of in ``composer install``)
-* Add/edit CRON jobs
-* Pushing assets to a CDN
-* ...
+* データベースのマイグレーションの実行
+* APC キャッシュの削除
+* ``assets:install`` の実行 (``composer install`` に実行後）
+* クーロンの追加・編集
+* CDN へ assets の追加
+* ・・・
 
-Application Lifecycle: Continuous Integration, QA, etc
+アプリケーションライフライクル、継続的インテグレーション、QA、その他
 ------------------------------------------------------
 
-While this entry covers the technical details of deploying, the full lifecycle
-of taking code from development up to production may have a lot more steps
-(think deploying to staging, QA (Quality Assurance), running tests, etc).
+ここではデプロイの技術的な詳細を記載しましたが、
+開発環境からコードを取得し本番環境にアップするまでの全てのライフサイクルには
+もっと多くのステップがあります。（ステージング環境へのデプロイ、QA（品質保証）、テスト実行、その他）
 
-The use of staging, testing, QA, continuous integration, database migrations
-and the capability to roll back in case of failure are all strongly advised. There
-are simple and more complex tools and one can make the deployment as easy
-(or sophisticated) as your environment requires.
+ステージング環境、テスト、QA、継続的インテグレーション、データベースマイグレーション
+そして失敗した場合にロールバック機能、これらは全て利用することを強くお勧めします。
 
-Don't forget that deploying your application also involves updating any dependency
-(typically via Composer), migrating your database, clearing your cache and
-other potential things like pushing assets to a CDN (see `Common Post-Deployment Tasks`_).
+アプリケーションをデプロイすることには依存関係の更新（一般的には Composer を利用）、
+データベースのマイグレーション、キャッシュの削除、そして CDN に assets を更新するなどの
+作業が潜んでいることを忘れないで下さい。(参考 `共通のデプロイ後の作業`_）
 
 .. _`Capifony`: http://capifony.org/
 .. _`Capistrano`: http://capistranorb.com/
@@ -198,3 +193,5 @@ other potential things like pushing assets to a CDN (see `Common Post-Deployment
 .. _`bundles that add deployment features`: http://knpbundles.com/search?q=deploy
 .. _`Memcached`: http://memcached.org/
 .. _`Redis`: http://redis.io/
+
+.. 2015/03/28 kseta 9e0194164b14ae22146d312183989f17d1a0df44
