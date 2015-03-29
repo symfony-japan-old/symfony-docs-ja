@@ -6,12 +6,12 @@
 .. index::
     single: Profiling; Storage Configuration
 
-Profiler のストレージを変更する
+プロファイラーのストレージを変更する
 ==============================
 
-デフォルトでは Profiler はキャッシュディレクトリ内のファイルに集積されたデータ蓄積します。
+デフォルトではプロファイラーはキャッシュディレクトリ内のファイルに集積されたデータ蓄積します。
 このストレージは ``dsn``, ``username``, ``password``, ``lifetime`` を介して調整が可能です。
-例えば、lifetime が１時間として MySQL を Profiler のストレージとして仕様する設定は以下の通りです:
+例えば、lifetime が１時間として MySQL をプロファイラーのストレージとして仕様する設定は以下の通りです:
 
 .. configuration-block::
 
@@ -62,7 +62,7 @@ Profiler のストレージを変更する
         ));
 
 :doc:`HttpKernel component </components/http_kernel/introduction>`
-は現在、以下の Profiler 用のストレージをサポートしています。
+は現在、以下のプロファイラー用のストレージをサポートしています。
 
 * :class:`Symfony\\Component\\HttpKernel\\Profiler\\FileProfilerStorage`
 * :class:`Symfony\\Component\\HttpKernel\\Profiler\\MemcachedProfilerStorage`
@@ -71,3 +71,5 @@ Profiler のストレージを変更する
 * :class:`Symfony\\Component\\HttpKernel\\Profiler\\MysqlProfilerStorage`
 * :class:`Symfony\\Component\\HttpKernel\\Profiler\\RedisProfilerStorage`
 * :class:`Symfony\\Component\\HttpKernel\\Profiler\\SqliteProfilerStorage`
+
+.. 2014/12/01 kseta 05791bb0cb0a75bb7e36e98a8a0eec79426e02de
