@@ -125,6 +125,11 @@
   * :doc:`/cookbook/console`
   * :doc:`/cookbook/debugging`
 
+* **デプロイ**
+
+  * :doc:`/cookbook/deployment/tools`
+
+
 * **Web サービス**
 
   * :doc:`/cookbook/web_services/php_soap_extension`
