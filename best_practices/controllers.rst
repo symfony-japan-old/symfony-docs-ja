@@ -186,14 +186,13 @@ When Things Get More Advanced
         // ...
     }
 
-ポイントは、ParamConverterはシンプルなケースではよいということです。
+ポイントは、ParamConverterはシンプルなケースでは素晴らしいということです。
 一方エンティティを直接取得するのも簡単にできるということを忘れないでください。
 
-Pre and Post Hooks
+事前フックと事後フック
 ------------------
 
-If you need to execute some code before or after the execution of your controllers,
-you can use the EventDispatcher component to
+もしコントローラの実行前後で任意のコードを実行したいなら、EventDipatcherコンポーネントを使うことができます。
 :doc:`set up before and after filters </cookbook/event_dispatcher/before_after_filters>`.
 
 .. _`ParamConverter`: https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html
