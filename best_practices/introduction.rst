@@ -72,9 +72,6 @@ Symfony は *とても* 柔軟なフレームワークとして知られてお�
 * リファクタリングに時間を使うよりはテストの改善や機能追加をしてエンドユーザに実価値を届けるほうがよい;
 
 .. _`Fabien Potencier`: https://connect.sensiolabs.com/profile/fabpot
-.. _`クイックツアー`: http://docs.symfony.gr.jp/symfony2/quick_tour/index.html
-.. _`ガイドブック`: http://docs.symfony.gr.jp/symfony2/book/index.html
-.. _`クックブック`: http://docs.symfony.gr.jp/symfony2/cookbook/index.html
-.. _`github.com/.../...`: http://github.com/.../...
+.. _`download and install`: https://symfony.com/download
 
 .. 2014/11/03 brtriver d12cfe535a39244553654a4d91f16c6a313cc337
