@@ -193,8 +193,10 @@ Doctrineを使っている場合は\ `ParamConverter`_\ を使うことができ
 ------------------
 
 もしコントローラの実行前後で任意のコードを実行したいなら、EventDipatcherコンポーネントを使うことができます。
-:doc:`set up before and after filters </cookbook/event_dispatcher/before_after_filters>`.
+
+`事前/事後のフィルターをセットアップするには(英語)`_
 
 .. _`ParamConverter`: https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html
+.. _`事前/事後のフィルターをセットアップするには(英語)`: http://symfony.com/doc/current/cookbook/event_dispatcher/before_after_filters.html
 
 .. 2015/07/04 DQNEO 0f1cf411a0bb630205ce4ac2c5e75d237384f8dc
