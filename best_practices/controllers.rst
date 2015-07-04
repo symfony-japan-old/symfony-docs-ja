@@ -81,11 +81,10 @@ TemplateListenerクラスで利用されます。そのリスナーのパフォ�
 ブログのサンプルアプリケーションのホームページをレンダリングする場合、$this->render()メソッドを
 使った場合5ミリ秒かかり、@Templateアノテーションを使った場合26ミリ秒かかりました。
 
-How the Controller Looks
+コントローラはこんな感じにしよう
 ------------------------
 
-Considering all this, here is an example of how the controller should look
-for the homepage of our app:
+上記のことをふまえると、アプリケーションのホームページを表示するコントローラはこんな感じにするのがよいでしょう。
 
 .. code-block:: php
 
