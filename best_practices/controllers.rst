@@ -143,10 +143,9 @@ Doctrineを使っている場合は`ParamConverter`_ を使うことができま
 とによって、そのオブジェクトをParamConverterが自動的に``{id}`` の値と一致する``$id`` プロパティを持つオブジェクトを探してくれます。
 また``Post`` が見つからなかった場合は404ページを表示してくれます。
 
-高度な事
+When Things Get More Advanced
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This works without any configuration
 This works without any configuration because the wildcard name ``{id}`` matches
 the name of the property on the entity. If this isn't true, or if you have
 even more complex logic, the easiest thing to do is just query for the entity
@@ -175,8 +174,10 @@ flexible:
 
 .. code-block:: php
 
+    use AppBundle\Entity\Post;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+    use Symfony\Component\HttpFoundation\Request;
 
     /**
      * @Route("/comment/{postSlug}/new", name = "comment_new")
@@ -195,7 +196,7 @@ Pre and Post Hooks
 ------------------
 
 If you need to execute some code before or after the execution of your controllers,
-you can use the EventDispatcher component to `set up before/after filters`_.
+you can use the EventDispatcher component to
+:doc:`set up before and after filters </cookbook/event_dispatcher/before_after_filters>`.
 
-.. _`ParamConverter`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html
-.. _`set up before/after filters`: http://symfony.com/doc/current/cookbook/event_dispatcher/before_after_filters.html
+.. _`ParamConverter`: https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html
