@@ -1,0 +1,101 @@
+.. note::
+
+    * 対象バージョン：2.3以降
+    * 翻訳更新日：2014/11/09
+
+国際化
+======
+
+国際化と地域化とは、アプリケーションやコンテンツを特定の地域やユーザーの言語に
+対応させることです。Symfonyでは国際化機能を利用する前に事前に有効化する必要があります。
+
+.. code-block:: yaml
+
+    # app/config/config.yml
+    framework:
+        # ...
+        translator: { fallback: "%locale%" }
+
+    # app/config/parameters.yml
+    parameters:
+        # ...
+        locale:     en
+
+翻訳ソースのファイルフォーマット
+--------------------------------
+
+SymfonyのTranslationコンポーネントは多くの翻訳フォーマットをサポートしています。
+対応フォーマットには、PHP, Qt,  ``.po``, ``.mo``, JSON, CSV, INI, などがあります。
+
+.. best-practice::
+
+    翻訳ファイルにはXLIFFフォーマットを使用しましょう。
+
+全ての利用可能なフォーマットの中で、XLIFFとgettextだけがプロの翻訳者が利用する
+ツールで幅広く支持されています。また、XLIFFはXMLベースのフォーマットなので、
+翻訳したファイルに構文のミスがないか確認することもできます。
+
+Symfony 2.6 で XLIFF ファイルの<note>タグのサポートが追加され、翻訳者にとって
+使いやすいものになりました。 XLIFFの<note>タグを利用することで、文脈を定義する
+ことができ、ついに、文脈に応じた翻訳ができるようになりました。
+
+.. tip::
+
+    Apacheライセンスの `JMSTranslationBundle`_ を使うとWebインターフェース上で
+    翻訳ファイルの閲覧と編集を行うことができます。このバンドルにはプロジェクト
+    を読み取り自動でXLIFFファイルを更新する優れた抽出機能があります。
+
+翻訳ソースファイルの配置
+------------------------
+
+.. best-practice::
+
+    翻訳ファイルは ``app/Resources/translations/`` ディレクトリに置きましょう。
+
+慣習的に、Symfony開発者達は翻訳ファイルをそれぞれのバンドルの ``Resources/translations/``
+ディレクトリに保存してしてきました。
+
+一方で、Symfony には、アプリケーションリソースのグローバルロケーションとして
+``app/Resource`` ディレクトリがあります。
+翻訳ファイルを ``app/Resources/translations/`` に保存すれば、
+他の翻訳ファイルより優先させることができます。
+こうすることでサードパーティのバンドルの翻訳を上書きすることができます。
+
+翻訳キー
+--------
+
+.. best-practice::
+
+    常に翻訳ではコンテンツの文字列の代わりにキーを使うようにしましょう。
+
+キーを利用すれば、全ての翻訳ファイルを変更することなく元のコンテンツを変更することが
+できるので翻訳ファイルの管理が容易になります。
+
+キーはその位置ではなく、目的を表すべきです。例えば、"Username" というフィールド
+を持ったフォームがあるとします。その場合によいキーは ``label.username`` です。
+決して ``edit_form.label.username`` ではありません
+
+翻訳ファイルのサンプル
+----------------------
+
+これまで述べてきた全てのベストプラクティスを適用すると、アプリケーションにおける
+英語用の翻訳サンプルは次のようになります。
+
+.. code-block:: xml
+
+    <!-- app/Resources/translations/messages.en.xliff -->
+    <?xml version="1.0"?>
+    <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+        <file source-language="en" target-language="en" datatype="plaintext">
+            <body>
+                <trans-unit id="1">
+                    <source>title.post_list</source>
+                    <target>Post List</target>
+                </trans-unit>
+            </body>
+        </file>
+    </xliff>
+
+.. _`JMSTranslationBundle`: https://github.com/schmittjoh/JMSTranslationBundle
+
+.. 2014/11/09 okapon 2c2000a0274b182cbf1a429badb567ee65432c54

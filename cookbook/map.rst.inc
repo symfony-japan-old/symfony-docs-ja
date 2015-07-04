@@ -66,6 +66,7 @@
   * :doc:`/cookbook/bundles/inheritance`
   * :doc:`/cookbook/bundles/override`
   * :doc:`/cookbook/bundles/extension`
+  * :doc:`/cookbook/bundles/installation`
 
 * **メール**
 
@@ -111,12 +112,23 @@
   * :doc:`/cookbook/logging/monolog`
   * :doc:`/cookbook/logging/monolog_email`
 
+* **プロファイラー**
+
+  * :doc:`/cookbook/profiler/data_collector`
+  * :doc:`/cookbook/profiler/matchers`
+  * :doc:`/cookbook/profiler/storage`
+
 * **ツール、内部構造**
 
   * :doc:`/cookbook/tools/autoloader`
   * :doc:`/cookbook/tools/finder`
   * :doc:`/cookbook/console`
   * :doc:`/cookbook/debugging`
+
+* **デプロイ**
+
+  * :doc:`/cookbook/deployment/tools`
+
 
 * **Web サービス**
 
