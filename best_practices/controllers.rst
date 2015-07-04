@@ -116,13 +116,13 @@ TemplateListenerクラスで利用されます。そのリスナーのパフォ�
 ParamConverterを使う
 ------------------------
 
-もしDoctrineを使っている場合は必要に応じて`ParamConverter`_ を使い、自動的にエンティティを取得し、
-コントローラの引数として渡す必要があります。
+Doctrineを使っている場合は`ParamConverter`_ を使うことができます。
+これは自動的にエンティティを取得し、コントローラの引数にしてくれます。
 
 .. best-practice::
 
-    シンプルかつ簡単な場合は、自動的にDoctrineのエンティティを取得出来るParamConverterを使用
-    してください。
+    Doctrineのエンティティを自動的に取得してくれるParamConverterを使用
+    してください。もしそれがシンプルかつ有用な場合は。
 
 例:
 
