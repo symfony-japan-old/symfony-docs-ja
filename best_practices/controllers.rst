@@ -100,14 +100,16 @@ TemplateListenerクラスで利用されます。そのリスナーのパフォ�
          */
         public function indexAction()
         {
-            $em = $this->getDoctrine()->getManager();
-            $posts = $em->getRepository('App:Post')->findLatest();
+            $posts = $this->getDoctrine()
+                ->getRepository('AppBundle:Post')
+                ->findLatest();
 
             return $this->render('default/index.html.twig', array(
                 'posts' => $posts
             ));
         }
     }
+
 
 .. _best-practices-paramconverter:
 
