@@ -168,8 +168,7 @@ When Things Get More Advanced
         // ...
     }
 
-You can also use the ``@ParamConverter`` configuration, which is infinitely
-flexible:
+``@ParamConverter`` 設定を使うこともできます。そうすればどこまでも柔軟にできます。:
 
 .. code-block:: php
 
@@ -187,9 +186,8 @@ flexible:
         // ...
     }
 
-The point is this: the ParamConverter shortcut is great for simple situations.
-But you shouldn't forget that querying for entities directly is still very
-easy.
+ポイントは、ParamConverterはシンプルなケースではよいということです。
+一方エンティティを直接取得するのも簡単にできるということを忘れないでください。
 
 Pre and Post Hooks
 ------------------
