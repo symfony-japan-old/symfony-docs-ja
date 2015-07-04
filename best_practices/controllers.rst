@@ -146,10 +146,9 @@ Doctrineを使っている場合は`ParamConverter`_ を使うことができま
 When Things Get More Advanced
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This works without any configuration because the wildcard name ``{id}`` matches
-the name of the property on the entity. If this isn't true, or if you have
-even more complex logic, the easiest thing to do is just query for the entity
-manually. In our application, we have this situation in ``CommentController``:
+上記のコードが設定なしで動くのは、ワイルドカード名``{id}``がエンティティのプロパティ名に一致するからです。
+もしそうでない場合、またはもっと複雑なロジックがある場合、これを実現する簡単な方法は手動でエンティティを取得することです。
+本アプリケーションでは``CommentController``がその事例です。:
 
 .. code-block:: php
 
