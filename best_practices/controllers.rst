@@ -128,6 +128,9 @@ Doctrineを使っている場合は`ParamConverter`_ を使うことができま
 
 .. code-block:: php
 
+    use AppBundle\Entity\Post;
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
     /**
      * @Route("/{id}", name="admin_post_show")
      */
@@ -136,7 +139,7 @@ Doctrineを使っている場合は`ParamConverter`_ を使うことができま
         $deleteForm = $this->createDeleteForm($post);
 
         return $this->render('admin/post/show.html.twig', array(
-            'post'      => $post,
+            'post'        => $post,
             'delete_form' => $deleteForm->createView(),
         ));
     }
