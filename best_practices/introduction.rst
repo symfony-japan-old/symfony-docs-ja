@@ -1,7 +1,7 @@
 .. note::
 
     * 対象バージョン：2.3以降
-    * 翻訳更新日：2014/11/03
+    * 翻訳更新日：2015/07/04
 
 .. index::
    single: Symfony Framework Best Practices
@@ -74,4 +74,5 @@ Symfony は *とても* 柔軟なフレームワークとして知られてお�
 .. _`Fabien Potencier`: https://connect.sensiolabs.com/profile/fabpot
 .. _`download and install`: https://symfony.com/download
 
-.. 2014/11/03 brtriver d12cfe535a39244553654a4d91f16c6a313cc337
+.. 2015/07/04 DQNEO eff6e9cf79a032a1c8bef571f6579f4a7fa3bc96
+
