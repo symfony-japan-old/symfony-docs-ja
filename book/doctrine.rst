@@ -887,6 +887,7 @@ Doctrine の metadata のことは、一瞬忘れてみてください。\
             $product = new Product();
             $product->setName('Foo');
             $product->setPrice(19.99);
+            $product->setDescription('Lorem ipsum dolor');
             // この商品をカテゴリに関連付ける
             $product->setCategory($category);
             
