@@ -544,7 +544,7 @@ Validatorコンポーネントとの連携は次のようにして行います::
 
 .. note::
 
-    同梱されているバリデーション制約のすべてのリストについてはこちらをを参照してください。
+    同梱されているバリデーション制約のすべてのリストについてはこちらを参照してください。
     :doc:`/reference/constraints`
 
 .. _Packagist: https://packagist.org/packages/symfony/form

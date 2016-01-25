@@ -67,7 +67,7 @@ Request クラスや Response クラスの薄いラッパーで、リクエス�
 --------
 
 :class:`Symfony\\Component\\HttpKernel\\HttpKernel` クラスは Symfony2 の中心となるクラスで、クライアントからのリクエストの処理を担当します。
-この処理の主な内容は、\ :class:`Symfony\\Component\\HttpFoundation\\Request` オブジェクトをを受け取り、\ :class:`Symfony\\Component\\HttpFoundation\\Response` オブジェクトに変換することです。
+この処理の主な内容は、\ :class:`Symfony\\Component\\HttpFoundation\\Request` オブジェクトを受け取り、\ :class:`Symfony\\Component\\HttpFoundation\\Response` オブジェクトに変換することです。
 
 Symfony2 のカーネルクラスは、\ :class:`Symfony\\Component\\HttpKernel\\HttpKernelInterface` インターフェイスを実装する必要があります。
 
